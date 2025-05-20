@@ -203,7 +203,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
                 <div class="cta-content">
                     <h4 class="reveal-on-scroll">Gati për të krijuar CV-në tuaj të ardhshme?</h4>
                     <p class="reveal-on-scroll" data-reveal-delay="100">Bashkohuni me mijëra përdorues që kanë krijuar CV mbresëlënëse me CV Maker.</p>
-                    <a href="<?php echo $create_cv_link; ?>" class="btn-create btn-large btn btn-primary reveal-on-scroll" data-reveal-delay="200"><i class="fas fa-rocket"></i> Fillo Tani, Është Falas!</a>
+                    <a href="signup.php" class="btn-create btn-large btn btn-primary reveal-on-scroll" data-reveal-delay="200"><i class="fas fa-rocket"></i> Fillo Tani, Është Falas!</a>
                 </div>
             </section>
 

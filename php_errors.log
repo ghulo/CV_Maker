@@ -828,3 +828,12 @@ Stack trace:
 [20-May-2025 13:58:52 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 189
 [20-May-2025 13:58:52 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 190
 [20-May-2025 13:58:52 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 191
+[20-May-2025 17:38:13 Europe/Berlin] Profile Fetch Error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'registration_date' in 'field list'
+[20-May-2025 17:38:15 Europe/Berlin] Profile Fetch Error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'registration_date' in 'field list'
+[20-May-2025 17:41:21 Europe/Berlin] Delete Profile Error: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'cv_maker.personal_details' doesn't exist
+[20-May-2025 17:41:22 Europe/Berlin] Delete Profile Error: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'cv_maker.personal_details' doesn't exist
+[20-May-2025 17:41:23 Europe/Berlin] Delete Profile Error: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'cv_maker.personal_details' doesn't exist
+[20-May-2025 17:42:38 Europe/Berlin] Delete Profile Error: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'cv_maker.personal_details' doesn't exist
+[20-May-2025 17:42:40 Europe/Berlin] Delete Profile Error: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'cv_maker.personal_details' doesn't exist
+[20-May-2025 17:42:41 Europe/Berlin] Delete Profile Error: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'cv_maker.personal_details' doesn't exist
+[20-May-2025 17:42:43 Europe/Berlin] Delete Profile Error: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'cv_maker.personal_details' doesn't exist

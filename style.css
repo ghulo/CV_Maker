@@ -1237,17 +1237,22 @@ body.dark-theme .header .logo-text .header-subtitle {
     display: none;
     align-items: center;
     gap: var(--space-md);
-    margin-left: auto;
+    margin-left: 30%
 }
+/* Header navigation links */
 #desktop-nav-menu-id a {
     text-decoration: none;
     color: var(--muted-text);
     font-size: 0.95em;
     font-weight: 500;
-    padding: var(--space-xs) var(--space-md);
+    padding: var(--space-sm) var(--space-md); /* Adjusted from var(--space-xs) for vertical alignment */
     border-radius: var(--radius-sm);
     transition: color 0.2s ease, background-color 0.2s ease;
-    position: relative; /* For animated underline */
+    position: relative;
+    /* Ensure content is centered if there are complex elements inside links */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 /* Animated underline for desktop nav links */
 #desktop-nav-menu-id a::after {
@@ -1308,12 +1313,16 @@ body.dark-theme #desktop-nav-menu-id a.auth-link.logout-link.btn:hover {
 }
 
 #desktop-nav-menu-id .profile-icon-btn {
-    font-size: 1.5em;
-    padding: var(--space-xs);
-    color: var(--muted-text);
-    border: none;
-    background: none;
-    transition: color 0.2s ease;
+    font-size: 1.3em; /* Adjusted for better fit within the fixed size */
+    padding: 0; /* Removed padding as width/height are fixed */
+    width: 40px; /* Fixed width for consistent sizing */
+    height: 40px; /* Fixed height for consistent sizing */
+    display: flex; /* Enable flexbox for centering content */
+    align-items: center; /* Vertically center icon */
+    justify-content: center; /* Horizontally center icon */
+    border-radius: var(--radius-sm); /* Maintain consistent border-radius */
+    color: var(--muted-text); /* Ensure color is explicitly set */
+    transition: color 0.2s ease, background-color 0.2s ease;
 }
 body.dark-theme #desktop-nav-menu-id .profile-icon-btn {
     color: var(--dark-muted-text);
@@ -1332,14 +1341,17 @@ body.dark-theme #desktop-nav-menu-id .profile-icon-btn:hover {
 #theme-toggle-button {
     background: none;
     border: none;
-    font-size: 1.6em;
+    font-size: 1.4em; /* Adjusted for better fit within the fixed size */
     cursor: pointer;
-    padding: var(--space-xs);
-    color: var(--neutral-text);
-    transition: color 0.2s ease, transform 0.2s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    padding: 0; /* Removed padding as width/height are fixed */
+    width: 40px; /* Fixed width for consistent sizing */
+    height: 40px; /* Fixed height for consistent sizing */
+    display: flex; /* Enable flexbox for centering content */
+    align-items: center; /* Vertically center icon */
+    justify-content: center; /* Horizontally center icon */
+    border-radius: var(--radius-sm); /* Maintain consistent border-radius */
+    color: var(--neutral-text); /* Ensure color is explicitly set */
+    transition: color 0.2s ease, transform 0.2s ease, background-color 0.2s ease;
 }
 #theme-toggle-button:hover {
     transform: scale(1.1);
@@ -2556,35 +2568,44 @@ body.dark-theme .template-professional .cv-professional-left .cv-section h3, bod
 
 /* Profile Page Specific Styles */
 .profile-container {
-    max-width: 800px;
+    max-width: 800px; /* Retaining the previous width adjustment */
 }
-
 .profile-layout-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--space-lg);
-    margin-bottom: var(--space-lg);
+    /* Increased the vertical gap between grid items (sections) */
+    gap: var(--space-xl); /* Changed from var(--space-lg) */
+    margin-bottom: var(--space-lg); /* Keep existing margin */
 }
-
-@media (min-width: 768px) {
+@media (max-width: 768px) {
     .profile-layout-grid {
-        grid-template-columns: 1.5fr 1fr;
-        gap: var(--space-xl);
+         /* Adjust for mobile if needed, but keeping consistent with desktop for now */
+         gap: var(--space-lg); /* Revert to smaller gap on mobile for tighter layout */
+         margin-bottom: var(--space-lg);
     }
+     .profile-section {
+        /* Adjust for mobile if needed, but keeping consistent with desktop for now */
+        padding: var(--space-lg); /* Revert to smaller padding on mobile for tighter layout */
+     }
 }
 
 
 .profile-section {
+    /* Increased the internal padding of each profile section */
+    padding: var(--space-xl); /* Changed from var(--space-lg) */
     background-color: var(--neutral-light);
-    padding: var(--space-lg);
     border-radius: var(--radius);
     border: 1px solid var(--neutral-border);
     box-shadow: var(--shadow-light);
 }
+/* Dark theme adjustments for consistency */
+body.dark-theme .profile-layout-grid {
+    gap: var(--space-xl); /* Ensure dark theme also uses increased gap */
+}
+
 body.dark-theme .profile-section {
     background-color: var(--dark-neutral-light);
     border-color: var(--dark-neutral-border);
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    padding: var(--space-xl); /* Ensure dark theme also uses increased padding */
 }
 
 .profile-section h3 {

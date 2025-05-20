@@ -221,12 +221,9 @@ $current_page = basename($_SERVER['PHP_SELF']);
                 <div class="profile-section danger-zone reveal-on-scroll" data-reveal-delay="300">
                     <h3><i class="fas fa-exclamation-triangle"></i>Zonë e Rrezikshme</h3>
                     <p>Kujdes: Fshirja e llogarisë është veprim permanent dhe do të fshijë të gjitha CV-të tuaja dhe të dhënat e lidhura.</p>
-                    <button type="button" class="btn btn-danger" style="margin-top: var(--space-sm);"
-                            onclick="if(confirm('Jeni absolutisht të sigurt që dëshironi të fshini llogarinë tuaj? Ky veprim nuk mund të kthehet dhe të gjitha të dhënat tuaja do të humbasin përgjithmonë.')) {
-                                        alert('Funksioni i fshirjes së llogarisë nuk është implementuar ende plotësisht. Për të vazhduar, do të duhej një skript i dedikuar (p.sh., process_delete_account.php).');
-                                     }">
+                    <a href="delete_profile.php" class="btn btn-danger" style="margin-top: var(--space-sm);">
                         <i class="fas fa-trash-alt"></i> Fshi Llogarinë Time
-                    </button>
+                    </a>
                 </div>
 
             </div>
