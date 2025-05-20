@@ -205,10 +205,8 @@ $current_page = basename($_SERVER['PHP_SELF']);
             </div>
         </div>
     </main>
+    <?php include 'footer.php'; ?>
 
-    <footer class="footer">
-        <p>&copy; <span id="current-year"><?php echo date("Y"); ?></span> CV Maker. Të gjitha të drejtat e rezervuara.</p>
-    </footer>
     <div class="page-transition-overlay"></div>
     <script src="script.js"></script>
 </body>

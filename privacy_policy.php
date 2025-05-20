@@ -1,45 +1,21 @@
 <?php
 session_start();
-// If user is already logged in, redirect them away from login page
-if (isset($_SESSION['user_id'])) {
-    header("Location: view_cvs.php"); // Or homepage.php
-    exit();
-}
-$header_subtitle = "Kyçu në Llogari";
-
-// Message handling from URL parameters (e.g., after successful signup)
-$success_message_display = null;
-$error_message_display = null;
-
-if (isset($_GET['success'])) {
-    $success_message_display = htmlspecialchars(urldecode($_GET['success']));
-}
-if (isset($_GET['error'])) { // From profile page if not logged in
-    $error_message_display = htmlspecialchars(urldecode($_GET['error']));
-}
-if (isset($_SESSION['info_message'])) { // From other pages requiring login
-    $error_message_display = htmlspecialchars($_SESSION['info_message']); // Display as error/info
-    unset($_SESSION['info_message']);
-}
-
-// Define current page for header active link class
+$user_id = $_SESSION['user_id'] ?? null;
+$header_subtitle = "Politika e Privatësisë";
 $current_page = basename($_SERVER['PHP_SELF']);
-
 ?>
 <!DOCTYPE html>
 <html lang="sq">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kyçu - CV Maker</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Politika e Privatësisë - CV Maker</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="background-cvs-container" aria-hidden="true">
-        </div>
+    <div class="background-cvs-container" aria-hidden="true"></div>
 
     <header class="header">
         <div class="header-content-wrapper">
@@ -67,7 +43,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
             </nav>
 
             <div class="header-actions-group">
-                 <?php if (isset($_SESSION['user_id'])): ?>
+                <?php if (isset($_SESSION['user_id'])): ?>
                     <a href="profile.php" class="profile-icon-btn" aria-label="View Profile">
                         <i class="fas fa-user-circle"></i>
                     </a>
@@ -76,12 +52,9 @@ $current_page = basename($_SERVER['PHP_SELF']);
                     <a href="login.php" class="auth-link login-link <?php echo $current_page == 'login.php' ? 'active' : ''; ?>">Login</a>
                     <a href="signup.php" class="auth-link signup-link btn <?php echo $current_page == 'signup.php' ? 'active' : ''; ?>">Sign Up</a>
                 <?php endif; ?>
-            </div>
-                      <div class="header-actions-group">
                 <button id="theme-toggle-button" aria-label="Toggle theme">
                     <i class="fas fa-moon"></i>
                 </button>
-            </div>
             </div>
         </div>
     </header>
@@ -100,42 +73,40 @@ $current_page = basename($_SERVER['PHP_SELF']);
         <?php endif; ?>
     </nav>
 
-  <main class="main">
-    <div class="login-form-container page-container animate-in">
-      <h2 class="reveal-on-scroll">Mirë se Vini Përsëri!</h2>
-      <p class="form-intro-text reveal-on-scroll" data-reveal-delay="100">Kyçu në llogarinë tënde për të vazhduar menaxhimin e CV-ve tua.</p>
+    <main class="main">
+        <div class="page-container animate-in">
+            <h2 class="reveal-on-scroll">Politika e Privatësisë</h2>
+            <p class="page-intro-text reveal-on-scroll" data-reveal-delay="100">Kjo politikë privatësie shpjegon se si CV Maker mbledh, përdor dhe mbron informacionin tuaj personal.</p>
 
-      <div class="message-area">
-          <?php if ($success_message_display): ?>
-              <p class="message success"><?php echo $success_message_display; ?></p>
-          <?php endif; ?>
-          <?php if ($error_message_display): ?>
-              <p class="message error"><?php echo $error_message_display; ?></p>
-          <?php endif; ?>
-      </div>
+            <div class="content-section reveal-on-scroll" data-reveal-delay="150">
+                <h3>1. Informacioni që Mbledhim</h3>
+                <p>Ne mbledhim informacionin që ju na jepni direkt, si emri, adresa e emailit, dhe detajet e CV-së. Gjithashtu, mbledhim të dhëna të përdorimit të platformës për të përmirësuar shërbimin tonë.</p>
+            </div>
 
-      <form class="login-form" method="POST" action="process_login.php"> <div class="form-group reveal-on-scroll" data-reveal-delay="150">
-          <label for="email">Email</label>
-          <div class="input-icon-wrapper">
-            <i class="fas fa-envelope input-icon"></i>
-            <input type="email" name="email" id="email" required placeholder="Adresa juaj e emailit">
-          </div>
+            <div class="content-section reveal-on-scroll" data-reveal-delay="200">
+                <h3>2. Si e Përdorim Informacionin Tuaj</h3>
+                <p>Informacioni juaj përdoret për të krijuar dhe menaxhuar CV-të tuaja, për t'ju ofruar mbështetje, dhe për të përmirësuar funksionalitetin e platformës. Ne nuk e shesim apo shpërndajmë informacionin tuaj personal me palë të treta pa pëlqimin tuaj, përveç rasteve kur kërkohet me ligj.</p>
+            </div>
+
+            <div class="content-section reveal-on-scroll" data-reveal-delay="250">
+                <h3>3. Siguria e të Dhënave</h3>
+                <p>Ne marrim masa të arsyeshme për të mbrojtur informacionin tuaj personal nga aksesi, përdorimi ose zbulimi i paautorizuar. Megjithatë, asnjë metodë transmetimi në internet ose ruajtje elektronike nuk është 100% e sigurt.</p>
+            </div>
+
+            <div class="content-section reveal-on-scroll" data-reveal-delay="300">
+                <h3>4. Ndryshimet në Politikën e Privatësisë</h3>
+                <p>Ne mund të përditësojmë Politikën tonë të Privatësisë herë pas here. Ne do t'ju njoftojmë për çdo ndryshim duke postuar Politikën e re të Privatësisë në këtë faqe.</p>
+            </div>
+
+            <div class="content-section reveal-on-scroll" data-reveal-delay="350">
+                <h3>5. Na Kontaktoni</h3>
+                <p>Nëse keni pyetje rreth kësaj Politike Privatësie, ju lutemi na kontaktoni përmes faqes sonë të kontaktit.</p>
+            </div>
         </div>
-        <div class="form-group reveal-on-scroll" data-reveal-delay="200">
-          <label for="password">Fjalëkalimi</label>
-          <div class="input-icon-wrapper">
-            <i class="fas fa-lock input-icon"></i>
-            <input type="password" name="password" id="password" required placeholder="••••••••">
-          </div>
-        </div>
-        <button type="submit" class="btn-primary-form btn btn-primary reveal-on-scroll" data-reveal-delay="250">Kyçu <i class="fas fa-sign-in-alt icon-right"></i></button>
-      </form>
-      <p class="form-alternate-action reveal-on-scroll" data-reveal-delay="300">Nuk keni llogari? <a href="signup.php">Regjistrohu këtu</a></p>
-    </div>
-  </main>
+    </main>
+
     <?php include 'footer.php'; ?>
-
-  <div class="page-transition-overlay"></div>
-  <script src="script.js"></script>
+    <div class="page-transition-overlay"></div>
+    <script src="script.js"></script>
 </body>
 </html>

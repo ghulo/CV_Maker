@@ -133,12 +133,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // --- Parallax / Tilt Effect for Cards and CTAs ---
+    // Select all elements that should have the tilt effect
     const tiltableElements = document.querySelectorAll(
         '.feature-item, .step-item, .template-option-card, .cv-item, .login-form-container, .signup-form-container, .contact-form-container, .cv-form, .template-selection-page-container, .cv-list-container, .cv-preview-page-wrapper, .page-container, .profile-container'
     );
 
     tiltableElements.forEach(element => {
         let timeoutId;
+        const maxTilt = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--card-tilt-max'));
+        const scaleHover = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--card-scale-hover'));
 
         element.addEventListener('mousemove', (e) => {
             clearTimeout(timeoutId); // Clear any existing timeout
@@ -152,12 +155,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Calculate rotation based on mouse position relative to center
             // Invert Y-axis for natural tilt (mouse up = tilt up)
-            const rotateX = ((y - centerY) / centerY) * -1 * parseFloat(getComputedStyle(element).getPropertyValue('--card-tilt-max'));
-            const rotateY = ((x - centerX) / centerX) * parseFloat(getComputedStyle(element).getPropertyValue('--card-tilt-max'));
+            const rotateX = ((y - centerY) / centerY) * -1 * maxTilt;
+            const rotateY = ((x - centerX) / centerX) * maxTilt;
 
             element.style.setProperty('--rotate-x', `${rotateX}deg`);
             element.style.setProperty('--rotate-y', `${rotateY}deg`);
-            element.style.setProperty('--scale', '1.01'); // Slight scale on hover
+            element.style.setProperty('--scale', `${scaleHover}`); // Slight scale on hover
         });
 
         element.addEventListener('mouseleave', () => {
@@ -175,6 +178,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     buttonsWithRipple.forEach(button => {
         button.addEventListener('click', function(e) {
+            // Only add ripple if the element is not disabled
+            if (this.disabled || this.classList.contains('disabled')) {
+                return;
+            }
+
             const ripple = document.createElement('span');
             const rect = this.getBoundingClientRect();
             const size = Math.max(rect.width, rect.height);
@@ -1268,12 +1276,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- Optional: Add Parallax Effect to Background CVs on Scroll ---
-    if (backgroundCvsContainer) {
-        window.addEventListener('scroll', () => {
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            backgroundCvsContainer.style.transform = `translateY(${scrollTop * 0.1}px)`; // Adjust 0.1 for speed
-        }, { passive: true });
-    }
+    // Removed direct parallax on backgroundCvsContainer to rely solely on CSS animations for background CVs
+    // to prevent potential conflicts and ensure smooth, GPU-accelerated movement.
 
     // --- Optional: Add subtle particle effect (requires a canvas element in HTML) ---
     // Check if a canvas element with ID 'particle-canvas' exists
@@ -1281,8 +1285,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (particleCanvas) {
         const ctx = particleCanvas.getContext('2d');
         let particles = [];
-        const particleCount = 80; // Use variable from CSS or define here
-        const particleColor = getComputedStyle(document.documentElement).getPropertyValue('--primary').trim();
+        const particleCount = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--particle-count').trim());
+        const particleColor = getComputedStyle(document.documentElement).getPropertyValue('--particle-color').trim();
         const particleSize = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--particle-size').trim());
 
         // Resize canvas to fill container

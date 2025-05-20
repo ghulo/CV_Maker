@@ -6,7 +6,7 @@ $user_id = $_SESSION['user_id'] ?? null;
 $create_cv_link = 'choose_template.php'; // Default if logged in
 if (!$user_id) {
     // If user is not logged in, set link to login, then redirect to choose_template
-    $create_cv_link = 'login.html?redirect_after_login=' . urlencode('choose_template.php');
+    $create_cv_link = 'login.php?redirect_after_login=' . urlencode('choose_template.php');
 }
 
 // Check for any messages passed in the URL (e.g., after logout)
@@ -24,6 +24,8 @@ if (isset($_GET['message'])) {
 }
 
 // Define current page for header active link class
+// This variable is now also used within navbar.php, but defining it here
+// ensures it's available for other parts of homepage.php if needed.
 $current_page = basename($_SERVER['PHP_SELF']);
 
 ?>
@@ -34,9 +36,11 @@ $current_page = basename($_SERVER['PHP_SELF']);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CV Maker - Krijo CV-në Tënde Profesionale</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-</head>
+    <!--
+        Font Awesome and Inter font links are now included directly in navbar.php.
+        You can safely remove them from here to avoid duplication.
+    -->
+    </head>
 <body>
     <div class="background-cvs-container" aria-hidden="true">
         <div class="background-cv">
@@ -63,65 +67,11 @@ $current_page = basename($_SERVER['PHP_SELF']);
             <div class="line-placeholder w-90"></div>
             <div class="line-placeholder w-70"></div>
         </div>
-        </div>
+    </div>
 
-    <header class="header">
-        <div class="header-content-wrapper">
-            <div class="logo-box">
-                <a href="index.php" class="logo-link">
-                    <span class="gemini-icon">CV</span>
-                    <div class="logo-text">
-                        <h1>CV Maker</h1>
-                        <p class="header-subtitle">Build your future</p>
-                    </div>
-                </a>
-            </div>
-
-            <button id="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false">
-                <i class="fas fa-bars"></i>
-            </button>
-
-            <nav class="header-nav" id="desktop-nav-menu-id">
-                <a href="index.php" class="<?php echo ($current_page == 'index.php' || $current_page == 'homepage.php') ? 'active' : ''; ?>">Home</a>
-                <a href="choose_template.php" class="<?php echo $current_page == 'choose_template.php' ? 'active' : ''; ?>">Templates</a>
-                <?php if (isset($_SESSION['user_id'])): ?>
-                    <a href="view_cvs.php" class="<?php echo $current_page == 'view_cvs.php' ? 'active' : ''; ?>">My CVs</a>
-                    <a href="form.php" class="<?php echo $current_page == 'form.php' ? 'active' : ''; ?>">Create CV</a>
-                <?php endif; ?>
-            </nav>
-
-            <div class="header-actions-group">
-                 <?php if (isset($_SESSION['user_id'])): ?>
-                    <a href="profile.php" class="profile-icon-btn" aria-label="View Profile">
-                        <i class="fas fa-user-circle"></i>
-                    </a>
-                    <a href="logout.php" class="auth-link logout-link btn btn-secondary">Logout</a>
-                <?php else: ?>
-                    <a href="login.php" class="auth-link login-link <?php echo $current_page == 'login.php' ? 'active' : ''; ?>">Login</a>
-                    <a href="signup.php" class="auth-link signup-link btn <?php echo $current_page == 'signup.php' ? 'active' : ''; ?>">Sign Up</a>
-                <?php endif; ?>
-            </div>
-                      <div class="header-actions-group">
-                <button id="theme-toggle-button" aria-label="Toggle theme">
-                    <i class="fas fa-moon"></i>
-                </button>
-            </div>
-        </div>
-    </header>
-
-    <nav class="mobile-nav-menu" id="mobile-nav-menu-id">
-        <a href="index.php" class="<?php echo ($current_page == 'index.php' || $current_page == 'homepage.php') ? 'active' : ''; ?>">Home</a>
-        <a href="choose_template.php" class="<?php echo $current_page == 'choose_template.php' ? 'active' : ''; ?>">Templates</a>
-        <?php if (isset($_SESSION['user_id'])): ?>
-            <a href="view_cvs.php" class="<?php echo $current_page == 'view_cvs.php' ? 'active' : ''; ?>">My CVs</a>
-            <a href="form.php" class="<?php echo $current_page == 'form.php' ? 'active' : ''; ?>">Create CV</a>
-            <a href="profile.php" class="<?php echo $current_page == 'profile.php' ? 'active' : ''; ?>">Profile</a>
-            <a href="logout.php" class="auth-link logout-link">Logout</a>
-        <?php else: ?>
-            <a href="login.php" class="auth-link login-link <?php echo $current_page == 'login.php' ? 'active' : ''; ?>">Login</a>
-            <a href="signup.php" class="auth-link signup-link <?php echo $current_page == 'signup.php' ? 'active' : ''; ?>">Sign Up</a>
-        <?php endif; ?>
-    </nav>
+    <?php
+    include 'navbar.php';
+    ?>
 
     <main class="main">
         <?php if (!empty($page_message)): // Display page-level messages ?>
@@ -136,7 +86,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
                 <h2 class="reveal-on-scroll">Krijo CV-në që të Dallon.<br class="desktop-only">Shpejt dhe Lehtë.</h2>
                 <p class="reveal-on-scroll" data-reveal-delay="100">Ndërto një Curriculum Vitae profesional dhe modern në pak minuta. Zgjidh nga modelet tona të kuruara dhe prezanto aftësitë tua në mënyrën më të mirë.</p>
                 <div class="hero-cta-container reveal-on-scroll" data-reveal-delay="200">
-                    <a href="<?php echo $create_cv_link; ?>" class="btn-create btn btn-primary"><i class="fas fa-plus-circle"></i> Fillo Krijo CV Tënde Tani</a>    
+                    <a href="<?php echo $create_cv_link; ?>" class="btn-create btn btn-primary"><i class="fas fa-plus-circle"></i> Fillo Krijo CV Tënde Tani</a>
             </section>
 
             <section class="homepage-how-it-works">
@@ -210,9 +160,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
         </div>
     </main>
 
-    <footer class="footer">
-        <p>© <span id="current-year"><?php echo date("Y"); ?></span> CV Maker - Të gjitha të drejtat e rezervuara.</p>
-    </footer>
+    <?php include 'footer.php'; ?>
 
     <div class="page-transition-overlay"></div>
     <script src="script.js"></script>
