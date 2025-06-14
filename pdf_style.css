@@ -1,0 +1,154 @@
+/* pdf_style.css - Common Styles for mPDF Generation */
+/* These styles apply to all PDF templates unless overridden by template-specific CSS */
+
+body {
+    font-family: "DejaVu Sans", "Arial", sans-serif; /* Use DejaVu Sans for good character support */
+    line-height: 1.4;
+    color: #333333; /* Default text color */
+    font-size: 10pt; /* Default font size */
+    margin: 0; /* mPDF handles page margins via configuration, not CSS body margin */
+}
+
+.cv-container {
+    padding: 0; /* Typically mPDF page margins are enough. Add if specific inner padding is needed. */
+    /* The class .template-classic, .template-modern, .template-professional will be added to this div */
+}
+
+/* Header styling */
+.cv-header {
+    text-align: center;
+    margin-bottom: 10mm; /* Space after header */
+    padding-bottom: 4mm;
+    border-bottom: 1.5px solid #0056b3; /* Professional blue */
+}
+.cv-header h1 {
+    color: #0056b3; /* Header name color */
+    font-size: 20pt; /* Slightly reduced for better balance */
+    margin-bottom: 1mm;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: bold;
+}
+.cv-header h3 { /* For subtitle like "CURRICULUM VITAE" or professional title */
+    color: #333333;
+    font-size: 12pt;
+    margin-top: 0;
+    font-weight: normal;
+    letter-spacing: 0.5px;
+}
+
+/* Section title styling */
+h2.section-title {
+    font-family: "DejaVu Sans Condensed", "Arial Narrow", sans-serif; /* Use a condensed font for titles */
+    color: #0056b3; /* Section title color */
+    font-size: 12pt; /* Slightly reduced */
+    border-bottom: 1px solid #0056b3; /* Underline for section titles */
+    padding-bottom: 1.5mm;
+    margin-top: 6mm; /* Consistent top margin */
+    margin-bottom: 3mm; /* Consistent bottom margin */
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Styling for individual sections */
+.section {
+    margin-bottom: 5mm; /* Consistent bottom margin for sections */
+}
+
+/* Table for personal info for alignment in PDF */
+.personal-info table {
+    width: 100%;
+    border-collapse: collapse; /* Remove space between table cells */
+}
+.personal-info td {
+    padding: 1.2mm 0; /* Slightly reduced padding */
+    vertical-align: top; /* Align content to the top */
+    font-size: 9.5pt; /* Consistent font size for personal info */
+}
+.personal-info .info-label {
+    font-weight: bold;
+    width: 35mm; /* Fixed width for labels */
+    color: #444444;
+    padding-right: 2mm; /* Add some space between label and value */
+}
+.personal-info .info-value {
+    /* Value takes remaining space */
+}
+
+
+/* Styling for individual entries (work experience, education) */
+.entry {
+    margin-bottom: 4mm; /* Consistent margin */
+    padding-bottom: 2mm; /* Consistent padding */
+    border-bottom: 0.5px dashed #cccccc; /* Dashed separator */
+}
+.entry:last-child {
+    border-bottom: none; /* No border for the last entry in a section */
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+.entry-title { /* e.g., Job Title, Degree Name */
+    font-weight: bold;
+    font-size: 10.5pt; /* Slightly adjusted */
+    color: #000000;
+    margin-bottom: 0.5mm;
+}
+.entry-subtitle { /* e.g., Company Name, School Name */
+    font-size: 9.5pt;
+    color: #484848;
+    margin-bottom: 1mm;
+    font-style: italic; /* Often company/school is italicized or distinguished */
+}
+.entry-dates { /* e.g., Graduation Year, Experience Duration */
+    font-size: 9pt;
+    color: #666666;
+    /* font-style:italic; */ /* Dates are usually not italic unless preferred */
+    margin-bottom: 1mm;
+}
+.description { /* For job descriptions, summary paragraphs */
+    margin-top: 1.5mm;
+    padding-left: 4mm; /* Indent description, or 0mm if not desired */
+    color: #333333;
+    font-size: 9.5pt;
+    text-align: justify; /* Justify text for professional look */
+}
+.description p { /* If description contains paragraphs from nl2br */
+    margin-bottom: 1mm;
+    margin-top:0;
+}
+.description ul { /* For bullet points in descriptions */
+    list-style-type: disc;
+    margin-left: 0; /* Reset default margin */
+    padding-left: 5mm; /* Indent list items */
+    margin-top: 1mm;
+    margin-bottom: 1mm;
+}
+.description ul li {
+    margin-bottom: 0.8mm;
+    text-align: justify;
+}
+
+
+/* Styling for "No data" messages */
+.no-data {
+    color: #777777;
+    font-style: italic;
+    padding: 2mm 0;
+    font-size: 9pt;
+}
+
+/* Styling for a dedicated interests/skills list */
+ul.interests-list {
+    list-style-type: disc;
+    margin-left: 0;
+    padding-left: 7mm;
+    font-size: 9.5pt;
+}
+ul.interests-list li {
+    margin-bottom: 1.5mm;
+}
+
+/* Add any other common styles needed by all PDF templates */
+
