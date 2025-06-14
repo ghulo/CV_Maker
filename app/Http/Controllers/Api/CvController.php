@@ -27,12 +27,17 @@ class CvController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'personal_details.full_name' => 'required|string|max:255',
-            'personal_details.email' => 'required|email',
+            'title' => 'required|string|max:255',
+            'personal_details.firstName' => 'required|string|max:255',
+            'personal_details.lastName' => 'nullable|string|max:255',
+            'personal_details.email' => 'required|email|max:255',
+            'personal_details.phone' => 'nullable|string|max:255',
+            'personal_details.address' => 'nullable|string|max:255',
             'summary' => 'required|string',
-            'experiences' => 'present|array',
-            'educations' => 'present|array',
+            'experience' => 'present|array',
+            'education' => 'present|array',
             'skills' => 'present|array',
+            'selected_template' => 'required|string|max:255',
         ]);
 
         if ($validator->fails()) {
@@ -40,25 +45,25 @@ class CvController extends Controller
         }
 
         $validatedData = $validator->validated();
-        $fullName = explode(' ', $validatedData['personal_details']['full_name'], 2);
-
+        
         DB::beginTransaction();
         try {
             $cv = Cv::create([
                 'user_id' => Auth::id(),
-                'emri' => $fullName[0],
-                'mbiemri' => $fullName[1] ?? '',
+                'emri' => $validatedData['personal_details']['firstName'],
+                'mbiemri' => $validatedData['personal_details']['lastName'] ?? '',
                 'email' => $validatedData['personal_details']['email'],
-                'telefoni' => $validatedData['personal_details']['phone_number'] ?? null,
+                'telefoni' => $validatedData['personal_details']['phone'] ?? null,
                 'address' => $validatedData['personal_details']['address'] ?? null,
                 'summary' => $validatedData['summary'],
-                'cv_title' => 'CV of ' . $validatedData['personal_details']['full_name'],
+                'cv_title' => $validatedData['title'],
+                'selected_template' => $validatedData['selected_template'],
             ]);
 
-            foreach ($validatedData['experiences'] as $exp) {
-                $cv->experience()->create($exp);
+            foreach ($validatedData['experience'] as $exp) {
+                $cv->workExperiences()->create($exp);
             }
-            foreach ($validatedData['educations'] as $edu) {
+            foreach ($validatedData['education'] as $edu) {
                 $cv->education()->create($edu);
             }
             foreach ($validatedData['skills'] as $skill) {
@@ -79,7 +84,7 @@ class CvController extends Controller
      */
     public function show($id)
     {
-        $cv = Cv::with(['experience', 'education', 'skills'])->find($id);
+        $cv = Cv::with(['workExperiences', 'education', 'skills'])->find($id);
 
         if (!$cv || $cv->user_id !== Auth::id()) {
             return response()->json(['success' => false, 'message' => 'CV not found'], 404);
@@ -88,16 +93,19 @@ class CvController extends Controller
         // Re-shape data to match frontend expectations
         $cv_data = [
             'id' => $cv->id,
+            'title' => $cv->cv_title,
             'personal_details' => [
-                'full_name' => $cv->emri . ' ' . $cv->mbiemri,
+                'firstName' => $cv->emri,
+                'lastName' => $cv->mbiemri,
                 'email' => $cv->email,
-                'phone_number' => $cv->telefoni,
+                'phone' => $cv->telefoni,
                 'address' => $cv->address,
             ],
             'summary' => $cv->summary,
-            'experiences' => $cv->experience,
-            'educations' => $cv->education,
+            'experience' => $cv->workExperiences,
+            'education' => $cv->education,
             'skills' => $cv->skills,
+            'selected_template' => $cv->selected_template,
         ];
 
         return response()->json(['success' => true, 'cv' => $cv_data]);
@@ -115,11 +123,17 @@ class CvController extends Controller
         }
 
         $validator = Validator::make($request->all(), [
-            'personal_details.full_name' => 'required|string|max:255',
+            'title' => 'required|string|max:255',
+            'personal_details.firstName' => 'required|string|max:255',
+            'personal_details.lastName' => 'nullable|string|max:255',
+            'personal_details.email' => 'required|email|max:255',
+            'personal_details.phone' => 'nullable|string|max:255',
+            'personal_details.address' => 'nullable|string|max:255',
             'summary' => 'required|string',
-            'experiences' => 'present|array',
-            'educations' => 'present|array',
+            'experience' => 'present|array',
+            'education' => 'present|array',
             'skills' => 'present|array',
+            'selected_template' => 'required|string|max:255',
         ]);
 
         if ($validator->fails()) {
@@ -127,28 +141,29 @@ class CvController extends Controller
         }
         
         $validatedData = $validator->validated();
-        $fullName = explode(' ', $validatedData['personal_details']['full_name'], 2);
 
         DB::beginTransaction();
         try {
             $cv->update([
-                'emri' => $fullName[0],
-                'mbiemri' => $fullName[1] ?? '',
+                'emri' => $validatedData['personal_details']['firstName'],
+                'mbiemri' => $validatedData['personal_details']['lastName'] ?? '',
                 'email' => $validatedData['personal_details']['email'],
-                'telefoni' => $validatedData['personal_details']['phone_number'] ?? null,
+                'telefoni' => $validatedData['personal_details']['phone'] ?? null,
                 'address' => $validatedData['personal_details']['address'] ?? null,
                 'summary' => $validatedData['summary'],
+                'cv_title' => $validatedData['title'],
+                'selected_template' => $validatedData['selected_template'],
             ]);
 
             // Sync relationships
-            $cv->experience()->delete();
+            $cv->workExperiences()->delete();
             $cv->education()->delete();
             $cv->skills()->delete();
 
-            foreach ($validatedData['experiences'] as $exp) {
-                $cv->experience()->create($exp);
+            foreach ($validatedData['experience'] as $exp) {
+                $cv->workExperiences()->create($exp);
             }
-            foreach ($validatedData['educations'] as $edu) {
+            foreach ($validatedData['education'] as $edu) {
                 $cv->education()->create($edu);
             }
             foreach ($validatedData['skills'] as $skill) {
@@ -169,7 +184,7 @@ class CvController extends Controller
      */
     public function duplicate($id)
     {
-        $originalCv = Cv::with(['experience', 'education', 'skills'])->find($id);
+        $originalCv = Cv::with(['workExperiences', 'education', 'skills'])->find($id);
 
         if (!$originalCv || $originalCv->user_id !== Auth::id()) {
             return response()->json(['success' => false, 'message' => 'CV not found or unauthorized'], 404);
@@ -178,12 +193,12 @@ class CvController extends Controller
         try {
             DB::beginTransaction();
 
-            $newCv = $originalCv->replicate(['template_id']); // template_id might not be set
-            $newCv->emri = $originalCv->emri . ' (Kopje)';
+            $newCv = $originalCv->replicate();
+            $newCv->cv_title = $originalCv->cv_title . ' (Kopje)';
             $newCv->save();
 
-            foreach ($originalCv->experience as $exp) {
-                $newCv->experience()->create($exp->toArray());
+            foreach ($originalCv->workExperiences as $exp) {
+                $newCv->workExperiences()->create($exp->toArray());
             }
 
             foreach ($originalCv->education as $edu) {
@@ -224,7 +239,7 @@ class CvController extends Controller
      */
     public function download($id)
     {
-        $cv = Cv::with(['experience', 'education', 'skills'])->find($id);
+        $cv = Cv::with(['workExperiences', 'education', 'skills'])->find($id);
 
         if (!$cv || $cv->user_id !== Auth::id()) {
             return response()->json(['success' => false, 'message' => 'CV not found'], 404);

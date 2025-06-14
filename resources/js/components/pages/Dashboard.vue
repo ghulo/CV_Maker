@@ -44,6 +44,34 @@
         </router-link>
       </div>
 
+      <!-- Search, Filter, Sort Controls -->
+      <div class="flex flex-col sm:flex-row gap-4 mb-6 mt-4">
+        <div class="relative flex-grow">
+          <input
+            type="text"
+            v-model="searchTerm"
+            placeholder="Kërko sipas titullit, emrit, apo përmbledhjes..."
+            class="w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-dark-neutral-bg dark:border-dark-neutral-border dark:text-dark-neutral-text"
+          />
+          <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500"></i>
+        </div>
+
+        <select v-model="filterTemplate" class="w-full sm:w-auto px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-dark-neutral-bg dark:border-dark-neutral-border dark:text-dark-neutral-text">
+          <option value="all">Filtro sipas Modelit</option>
+          <option value="classic">Klasik</option>
+          <option value="modern">Modern</option>
+          <option value="professional">Profesional</option>
+          <option value="creative">Kreativ</option>
+        </select>
+
+        <select v-model="sortBy" class="w-full sm:w-auto px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-dark-neutral-bg dark:border-dark-neutral-border dark:text-dark-neutral-text">
+          <option value="updated_at_desc">Rendit sipas: Më të Reja</option>
+          <option value="updated_at_asc">Rendit sipas: Më të Vjetra</option>
+          <option value="title_asc">Rendit sipas: Titullit (A-Z)</option>
+          <option value="title_desc">Rendit sipas: Titullit (Z-A)</option>
+        </select>
+      </div>
+
       <div v-if="loading" class="loading-spinner">
         <i class="fas fa-spinner fa-spin"></i>
       </div>
@@ -54,36 +82,17 @@
         <p>You haven't created any CVs yet. Get started by creating a new one!</p>
       </div>
 
-      <ul v-else class="cv-list">
-        <li v-for="cv in cvs" :key="cv.id" class="cv-item">
-          <div class="cv-item-main-info">
-            <div class="cv-item-icon"><i class="fas fa-file-invoice"></i></div>
-            <div class="cv-info">
-              <strong>{{ cv.cv_title || 'Untitled CV' }}</strong>
-              <span class="cv-template">Template: {{ cv.template_name || 'N/A' }}</span>
-              <span class="cv-last-updated">Last Updated: {{ formatDate(cv.updated_at) }}</span>
-            </div>
-          </div>
-          <div class="cv-actions">
-            <button @click="previewCv(cv.id)" class="btn-icon" title="Preview"><i class="fas fa-eye"></i></button>
-            <button @click="downloadCv(cv.id, cv.cv_title)" class="btn-icon" title="Download PDF"><i class="fas fa-download"></i></button>
-            <router-link :to="{ name: 'cv.edit', params: { id: cv.id } }" class="btn-icon" title="Edit"><i class="fas fa-edit"></i></router-link>
-            <button @click="confirmDelete(cv.id)" class="btn-icon delete" title="Delete"><i class="fas fa-trash"></i></button>
-          </div>
-        </li>
-      </ul>
-    </div>
-
-    <!-- Delete Confirmation Modal -->
-    <div v-if="showDeleteModal" class="modal-overlay">
-        <div class="modal-content">
-            <h3 class="modal-title">Confirm Deletion</h3>
-            <p>Are you sure you want to delete this CV? This action cannot be undone.</p>
-            <div class="modal-actions">
-                <button @click="showDeleteModal = false" class="btn btn-secondary">Cancel</button>
-                <button @click="deleteCv" class="btn btn-danger">Delete</button>
-            </div>
-        </div>
+      <div v-else class="cv-grid">
+        <CvPreviewCard
+          v-for="cv_item in cvs"
+          :key="cv_item.id"
+          :cv="cv_item"
+          @preview="previewCv"
+          @edit="editCv"
+          @download="downloadCv"
+          @delete="confirmDelete"
+        />
+      </div>
     </div>
   </main>
 </template>
@@ -91,14 +100,21 @@
 <script>
 import { ref, onMounted, computed } from 'vue';
 import axios from 'axios';
+import CvPreviewCard from '@/components/CvPreviewCard.vue';
+import { useConfirmationModal } from '../../composables/useConfirmationModal.js';
 
 export default {
   name: 'Dashboard',
+  components: { CvPreviewCard },
   setup() {
-    const cvs = ref([]);
+    const cvs_all = ref([]); // Stores all fetched CVs
     const loading = ref(true);
-    const showDeleteModal = ref(false);
     const cvToDelete = ref(null);
+    const searchTerm = ref('');
+    const filterTemplate = ref('all');
+    const sortBy = ref('updated_at_desc'); // Default sort: most recently updated
+
+    const { showModal } = useConfirmationModal();
 
     const fetchCvs = async () => {
       try {
@@ -106,7 +122,7 @@ export default {
         const response = await axios.get('/api/my-cvs', {
           headers: { Authorization: `Bearer ${token}` }
         });
-        cvs.value = response.data.data;
+        cvs_all.value = response.data.data;
       } catch (error) {
         console.error('Error fetching user CVs:', error);
       } finally {
@@ -114,7 +130,44 @@ export default {
       }
     };
 
-    const totalCvs = computed(() => cvs.value.length);
+    const totalCvs = computed(() => cvs_all.value.length);
+
+    const filteredAndSortedCvs = computed(() => {
+      let tempCvs = [...cvs_all.value];
+
+      // 1. Filter by search term
+      if (searchTerm.value) {
+        const lowerSearchTerm = searchTerm.value.toLowerCase();
+        tempCvs = tempCvs.filter(cv =>
+          (cv.title && cv.title.toLowerCase().includes(lowerSearchTerm)) ||
+          (cv.personal_details && cv.personal_details.full_name && cv.personal_details.full_name.toLowerCase().includes(lowerSearchTerm)) ||
+          (cv.summary && cv.summary.toLowerCase().includes(lowerSearchTerm))
+        );
+      }
+
+      // 2. Filter by template
+      if (filterTemplate.value !== 'all') {
+        tempCvs = tempCvs.filter(cv => cv.template_id === filterTemplate.value);
+      }
+
+      // 3. Sort
+      tempCvs.sort((a, b) => {
+        switch (sortBy.value) {
+          case 'title_asc':
+            return (a.title || '').localeCompare(b.title || '');
+          case 'title_desc':
+            return (b.title || '').localeCompare(a.title || '');
+          case 'updated_at_asc':
+            return new Date(a.updated_at) - new Date(b.updated_at);
+          case 'updated_at_desc':
+            return new Date(b.updated_at) - new Date(a.updated_at);
+          default:
+            return 0;
+        }
+      });
+
+      return tempCvs;
+    });
 
     const formatDate = (dateString) => {
       if (!dateString) return 'N/A';
@@ -122,25 +175,50 @@ export default {
       return new Date(dateString).toLocaleDateString(undefined, options);
     };
 
-    const confirmDelete = (id) => {
-      cvToDelete.value = id;
-      showDeleteModal.value = true;
+    const confirmDelete = async (id) => {
+      const confirmed = await showModal({
+        title: 'Fshij Konfirmimin',
+        message: 'Jeni të sigurt që dëshironi të fshini këtë CV? Ky veprim nuk mund të zhbëhet.',
+        confirmButtonText: 'Fshij',
+        cancelButtonText: 'Anulo',
+        confirmButtonClass: 'btn-danger'
+      });
+
+      if (confirmed) {
+        cvToDelete.value = id;
+        await deleteCv();
+      } else {
+        cvToDelete.value = null;
+      }
     };
 
     const deleteCv = async () => {
-        if (!cvToDelete.value) return;
-        try {
-            const token = localStorage.getItem('auth_token');
-            await axios.delete(`/api/cvs/${cvToDelete.value}`, {
-                headers: { Authorization: `Bearer ${token}` }
-            });
-            cvs.value = cvs.value.filter(cv => cv.id !== cvToDelete.value);
-        } catch (error) {
-            console.error('Error deleting CV:', error);
-        } finally {
-            showDeleteModal.value = false;
-            cvToDelete.value = null;
-        }
+      if (!cvToDelete.value) return;
+      try {
+        const token = localStorage.getItem('auth_token');
+        await axios.delete(`/api/cvs/${cvToDelete.value}`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        cvs_all.value = cvs_all.value.filter(cv => cv.id !== cvToDelete.value);
+        await showModal({
+          title: 'Sukses!',
+          message: 'CV-ja u fshi me sukses.',
+          confirmButtonText: 'OK',
+          confirmButtonClass: 'btn-primary',
+          cancelButtonText: ''
+        });
+      } catch (error) {
+        console.error('Error deleting CV:', error);
+        await showModal({
+          title: 'Gabim!',
+          message: 'Gabim gjatë fshirjes së CV-së. Ju lutem provoni përsëri.',
+          confirmButtonText: 'OK',
+          confirmButtonClass: 'btn-danger',
+          cancelButtonText: ''
+        });
+      } finally {
+        cvToDelete.value = null;
+      }
     };
     
     const downloadCv = async (id, title) => {
@@ -164,13 +242,17 @@ export default {
     };
 
     const previewCv = (id) => {
-        console.log(`Previewing CV with ID: ${id}`);
+        router.push({ name: 'cv.preview', params: { id: id } });
+    };
+
+    const editCv = (id) => {
+        router.push({ name: 'cv.edit', params: { id: id } });
     };
 
     onMounted(fetchCvs);
 
     return {
-      cvs,
+      cvs: filteredAndSortedCvs,
       loading,
       totalCvs,
       formatDate,
@@ -178,14 +260,24 @@ export default {
       deleteCv,
       downloadCv,
       previewCv,
-      showDeleteModal,
+      editCv,
+      showDeleteModal: false,
       cvToDelete,
+      searchTerm,
+      filterTemplate,
+      sortBy,
     };
   },
 };
 </script>
 
 <style scoped>
+.cv-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
 .modal-overlay {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background-color: rgba(0, 0, 0, 0.6);

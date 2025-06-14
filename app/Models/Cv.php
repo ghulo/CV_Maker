@@ -68,23 +68,23 @@ class Cv extends Model
     /**
      * Get the education entries for the CV.
      */
-    public function education()
+    public function education(): HasMany
     {
         return $this->hasMany(Education::class);
     }
 
     /**
-     * Get the experience entries for the CV.
+     * Get the work experience entries for the CV.
      */
-    public function experience()
+    public function workExperiences(): HasMany
     {
-        return $this->hasMany(Experience::class);
+        return $this->hasMany(WorkExperience::class);
     }
 
     /**
      * Get the skills for the CV.
      */
-    public function skills()
+    public function skills(): HasMany
     {
         return $this->hasMany(Skill::class);
     }

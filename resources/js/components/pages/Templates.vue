@@ -65,6 +65,17 @@
                   </div>
               </div>
             </div>
+
+            <!-- Creative Template Thumbnail (Placeholder) -->
+            <div v-if="template.id === 'creative'">
+              <div class="thumb-creative-layout bg-gradient-to-br from-purple-200 to-pink-200 p-4 rounded-md">
+                <div class="thumb-shape-1 bg-purple-400 w-12 h-12 rounded-full mb-2"></div>
+                <div class="thumb-line bg-purple-300 w-full mb-1"></div>
+                <div class="thumb-line bg-purple-300 w-3/4"></div>
+                <div class="thumb-shape-2 bg-pink-400 w-8 h-8 rounded-full ml-auto mt-4"></div>
+              </div>
+            </div>
+
           </div>
           <span class="template-name">{{ template.name }}</span>
           <p class="template-description">{{ template.description }}</p>
@@ -99,7 +110,8 @@ export default {
     const templates = ref([
       { id: 'classic', name: 'Modeli Klasik', description: 'Një dizajn tradicional dhe i qartë, ideal për shumicën e profesioneve.' },
       { id: 'modern', name: 'Modeli Modern', description: 'Një pamje bashkëkohore me fokus në dizajn dhe lexueshmëri.' },
-      { id: 'professional', name: 'Modeli Profesional', description: 'Elegant dhe i strukturuar, perfekt për role ekzekutive dhe korporative.' }
+      { id: 'professional', name: 'Modeli Profesional', description: 'Elegant dhe i strukturuar, perfekt për role ekzekutive dhe korporative.' },
+      { id: 'creative', name: 'Modeli Kreativ', description: 'Një dizajn modern dhe dinamik, ideal për fusha kreative dhe inovative.' }
     ]);
 
     const selectTemplate = (templateId) => {

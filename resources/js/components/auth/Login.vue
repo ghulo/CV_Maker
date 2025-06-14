@@ -18,14 +18,14 @@
           <label for="email">Email</label>
           <div class="input-icon-wrapper">
             <i class="fas fa-envelope input-icon"></i>
-            <input type="email" v-model="form.email" id="email" required placeholder="Adresa juaj e emailit" :disabled="loading">
+            <input type="email" v-model="form.email" id="email" required placeholder="Adresa juaj e emailit" :disabled="loading" autocomplete="email">
           </div>
         </div>
         <div class="form-group reveal-on-scroll" data-reveal-delay="200">
         <label for="password">Fjalëkalimi</label>
           <div class="input-icon-wrapper">
             <i class="fas fa-lock input-icon"></i>
-            <input type="password" v-model="form.password" id="password" required placeholder="••••••••" :disabled="loading">
+            <input type="password" v-model="form.password" id="password" required placeholder="••••••••" :disabled="loading" autocomplete="current-password">
           </div>
       </div>
         <button type="submit" class="btn-primary-form btn btn-primary reveal-on-scroll" data-reveal-delay="250" :disabled="loading">

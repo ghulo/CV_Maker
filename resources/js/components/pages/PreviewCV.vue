@@ -1,79 +1,52 @@
 <template>
-  <div class="bg-neutral-bg dark:bg-dark-neutral-bg min-h-screen p-4 sm:p-6 lg:p-8">
-    <div class="max-w-4xl mx-auto bg-neutral-light dark:bg-dark-neutral-container shadow-lg rounded-lg overflow-hidden glassmorphic-card">
-      <div v-if="loading" class="p-8 text-center">
-        <p class="text-muted-text dark:text-dark-muted-text">Duke ngarkuar CV-në...</p>
-      </div>
-      <div v-else-if="error" class="p-8 text-center text-tertiary-accent">
-        <p>{{ error }}</p>
-      </div>
-      <div v-else class="cv-content p-8 sm:p-10 lg:p-12 text-neutral-text dark:text-dark-neutral-text">
-        <!-- Header: Personal Details -->
-        <header class="text-center mb-10 border-b border-divider-color dark:border-dark-divider-color pb-6">
-          <h1 class="text-4xl font-bold text-neutral-text dark:text-dark-neutral-text">{{ cv.personal_details.full_name }}</h1>
-          <div class="flex justify-center items-center space-x-6 mt-3 text-muted-text dark:text-dark-muted-text">
-            <span>{{ cv.personal_details.email }}</span>
-            <span>•</span>
-            <span>{{ cv.personal_details.phone_number }}</span>
-            <span>•</span>
-            <span>{{ cv.personal_details.address }}</span>
-          </div>
-        </header>
+  <div class="min-h-screen bg-gray-100 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto bg-white dark:bg-gray-800 shadow-xl rounded-lg overflow-hidden relative">
+      <div class="p-8">
+        <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-6 text-center">Parashikimi i CV-së</h1>
 
-        <!-- Main Content -->
-        <main class="space-y-8">
-          <!-- Summary Section -->
-          <section class="glassmorphic-card">
-            <h2 class="text-2xl font-bold text-neutral-text dark:text-dark-neutral-text border-b-2 border-primary dark:border-dark-primary pb-2 mb-6">Përmbledhja Profesionale</h2>
-            <p class="text-subtle-text dark:text-dark-subtle-text leading-relaxed">{{ cv.summary }}</p>
-          </section>
-
-          <!-- Work Experience Section -->
-          <section class="glassmorphic-card">
-            <h2 class="text-2xl font-bold text-neutral-text dark:text-dark-neutral-text border-b-2 border-primary dark:border-dark-primary pb-2 mb-6">Përvoja e Punës</h2>
-            <div v-for="(exp, index) in cv.experiences" :key="index" class="mb-6">
-              <h3 class="text-xl font-semibold text-neutral-text dark:text-dark-neutral-text">{{ exp.job_title }}</h3>
-              <p class="text-md text-muted-text dark:text-dark-muted-text font-medium">{{ exp.company }} | {{ formatDate(exp.start_date) }} - {{ exp.end_date ? formatDate(exp.end_date) : 'Tani' }}</p>
-              <p class="text-subtle-text dark:text-dark-subtle-text mt-2">{{ exp.description }}</p>
-            </div>
-          </section>
-
-          <!-- Education Section -->
-          <section class="glassmorphic-card">
-            <h2 class="text-2xl font-bold text-neutral-text dark:text-dark-neutral-text border-b-2 border-primary dark:border-dark-primary pb-2 mb-6">Edukimi</h2>
-            <div v-for="(edu, index) in cv.educations" :key="index" class="mb-4">
-              <h3 class="text-xl font-semibold text-neutral-text dark:text-dark-neutral-text">{{ edu.degree }}</h3>
-              <p class="text-md text-muted-text dark:text-dark-muted-text font-medium">{{ edu.institution }} | {{ formatDate(edu.start_date) }} - {{ edu.end_date ? formatDate(edu.end_date) : 'Tani' }}</p>
-            </div>
-          </section>
-
-          <!-- Skills Section -->
-          <section class="glassmorphic-card">
-            <h2 class="text-2xl font-bold text-neutral-text dark:text-dark-neutral-text border-b-2 border-primary dark:border-dark-primary pb-2 mb-6">Aftësitë</h2>
-            <div class="flex flex-wrap gap-2">
-              <span v-for="(skill, index) in cv.skills" :key="index" class="bg-primary/10 text-primary dark:bg-dark-primary/20 dark:text-dark-primary text-sm font-medium px-3 py-1 rounded-full">
-                {{ skill.name }}
-              </span>
-            </div>
-          </section>
-        </main>
+        <div v-if="loading" class="space-y-4 animate-pulse">
+          <div class="h-4 bg-gray-300 dark:bg-gray-700 rounded w-3/4 mx-auto"></div>
+          <div class="h-4 bg-gray-300 dark:bg-gray-700 rounded w-1/2 mx-auto"></div>
+          <div class="h-64 bg-gray-200 dark:bg-gray-700 rounded-lg"></div>
+          <div class="h-4 bg-gray-300 dark:bg-gray-700 rounded w-5/6 mx-auto"></div>
+        </div>
+        <div v-else-if="error" class="p-8 text-center bg-red-100 dark:bg-red-900 border border-red-400 text-red-700 dark:text-red-300 rounded-md">
+          <p class="font-medium">{{ error }}</p>
+          <p class="text-sm mt-2">Ju lutem provoni përsëri ose kontaktoni mbështetjen.</p>
+        </div>
+        <div v-else-if="cv">
+          <!-- Dynamic Template Rendering -->
+          <component :is="currentTemplateComponent" :cv="cv"></component>
+        </div>
+        <div v-else class="p-8 text-center text-gray-600 dark:text-gray-400">
+          <p>Nuk ka të dhëna për CV. Ju lutem kthehuni prapa dhe krijoni një CV.</p>
+        </div>
       </div>
     </div>
-    <div class="max-w-4xl mx-auto mt-6 flex justify-end">
-      <button @click="goBack" class="bg-muted-text hover:bg-neutral-text text-white font-bold py-2 px-4 rounded-lg mr-4 transition-colors duration-300">
+    <div class="max-w-4xl mx-auto mt-8 flex justify-end space-x-4">
+      <button @click="goBack"
+              class="inline-flex items-center px-6 py-3 border border-gray-300 shadow-sm text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200">
+        <i class="fas fa-arrow-left mr-3"></i>
         Kthehu Pas
       </button>
-      <button @click="downloadCv" class="bg-primary hover:bg-primary-hover text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300">
-        <i class="fas fa-download mr-2"></i>Shkarko si PDF
+      <button @click="downloadCv"
+              class="inline-flex items-center px-6 py-3 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200">
+        <i class="fas fa-download mr-3"></i>
+        Shkarko si PDF
       </button>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import axios from 'axios';
+import ClassicTemplate from '@/components/cv_templates/ClassicTemplate.vue';
+import ModernTemplate from '@/components/cv_templates/ModernTemplate.vue';
+import ProfessionalTemplate from '@/components/cv_templates/ProfessionalTemplate.vue';
+import CreativeTemplate from '@/components/cv_templates/CreativeTemplate.vue';
+// Import other templates here as they are created
 
 const route = useRoute();
 const router = useRouter();
@@ -99,11 +72,22 @@ const fetchCv = async () => {
   }
 };
 
-const formatDate = (dateString) => {
-  if (!dateString) return '';
-  const options = { year: 'numeric', month: 'long' };
-  return new Date(dateString).toLocaleDateString('sq-AL', options);
-};
+const currentTemplateComponent = computed(() => {
+  if (!cv.value) return null;
+  switch (cv.value.selected_template) {
+    case 'classic':
+      return ClassicTemplate;
+    case 'modern':
+      return ModernTemplate;
+    case 'professional':
+      return ProfessionalTemplate;
+    case 'creative':
+      return CreativeTemplate;
+    // Add cases for other templates here
+    default:
+      return ClassicTemplate; // Fallback to classic template
+  }
+});
 
 const goBack = () => {
   router.back();
@@ -120,5 +104,5 @@ onMounted(() => {
 </script>
 
 <style scoped>
-@reference "tailwindcss/theme";
+/* No custom styles needed, Tailwind handles it */
 </style>

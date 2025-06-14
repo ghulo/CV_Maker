@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* CV Maker Design - Next Level Enhanced Refinements (v38.0 - Ethereal Fluid BG & Advanced Glass) */
 
 :root {

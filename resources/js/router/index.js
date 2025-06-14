@@ -73,6 +73,13 @@ const routes = [
     component: EditCV,
     meta: { requiresAuth: true },
     props: true
+  },
+  {
+    path: '/cv/:id/preview',
+    name: 'cv.preview',
+    component: () => import('../components/pages/PreviewCV.vue'),
+    meta: { requiresAuth: true },
+    props: true
   }
 ]
 

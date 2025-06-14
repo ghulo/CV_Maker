@@ -91,46 +91,117 @@
 
 <script>
 import { ref, reactive, onMounted } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import { useRouter } from 'vue-router';
 import axios from 'axios';
+import { useConfirmationModal } from '../../composables/useConfirmationModal.js';
 
 export default {
   name: 'EditCV',
   props: ['id'],
   setup(props) {
     const router = useRouter();
-    const cv = ref({});
+    const { showModal } = useConfirmationModal();
+
+    const cv = ref({
+      id: props.id,
+      title: '',
+      personal_details: {},
+      summary: '',
+      work_experiences: [],
+      educations: [],
+      skills: [],
+      interests: '',
+      selected_template: 'classic',
+    });
 
     const newWork = reactive({ job_title: '', company: '', city_country: '', start_date: '', end_date: '', is_current_job: false, job_description: '' });
     const newEducation = reactive({ school: '', degree: '', field_of_study: '', city_country: '', graduation_year: '', edu_description: '' });
     
     const fetchCv = async () => {
       try {
-        const response = await axios.get(`/api/cv/${props.id}`, { headers: { Authorization: `Bearer ${localStorage.getItem('auth_token')}` }});
-        cv.value = response.data;
-        if (!cv.value.work_experiences) cv.value.work_experiences = [];
-        if (!cv.value.educations) cv.value.educations = [];
+        const response = await axios.get(`/api/cvs/${props.id}`, { headers: { Authorization: `Bearer ${localStorage.getItem('auth_token')}` }});
+        if (response.data.success && response.data.cv) {
+            const fetchedCv = response.data.cv;
+            cv.value.id = fetchedCv.id;
+            cv.value.title = fetchedCv.title || '';
+            cv.value.personal_details = fetchedCv.personal_details || {};
+            cv.value.summary = fetchedCv.summary || '';
+            cv.value.work_experiences = fetchedCv.work_experiences || [];
+            cv.value.educations = fetchedCv.educations || [];
+            cv.value.skills = fetchedCv.skills || [];
+            cv.value.interests = fetchedCv.interests || '';
+            cv.value.selected_template = fetchedCv.template_id || 'classic';
+        } else {
+            console.error("CV data not found or success is false:", response.data);
+        }
       } catch (error) {
-        console.error("Error fetching CV data:", error);
+        console.error("Error fetching CV data:", error.response ? error.response.data : error.message);
       }
     };
 
     const addWorkExperience = () => {
       cv.value.work_experiences.push({ ...newWork });
-      Object.keys(newWork).forEach(key => newWork[key] = key === 'is_current_job' ? false : ''); // Reset form
+      Object.keys(newWork).forEach(key => newWork[key] = key === 'is_current_job' ? false : '');
     };
 
     const addEducation = () => {
       cv.value.educations.push({ ...newEducation });
-      Object.keys(newEducation).forEach(key => newEducation[key] = ''); // Reset form
+      Object.keys(newEducation).forEach(key => newEducation[key] = '');
     };
 
     const saveCv = async () => {
       try {
-        await axios.put(`/api/cv/${props.id}`, cv.value, { headers: { Authorization: `Bearer ${localStorage.getItem('auth_token')}` }});
-        router.push({ name: 'dashboard' }); // Or a preview page
+        const payload = {
+          id: cv.value.id,
+          title: cv.value.title,
+          personal_details: cv.value.personal_details,
+          summary: cv.value.summary,
+          work_experiences: cv.value.work_experiences,
+          education: cv.value.educations,
+          skills: cv.value.skills,
+          interests: cv.value.interests,
+          template_id: cv.value.selected_template,
+        };
+
+        const response = await axios.put(`/api/cvs/${props.id}`, payload, { headers: { Authorization: `Bearer ${localStorage.getItem('auth_token')}` }});
+        
+        if (response.data.success) {
+          await showModal({
+            title: 'Sukses!',
+            message: 'CV-ja u ruajt me sukses.',
+            confirmButtonText: 'OK',
+            confirmButtonClass: 'btn-primary',
+            cancelButtonText: ''
+          });
+          router.push({ name: 'cv.preview', params: { id: props.id } });
+        } else {
+          const errorMessages = response.data.errors ? Object.values(response.data.errors).flat().join('\n') : 'Një gabim i panjohur ndodhi.';
+          await showModal({
+            title: 'Gabim!',
+            message: `Gabim gjatë ruajtjes së CV-së:\n${errorMessages}`,
+            confirmButtonText: 'OK',
+            confirmButtonClass: 'btn-danger',
+            cancelButtonText: ''
+          });
+        }
       } catch (error) {
-        console.error("Error saving CV:", error);
+        console.error("Error saving CV:", error.response ? error.response.data : error.message);
+        let errorMessage = 'Gabim gjatë ruajtjes së CV-së. Ju lutem provoni përsëri.';
+
+        if (error.response && error.response.data && error.response.data.errors) {
+          const detailedErrors = Object.values(error.response.data.errors).flat().join('\n');
+          errorMessage = `Gabim gjatë ruajtjes së CV-së:\n${detailedErrors}`;
+        } else if (error.message) {
+          errorMessage = `Gabim i papritur: ${error.message}`;
+        }
+        
+        await showModal({
+          title: 'Gabim i Papritur!',
+          message: errorMessage,
+          confirmButtonText: 'OK',
+          confirmButtonClass: 'btn-danger',
+          cancelButtonText: ''
+        });
       }
     };
 
