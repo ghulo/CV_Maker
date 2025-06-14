@@ -25,14 +25,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/cv/{cv}/pdf', [CvController::class, 'generatePdf'])->name('cv.pdf');
 });
 
-// Vue.js SPA - Root Route
-// This ensures the main layout is served for the root URL
-Route::get('/', function () {
-    return view('layouts.app');
-});
-
-// Vue.js SPA - Catch All Routes
-// This serves the Vue.js application for all other routes
-Route::get('/{any}', function () {
+// Vue.js SPA Catch-All Route
+// This serves the Vue.js application for the root URL and all other non-API routes.
+// It ensures that navigating to any front-end page directly will load the app.
+Route::get('/{any?}', function () {
     return view('layouts.app');
 })->where('any', '.*')->name('spa');

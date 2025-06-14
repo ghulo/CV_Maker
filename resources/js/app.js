@@ -9,7 +9,12 @@ import { initializeEffects } from './script'; // Import initializeEffects
 const app = createApp(App);
 app.use(router);
 app.use(VueApexCharts);
-app.mount('#vue-app');
 
-// Initialize global effects after the app is mounted
-initializeEffects(); 
+// Wait until the router is ready before mounting the app
+// This ensures all async components are loaded before the app is displayed.
+router.isReady().then(() => {
+  app.mount('#vue-app');
+  
+  // Initialize global effects after the app is mounted and router is ready
+  initializeEffects();
+}); 
