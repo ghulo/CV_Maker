@@ -1,0 +1,857 @@
+[16-May-2025 16:56:47 Europe/Berlin] view_cvs.php: Script execution started.
+[16-May-2025 16:56:47 Europe/Berlin] view_cvs.php: Session ID: qn2nnigcln5evv7o6ru3g6elsa
+[16-May-2025 16:56:47 Europe/Berlin] view_cvs.php: SESSION contents before check: Array
+(
+    [user_id] => 6
+    [user_email] => labidaqaj@gmail.com
+    [personal_info_id] => 11
+    [selected_template] => modern
+    [success_message] => Informacioni personal përditësua me sukses!
+    [success_message_exp] => Eksperienca, edukimi dhe interesat u ruajtën me sukses!
+)
+
+[16-May-2025 16:56:47 Europe/Berlin] view_cvs.php: Authentication successful. Logged in user ID: 6
+[16-May-2025 16:56:47 Europe/Berlin] view_cvs.php: Attempting to fetch CV list for user ID: 6
+[16-May-2025 16:56:47 Europe/Berlin] view_cvs.php: Successfully fetched 1 CVs.
+[16-May-2025 16:56:47 Europe/Berlin] view_cvs.php: PHP execution finished, rendering HTML.
+[16-May-2025 16:58:47 Europe/Berlin] view_cvs.php: Script execution started.
+[16-May-2025 16:58:47 Europe/Berlin] view_cvs.php: Session ID: qn2nnigcln5evv7o6ru3g6elsa
+[16-May-2025 16:58:47 Europe/Berlin] view_cvs.php: SESSION contents before check: Array
+(
+    [user_id] => 6
+    [user_email] => labidaqaj@gmail.com
+    [personal_info_id] => 11
+    [selected_template] => modern
+    [success_message] => Informacioni personal përditësua me sukses!
+    [success_message_exp] => Eksperienca, edukimi dhe interesat u ruajtën me sukses!
+)
+
+[16-May-2025 16:58:47 Europe/Berlin] view_cvs.php: Authentication successful. Logged in user ID: 6
+[16-May-2025 16:58:47 Europe/Berlin] view_cvs.php: Attempting to fetch CV list for user ID: 6
+[16-May-2025 16:58:47 Europe/Berlin] view_cvs.php: Successfully fetched 1 CVs.
+[16-May-2025 16:58:47 Europe/Berlin] view_cvs.php: PHP execution finished, rendering HTML.
+[16-May-2025 17:02:08 Europe/Berlin] view_cvs.php: Script execution started.
+[16-May-2025 17:02:08 Europe/Berlin] view_cvs.php: Session ID: qn2nnigcln5evv7o6ru3g6elsa
+[16-May-2025 17:02:08 Europe/Berlin] view_cvs.php: SESSION contents before check: Array
+(
+    [user_id] => 6
+    [user_email] => labidaqaj@gmail.com
+    [personal_info_id] => 11
+    [selected_template] => professional
+    [success_message] => Informacioni personal përditësua me sukses!
+    [success_message_exp] => Të dhënat u ruajtën me sukses!
+)
+
+[16-May-2025 17:02:08 Europe/Berlin] view_cvs.php: Authentication successful. Logged in user ID: 6
+[16-May-2025 17:02:08 Europe/Berlin] view_cvs.php: Attempting to fetch CV list for user ID: 6
+[16-May-2025 17:02:08 Europe/Berlin] view_cvs.php: Successfully fetched 1 CVs.
+[16-May-2025 17:02:08 Europe/Berlin] view_cvs.php: PHP execution finished, rendering HTML.
+[16-May-2025 18:03:57 Europe/Berlin] view_cvs.php: Script execution started.
+[16-May-2025 18:03:57 Europe/Berlin] view_cvs.php: Session ID: 0a2ukivftibh6n11fsubja8ab9
+[16-May-2025 18:03:57 Europe/Berlin] view_cvs.php: SESSION contents before check: Array
+(
+    [user_id] => 6
+    [user_email] => labidaqaj@gmail.com
+    [personal_info_id] => 11
+    [selected_template] => modern
+    [success_message] => Informacioni personal përditësua me sukses!
+    [success_message_exp] => Të dhënat u ruajtën me sukses!
+)
+
+[16-May-2025 18:03:57 Europe/Berlin] view_cvs.php: Authentication successful. Logged in user ID: 6
+[16-May-2025 18:03:57 Europe/Berlin] view_cvs.php: Attempting to fetch CV list for user ID: 6
+[16-May-2025 18:03:57 Europe/Berlin] view_cvs.php: Successfully fetched 1 CVs.
+[16-May-2025 18:03:57 Europe/Berlin] view_cvs.php: PHP execution finished, rendering HTML.
+[17-May-2025 22:39:57 Europe/Berlin] view_cvs.php: Script execution started.
+[17-May-2025 22:39:57 Europe/Berlin] view_cvs.php: Session ID: bt5k1do2o64teo267rr65ur7m3
+[17-May-2025 22:39:57 Europe/Berlin] view_cvs.php: SESSION contents before check: Array
+(
+    [user_id] => 6
+    [user_email] => labidaqaj@gmail.com
+    [selected_template] => professional
+    [success_message] => Informacioni personal u ruajt me sukses!
+    [personal_info_id] => 12
+)
+
+[17-May-2025 22:39:57 Europe/Berlin] view_cvs.php: Authentication successful. Logged in user ID: 6
+[17-May-2025 22:39:57 Europe/Berlin] view_cvs.php: Attempting to fetch CV list for user ID: 6
+[17-May-2025 22:39:57 Europe/Berlin] view_cvs.php: Successfully fetched 2 CVs.
+[17-May-2025 22:39:57 Europe/Berlin] view_cvs.php: PHP execution finished, rendering HTML.
+[18-May-2025 07:04:17 Europe/Berlin] view_cvs.php: Script execution started.
+[18-May-2025 07:04:17 Europe/Berlin] view_cvs.php: Session ID: dpa6aur65atpvu5snd4fos7cq6
+[18-May-2025 07:04:17 Europe/Berlin] view_cvs.php: SESSION contents before check: Array
+(
+    [user_id] => 6
+    [user_email] => labidaqaj@gmail.com
+)
+
+[18-May-2025 07:04:17 Europe/Berlin] view_cvs.php: Authentication successful. Logged in user ID: 6
+[18-May-2025 07:04:17 Europe/Berlin] view_cvs.php: Attempting to fetch CV list for user ID: 6
+[18-May-2025 07:04:17 Europe/Berlin] view_cvs.php: Successfully fetched 2 CVs.
+[18-May-2025 07:04:17 Europe/Berlin] view_cvs.php: PHP execution finished, rendering HTML.
+[18-May-2025 07:05:59 Europe/Berlin] view_cvs.php: Script execution started.
+[18-May-2025 07:05:59 Europe/Berlin] view_cvs.php: Session ID: dpa6aur65atpvu5snd4fos7cq6
+[18-May-2025 07:05:59 Europe/Berlin] view_cvs.php: SESSION contents before check: Array
+(
+    [user_id] => 6
+    [user_email] => labidaqaj@gmail.com
+    [personal_info_id] => 12
+    [selected_template] => professional
+)
+
+[18-May-2025 07:05:59 Europe/Berlin] view_cvs.php: Authentication successful. Logged in user ID: 6
+[18-May-2025 07:05:59 Europe/Berlin] view_cvs.php: Attempting to fetch CV list for user ID: 6
+[18-May-2025 07:05:59 Europe/Berlin] view_cvs.php: Successfully fetched 2 CVs.
+[18-May-2025 07:05:59 Europe/Berlin] view_cvs.php: PHP execution finished, rendering HTML.
+[18-May-2025 07:29:43 Europe/Berlin] view_cvs.php: Script execution started. Session ID: p3qaf152rars9d9g6fdv60b2je
+[18-May-2025 07:29:43 Europe/Berlin] view_cvs.php: Authentication successful. Logged in user ID: 6
+[18-May-2025 07:29:43 Europe/Berlin] view_cvs.php: Attempting to fetch CV list for user ID: 6
+[18-May-2025 07:29:43 Europe/Berlin] view_cvs.php: Successfully fetched 2 CVs.
+[18-May-2025 07:29:43 Europe/Berlin] view_cvs.php: PHP execution finished, rendering HTML.
+[18-May-2025 07:29:45 Europe/Berlin] PHP Warning:  require_once(template_renderers.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\cv_maker\fetch_cv_preview_content.php on line 11
+[18-May-2025 07:29:45 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required 'template_renderers.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\cv_maker\fetch_cv_preview_content.php:11
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\cv_maker\fetch_cv_preview_content.php on line 11
+[18-May-2025 07:31:58 Europe/Berlin] view_cvs.php: Script execution started. Session ID: p3qaf152rars9d9g6fdv60b2je
+[18-May-2025 07:31:58 Europe/Berlin] view_cvs.php: Authentication successful. Logged in user ID: 6
+[18-May-2025 07:31:58 Europe/Berlin] view_cvs.php: Attempting to fetch CV list for user ID: 6
+[18-May-2025 07:31:58 Europe/Berlin] view_cvs.php: Successfully fetched 2 CVs.
+[18-May-2025 07:31:58 Europe/Berlin] view_cvs.php: PHP execution finished, rendering HTML.
+[18-May-2025 07:34:28 Europe/Berlin] view_cvs.php: Script execution started. Session ID: p3qaf152rars9d9g6fdv60b2je
+[18-May-2025 07:34:28 Europe/Berlin] view_cvs.php: Authentication successful. Logged in user ID: 6
+[18-May-2025 07:34:29 Europe/Berlin] view_cvs.php: Attempting to fetch CV list for user ID: 6
+[18-May-2025 07:34:29 Europe/Berlin] view_cvs.php: Successfully fetched 2 CVs.
+[18-May-2025 07:34:29 Europe/Berlin] view_cvs.php: PHP execution finished, rendering HTML.
+[18-May-2025 07:39:21 Europe/Berlin] view_cvs.php: Script execution started. Session ID: p3qaf152rars9d9g6fdv60b2je
+[18-May-2025 07:39:21 Europe/Berlin] view_cvs.php: Authentication successful. Logged in user ID: 6
+[18-May-2025 07:39:21 Europe/Berlin] view_cvs.php: Attempting to fetch CV list for user ID: 6
+[18-May-2025 07:39:21 Europe/Berlin] view_cvs.php: Successfully fetched 2 CVs.
+[18-May-2025 07:39:21 Europe/Berlin] view_cvs.php: PHP execution finished, rendering HTML.
+[18-May-2025 07:39:22 Europe/Berlin] view_cvs.php: Script execution started. Session ID: p3qaf152rars9d9g6fdv60b2je
+[18-May-2025 07:39:22 Europe/Berlin] view_cvs.php: Authentication successful. Logged in user ID: 6
+[18-May-2025 07:39:22 Europe/Berlin] view_cvs.php: Attempting to fetch CV list for user ID: 6
+[18-May-2025 07:39:22 Europe/Berlin] view_cvs.php: Successfully fetched 2 CVs.
+[18-May-2025 07:39:22 Europe/Berlin] view_cvs.php: PHP execution finished, rendering HTML.
+[18-May-2025 07:39:36 Europe/Berlin] view_cvs.php: Script execution started. Session ID: p3qaf152rars9d9g6fdv60b2je
+[18-May-2025 07:39:36 Europe/Berlin] view_cvs.php: Authentication successful. Logged in user ID: 6
+[18-May-2025 07:39:36 Europe/Berlin] view_cvs.php: Attempting to fetch CV list for user ID: 6
+[18-May-2025 07:39:36 Europe/Berlin] view_cvs.php: Successfully fetched 2 CVs.
+[18-May-2025 07:39:36 Europe/Berlin] view_cvs.php: PHP execution finished, rendering HTML.
+[18-May-2025 07:39:42 Europe/Berlin] view_cvs.php: Script execution started. Session ID: p3qaf152rars9d9g6fdv60b2je
+[18-May-2025 07:39:42 Europe/Berlin] view_cvs.php: Authentication successful. Logged in user ID: 6
+[18-May-2025 07:39:42 Europe/Berlin] view_cvs.php: Attempting to fetch CV list for user ID: 6
+[18-May-2025 07:39:42 Europe/Berlin] view_cvs.php: Successfully fetched 2 CVs.
+[18-May-2025 07:39:42 Europe/Berlin] view_cvs.php: PHP execution finished, rendering HTML.
+[18-May-2025 07:39:45 Europe/Berlin] view_cvs.php: Script execution started. Session ID: p3qaf152rars9d9g6fdv60b2je
+[18-May-2025 07:39:45 Europe/Berlin] view_cvs.php: Authentication successful. Logged in user ID: 6
+[18-May-2025 07:39:45 Europe/Berlin] view_cvs.php: Attempting to fetch CV list for user ID: 6
+[18-May-2025 07:39:45 Europe/Berlin] view_cvs.php: Successfully fetched 2 CVs.
+[18-May-2025 07:39:45 Europe/Berlin] view_cvs.php: PHP execution finished, rendering HTML.
+[18-May-2025 07:44:11 Europe/Berlin] view_cvs.php: Script execution started. Session ID: p3qaf152rars9d9g6fdv60b2je
+[18-May-2025 07:44:11 Europe/Berlin] view_cvs.php: Authentication successful. Logged in user ID: 6
+[18-May-2025 07:44:11 Europe/Berlin] view_cvs.php: Attempting to fetch CV list for user ID: 6
+[18-May-2025 07:44:11 Europe/Berlin] view_cvs.php: Successfully fetched 2 CVs.
+[18-May-2025 07:44:11 Europe/Berlin] view_cvs.php: PHP execution finished, rendering HTML.
+[18-May-2025 07:47:43 Europe/Berlin] view_cvs.php: Script execution started. Session ID: p3qaf152rars9d9g6fdv60b2je
+[18-May-2025 07:47:43 Europe/Berlin] view_cvs.php: Authentication successful. Logged in user ID: 6
+[18-May-2025 07:47:43 Europe/Berlin] view_cvs.php: Attempting to fetch CV list for user ID: 6
+[18-May-2025 07:47:43 Europe/Berlin] view_cvs.php: Successfully fetched 2 CVs.
+[18-May-2025 07:47:43 Europe/Berlin] view_cvs.php: PHP execution finished, rendering HTML.
+[18-May-2025 07:48:10 Europe/Berlin] mPDF critical error: vendor/autoload.php not found. Path checked: C:\xampp\htdocs\cv_maker/vendor/autoload.php
+[18-May-2025 07:48:28 Europe/Berlin] DB Error (preview_cv.php) for CV ID 11, User 6: SQLSTATE[HY000]: General error: 2006 MySQL server has gone away
+[18-May-2025 07:48:38 Europe/Berlin] CRITICAL Database Connection Failed in connect.php: SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it
+[18-May-2025 07:48:38 Europe/Berlin] CRITICAL Database Connection Failed in preview_cv.php: SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it
+[18-May-2025 07:51:49 Europe/Berlin] CRITICAL Database Connection Failed in connect.php: SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it
+[18-May-2025 07:51:49 Europe/Berlin] CRITICAL Database Connection Failed in preview_cv.php: SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it
+[18-May-2025 08:17:53 Europe/Berlin] view_cvs.php: Script execution started. Session ID: 6uqj6gk9anembk198tn7vv52ej
+[18-May-2025 08:17:53 Europe/Berlin] view_cvs.php: Authentication successful. Logged in user ID: 6
+[18-May-2025 08:17:53 Europe/Berlin] view_cvs.php: Attempting to fetch CV list for user ID: 6
+[18-May-2025 08:17:53 Europe/Berlin] view_cvs.php: Successfully fetched 2 CVs.
+[18-May-2025 08:17:53 Europe/Berlin] view_cvs.php: PHP execution finished, rendering HTML.
+[18-May-2025 14:48:53 Europe/Berlin] view_cvs.php: Script execution started. Session ID: 7819bl8iqbt3dht3ktvr69jite
+[18-May-2025 14:48:53 Europe/Berlin] view_cvs.php: Authentication successful. Logged in user ID: 6
+[18-May-2025 14:48:53 Europe/Berlin] view_cvs.php: Attempting to fetch CV list for user ID: 6
+[18-May-2025 14:48:53 Europe/Berlin] view_cvs.php: Successfully fetched 2 CVs.
+[18-May-2025 14:48:53 Europe/Berlin] view_cvs.php: PHP execution finished, rendering HTML.
+[18-May-2025 14:49:01 Europe/Berlin] view_cvs.php: Script execution started. Session ID: quo6i6e5vgsnueji1nd68p8eeg
+[18-May-2025 14:49:01 Europe/Berlin] view_cvs.php: Authentication successful. Logged in user ID: 6
+[18-May-2025 14:49:01 Europe/Berlin] view_cvs.php: Attempting to fetch CV list for user ID: 6
+[18-May-2025 14:49:01 Europe/Berlin] view_cvs.php: Successfully fetched 2 CVs.
+[18-May-2025 14:49:01 Europe/Berlin] view_cvs.php: PHP execution finished, rendering HTML.
+[18-May-2025 14:56:45 Europe/Berlin] view_cvs.php: Script execution started. Session ID: quo6i6e5vgsnueji1nd68p8eeg
+[18-May-2025 14:56:45 Europe/Berlin] view_cvs.php: Authentication successful. Logged in user ID: 6
+[18-May-2025 14:56:45 Europe/Berlin] view_cvs.php: Attempting to fetch CV list for user ID: 6
+[18-May-2025 14:56:45 Europe/Berlin] view_cvs.php: Successfully fetched 2 CVs.
+[18-May-2025 14:56:45 Europe/Berlin] view_cvs.php: PHP execution finished, rendering HTML.
+[18-May-2025 14:56:50 Europe/Berlin] view_cvs.php: Script execution started. Session ID: quo6i6e5vgsnueji1nd68p8eeg
+[18-May-2025 14:56:50 Europe/Berlin] view_cvs.php: Authentication successful. Logged in user ID: 6
+[18-May-2025 14:56:50 Europe/Berlin] view_cvs.php: Attempting to fetch CV list for user ID: 6
+[18-May-2025 14:56:50 Europe/Berlin] view_cvs.php: Successfully fetched 2 CVs.
+[18-May-2025 14:56:50 Europe/Berlin] view_cvs.php: PHP execution finished, rendering HTML.
+[18-May-2025 14:57:34 Europe/Berlin] view_cvs.php: Script execution started. Session ID: js3ghob7mo1j2bqua6fekm83ja
+[18-May-2025 14:57:34 Europe/Berlin] view_cvs.php: Authentication successful. Logged in user ID: 6
+[18-May-2025 14:57:34 Europe/Berlin] view_cvs.php: Attempting to fetch CV list for user ID: 6
+[18-May-2025 14:57:34 Europe/Berlin] view_cvs.php: Successfully fetched 2 CVs.
+[18-May-2025 14:57:34 Europe/Berlin] view_cvs.php: PHP execution finished, rendering HTML.
+[18-May-2025 15:01:54 Europe/Berlin] view_cvs.php: Script execution started. Session ID: js3ghob7mo1j2bqua6fekm83ja
+[18-May-2025 15:01:54 Europe/Berlin] view_cvs.php: Authentication successful. Logged in user ID: 6
+[18-May-2025 15:01:54 Europe/Berlin] view_cvs.php: Attempting to fetch CV list for user ID: 6
+[18-May-2025 15:01:54 Europe/Berlin] view_cvs.php: Successfully fetched 2 CVs.
+[18-May-2025 15:01:54 Europe/Berlin] view_cvs.php: PHP execution finished, rendering HTML.
+[18-May-2025 15:12:12 Europe/Berlin] view_cvs.php: Script execution started. Session ID: js3ghob7mo1j2bqua6fekm83ja
+[18-May-2025 15:12:12 Europe/Berlin] view_cvs.php: Authentication successful. Logged in user ID: 6
+[18-May-2025 15:12:12 Europe/Berlin] view_cvs.php: Attempting to fetch CV list for user ID: 6
+[18-May-2025 15:12:12 Europe/Berlin] view_cvs.php: Successfully fetched 2 CVs.
+[18-May-2025 15:12:12 Europe/Berlin] view_cvs.php: PHP execution finished, rendering HTML.
+[18-May-2025 15:12:37 Europe/Berlin] view_cvs.php: Script execution started. Session ID: fbann3lpistgkkhopjjlh149rt
+[18-May-2025 15:12:37 Europe/Berlin] view_cvs.php: Authentication successful. Logged in user ID: 6
+[18-May-2025 15:12:37 Europe/Berlin] view_cvs.php: Attempting to fetch CV list for user ID: 6
+[18-May-2025 15:12:37 Europe/Berlin] view_cvs.php: Successfully fetched 2 CVs.
+[18-May-2025 15:12:37 Europe/Berlin] view_cvs.php: PHP execution finished, rendering HTML.
+[18-May-2025 15:12:37 Europe/Berlin] view_cvs.php: Script execution started. Session ID: fbann3lpistgkkhopjjlh149rt
+[18-May-2025 15:12:37 Europe/Berlin] view_cvs.php: Authentication successful. Logged in user ID: 6
+[18-May-2025 15:12:37 Europe/Berlin] view_cvs.php: Attempting to fetch CV list for user ID: 6
+[18-May-2025 15:12:37 Europe/Berlin] view_cvs.php: Successfully fetched 2 CVs.
+[18-May-2025 15:12:37 Europe/Berlin] view_cvs.php: PHP execution finished, rendering HTML.
+[18-May-2025 15:18:02 Europe/Berlin] view_cvs.php: Script execution started. Session ID: 4jabbhk9thtd7l5bau394giaom
+[18-May-2025 15:18:02 Europe/Berlin] view_cvs.php: Authentication successful. Logged in user ID: 6
+[18-May-2025 15:18:02 Europe/Berlin] view_cvs.php: Attempting to fetch CV list for user ID: 6
+[18-May-2025 15:18:02 Europe/Berlin] view_cvs.php: Successfully fetched 2 CVs.
+[18-May-2025 15:18:02 Europe/Berlin] view_cvs.php: PHP execution finished, rendering HTML.
+[18-May-2025 15:18:02 Europe/Berlin] view_cvs.php: Script execution started. Session ID: 4jabbhk9thtd7l5bau394giaom
+[18-May-2025 15:18:02 Europe/Berlin] view_cvs.php: Authentication successful. Logged in user ID: 6
+[18-May-2025 15:18:02 Europe/Berlin] view_cvs.php: Attempting to fetch CV list for user ID: 6
+[18-May-2025 15:18:02 Europe/Berlin] view_cvs.php: Successfully fetched 2 CVs.
+[18-May-2025 15:18:02 Europe/Berlin] view_cvs.php: PHP execution finished, rendering HTML.
+[18-May-2025 15:18:09 Europe/Berlin] view_cvs.php: Script execution started. Session ID: 4jabbhk9thtd7l5bau394giaom
+[18-May-2025 15:18:09 Europe/Berlin] view_cvs.php: Authentication successful. Logged in user ID: 6
+[18-May-2025 15:18:09 Europe/Berlin] view_cvs.php: Attempting to fetch CV list for user ID: 6
+[18-May-2025 15:18:09 Europe/Berlin] view_cvs.php: Successfully fetched 2 CVs.
+[18-May-2025 15:18:09 Europe/Berlin] view_cvs.php: PHP execution finished, rendering HTML.
+[18-May-2025 15:18:14 Europe/Berlin] view_cvs.php: Script execution started. Session ID: 4jabbhk9thtd7l5bau394giaom
+[18-May-2025 15:18:14 Europe/Berlin] view_cvs.php: Authentication successful. Logged in user ID: 6
+[18-May-2025 15:18:14 Europe/Berlin] view_cvs.php: Attempting to fetch CV list for user ID: 6
+[18-May-2025 15:18:14 Europe/Berlin] view_cvs.php: Successfully fetched 2 CVs.
+[18-May-2025 15:18:14 Europe/Berlin] view_cvs.php: PHP execution finished, rendering HTML.
+[18-May-2025 16:36:41 Europe/Berlin] view_cvs.php: Script execution started. Session ID: 4jabbhk9thtd7l5bau394giaom
+[18-May-2025 16:36:41 Europe/Berlin] view_cvs.php: Authentication successful. Logged in user ID: 6
+[18-May-2025 16:36:41 Europe/Berlin] view_cvs.php: Attempting to fetch CV list for user ID: 6
+[18-May-2025 16:36:41 Europe/Berlin] view_cvs.php: Successfully fetched 2 CVs.
+[18-May-2025 16:36:41 Europe/Berlin] view_cvs.php: PHP execution finished, rendering HTML.
+[18-May-2025 16:43:08 Europe/Berlin] view_cvs.php: Script execution started. Session ID: 4jabbhk9thtd7l5bau394giaom
+[18-May-2025 16:43:08 Europe/Berlin] view_cvs.php: Authentication successful. Logged in user ID: 6
+[18-May-2025 16:43:08 Europe/Berlin] view_cvs.php: Attempting to fetch CV list for user ID: 6
+[18-May-2025 16:43:08 Europe/Berlin] view_cvs.php: Successfully fetched 2 CVs.
+[18-May-2025 16:43:08 Europe/Berlin] view_cvs.php: PHP execution finished, rendering HTML.
+[18-May-2025 17:06:44 Europe/Berlin] view_cvs.php: Script execution started. Session ID: gu92ihsalq79jo3hsprqvbgivg
+[18-May-2025 17:06:44 Europe/Berlin] view_cvs.php: Authentication successful. Logged in user ID: 6
+[18-May-2025 17:06:44 Europe/Berlin] view_cvs.php: Attempting to fetch CV list for user ID: 6
+[18-May-2025 17:06:44 Europe/Berlin] view_cvs.php: Successfully fetched 2 CVs.
+[18-May-2025 17:06:44 Europe/Berlin] view_cvs.php: PHP execution finished, rendering HTML.
+[18-May-2025 17:55:07 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in C:\xampp\htdocs\cv_maker\view_cvs.php:33
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\cv_maker\view_cvs.php on line 33
+[18-May-2025 17:55:08 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in C:\xampp\htdocs\cv_maker\view_cvs.php:33
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\cv_maker\view_cvs.php on line 33
+[18-May-2025 18:00:40 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in C:\xampp\htdocs\cv_maker\view_cvs.php:33
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\cv_maker\view_cvs.php on line 33
+[18-May-2025 18:00:42 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in C:\xampp\htdocs\cv_maker\view_cvs.php:33
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\cv_maker\view_cvs.php on line 33
+[18-May-2025 18:11:44 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in C:\xampp\htdocs\cv_maker\view_cvs.php:33
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\cv_maker\view_cvs.php on line 33
+[18-May-2025 18:11:45 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in C:\xampp\htdocs\cv_maker\view_cvs.php:33
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\cv_maker\view_cvs.php on line 33
+[18-May-2025 18:13:36 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in C:\xampp\htdocs\cv_maker\view_cvs.php:33
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\cv_maker\view_cvs.php on line 33
+[18-May-2025 18:34:17 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in C:\xampp\htdocs\cv_maker\view_cvs.php:33
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\cv_maker\view_cvs.php on line 33
+[18-May-2025 18:37:42 Europe/Berlin] view_cvs.php: Script execution started. Session ID: bh4sldf8ai8fov4nbiqltkj5ss
+[18-May-2025 18:37:42 Europe/Berlin] view_cvs.php: Authentication successful. Logged in user ID: 6
+[18-May-2025 18:37:42 Europe/Berlin] PHP Warning:  Undefined variable $db_error_message in C:\xampp\htdocs\cv_maker\view_cvs.php on line 49
+[18-May-2025 18:37:42 Europe/Berlin] view_cvs.php: Attempting to fetch CV list for user ID: 6
+[18-May-2025 18:37:42 Europe/Berlin] view_cvs.php: Successfully fetched 2 CVs.
+[18-May-2025 18:37:42 Europe/Berlin] view_cvs.php: PHP execution finished, rendering HTML.
+[18-May-2025 18:37:42 Europe/Berlin] PHP Warning:  Undefined variable $db_error_message in C:\xampp\htdocs\cv_maker\view_cvs.php on line 158
+[18-May-2025 18:46:44 Europe/Berlin] PDOException (view_cvs.php data fetch for user 6): SQLSTATE[42S22]: Column not found: 1054 Unknown column 'updated_at' in 'field list'. Query: SELECT id, emri, mbiemri, date_of_birth, selected_template, summary, updated_at 
+                FROM personal_info
+                WHERE user_id = :user_id ORDER BY updated_at DESC, id DESC
+[18-May-2025 18:46:51 Europe/Berlin] view_cvs.php: Script execution started. Session ID: bh4sldf8ai8fov4nbiqltkj5ss
+[18-May-2025 18:46:51 Europe/Berlin] view_cvs.php: Authentication successful. Logged in user ID: 6
+[18-May-2025 18:46:51 Europe/Berlin] PHP Warning:  Undefined variable $db_error_message in C:\xampp\htdocs\cv_maker\view_cvs.php on line 49
+[18-May-2025 18:46:51 Europe/Berlin] view_cvs.php: Attempting to fetch CV list for user ID: 6
+[18-May-2025 18:46:51 Europe/Berlin] view_cvs.php: Successfully fetched 2 CVs.
+[18-May-2025 18:46:51 Europe/Berlin] view_cvs.php: PHP execution finished, rendering HTML.
+[18-May-2025 18:46:51 Europe/Berlin] PHP Warning:  Undefined variable $db_error_message in C:\xampp\htdocs\cv_maker\view_cvs.php on line 158
+[18-May-2025 19:23:02 Europe/Berlin] PDOException (view_cvs.php data fetch for user 6): SQLSTATE[42S22]: Column not found: 1054 Unknown column 'updated_at' in 'field list'. Query: SELECT id, emri, mbiemri, date_of_birth, selected_template, summary, updated_at 
+                FROM personal_info
+                WHERE user_id = :user_id ORDER BY updated_at DESC, id DESC
+[18-May-2025 20:01:51 Europe/Berlin] PDOException (view_cvs.php data fetch for user 6): SQLSTATE[42S22]: Column not found: 1054 Unknown column 'updated_at' in 'field list'. Query: SELECT id, emri, mbiemri, date_of_birth, selected_template, summary, updated_at 
+                FROM personal_info
+                WHERE user_id = :user_id ORDER BY updated_at DESC, id DESC
+[18-May-2025 20:20:59 Europe/Berlin] PDOException (view_cvs.php data fetch for user 6): SQLSTATE[42S22]: Column not found: 1054 Unknown column 'updated_at' in 'field list'. Query: SELECT id, emri, mbiemri, date_of_birth, selected_template, summary, updated_at
+                FROM personal_info
+                WHERE user_id = :user_id ORDER BY updated_at DESC, id DESC
+[18-May-2025 20:22:49 Europe/Berlin] PDOException (view_cvs.php data fetch for user 6): SQLSTATE[42S22]: Column not found: 1054 Unknown column 'updated_at' in 'field list'. Query: SELECT id, emri, mbiemri, date_of_birth, selected_template, summary, updated_at
+                FROM personal_info
+                WHERE user_id = :user_id ORDER BY updated_at DESC, id DESC
+[18-May-2025 22:27:17 Europe/Berlin] save_personal.php: PDOException user 10, CV ID : SQLSTATE[42S22]: Column not found: 1054 Unknown column 'phone' in 'field list'
+[18-May-2025 22:27:39 Europe/Berlin] save_personal.php: PDOException user 10, CV ID : SQLSTATE[42S22]: Column not found: 1054 Unknown column 'phone' in 'field list'
+[18-May-2025 22:30:16 Europe/Berlin] experience.php [PREREQ_FAIL]: personal_info_id missing/invalid for user 10. Value: Not Set
+[18-May-2025 22:50:15 Europe/Berlin] experience.php DB Load Error for CV ID 2: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'cv_id' in 'where clause'
+[18-May-2025 23:10:19 Europe/Berlin] DB Error checking for 'updated_at' column in view_cvs.php: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'cv_maker.personal_info' doesn't exist
+[19-May-2025 19:32:55 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\view_cvs.php on line 124
+[19-May-2025 19:32:55 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\view_cvs.php on line 125
+[19-May-2025 19:32:55 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\view_cvs.php on line 127
+[19-May-2025 19:32:55 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\view_cvs.php on line 128
+[19-May-2025 19:32:55 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\view_cvs.php on line 148
+[19-May-2025 19:32:55 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\view_cvs.php on line 149
+[19-May-2025 19:32:55 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\view_cvs.php on line 151
+[19-May-2025 19:32:55 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\view_cvs.php on line 152
+[19-May-2025 19:32:55 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\view_cvs.php on line 153
+[19-May-2025 19:32:56 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 101
+[19-May-2025 19:32:56 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 102
+[19-May-2025 19:32:56 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 104
+[19-May-2025 19:32:56 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 105
+[19-May-2025 19:32:56 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 125
+[19-May-2025 19:32:56 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 126
+[19-May-2025 19:32:56 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 128
+[19-May-2025 19:32:56 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 129
+[19-May-2025 19:32:56 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 130
+[19-May-2025 19:35:24 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 101
+[19-May-2025 19:35:24 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 102
+[19-May-2025 19:35:24 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 104
+[19-May-2025 19:35:24 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 105
+[19-May-2025 19:35:24 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 125
+[19-May-2025 19:35:24 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 126
+[19-May-2025 19:35:24 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 128
+[19-May-2025 19:35:24 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 129
+[19-May-2025 19:35:24 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 130
+[19-May-2025 19:35:33 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 101
+[19-May-2025 19:35:33 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 102
+[19-May-2025 19:35:33 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 104
+[19-May-2025 19:35:33 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 105
+[19-May-2025 19:35:33 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 125
+[19-May-2025 19:35:33 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 126
+[19-May-2025 19:35:33 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 128
+[19-May-2025 19:35:33 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 129
+[19-May-2025 19:35:33 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 130
+[19-May-2025 19:48:32 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 86
+[19-May-2025 19:48:32 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 87
+[19-May-2025 19:48:32 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 95
+[19-May-2025 19:48:32 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 96
+[19-May-2025 19:48:32 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 110
+[19-May-2025 19:48:32 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 111
+[19-May-2025 19:48:32 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 118
+[19-May-2025 19:48:32 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 119
+[19-May-2025 19:48:37 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 86
+[19-May-2025 19:48:37 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 87
+[19-May-2025 19:48:37 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 95
+[19-May-2025 19:48:37 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 96
+[19-May-2025 19:48:37 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 110
+[19-May-2025 19:48:37 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 111
+[19-May-2025 19:48:37 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 118
+[19-May-2025 19:48:37 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 119
+[19-May-2025 19:49:56 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 86
+[19-May-2025 19:49:56 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 87
+[19-May-2025 19:49:56 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 95
+[19-May-2025 19:49:56 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 96
+[19-May-2025 19:49:56 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 110
+[19-May-2025 19:49:56 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 111
+[19-May-2025 19:49:56 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 118
+[19-May-2025 19:49:56 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 119
+[19-May-2025 19:50:10 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 86
+[19-May-2025 19:50:10 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 87
+[19-May-2025 19:50:10 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 89
+[19-May-2025 19:50:10 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 90
+[19-May-2025 19:50:10 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 110
+[19-May-2025 19:50:10 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 111
+[19-May-2025 19:50:10 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 113
+[19-May-2025 19:50:10 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 114
+[19-May-2025 19:50:10 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 115
+[19-May-2025 19:51:38 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\form.php on line 220
+[19-May-2025 19:51:38 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\form.php on line 221
+[19-May-2025 19:51:38 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\form.php on line 223
+[19-May-2025 19:51:38 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\form.php on line 224
+[19-May-2025 19:51:38 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\form.php on line 244
+[19-May-2025 19:51:38 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\form.php on line 245
+[19-May-2025 19:51:38 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\form.php on line 247
+[19-May-2025 19:51:38 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\form.php on line 248
+[19-May-2025 19:51:38 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\form.php on line 249
+[19-May-2025 19:51:45 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 86
+[19-May-2025 19:51:45 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 87
+[19-May-2025 19:51:45 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 89
+[19-May-2025 19:51:45 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 90
+[19-May-2025 19:51:45 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 110
+[19-May-2025 19:51:45 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 111
+[19-May-2025 19:51:45 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 113
+[19-May-2025 19:51:45 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 114
+[19-May-2025 19:51:45 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 115
+[19-May-2025 19:51:47 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 86
+[19-May-2025 19:51:47 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 87
+[19-May-2025 19:51:47 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 89
+[19-May-2025 19:51:47 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 90
+[19-May-2025 19:51:47 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 110
+[19-May-2025 19:51:47 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 111
+[19-May-2025 19:51:47 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 113
+[19-May-2025 19:51:47 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 114
+[19-May-2025 19:51:47 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 115
+[19-May-2025 19:51:49 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 86
+[19-May-2025 19:51:49 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 87
+[19-May-2025 19:51:49 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 89
+[19-May-2025 19:51:49 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 90
+[19-May-2025 19:51:49 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 110
+[19-May-2025 19:51:49 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 111
+[19-May-2025 19:51:49 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 113
+[19-May-2025 19:51:49 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 114
+[19-May-2025 19:51:49 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 115
+[19-May-2025 19:51:49 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\view_cvs.php on line 124
+[19-May-2025 19:51:49 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\view_cvs.php on line 125
+[19-May-2025 19:51:49 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\view_cvs.php on line 127
+[19-May-2025 19:51:49 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\view_cvs.php on line 128
+[19-May-2025 19:51:49 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\view_cvs.php on line 148
+[19-May-2025 19:51:49 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\view_cvs.php on line 149
+[19-May-2025 19:51:49 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\view_cvs.php on line 151
+[19-May-2025 19:51:49 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\view_cvs.php on line 152
+[19-May-2025 19:51:49 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\view_cvs.php on line 153
+[19-May-2025 19:51:50 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\form.php on line 220
+[19-May-2025 19:51:50 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\form.php on line 221
+[19-May-2025 19:51:50 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\form.php on line 223
+[19-May-2025 19:51:50 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\form.php on line 224
+[19-May-2025 19:51:50 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\form.php on line 244
+[19-May-2025 19:51:50 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\form.php on line 245
+[19-May-2025 19:51:50 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\form.php on line 247
+[19-May-2025 19:51:50 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\form.php on line 248
+[19-May-2025 19:51:50 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\form.php on line 249
+[19-May-2025 20:12:42 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 86
+[19-May-2025 20:12:42 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 87
+[19-May-2025 20:12:42 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 89
+[19-May-2025 20:12:42 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 90
+[19-May-2025 20:12:42 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 110
+[19-May-2025 20:12:42 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 111
+[19-May-2025 20:12:42 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 113
+[19-May-2025 20:12:42 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 114
+[19-May-2025 20:12:42 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 115
+[19-May-2025 20:12:44 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\view_cvs.php on line 124
+[19-May-2025 20:12:44 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\view_cvs.php on line 125
+[19-May-2025 20:12:44 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\view_cvs.php on line 127
+[19-May-2025 20:12:44 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\view_cvs.php on line 128
+[19-May-2025 20:12:44 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\view_cvs.php on line 148
+[19-May-2025 20:12:44 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\view_cvs.php on line 149
+[19-May-2025 20:12:44 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\view_cvs.php on line 151
+[19-May-2025 20:12:44 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\view_cvs.php on line 152
+[19-May-2025 20:12:44 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\view_cvs.php on line 153
+[19-May-2025 20:21:39 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\view_cvs.php on line 124
+[19-May-2025 20:21:39 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\view_cvs.php on line 125
+[19-May-2025 20:21:39 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\view_cvs.php on line 127
+[19-May-2025 20:21:39 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\view_cvs.php on line 128
+[19-May-2025 20:21:39 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\view_cvs.php on line 148
+[19-May-2025 20:21:39 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\view_cvs.php on line 149
+[19-May-2025 20:21:39 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\view_cvs.php on line 151
+[19-May-2025 20:21:39 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\view_cvs.php on line 152
+[19-May-2025 20:21:39 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\view_cvs.php on line 153
+[19-May-2025 20:38:34 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\view_cvs.php on line 124
+[19-May-2025 20:38:34 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\view_cvs.php on line 125
+[19-May-2025 20:38:34 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\view_cvs.php on line 127
+[19-May-2025 20:38:34 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\view_cvs.php on line 128
+[19-May-2025 20:38:34 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\view_cvs.php on line 148
+[19-May-2025 20:38:34 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\view_cvs.php on line 149
+[19-May-2025 20:38:34 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\view_cvs.php on line 151
+[19-May-2025 20:38:34 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\view_cvs.php on line 152
+[19-May-2025 20:38:34 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\view_cvs.php on line 153
+[19-May-2025 20:39:07 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 160
+[19-May-2025 20:39:07 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 161
+[19-May-2025 20:39:07 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 163
+[19-May-2025 20:39:07 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 164
+[19-May-2025 20:39:07 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 184
+[19-May-2025 20:39:07 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 185
+[19-May-2025 20:39:07 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 187
+[19-May-2025 20:39:07 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 188
+[19-May-2025 20:39:07 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 189
+[19-May-2025 20:39:22 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\form.php on line 220
+[19-May-2025 20:39:22 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\form.php on line 221
+[19-May-2025 20:39:22 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\form.php on line 223
+[19-May-2025 20:39:22 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\form.php on line 224
+[19-May-2025 20:39:22 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\form.php on line 244
+[19-May-2025 20:39:22 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\form.php on line 245
+[19-May-2025 20:39:22 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\form.php on line 247
+[19-May-2025 20:39:22 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\form.php on line 248
+[19-May-2025 20:39:22 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\form.php on line 249
+[19-May-2025 20:39:39 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\experience.php on line 193
+[19-May-2025 20:39:39 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\experience.php on line 194
+[19-May-2025 20:39:39 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\experience.php on line 196
+[19-May-2025 20:39:39 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\experience.php on line 197
+[19-May-2025 20:39:39 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\experience.php on line 217
+[19-May-2025 20:39:39 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\experience.php on line 218
+[19-May-2025 20:39:39 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\experience.php on line 220
+[19-May-2025 20:39:39 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\experience.php on line 221
+[19-May-2025 20:39:39 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\experience.php on line 222
+[19-May-2025 20:39:52 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\experience.php on line 193
+[19-May-2025 20:39:52 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\experience.php on line 194
+[19-May-2025 20:39:52 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\experience.php on line 196
+[19-May-2025 20:39:52 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\experience.php on line 197
+[19-May-2025 20:39:52 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\experience.php on line 217
+[19-May-2025 20:39:52 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\experience.php on line 218
+[19-May-2025 20:39:52 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\experience.php on line 220
+[19-May-2025 20:39:52 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\experience.php on line 221
+[19-May-2025 20:39:52 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\experience.php on line 222
+[19-May-2025 20:39:57 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\experience.php on line 193
+[19-May-2025 20:39:57 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\experience.php on line 194
+[19-May-2025 20:39:57 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\experience.php on line 196
+[19-May-2025 20:39:57 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\experience.php on line 197
+[19-May-2025 20:39:57 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\experience.php on line 217
+[19-May-2025 20:39:57 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\experience.php on line 218
+[19-May-2025 20:39:57 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\experience.php on line 220
+[19-May-2025 20:39:57 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\experience.php on line 221
+[19-May-2025 20:39:57 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\experience.php on line 222
+[19-May-2025 20:40:09 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\experience.php on line 193
+[19-May-2025 20:40:09 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\experience.php on line 194
+[19-May-2025 20:40:09 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\experience.php on line 196
+[19-May-2025 20:40:09 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\experience.php on line 197
+[19-May-2025 20:40:09 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\experience.php on line 217
+[19-May-2025 20:40:09 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\experience.php on line 218
+[19-May-2025 20:40:09 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\experience.php on line 220
+[19-May-2025 20:40:09 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\experience.php on line 221
+[19-May-2025 20:40:09 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\experience.php on line 222
+[19-May-2025 20:47:31 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\view_cvs.php on line 124
+[19-May-2025 20:47:31 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\view_cvs.php on line 125
+[19-May-2025 20:47:31 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\view_cvs.php on line 127
+[19-May-2025 20:47:31 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\view_cvs.php on line 128
+[19-May-2025 20:47:31 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\view_cvs.php on line 148
+[19-May-2025 20:47:31 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\view_cvs.php on line 149
+[19-May-2025 20:47:31 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\view_cvs.php on line 151
+[19-May-2025 20:47:31 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\view_cvs.php on line 152
+[19-May-2025 20:47:31 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\view_cvs.php on line 153
+[19-May-2025 20:47:32 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 101
+[19-May-2025 20:47:32 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 102
+[19-May-2025 20:47:32 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 104
+[19-May-2025 20:47:32 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 105
+[19-May-2025 20:47:32 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 125
+[19-May-2025 20:47:32 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 126
+[19-May-2025 20:47:32 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 128
+[19-May-2025 20:47:32 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 129
+[19-May-2025 20:47:32 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 130
+[19-May-2025 20:47:42 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 86
+[19-May-2025 20:47:42 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 87
+[19-May-2025 20:47:42 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 89
+[19-May-2025 20:47:42 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 90
+[19-May-2025 20:47:42 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 110
+[19-May-2025 20:47:42 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 111
+[19-May-2025 20:47:42 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 113
+[19-May-2025 20:47:42 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 114
+[19-May-2025 20:47:42 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 115
+[19-May-2025 20:47:53 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 101
+[19-May-2025 20:47:53 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 102
+[19-May-2025 20:47:53 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 104
+[19-May-2025 20:47:53 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 105
+[19-May-2025 20:47:53 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 125
+[19-May-2025 20:47:53 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 126
+[19-May-2025 20:47:53 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 128
+[19-May-2025 20:47:53 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 129
+[19-May-2025 20:47:53 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 130
+[19-May-2025 20:48:13 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 86
+[19-May-2025 20:48:13 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 87
+[19-May-2025 20:48:13 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 89
+[19-May-2025 20:48:13 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 90
+[19-May-2025 20:48:13 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 110
+[19-May-2025 20:48:13 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 111
+[19-May-2025 20:48:13 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 113
+[19-May-2025 20:48:13 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 114
+[19-May-2025 20:48:13 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 115
+[19-May-2025 20:48:14 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\form.php on line 220
+[19-May-2025 20:48:14 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\form.php on line 221
+[19-May-2025 20:48:14 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\form.php on line 223
+[19-May-2025 20:48:14 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\form.php on line 224
+[19-May-2025 20:48:14 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\form.php on line 244
+[19-May-2025 20:48:14 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\form.php on line 245
+[19-May-2025 20:48:14 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\form.php on line 247
+[19-May-2025 20:48:14 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\form.php on line 248
+[19-May-2025 20:48:14 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\form.php on line 249
+[19-May-2025 20:50:45 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 101
+[19-May-2025 20:50:45 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 102
+[19-May-2025 20:50:45 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 104
+[19-May-2025 20:50:45 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 105
+[19-May-2025 20:50:45 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 125
+[19-May-2025 20:50:45 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 126
+[19-May-2025 20:50:45 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 128
+[19-May-2025 20:50:45 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 129
+[19-May-2025 20:50:45 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 130
+[19-May-2025 21:06:57 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 86
+[19-May-2025 21:06:57 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 87
+[19-May-2025 21:06:57 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 95
+[19-May-2025 21:06:57 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 96
+[19-May-2025 21:06:57 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 110
+[19-May-2025 21:06:57 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 111
+[19-May-2025 21:06:57 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 118
+[19-May-2025 21:06:57 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 119
+[19-May-2025 21:07:21 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 86
+[19-May-2025 21:07:21 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 87
+[19-May-2025 21:07:21 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 95
+[19-May-2025 21:07:21 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 96
+[19-May-2025 21:07:21 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 110
+[19-May-2025 21:07:21 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 111
+[19-May-2025 21:07:21 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 118
+[19-May-2025 21:07:21 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 119
+[19-May-2025 21:07:54 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 86
+[19-May-2025 21:07:54 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 87
+[19-May-2025 21:07:54 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 95
+[19-May-2025 21:07:54 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 96
+[19-May-2025 21:07:54 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 110
+[19-May-2025 21:07:54 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 111
+[19-May-2025 21:07:54 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 118
+[19-May-2025 21:07:54 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 119
+[19-May-2025 21:25:52 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\view_cvs.php on line 126
+[19-May-2025 21:25:52 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\view_cvs.php on line 127
+[19-May-2025 21:25:52 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\view_cvs.php on line 129
+[19-May-2025 21:25:52 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\view_cvs.php on line 130
+[19-May-2025 21:25:52 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\view_cvs.php on line 150
+[19-May-2025 21:25:52 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\view_cvs.php on line 151
+[19-May-2025 21:25:52 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\view_cvs.php on line 153
+[19-May-2025 21:25:52 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\view_cvs.php on line 154
+[19-May-2025 21:25:52 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\view_cvs.php on line 155
+[19-May-2025 21:25:54 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 88
+[19-May-2025 21:25:54 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 89
+[19-May-2025 21:25:54 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 91
+[19-May-2025 21:25:54 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 92
+[19-May-2025 21:25:54 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 112
+[19-May-2025 21:25:54 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 113
+[19-May-2025 21:25:54 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 115
+[19-May-2025 21:25:54 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 116
+[19-May-2025 21:25:54 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 117
+[19-May-2025 21:25:55 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\form.php on line 222
+[19-May-2025 21:25:55 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\form.php on line 223
+[19-May-2025 21:25:55 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\form.php on line 225
+[19-May-2025 21:25:55 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\form.php on line 226
+[19-May-2025 21:25:55 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\form.php on line 246
+[19-May-2025 21:25:55 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\form.php on line 247
+[19-May-2025 21:25:55 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\form.php on line 249
+[19-May-2025 21:25:55 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\form.php on line 250
+[19-May-2025 21:25:55 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\form.php on line 251
+[19-May-2025 21:26:04 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 88
+[19-May-2025 21:26:04 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 89
+[19-May-2025 21:26:04 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 91
+[19-May-2025 21:26:04 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 92
+[19-May-2025 21:26:04 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 112
+[19-May-2025 21:26:04 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 113
+[19-May-2025 21:26:04 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 115
+[19-May-2025 21:26:04 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 116
+[19-May-2025 21:26:04 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 117
+[19-May-2025 21:26:11 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 88
+[19-May-2025 21:26:11 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 89
+[19-May-2025 21:26:11 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 91
+[19-May-2025 21:26:11 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 92
+[19-May-2025 21:26:11 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 112
+[19-May-2025 21:26:11 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 113
+[19-May-2025 21:26:11 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 115
+[19-May-2025 21:26:11 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 116
+[19-May-2025 21:26:11 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 117
+[19-May-2025 21:26:13 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\form.php on line 222
+[19-May-2025 21:26:13 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\form.php on line 223
+[19-May-2025 21:26:13 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\form.php on line 225
+[19-May-2025 21:26:13 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\form.php on line 226
+[19-May-2025 21:26:13 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\form.php on line 246
+[19-May-2025 21:26:13 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\form.php on line 247
+[19-May-2025 21:26:13 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\form.php on line 249
+[19-May-2025 21:26:13 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\form.php on line 250
+[19-May-2025 21:26:13 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\form.php on line 251
+[19-May-2025 21:26:31 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\form.php on line 222
+[19-May-2025 21:26:31 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\form.php on line 223
+[19-May-2025 21:26:31 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\form.php on line 225
+[19-May-2025 21:26:31 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\form.php on line 226
+[19-May-2025 21:26:31 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\form.php on line 246
+[19-May-2025 21:26:31 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\form.php on line 247
+[19-May-2025 21:26:31 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\form.php on line 249
+[19-May-2025 21:26:31 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\form.php on line 250
+[19-May-2025 21:26:31 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\form.php on line 251
+[20-May-2025 06:52:22 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 88
+[20-May-2025 06:52:22 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 89
+[20-May-2025 06:52:22 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 97
+[20-May-2025 06:52:22 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 98
+[20-May-2025 06:52:22 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 112
+[20-May-2025 06:52:22 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 113
+[20-May-2025 06:52:22 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 120
+[20-May-2025 06:52:22 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 121
+[20-May-2025 07:47:33 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 88
+[20-May-2025 07:47:33 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 89
+[20-May-2025 07:47:33 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 97
+[20-May-2025 07:47:33 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 98
+[20-May-2025 07:47:33 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 112
+[20-May-2025 07:47:33 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 113
+[20-May-2025 07:47:33 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 120
+[20-May-2025 07:47:33 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 121
+[20-May-2025 07:51:43 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 88
+[20-May-2025 07:51:43 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 89
+[20-May-2025 07:51:43 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 97
+[20-May-2025 07:51:43 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 98
+[20-May-2025 07:51:43 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 112
+[20-May-2025 07:51:43 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 113
+[20-May-2025 07:51:43 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 120
+[20-May-2025 07:51:43 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 121
+[20-May-2025 08:43:17 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 103
+[20-May-2025 08:43:17 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 104
+[20-May-2025 08:43:17 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 106
+[20-May-2025 08:43:17 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 107
+[20-May-2025 08:43:17 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 127
+[20-May-2025 08:43:17 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 128
+[20-May-2025 08:43:17 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 130
+[20-May-2025 08:43:17 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 131
+[20-May-2025 08:43:17 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 132
+[20-May-2025 08:43:25 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 103
+[20-May-2025 08:43:25 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 104
+[20-May-2025 08:43:25 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 106
+[20-May-2025 08:43:25 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 107
+[20-May-2025 08:43:25 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 127
+[20-May-2025 08:43:25 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 128
+[20-May-2025 08:43:25 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 130
+[20-May-2025 08:43:25 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 131
+[20-May-2025 08:43:25 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 132
+[20-May-2025 08:43:28 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 88
+[20-May-2025 08:43:28 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 89
+[20-May-2025 08:43:28 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 91
+[20-May-2025 08:43:28 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 92
+[20-May-2025 08:43:28 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 112
+[20-May-2025 08:43:28 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 113
+[20-May-2025 08:43:28 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 115
+[20-May-2025 08:43:28 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 116
+[20-May-2025 08:43:28 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\choose_template.php on line 117
+[20-May-2025 08:43:29 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\view_cvs.php on line 126
+[20-May-2025 08:43:29 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\view_cvs.php on line 127
+[20-May-2025 08:43:29 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\view_cvs.php on line 129
+[20-May-2025 08:43:29 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\view_cvs.php on line 130
+[20-May-2025 08:43:29 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\view_cvs.php on line 150
+[20-May-2025 08:43:29 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\view_cvs.php on line 151
+[20-May-2025 08:43:29 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\view_cvs.php on line 153
+[20-May-2025 08:43:29 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\view_cvs.php on line 154
+[20-May-2025 08:43:29 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\view_cvs.php on line 155
+[20-May-2025 08:44:43 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 103
+[20-May-2025 08:44:43 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 104
+[20-May-2025 08:44:43 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 106
+[20-May-2025 08:44:43 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 107
+[20-May-2025 08:44:43 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 127
+[20-May-2025 08:44:43 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 128
+[20-May-2025 08:44:43 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 130
+[20-May-2025 08:44:43 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 131
+[20-May-2025 08:44:43 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\profile.php on line 132
+[20-May-2025 12:25:06 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 162
+[20-May-2025 12:25:06 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 163
+[20-May-2025 12:25:06 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 165
+[20-May-2025 12:25:06 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 166
+[20-May-2025 12:25:06 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 186
+[20-May-2025 12:25:06 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 187
+[20-May-2025 12:25:06 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 189
+[20-May-2025 12:25:06 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 190
+[20-May-2025 12:25:06 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 191
+[20-May-2025 12:40:42 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 162
+[20-May-2025 12:40:42 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 163
+[20-May-2025 12:40:42 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 165
+[20-May-2025 12:40:42 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 166
+[20-May-2025 12:40:42 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 186
+[20-May-2025 12:40:42 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 187
+[20-May-2025 12:40:42 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 189
+[20-May-2025 12:40:42 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 190
+[20-May-2025 12:40:42 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 191
+[20-May-2025 12:47:52 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 162
+[20-May-2025 12:47:52 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 163
+[20-May-2025 12:47:52 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 165
+[20-May-2025 12:47:52 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 166
+[20-May-2025 12:47:52 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 186
+[20-May-2025 12:47:52 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 187
+[20-May-2025 12:47:52 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 189
+[20-May-2025 12:47:52 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 190
+[20-May-2025 12:47:52 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 191
+[20-May-2025 12:47:53 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 162
+[20-May-2025 12:47:53 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 163
+[20-May-2025 12:47:53 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 165
+[20-May-2025 12:47:53 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 166
+[20-May-2025 12:47:53 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 186
+[20-May-2025 12:47:53 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 187
+[20-May-2025 12:47:53 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 189
+[20-May-2025 12:47:53 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 190
+[20-May-2025 12:47:53 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 191
+[20-May-2025 12:47:53 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 162
+[20-May-2025 12:47:53 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 163
+[20-May-2025 12:47:53 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 165
+[20-May-2025 12:47:53 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 166
+[20-May-2025 12:47:53 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 186
+[20-May-2025 12:47:53 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 187
+[20-May-2025 12:47:53 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 189
+[20-May-2025 12:47:53 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 190
+[20-May-2025 12:47:53 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 191
+[20-May-2025 12:47:54 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 162
+[20-May-2025 12:47:54 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 163
+[20-May-2025 12:47:54 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 165
+[20-May-2025 12:47:54 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 166
+[20-May-2025 12:47:54 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 186
+[20-May-2025 12:47:54 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 187
+[20-May-2025 12:47:54 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 189
+[20-May-2025 12:47:54 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 190
+[20-May-2025 12:47:54 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 191
+[20-May-2025 12:47:56 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 162
+[20-May-2025 12:47:56 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 163
+[20-May-2025 12:47:56 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 165
+[20-May-2025 12:47:56 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 166
+[20-May-2025 12:47:56 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 186
+[20-May-2025 12:47:56 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 187
+[20-May-2025 12:47:56 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 189
+[20-May-2025 12:47:56 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 190
+[20-May-2025 12:47:56 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 191
+[20-May-2025 12:48:12 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 162
+[20-May-2025 12:48:12 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 163
+[20-May-2025 12:48:12 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 165
+[20-May-2025 12:48:12 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 166
+[20-May-2025 12:48:12 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 186
+[20-May-2025 12:48:12 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 187
+[20-May-2025 12:48:12 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 189
+[20-May-2025 12:48:12 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 190
+[20-May-2025 12:48:12 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 191
+[20-May-2025 13:58:52 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 162
+[20-May-2025 13:58:52 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 163
+[20-May-2025 13:58:52 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 165
+[20-May-2025 13:58:52 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 166
+[20-May-2025 13:58:52 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 186
+[20-May-2025 13:58:52 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 187
+[20-May-2025 13:58:52 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 189
+[20-May-2025 13:58:52 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 190
+[20-May-2025 13:58:52 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\preview_cv.php on line 191
+[20-May-2025 17:38:13 Europe/Berlin] Profile Fetch Error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'registration_date' in 'field list'
+[20-May-2025 17:38:15 Europe/Berlin] Profile Fetch Error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'registration_date' in 'field list'
+[20-May-2025 17:41:21 Europe/Berlin] Delete Profile Error: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'cv_maker.personal_details' doesn't exist
+[20-May-2025 17:41:22 Europe/Berlin] Delete Profile Error: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'cv_maker.personal_details' doesn't exist
+[20-May-2025 17:41:23 Europe/Berlin] Delete Profile Error: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'cv_maker.personal_details' doesn't exist
+[20-May-2025 17:42:38 Europe/Berlin] Delete Profile Error: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'cv_maker.personal_details' doesn't exist
+[20-May-2025 17:42:40 Europe/Berlin] Delete Profile Error: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'cv_maker.personal_details' doesn't exist
+[20-May-2025 17:42:41 Europe/Berlin] Delete Profile Error: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'cv_maker.personal_details' doesn't exist
+[20-May-2025 17:42:43 Europe/Berlin] Delete Profile Error: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'cv_maker.personal_details' doesn't exist
+[21-May-2025 13:18:25 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\experience.php on line 195
+[21-May-2025 13:18:25 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\experience.php on line 196
+[21-May-2025 13:18:25 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\experience.php on line 198
+[21-May-2025 13:18:25 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\experience.php on line 199
+[21-May-2025 13:18:25 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\experience.php on line 226
+[21-May-2025 13:18:25 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\experience.php on line 227
+[21-May-2025 13:18:25 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\experience.php on line 229
+[21-May-2025 13:18:25 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\experience.php on line 230
+[21-May-2025 13:18:25 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\experience.php on line 231
+[21-May-2025 13:18:31 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\experience.php on line 195
+[21-May-2025 13:18:31 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\experience.php on line 196
+[21-May-2025 13:18:31 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\experience.php on line 198
+[21-May-2025 13:18:31 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\experience.php on line 199
+[21-May-2025 13:18:31 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\experience.php on line 226
+[21-May-2025 13:18:31 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\experience.php on line 227
+[21-May-2025 13:18:31 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\experience.php on line 229
+[21-May-2025 13:18:31 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\experience.php on line 230
+[21-May-2025 13:18:31 Europe/Berlin] PHP Warning:  Undefined variable $current_page in C:\xampp\htdocs\cv_maker\experience.php on line 231

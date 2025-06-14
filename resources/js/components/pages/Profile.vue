@@ -1,0 +1,1 @@
+<template><div class="page-container glassmorphic-card"><h1>Profili Im</h1><p>Modifikoni profilin tuaj këtu</p></div></template><script>export default { name: "Profile" }</script><style>.page-container { padding: 40px; }</style>
