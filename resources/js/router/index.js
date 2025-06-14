@@ -7,6 +7,7 @@ import Login from '../components/auth/Login.vue'
 import Register from '../components/auth/Register.vue'
 import Dashboard from '../components/pages/Dashboard.vue'
 import Templates from '../components/pages/Templates.vue'
+import Profile from '../components/pages/Profile.vue'
 import CreateCV from '../components/pages/CreateCV.vue'
 import EditCV from '../components/pages/EditCV.vue'
 
@@ -30,6 +31,12 @@ const routes = [
     path: '/faq',
     name: 'faq',
     component: FAQ
+  },
+  {
+    path: '/profile',
+    name: 'profile',
+    component: Profile,
+    meta: { requiresAuth: true }
   },
   {
     path: '/login',

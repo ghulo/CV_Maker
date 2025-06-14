@@ -14,10 +14,12 @@
         <router-link to="/about" :class="{ active: $route.name === 'about' }">About Us</router-link>
         <router-link to="/contact" :class="{ active: $route.name === 'contact' }">Contact</router-link>
         <router-link to="/faq" :class="{ active: $route.name === 'faq' }">FAQ</router-link>
-        <router-link to="/templates" :class="{ active: $route.name === 'templates' }">Templates</router-link>
+        <template v-if="isAuthenticated">
+          <router-link to="/dashboard" class="nav-link" active-class="active">Dashboard</router-link>
+          <router-link to="/templates" class="nav-link" active-class="active">Templates</router-link>
+        </template>
         <router-link v-if="!isAuthenticated" to="/login" class="auth-link login-link">Login</router-link>
         <router-link v-if="!isAuthenticated" to="/register" class="auth-link signup-link btn">Sign Up</router-link>
-        <router-link v-if="isAuthenticated" to="/dashboard" class="auth-link">Dashboard</router-link>
         <button v-if="isAuthenticated" @click="logout" class="auth-link logout-btn">Logout</button>
       </nav>
 

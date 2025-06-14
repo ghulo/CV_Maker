@@ -1,1 +1,0 @@
-<template><div class="page-container glassmorphic-card"><h1>CV-të e Mia</h1><p>Lista e CV-ve tuaja do të jetë këtu</p></div></template><script>export default { name: "MyCVs" }</script><style>.page-container { padding: 40px; }</style>
