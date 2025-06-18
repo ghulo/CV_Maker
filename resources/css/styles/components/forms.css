@@ -1,0 +1,289 @@
+/* Form Container Specifics */
+.login-form-container, .signup-form-container, .contact-form-container, .cv-form {
+    padding: var(--space-xl) var(--space-lg);
+    max-width: 700px;
+    margin-left: auto; margin-right: auto;
+    margin-top: var(--space-xl);
+    margin-bottom: var(--space-xl);
+}
+.contact-form-container {
+    max-width: 700px;
+}
+
+.form-intro-text, .page-intro-text {
+    font-size: 1em;
+    color: var(--muted-text);
+    text-align: center;
+    margin-bottom: var(--space-lg);
+    line-height: 1.5;
+    max-width: 600px;
+    margin-left: auto; margin-right: auto;
+}
+
+.form-group {
+    margin-bottom: var(--space-md);
+}
+.form-group label {
+    font-weight: 500;
+    font-size: 0.9em;
+    margin-bottom: var(--space-xs);
+    display: block;
+    color: var(--neutral-text);
+}
+
+.form-group input, .form-group textarea, .form-group select {
+    padding: var(--space-sm) var(--space-md);
+    font-size: 1em;
+    width: 100%;
+    border: 1px solid var(--neutral-border);
+    border-radius: var(--radius-sm);
+    background-color: var(--neutral-light);
+    color: var(--neutral-text);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+}
+.form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+    border-color: var(--primary);
+    outline: none;
+    box-shadow: 0 0 0 1px var(--form-focus-glow-light);
+}
+
+/* Enhanced focus-visible for accessibility */
+.form-group input:focus-visible,
+.form-group textarea:focus-visible,
+.form-group select:focus-visible,
+.btn:focus-visible,
+a.btn:focus-visible,
+button:focus-visible,
+#theme-toggle-button:focus-visible,
+#mobile-menu-toggle:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(var(--primary-rgb), 0.3);
+}
+
+.input-icon-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+.input-icon-wrapper input {
+    padding-left: var(--space-xl);
+}
+.input-icon {
+    position: absolute;
+    left: var(--space-sm);
+    color: var(--muted-text);
+    font-size: 1em;
+}
+
+.form-group textarea {
+    min-height: 100px;
+    line-height: 1.5;
+}
+.form-field-description { font-size:0.85em; color: var(--muted-text); margin-top: var(--space-xs); }
+
+.btn-primary-form {
+    width: 100%;
+    padding: var(--space-md);
+    font-size: 1.05em;
+    font-weight: 600;
+    margin-top: var(--space-sm);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+}
+.icon-right {
+    margin-left: var(--space-xs);
+    transition: transform 0.2s ease;
+}
+.btn-primary-form:hover .icon-right {
+    transform: translateX(3px);
+}
+
+.form-alternate-action {
+    text-align: center;
+    margin-top: var(--space-lg);
+    font-size: 0.9em;
+    color: var(--muted-text);
+}
+.form-alternate-action a {
+    color: var(--primary);
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.2s ease, text-decoration 0.2s ease;
+    position: relative; /* For animated underline */
+}
+/* Animated underline for form alternate action links */
+.form-alternate-action a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: var(--link-underline-thickness);
+    background-color: var(--link-underline-color);
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform 0.3s var(--animation-ease-out);
+    border-radius: 1px;
+}
+.form-alternate-action a:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+.form-alternate-action a:hover {
+    text-decoration: none; /* Removed default underline to use custom one */
+}
+.form-actions-sticky {
+    margin-top: var(--space-xl);
+    padding-top: var(--space-lg);
+    border-top: 1px solid var(--divider-color);
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+}
+
+/* General Message Styling (for form feedback, page alerts, etc.) */
+.message {
+    padding: 12px 20px; /* More padding */
+    margin-bottom: var(--space-md);
+    border-radius: var(--radius-sm);
+    font-size: 0.95em; /* Slightly larger font */
+    text-align: center;
+    border: 1px solid transparent;
+    display: block; /* Default to block, JS might hide/show */
+    opacity: 1;
+    transition: opacity 0.5s ease-out; /* Smooth fade out */
+    word-break: break-word; /* Prevent overflow */
+}
+
+.message.fade-out {
+    opacity: 0;
+}
+
+.message.success {
+    background-color: var(--message-success-bg);
+    color: var(--message-success-color);
+    border-color: var(--message-success-border);
+}
+.message.error {
+    background-color: var(--message-error-bg);
+    color: var(--message-error-color);
+    border-color: var(--message-error-border);
+}
+.message.info {
+    background-color: var(--message-info-bg);
+    color: var(--message-info-color);
+    border-color: var(--message-info-border);
+}
+
+/* Added utility for form validation feedback */
+.form-group.has-error input,
+.form-group.has-error textarea,
+.form-group.has-error select {
+    border-color: var(--tertiary-accent);
+    box-shadow: 0 0 0 4px rgba(249, 50, 90, 0.25);
+}
+
+/* Form Sections */
+.form-section {
+    margin-bottom: var(--space-xl);
+}
+.form-section:last-child {
+    margin-bottom: 0;
+}
+.form-section h3 {
+    color: var(--primary);
+    border-bottom-color: var(--divider-color);
+}
+/* Autofill styles */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+    -webkit-text-fill-color: var(--neutral-text) !important; /* Ensure text color */
+    -webkit-box-shadow: 0 0 0px 1000px var(--neutral-light) inset; /* Change background */
+    background-color: var(--neutral-light) !important; /* Explicitly set background */
+    transition: background-color 5000s ease-in-out 0s;
+    caret-color: var(--neutral-text); /* Ensure caret color */
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+    .form-intro-text, .page-intro-text {
+        font-size: 0.95em;
+        margin-bottom: var(--space-md);
+    }
+    .btn-primary-form {
+        padding: var(--space-md);
+        font-size: 1em;
+    }
+}
+
+/* Floating Label Specific Styles */
+.form-group--floating {
+    position: relative;
+    margin-bottom: var(--space-lg); /* Adjust margin for floating label */
+}
+
+.form-group--floating label {
+    position: absolute;
+    left: var(--space-md); /* Align with input text */
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--muted-text);
+    font-size: 1em; /* Initial font size */
+    pointer-events: none;
+    transition: all 0.2s var(--animation-ease-out);
+    background-color: transparent; /* Ensure no background interference */
+    padding: 0 4px; /* Small padding for background when floated */
+    z-index: 1;
+}
+
+.form-group--floating input,
+.form-group--floating textarea,
+.form-group--floating select {
+    padding: var(--space-md) var(--space-md) var(--space-sm) var(--space-md); /* Adjust padding for floated label */
+    height: 50px; /* Standardize height for consistent floating */
+}
+
+/* When input is focused or has content (placeholder-shown is important) */
+.form-group--floating input:focus + label,
+.form-group--floating input:not(:placeholder-shown) + label,
+.form-group--floating textarea:focus + label,
+.form-group--floating textarea:not(:placeholder-shown) + label,
+.form-group--floating select:focus + label,
+.form-group--floating select:not(:placeholder-shown) + label {
+    top: 0; /* Move to top */
+    font-size: 0.75em; /* Shrink font size */
+    color: var(--primary); /* Change color */
+    transform: translateY(-50%) translateX(-4px); /* Adjust position slightly */
+    background-color: var(--neutral-light); /* Background to hide input border */
+    padding: 0 6px; /* Slightly more padding for clarity */
+    z-index: 2;
+}
+
+/* Dark theme adjustments for floating labels */
+body.dark-theme .form-group--floating label {
+    color: var(--dark-muted-text);
+}
+
+body.dark-theme .form-group--floating input:focus + label,
+body.dark-theme .form-group--floating input:not(:placeholder-shown) + label,
+body.dark-theme .form-group--floating textarea:focus + label,
+body.dark-theme .form-group--floating textarea:not(:placeholder-shown) + label,
+body.dark-theme .form-group--floating select:focus + label,
+body.dark-theme .form-group--floating select:not(:placeholder-shown) + label {
+    color: var(--dark-primary);
+    background-color: var(--dark-neutral-bg);
+}

@@ -44,6 +44,6 @@ class Skill extends Model
      */
     public function cv(): BelongsTo // Add this method
     {
-        return $this->belongsTo(CV::class);
+        return $this->belongsTo(Cv::class);
     }
 }

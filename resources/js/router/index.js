@@ -15,83 +15,83 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: Homepage
+    component: Homepage,
   },
   {
     path: '/about',
     name: 'about',
-    component: AboutUs
+    component: AboutUs,
   },
   {
     path: '/contact',
     name: 'contact',
-    component: Contact
+    component: Contact,
   },
   {
     path: '/faq',
     name: 'faq',
-    component: FAQ
+    component: FAQ,
   },
   {
     path: '/profile',
     name: 'profile',
     component: Profile,
-    meta: { requiresAuth: true }
+    meta: { requiresAuth: true },
   },
   {
     path: '/login',
     name: 'login',
     component: Login,
-    meta: { requiresGuest: true }
+    meta: { requiresGuest: true },
   },
   {
     path: '/register',
     name: 'register',
     component: Register,
-    meta: { requiresGuest: true }
+    meta: { requiresGuest: true },
   },
   {
     path: '/dashboard',
     name: 'dashboard',
     component: Dashboard,
-    meta: { requiresAuth: true }
+    meta: { requiresAuth: true },
   },
   {
     path: '/templates',
     name: 'templates',
-    component: Templates
+    component: Templates,
   },
   {
     path: '/cv/create',
     name: 'cv.create',
     component: CreateCV,
-    meta: { requiresAuth: true }
+    meta: { requiresAuth: true },
   },
   {
     path: '/cv/:id/edit',
     name: 'cv.edit',
     component: EditCV,
     meta: { requiresAuth: true },
-    props: true
+    props: true,
   },
   {
     path: '/cv/:id/preview',
     name: 'cv.preview',
     component: () => import('../components/pages/PreviewCV.vue'),
     meta: { requiresAuth: true },
-    props: true
-  }
+    props: true,
+  },
 ]
 
 const router = createRouter({
   history: createWebHistory(),
-  routes
+  routes,
 })
 
 // Navigation guards for authentication
 router.beforeEach((to, from, next) => {
   const isAuthenticated = !!localStorage.getItem('auth_token')
-  
+
   if (to.meta.requiresAuth && !isAuthenticated) {
     next({ name: 'login', query: { redirect: to.fullPath } })
   } else if (to.meta.requiresGuest && isAuthenticated) {

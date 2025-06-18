@@ -13,8 +13,8 @@
             </router-link>
           </div>
           <p class="footer-about-text">
-            Craft professional CVs with ease. Our tools and templates help you
-            stand out and land your dream job.
+            Craft professional CVs with ease. Our tools and templates help you stand out and land
+            your dream job.
           </p>
         </div>
 
@@ -60,23 +60,23 @@
 </template>
 
 <script>
-export default {
-  name: "Footer",
-};
+  export default {
+    name: 'AppFooter',
+  }
 </script>
 
 <style scoped>
-/*
+  /*
   This scoped style block ensures these styles ONLY apply to this component.
   This is a surgical fix for the scroll-reveal animation issue without
   touching the main, fragile app.css file.
 */
-.reveal-on-scroll.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
+  .reveal-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
 
-.site-footer {
+  .site-footer {
     background: var(--footer-bg);
     color: var(--footer-text);
     padding: var(--space-xl) var(--space-lg);
@@ -84,68 +84,72 @@ export default {
     margin-top: auto; /* Push footer to the bottom */
     width: 100%;
     flex-shrink: 0; /* Prevent footer from shrinking */
-    transition: background var(--theme-transition-duration) ease, color var(--theme-transition-duration) ease, border-color var(--theme-transition-duration) ease;
-}
+    transition:
+      background var(--theme-transition-duration) ease,
+      color var(--theme-transition-duration) ease,
+      border-color var(--theme-transition-duration) ease;
+  }
 
-.footer-container {
+  .footer-container {
     max-width: 1200px;
     margin: 0 auto;
-}
+  }
 
-.footer-grid {
+  .footer-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: var(--space-xl);
     text-align: left;
     margin-bottom: var(--space-xl);
-}
+  }
 
-.footer-column-title {
+  .footer-column-title {
     font-size: 1.1em;
     font-weight: 600;
     margin-bottom: var(--space-md);
     color: var(--neutral-text);
-}
+  }
 
-body.dark-theme .footer-column-title {
+  body.dark-theme .footer-column-title {
     color: var(--dark-neutral-text);
-}
+  }
 
-.footer-links-list {
+  .footer-links-list {
     list-style: none;
     padding: 0;
     margin: 0;
-}
+  }
 
-.footer-links-list li {
+  .footer-links-list li {
     margin-bottom: var(--space-sm);
-}
+  }
 
-.footer-links-list a {
+  .footer-links-list a {
     color: var(--footer-link-color);
     text-decoration: none;
     transition: color 0.2s;
-}
+  }
 
-.footer-links-list a:hover {
+  .footer-links-list a:hover {
     color: var(--footer-link-hover-color);
-}
+  }
 
-.footer-about-text, .footer-subtitle {
+  .footer-about-text,
+  .footer-subtitle {
     font-size: 0.9em;
     color: var(--muted-text);
     line-height: 1.6;
-}
+  }
 
-.footer-logo-link-style {
+  .footer-logo-link-style {
     display: flex;
     align-items: center;
     gap: var(--space-sm);
     text-decoration: none;
     margin-bottom: var(--space-md);
-}
+  }
 
-.footer-gemini-icon {
+  .footer-gemini-icon {
     width: 40px;
     height: 40px;
     background-color: var(--primary);
@@ -157,50 +161,50 @@ body.dark-theme .footer-column-title {
     align-items: center;
     border-radius: var(--radius-sm);
     flex-shrink: 0;
-}
+  }
 
-.footer-logo-text h3 {
+  .footer-logo-text h3 {
     font-size: 1.2em;
     font-weight: 800;
     line-height: 1;
     margin: 0;
     color: var(--neutral-text);
-}
+  }
 
-body.dark-theme .footer-logo-text h3 {
+  body.dark-theme .footer-logo-text h3 {
     color: var(--dark-neutral-text);
-}
+  }
 
-.footer-social-links {
+  .footer-social-links {
     display: flex;
     gap: var(--space-md);
-}
+  }
 
-.footer-social-links a {
+  .footer-social-links a {
     color: var(--muted-text);
     font-size: 1.2em;
     transition: color 0.2s ease;
-}
+  }
 
-.footer-social-links a:hover {
+  .footer-social-links a:hover {
     color: var(--primary);
-}
+  }
 
-body.dark-theme .footer-social-links a:hover {
+  body.dark-theme .footer-social-links a:hover {
     color: var(--dark-primary);
-}
+  }
 
-.footer-bottom {
+  .footer-bottom {
     margin-top: var(--space-xl);
     padding-top: var(--space-xl);
     border-top: 1px solid var(--divider-color);
     text-align: center;
     font-size: 0.85em;
     color: var(--muted-text);
-}
+  }
 
-body.dark-theme .footer-bottom {
+  body.dark-theme .footer-bottom {
     border-top-color: var(--dark-divider-color);
     color: var(--dark-muted-text);
-}
+  }
 </style>

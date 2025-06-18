@@ -42,6 +42,7 @@ class Cv extends Model
         'marital_status',
         'driving_license',
         'selected_template',
+        'is_finalized',
     ];
 
     /**
@@ -53,6 +54,7 @@ class Cv extends Model
         'views' => 'integer',
         'downloads' => 'integer',
         'is_public' => 'boolean',
+        'is_finalized' => 'boolean',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
@@ -87,6 +89,14 @@ class Cv extends Model
     public function skills(): HasMany
     {
         return $this->hasMany(Skill::class);
+    }
+
+    /**
+     * Get the interests for the CV.
+     */
+    public function interests(): HasMany
+    {
+        return $this->hasMany(Interest::class);
     }
 
     /**

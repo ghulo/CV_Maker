@@ -49,6 +49,6 @@ class Education extends Model
      */
     public function cv()
     {
-        return $this->belongsTo(CV::class);
+        return $this->belongsTo(Cv::class);
     }
 }

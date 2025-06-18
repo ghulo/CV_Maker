@@ -1,0 +1,168 @@
+/* General button styling */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    font-family: var(--font-main);
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 0.625rem 1.25rem; /* 10px 20px */
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    user-select: none;
+    transition: all var(--transition-speed-fast) var(--transition-ease);
+}
+.btn:hover { transform: translateY(-1px); }
+
+.btn:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-light);
+    transition-duration: 0.05s; /* Faster transition back on click */
+}
+
+/* Ripple effect */
+.btn .ripple {
+    position: absolute;
+    border-radius: 50%;
+    transform: scale(0);
+    opacity: 1;
+    background-color: rgba(255, 255, 255, 0.5); /* Default ripple for light buttons */
+    animation: ripple-animation 0.6s linear;
+    pointer-events: none;
+    z-index: 2; /* Above button background but below text/icon */
+}
+
+@keyframes ripple-animation {
+    from { transform: scale(0); opacity: 1; }
+    to { transform: scale(4); opacity: 0; }
+}
+
+/* Subtle inner glow on hover/focus */
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    border-radius: var(--radius-sm);
+    pointer-events: none;
+    z-index: 1;
+    box-shadow: inset 0 0 0 0px var(--primary); /* Default for light */
+    transition: box-shadow 0.3s var(--animation-ease);
+}
+
+.btn:hover::before,
+.btn:focus-visible::before {
+    box-shadow: inset 0 0 0 2px var(--primary); /* Inner glow on hover/focus */
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: white;
+    box-shadow: 0 3px 8px rgba(var(--primary-rgb), 0.25), 0 1px 4px rgba(0,0,0,0.06);
+    border-color: var(--primary);
+}
+.btn-primary:hover {
+    background: var(--primary-hover);
+    box-shadow: 0 6px 15px rgba(var(--primary-rgb), 0.35), 0 3px 8px rgba(0,0,0,0.1);
+    transform: translateY(-3px);
+}
+
+.btn-secondary {
+    background: var(--neutral-light);
+    color: var(--neutral-text);
+    border-color: var(--neutral-border);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+.btn-secondary:hover {
+    background-color: var(--neutral-bg);
+    border-color: var(--primary);
+    color: var(--primary);
+    transform: translateY(-3px);
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+}
+
+a.btn {
+    display: inline-flex;
+}
+
+.btn-danger {
+    background-color: var(--tertiary-accent);
+    color: white;
+    border-color: var(--tertiary-accent);
+    box-shadow: 0 3px 8px rgba(249, 50, 90, 0.25), 0 1px 4px rgba(0,0,0,0.06);
+}
+.btn-danger:hover {
+    background-color: #E02D51;
+    border-color: #E02D51;
+    box-shadow: 0 6px 15px rgba(249, 50, 90, 0.35), 0 3px 8px rgba(0,0,0,0.1);
+    transform: translateY(-3px);
+}
+
+/* Button press animation */
+@keyframes buttonPress {
+    0% { transform: scale(1); }
+    50% { transform: scale(0.95); }
+    100% { transform: scale(1); }
+}
+.button-press-animation {
+    animation: buttonPress 0.2s ease-out;
+}
+
+/* Button & Input Focus Enhancements */
+.btn-primary, .btn-secondary, .btn-danger, .btn-primary-form {
+    overflow: hidden; /* For ripple effect */
+    position: relative;
+    z-index: 1; /* Ensure button is above ripple */
+}
+
+.btn-primary::after, .btn-secondary::after, .btn-danger::after, .btn-primary-form::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 5px; /* Small initial size */
+    height: 5px;
+    background: var(--button-ripple-color);
+    border-radius: 50%;
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+    z-index: -1;
+}
+
+.btn-primary:active::after, .btn-secondary:active::after, .btn-danger:active::after, .btn-primary-form:active::after {
+    transform: translate(-50%, -50%) scale(15); /* Large scale on click */
+    opacity: 1;
+    transition: transform 0.5s ease-out, opacity 0.5s ease-out; /* Match duration */
+}
+
+/* Homepage Hero CTA Button */
+.homepage-hero .btn-create {
+    padding: calc(var(--space-md) + 5px) calc(var(--space-xl) + 10px);
+    font-size: clamp(1.15em, 2.6vw, 1.3em);
+    width: auto;
+    min-width: 280px;
+    box-shadow: 0 6px 15px rgba(var(--primary-rgb), 0.28), 0 2px 5px rgba(0,0,0,0.08);
+    transition: all 0.4s var(--animation-ease-out);
+}
+
+.homepage-hero .btn-create:hover {
+    box-shadow: 0 9px 22px rgba(var(--primary-rgb), 0.35), 0 5px 10px rgba(0,0,0,0.1);
+}
+
+.homepage-final-cta .btn-large {
+    padding: calc(var(--space-md) + 6px) calc(var(--space-xl) + 12px);
+    font-size: clamp(1.2em, 2.8vw, 1.4em);
+    min-width: 300px;
+    transition: all 0.4s var(--animation-ease-out);
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+    .homepage-hero .btn-create { font-size: clamp(1em, 2.8vw, 1.1em); padding: var(--space-md) var(--space-lg); min-width: 200px; }
+    .homepage-final-cta .btn-large {
+        padding: var(--space-md) var(--space-lg);
+        font-size: clamp(1em, 2.8vw, 1.15em);
+        min-width: 220px;
+    }
+}

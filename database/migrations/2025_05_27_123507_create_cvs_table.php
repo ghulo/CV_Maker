@@ -9,46 +9,40 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
+     *
+     * @return void
      */
-    public function up(): void
+    public function up()
     {
-        // This check is important if you've already run 'php artisan migrate' before.
-        // It prevents errors if the table already exists in your database.
-        if (!Schema::hasTable('cvs')) {
-            Schema::create('cvs', function (Blueprint $table) {
-                // Primary key for the 'cvs' table
-                $table->bigIncrements('id');
-                // Foreign key to the 'users' table. Must be unsignedBigInteger to match 'users.id' type.
-                $table->unsignedBigInteger('user_id');
-                $table->string('cv_title')->default('My CV');
-                $table->string('emri');
-                $table->string('mbiemri');
-                $table->string('email')->nullable();
-                $table->string('telefoni')->nullable();
-                $table->text('address')->nullable();
-                $table->text('summary')->nullable();
-                $table->date('date_of_birth')->nullable();
-                $table->string('place_of_birth')->nullable();
-                $table->string('gender', 50)->nullable();
-                $table->string('nationality')->nullable();
-                $table->string('zip_code', 20)->nullable();
-                $table->string('marital_status', 50)->nullable();
-                $table->string('driving_license')->nullable();
-                $table->string('selected_template', 50)->default('classic');
-                $table->timestamps(); // Adds `created_at` and `updated_at` columns
-
-                // Defines the relationship: user_id in 'cvs' table links to id in 'users' table
-                // If a user is deleted, all their CVs are automatically deleted.
-                $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            });
-        }
+        Schema::create('cvs', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->string('cv_title');
+            $table->string('emri');
+            $table->string('mbiemri')->nullable();
+            $table->string('email');
+            $table->string('telefoni')->nullable();
+            $table->string('address')->nullable();
+            $table->text('summary');
+            $table->date('date_of_birth')->nullable();
+            $table->string('place_of_birth')->nullable();
+            $table->string('gender')->nullable();
+            $table->string('nationality')->nullable();
+            $table->string('zip_code')->nullable();
+            $table->string('marital_status')->nullable();
+            $table->string('driving_license')->nullable();
+            $table->string('selected_template', 50)->default('classic');
+            $table->boolean('is_finalized')->default(false);
+            $table->timestamps();
+        });
     }
 
     /**
      * Reverse the migrations.
-     * This method is used when you roll back a migration (undo it).
+     *
+     * @return void
      */
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('cvs');
     }
