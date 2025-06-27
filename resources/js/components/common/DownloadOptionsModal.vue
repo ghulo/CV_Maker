@@ -1,22 +1,22 @@
 <template>
-  <div v-if="isVisible" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-[1002] transition-opacity duration-300">
-    <div class="bg-neutral-light dark:bg-dark-neutral-container p-6 rounded-lg shadow-xl w-full max-w-md animate-fade-in-up">
-      <h3 class="text-xl font-semibold text-neutral-text dark:text-dark-neutral-text mb-4">Shkarko CV</h3>
-      <p class="text-muted-text dark:text-dark-muted-text mb-6">Zgjidhni opsionet e shkarkimit për CV-në tuaj.</p>
+  <div v-if="isVisible" class="modal-overlay">
+    <div class="modal-content card reveal-on-scroll reveal-scale">
+      <h3 class="modal-title">Shkarko CV</h3>
+      <p class="modal-message">Zgjidhni opsionet e shkarkimit për CV-në tuaj.</p>
 
-      <div class="space-y-4">
-        <div>
-          <label for="pdf-style" class="block text-sm font-medium text-neutral-text dark:text-dark-neutral-text mb-1">Stili i PDF-së</label>
-          <select id="pdf-style" v-model="selectedStyle"
-            class="mt-1 block w-full px-3 py-2 bg-neutral-light dark:bg-dark-neutral-bg border border-neutral-border dark:border-dark-neutral-border rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary text-sm">
+      <div class="space-y-lg">
+        <div class="form-group">
+          <label for="pdf-style" class="form-label">Stili i PDF-së</label>
+          <select id="pdf-style" v-model="selectedStyle" class="form-select">
             <option value="default">Parazgjedhur</option>
             <option value="professional">Profesional</option>
+            <option value="creative">Kreativ</option>
+            <option value="modern">Modern</option>
           </select>
         </div>
-        <div>
-          <label for="pdf-quality" class="block text-sm font-medium text-neutral-text dark:text-dark-neutral-text mb-1">Cilësia</label>
-          <select id="pdf-quality" v-model="selectedQuality"
-            class="mt-1 block w-full px-3 py-2 bg-neutral-light dark:bg-dark-neutral-bg border border-neutral-border dark:border-dark-neutral-border rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary text-sm">
+        <div class="form-group">
+          <label for="pdf-quality" class="form-label">Cilësia</label>
+          <select id="pdf-quality" v-model="selectedQuality" class="form-select">
             <option value="high">Lartë</option>
             <option value="medium">Mesatare</option>
             <option value="low">Ulët</option>
@@ -24,9 +24,9 @@
         </div>
       </div>
 
-      <div class="mt-6 flex justify-end gap-3">
-        <button @click="emitCancel" class="btn-secondary px-4 py-2">Anulo</button>
-        <button @click="emitConfirm" class="btn-primary px-4 py-2">Shkarko</button>
+      <div class="modal-actions">
+        <button @click="emitCancel" class="btn btn-secondary">Anulo</button>
+        <button @click="emitConfirm" class="btn btn-primary">Shkarko</button>
       </div>
     </div>
   </div>
@@ -78,6 +78,90 @@ const emitCancel = () => {
 </script>
 
 <style scoped>
-/* Scoped styles for the modal can be added here if needed,
-   but most styling should come from Tailwind and global.css */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); /* Slightly lighter overlay */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: var(--z-modal);
+  opacity: 0;
+  visibility: hidden;
+  transition: var(--transition-opacity);
+}
+
+.modal-overlay[style*="display: block"] {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-content {
+  padding: var(--space-xl);
+  max-width: 500px;
+  width: 90%;
+  text-align: center;
+}
+
+.modal-title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-2xl);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--space-md);
+}
+
+.modal-message {
+  font-size: var(--font-size-base);
+  color: var(--text-secondary);
+  line-height: var(--line-height-normal);
+  margin-bottom: var(--space-lg);
+}
+
+.space-y-lg > *:not(:last-child) {
+  margin-bottom: var(--space-lg);
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-md);
+  margin-top: var(--space-xl);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .modal-content {
+    padding: var(--space-lg);
+  }
+
+  .modal-title {
+    font-size: var(--font-size-xl);
+  }
+
+  .modal-message {
+    font-size: var(--font-size-sm);
+  }
+
+  .modal-actions {
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .modal-actions .btn {
+    width: 100%;
+  }
+}
+
+/* Dark Mode Overrides */
+body.dark-theme .modal-title {
+  color: var(--text-primary);
+}
+
+body.dark-theme .modal-message {
+  color: var(--text-secondary);
+}
 </style> 

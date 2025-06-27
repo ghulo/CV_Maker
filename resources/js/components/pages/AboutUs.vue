@@ -1,119 +1,329 @@
 <template>
-  <main class="main">
-    <div class="page-container animate-in">
-      <section class="homepage-hero about-us-hero">
-        <div class="hero-bg-decoration" aria-hidden="true"></div>
-        <h2 class="reveal-on-scroll">Ndërtojmë Të Ardhmen Tuaj, Një CV në Një Kohë.</h2>
-        <p class="reveal-on-scroll" data-reveal-delay="100">
-          CV Maker është krijuar me pasion për të fuqizuar individët në rrugëtimin e tyre
-          profesional. Besojmë se një CV e mirë mund të hapë dyer dhe të krijojë mundësi.
-        </p>
-      </section>
-
-      <section class="homepage-value-prop about-us-mission">
-        <div
-          class="value-prop-container reveal-on-scroll glassmorphic-card"
-          data-reveal-delay="100"
-        >
-          <div class="value-prop-grid">
-            <div class="value-prop-headline">
-              <h3 class="reveal-on-scroll" data-reveal-delay="200">Misioni dhe Vizioni Ynë.</h3>
-            </div>
-            <div class="value-prop-text">
-              <p class="reveal-on-scroll" data-reveal-delay="300">
-                Misioni ynë është të ofrojmë një platformë intuitive dhe të fuqishme që thjeshton
-                procesin e krijimit të CV-ve profesionale. Ne synojmë të bëjmë dizajnin e CV-së të
-                aksesueshëm për të gjithë, duke ju ndihmuar të prezantoni aftësitë dhe përvojën tuaj
-                në mënyrën më të mirë të mundshme.
-              </p>
-              <p class="reveal-on-scroll" data-reveal-delay="400">
-                Vizioni ynë është të jemi zgjedhja kryesore për individët që kërkojnë të lënë një
-                përshtypje të fortë në tregun e punës, duke ofruar mjete inovative dhe mbështetje të
-                vazhdueshme.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="homepage-how-it-works about-us-story">
-        <h3 class="reveal-on-scroll">Historia Jonë</h3>
-        <p class="page-intro-text reveal-on-scroll" data-reveal-delay="100">
-          CV Maker filloi si një projekt i vogël me një ide të madhe: të thjeshtojë krijimin e
-          CV-ve. Kemi evoluar duke u bazuar në feedback-un e përdoruesve dhe tendencat e industrisë,
-          gjithmonë me fokusin te ju.
-        </p>
-        <div class="how-it-works-steps">
-          <div class="step-item reveal-on-scroll glassmorphic-card" data-reveal-delay="200">
-            <div class="step-icon-wrapper"><i class="fas fa-lightbulb"></i></div>
-            <h4>Ideja</h4>
-            <p>
-              Gjithçka nisi me një ide të thjeshtë për të ndihmuar njerëzit të krijojnë CV pa
-              mundim.
-            </p>
-          </div>
-          <div class="step-item reveal-on-scroll glassmorphic-card" data-reveal-delay="300">
-            <div class="step-icon-wrapper"><i class="fas fa-code"></i></div>
-            <h4>Zhvillimi</h4>
-            <p>
-              Kemi punuar me zell për të ndërtuar një platformë të fuqishme dhe të lehtë në
-              përdorim.
-            </p>
-          </div>
-          <div class="step-item reveal-on-scroll glassmorphic-card" data-reveal-delay="400">
-            <div class="step-icon-wrapper"><i class="fas fa-users"></i></div>
-            <h4>Komuniteti</h4>
-            <p>Me mbështetjen e përdoruesve tanë, ne vazhdojmë të rritemi dhe të përmirësohemi.</p>
-          </div>
-        </div>
-      </section>
-
-      <section class="homepage-final-cta about-us-cta">
-        <div class="cta-content">
-          <h4 class="reveal-on-scroll">Bashkohuni me Komunitetin Tonë!</h4>
-          <p class="reveal-on-scroll" data-reveal-delay="100">
-            Jemi këtu për t'ju mbështetur në çdo hap të rrugëtimit tuaj profesional.
+  <div class="page-wrapper">
+    <!-- Hero Section -->
+    <section class="section-spacing">
+      <div class="container">
+        <div class="text-center">
+          <h1 class="section-title">Building Your Future, One CV at a Time</h1>
+          <p class="section-description">
+            CV Maker is built with passion to empower individuals in their professional journey. 
+            We believe a great CV can open doors and create opportunities.
           </p>
-          <router-link
-            to="/contact"
-            class="btn-create btn-large btn btn-primary reveal-on-scroll"
-            data-reveal-delay="200"
-          >
-            <i class="fas fa-envelope"></i> Na Kontaktoni
+        </div>
+      </div>
+    </section>
+
+    <!-- Mission Section -->
+    <section class="section-spacing">
+      <div class="container">
+        <div class="mission-section">
+          <h2 class="mission-title">Our Mission & Vision</h2>
+          <div class="mission-content">
+            <p>
+              Our mission is to provide an intuitive and powerful platform that simplifies 
+              the process of creating professional CVs. We aim to make CV design accessible 
+              to everyone, helping you present your skills and experience in the best possible way.
+            </p>
+            <p>
+              Our vision is to be the top choice for individuals looking to make a strong 
+              impression in the job market, offering innovative tools and ongoing support.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Story Section -->
+    <section class="section-spacing">
+      <div class="container">
+        <div class="text-center">
+          <h2 class="section-title">Our Story</h2>
+          <p class="section-description">
+            CV Maker started as a small project with a big idea: to simplify CV creation. 
+            We've evolved based on user feedback and industry trends, always keeping you at the center.
+          </p>
+        </div>
+        
+        <div class="story-grid">
+          <div class="story-item">
+            <div class="story-icon">
+              <i class="fas fa-lightbulb"></i>
+            </div>
+            <h3>The Idea</h3>
+            <p>
+              It all started with a simple idea to help people create CVs without hassle.
+            </p>
+          </div>
+          
+          <div class="story-item">
+            <div class="story-icon">
+              <i class="fas fa-code"></i>
+            </div>
+            <h3>Development</h3>
+            <p>
+              We worked diligently to build a powerful and easy-to-use platform.
+            </p>
+          </div>
+          
+          <div class="story-item">
+            <div class="story-icon">
+              <i class="fas fa-users"></i>
+            </div>
+            <h3>Community</h3>
+            <p>
+              With our users' support, we continue to grow and improve.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section-spacing">
+      <div class="container">
+        <div class="cta-section">
+          <h2 class="cta-title">Join Our Community!</h2>
+          <p class="cta-description">
+            We're here to support you at every step of your professional journey.
+          </p>
+          <router-link to="/contact" class="btn-primary">
+            <i class="fas fa-envelope"></i>
+            Contact Us
           </router-link>
         </div>
-      </section>
-    </div>
-  </main>
+      </div>
+    </section>
+  </div>
 </template>
 
 <script>
-  export default {
-    name: 'AboutUs',
-  }
+export default {
+  name: 'AboutUs',
+}
 </script>
 
 <style scoped>
-  @reference "tailwindcss/theme";
+/* CSS Variables */
+:root {
+  --primary: #5B21B6;
+  --primary-light: #7C3AED;
+  --secondary: #0EA5E9;
+  --success: #10B981;
+  --bg: #FFFFFF;
+  --bg-subtle: #FAFAFA;
+  --text: #111827;
+  --text-muted: #6B7280;
+  --border: #E5E7EB;
+  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  --radius: 8px;
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-xxl: 48px;
+}
 
-  /* Page-specific styles that might not be in the main app.css */
-  .about-us-hero {
-    padding-top: 4rem;
-    padding-bottom: 4rem;
+/* Base Styles */
+.page-wrapper {
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-lg);
+}
+
+.section-spacing {
+  padding: var(--space-xxl) 0;
+}
+
+.text-center {
+  text-align: center;
+}
+
+/* Typography */
+.section-title {
+  font-size: 48px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: var(--space-md);
+  line-height: 1.2;
+}
+
+.section-description {
+  font-size: 20px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Mission Section */
+.mission-section {
+  background: var(--bg-subtle);
+  border-radius: var(--radius);
+  padding: var(--space-xxl);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.mission-title {
+  font-size: 32px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: var(--space-lg);
+  text-align: center;
+}
+
+.mission-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.mission-content p {
+  font-size: 18px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Story Section */
+.story-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-xl);
+  margin-top: var(--space-xxl);
+}
+
+.story-item {
+  text-align: center;
+  padding: var(--space-xl);
+}
+
+.story-icon {
+  width: 80px;
+  height: 80px;
+  background: var(--primary);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto var(--space-lg);
+  font-size: 24px;
+}
+
+.story-item h3 {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: var(--space-md);
+}
+
+.story-item p {
+  font-size: 16px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* CTA Section */
+.cta-section {
+  background: var(--bg-subtle);
+  border-radius: var(--radius);
+  padding: var(--space-xxl);
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.cta-title {
+  font-size: 32px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: var(--space-md);
+}
+
+.cta-description {
+  font-size: 18px;
+  color: var(--text-muted);
+  margin-bottom: var(--space-xl);
+}
+
+/* Buttons */
+.btn-primary {
+  background: var(--primary);
+  color: white;
+  padding: var(--space-md) var(--space-lg);
+  border-radius: var(--radius);
+  text-decoration: none;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  transition: background-color 0.2s ease;
+}
+
+.btn-primary:hover {
+  background: var(--primary-light);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 32px;
   }
 
-  .about-us-mission {
-    padding-top: 2rem;
-    padding-bottom: 2rem;
+  .section-description {
+    font-size: 16px;
   }
 
-  .about-us-story {
-    padding-top: 4rem;
-    padding-bottom: 4rem;
+  .mission-section {
+    padding: var(--space-xl);
   }
 
-  .about-us-cta {
-    margin-top: 4rem;
-    margin-bottom: 4rem;
+  .mission-title {
+    font-size: 28px;
   }
+
+  .mission-content p {
+    font-size: 16px;
+  }
+
+  .story-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+
+  .story-item {
+    padding: var(--space-lg);
+  }
+
+  .story-icon {
+    width: 60px;
+    height: 60px;
+    font-size: 20px;
+  }
+
+  .story-item h3 {
+    font-size: 20px;
+  }
+
+  .cta-section {
+    padding: var(--space-xl);
+  }
+
+  .cta-title {
+    font-size: 28px;
+  }
+
+  .cta-description {
+    font-size: 16px;
+  }
+}
 </style>

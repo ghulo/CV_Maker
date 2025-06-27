@@ -12,6 +12,7 @@ use App\Http\Controllers\Api\EducationController;
 use App\Http\Controllers\Api\SkillController;
 use App\Http\Controllers\Api\InterestController;
 use App\Http\Controllers\CvPreviewApiController;
+use App\Http\Controllers\Api\AIController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,8 +42,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/profile', [UserController::class, 'update']);
     
     // CV Management
-    Route::apiResource('cvs', CvController::class);
     Route::get('/my-cvs', [CvController::class, 'userCvs']);
+    Route::apiResource('cvs', CvController::class);
     Route::post('/cvs/{cv}/duplicate', [CvController::class, 'duplicate']);
     Route::get('/cvs/{cv}/download', [CvController::class, 'download']);
     
@@ -51,7 +52,18 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('cvs.educations', EducationController::class);
     Route::apiResource('cvs.skills', SkillController::class);
     Route::apiResource('cvs.interests', InterestController::class);
+    
+    // AI Features
+    Route::prefix('ai')->group(function () {
+        Route::post('/skills-suggestions', [AIController::class, 'getSkillSuggestions']);
+        Route::post('/generate-summary', [AIController::class, 'generateSummary']);
+        Route::post('/experience-suggestions', [AIController::class, 'getExperienceSuggestions']);
+        Route::post('/analyze-cv', [AIController::class, 'analyzeCv']);
+        Route::post('/interest-suggestions', [AIController::class, 'getInterestSuggestions']);
+    });
 });
 
-// CV Preview (can be public for sharing)
-Route::get('/cv-preview/{cv}', [CvPreviewApiController::class, 'show']);
+// CV Preview route (protected - user must own the CV)
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/cv-preview/{cv}', [CvPreviewApiController::class, 'show']);
+});

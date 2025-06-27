@@ -1,266 +1,605 @@
 <template>
-  <main class="main">
-    <div class="template-selection-page-container page-container animate-in">
-      <h2 class="reveal-on-scroll">Zgjidhni Modelin për CV-në Tuaj</h2>
-      <p class="page-intro-text reveal-on-scroll" data-reveal-delay="100">
-        Çdo model ofron një pamje unike. Klikoni mbi një model për të filluar plotësimin e të
-        dhënave tuaja.
-      </p>
-
-      <div class="message-area">
-        <p v-if="errorMessage" class="message error" role="alert">{{ errorMessage }}</p>
-        <p v-if="infoMessage" class="message info" role="status">{{ infoMessage }}</p>
+  <div class="page-wrapper">
+    <!-- Hero Section -->
+    <section class="section-spacing">
+      <div class="container">
+        <div class="text-center">
+          <h1 class="section-title">Create Your Professional Resume</h1>
+          <p class="section-description">
+            Build a stunning resume with our intuitive form and choose from beautiful templates as you go.
+          </p>
+        </div>
       </div>
+    </section>
 
-      <div class="template-options-grid">
-        <div
-          v-for="(template, index) in templates"
-          :key="template.id"
-          class="template-option-card reveal-on-scroll glassmorphic-card"
-          :data-reveal-delay="150 + index * 50"
-          @click="selectTemplate(template.id)"
-          role="button"
-          tabindex="0"
-        >
-          <div class="template-thumbnail">
-            <!-- Classic Template Thumbnail -->
-            <div v-if="template.id === 'classic'">
-              <div class="thumb-header">EMRI MBIEMRI</div>
-              <div class="thumb-line bg-muted"></div>
-              <div class="thumb-line bg-primary w-80"></div>
-              <div class="thumb-line bg-muted w-90"></div>
-              <div class="thumb-line bg-primary w-70"></div>
-              <div class="thumb-line bg-muted w-full"></div>
+    <!-- Templates Grid -->
+    <section class="section-spacing">
+      <div class="container">
+        <!-- Messages -->
+        <div v-if="errorMessage || infoMessage" class="message-container">
+          <div v-if="errorMessage" class="message error">{{ errorMessage }}</div>
+          <div v-if="infoMessage" class="message info">{{ infoMessage }}</div>
+        </div>
+
+        <!-- Quick Start Card -->
+        <div class="quick-start-card">
+          <div class="start-content">
+            <div class="start-icon">
+              <i class="fas fa-rocket"></i>
             </div>
+            <div class="start-info">
+              <h2>Ready to Get Started?</h2>
+              <p>Create your professional resume in minutes. You can choose and switch between templates as you build your resume.</p>
+            </div>
+            <button @click="startCreating" class="start-btn">
+              <i class="fas fa-plus"></i>
+              Start Creating
+            </button>
+          </div>
+        </div>
 
-            <!-- Modern Template Thumbnail -->
-            <div v-if="template.id === 'modern'">
-              <div class="thumb-modern-layout">
-                <div class="thumb-sidebar">
-                  <div class="thumb-avatar"></div>
-                  <div class="thumb-line bg-primary w-70 mt-sm"></div>
-                  <div class="thumb-line bg-muted w-90"></div>
+        <!-- Templates Preview -->
+        <div class="templates-showcase">
+          <h3 class="showcase-title">Available Templates</h3>
+          <div class="templates-grid">
+            <div
+              v-for="template in templates"
+              :key="template.id"
+              class="template-card"
+            >
+            <!-- Template Preview -->
+            <div class="template-preview">
+              <!-- Classic Template -->
+              <div v-if="template.id === 'classic'" class="preview-classic">
+                <div class="preview-header">JOHN DOE</div>
+                <div class="preview-line full"></div>
+                <div class="preview-line medium"></div>
+                <div class="preview-line large"></div>
+                <div class="preview-line small"></div>
+                <div class="preview-line full"></div>
+              </div>
+
+              <!-- Modern Template -->
+              <div v-if="template.id === 'modern'" class="preview-modern">
+                <div class="preview-sidebar">
+                  <div class="preview-avatar"></div>
+                  <div class="preview-line small"></div>
+                  <div class="preview-line medium"></div>
                 </div>
-                <div class="thumb-main-content">
-                  <div class="thumb-header-sm">EMRI MBIEMRI</div>
-                  <div class="thumb-line bg-muted w-60"></div>
-                  <div class="thumb-line bg-primary w-full mt-sm"></div>
-                  <div class="thumb-line bg-muted w-80"></div>
+                <div class="preview-content">
+                  <div class="preview-header">JOHN DOE</div>
+                  <div class="preview-line medium"></div>
+                  <div class="preview-line full"></div>
+                  <div class="preview-line large"></div>
                 </div>
+              </div>
+
+              <!-- Professional Template -->
+              <div v-if="template.id === 'professional'" class="preview-professional">
+                <div class="preview-header centered">JOHN DOE</div>
+                <div class="preview-divider"></div>
+                <div class="preview-grid">
+                  <div class="preview-left">
+                    <div class="preview-line full"></div>
+                    <div class="preview-line large"></div>
+                  </div>
+                  <div class="preview-right">
+                    <div class="preview-line full"></div>
+                    <div class="preview-line medium"></div>
+                    <div class="preview-line full"></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Creative Template -->
+              <div v-if="template.id === 'creative'" class="preview-creative">
+                <div class="creative-shape"></div>
+                <div class="preview-header">JOHN DOE</div>
+                <div class="preview-line full"></div>
+                <div class="preview-line medium"></div>
+                <div class="creative-accent"></div>
               </div>
             </div>
 
-            <!-- Professional Template Thumbnail -->
-            <div v-if="template.id === 'professional'">
-              <div class="thumb-header-alt">EMRI MBIEMRI</div>
-              <div class="thumb-line bg-primary w-50 mx-auto mb-sm"></div>
-              <div class="thumb-modern-layout">
-                <div class="thumb-sidebar-alt">
-                  <div class="thumb-line bg-muted w-full"></div>
-                  <div class="thumb-line bg-muted w-80"></div>
-                </div>
-                <div class="thumb-main-content-alt">
-                  <div class="thumb-line bg-primary w-full"></div>
-                  <div class="thumb-line bg-muted w-90"></div>
-                  <div class="thumb-line bg-muted w-full"></div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Creative Template Thumbnail (Placeholder) -->
-            <div v-if="template.id === 'creative'">
-              <div
-                class="thumb-creative-layout bg-gradient-to-br from-purple-200 to-pink-200 p-4 rounded-md"
-              >
-                <div class="thumb-shape-1 bg-purple-400 w-12 h-12 rounded-full mb-2"></div>
-                <div class="thumb-line bg-purple-300 w-full mb-1"></div>
-                <div class="thumb-line bg-purple-300 w-3/4"></div>
-                <div class="thumb-shape-2 bg-pink-400 w-8 h-8 rounded-full ml-auto mt-4"></div>
+            <!-- Template Info -->
+                          <div class="template-info">
+                <h4 class="template-name">{{ template.name }}</h4>
+                <p class="template-description">{{ template.description }}</p>
               </div>
             </div>
           </div>
-          <span class="template-name">{{ template.name }}</span>
-          <p class="template-description">{{ template.description }}</p>
+        </div>
+
+        <!-- Page Actions -->
+        <div class="page-actions">
+          <router-link
+            v-if="isAuthenticated"
+            to="/dashboard"
+            class="btn-secondary"
+          >
+            <i class="fas fa-arrow-left"></i>
+            Back to Dashboard
+          </router-link>
+          <p v-else class="auth-prompt">
+            Have an account? <router-link to="/login" class="text-link">Sign in</router-link> to save and manage your CVs.
+          </p>
         </div>
       </div>
-
-      <div class="page-actions" style="margin-top: var(--space-xl)">
-        <router-link
-          v-if="isAuthenticated"
-          to="/my-cvs"
-          class="btn btn-secondary reveal-on-scroll"
-          data-reveal-delay="300"
-        >
-          <i class="fas fa-arrow-left"></i> Kthehu te CV-të e Mia
-        </router-link>
-        <p v-else class="form-alternate-action reveal-on-scroll" data-reveal-delay="300">
-          Keni një llogari? <router-link to="/login">Kyçu</router-link> për të ruajtur dhe menaxhuar
-          CV-të.
-        </p>
-      </div>
-    </div>
-  </main>
+    </section>
+  </div>
 </template>
 
 <script>
-  import { ref, computed, onMounted } from 'vue'
-  import { useRouter } from 'vue-router'
+import { ref, computed } from 'vue'
+import { useRouter } from 'vue-router'
 
-  export default {
-    name: 'Templates',
-    setup() {
-      const router = useRouter()
-      const errorMessage = ref('')
-      const infoMessage = ref('')
+export default {
+  name: 'Templates',
+  setup() {
+    const router = useRouter()
+    const errorMessage = ref('')
+    const infoMessage = ref('')
 
-      const isAuthenticated = computed(() => !!localStorage.getItem('auth_token'))
+    const isAuthenticated = computed(() => !!localStorage.getItem('auth_token'))
 
-      const templates = ref([
-        {
-          id: 'classic',
-          name: 'Modeli Klasik',
-          description: 'Një dizajn tradicional dhe i qartë, ideal për shumicën e profesioneve.',
-        },
-        {
-          id: 'modern',
-          name: 'Modeli Modern',
-          description: 'Një pamje bashkëkohore me fokus në dizajn dhe lexueshmëri.',
-        },
-        {
-          id: 'professional',
-          name: 'Modeli Profesional',
-          description: 'Elegant dhe i strukturuar, perfekt për role ekzekutive dhe korporative.',
-        },
-        {
-          id: 'creative',
-          name: 'Modeli Kreativ',
-          description: 'Një dizajn modern dhe dinamik, ideal për fusha kreative dhe inovative.',
-        },
-      ])
+    const templates = ref([
+      {
+        id: 'classic',
+        name: 'Classic',
+        description: 'A traditional and clear design, ideal for most professions.',
+      },
+      {
+        id: 'modern',
+        name: 'Modern',
+        description: 'A contemporary look with focus on design and readability.',
+      },
+      {
+        id: 'professional',
+        name: 'Professional',
+        description: 'Elegant and structured, perfect for executive and corporate roles.',
+      },
+      {
+        id: 'creative',
+        name: 'Creative',
+        description: 'A modern and dynamic design, ideal for creative and innovative fields.',
+      },
+    ])
 
-      const selectTemplate = (templateId) => {
-        if (!isAuthenticated.value) {
-          // In a real SPA, we'd store the intent and redirect after login.
-          // For now, we'll mimic the old logic's redirect.
-          infoMessage.value =
-            'Ju lutemi kyçuni ose regjistrohuni për të vazhduar me modelin e zgjedhur.'
-          router.push({ name: 'login', query: { redirect: `/cv/create?template=${templateId}` } })
-        } else {
-          router.push({ path: '/cv/create', query: { template: templateId } })
-        }
+    const selectTemplate = (templateId) => {
+      if (!isAuthenticated.value) {
+        infoMessage.value = 'Please sign in or register to continue with your chosen template.'
+        router.push({ name: 'login', query: { redirect: `/create-cv?template=${templateId}` } })
+      } else {
+        router.push({ path: '/create-cv', query: { template: templateId } })
       }
+    }
 
-      return { templates, selectTemplate, isAuthenticated, errorMessage, infoMessage }
-    },
-  }
+    const startCreating = () => {
+      if (!isAuthenticated.value) {
+        infoMessage.value = 'Please sign in or register to create your resume.'
+        router.push({ name: 'login', query: { redirect: '/create-cv' } })
+      } else {
+        router.push('/create-cv')
+      }
+    }
+
+    return { templates, selectTemplate, startCreating, isAuthenticated, errorMessage, infoMessage }
+  },
+}
 </script>
 
 <style scoped>
-  @reference "tailwindcss/theme";
+/* CSS Variables */
+:root {
+  --primary: #5B21B6;
+  --primary-light: #7C3AED;
+  --secondary: #0EA5E9;
+  --success: #10B981;
+  --info: #0EA5E9;
+  --error: #EF4444;
+  --bg: #FFFFFF;
+  --bg-subtle: #FAFAFA;
+  --text: #111827;
+  --text-muted: #6B7280;
+  --border: #E5E7EB;
+  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  --radius: 8px;
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-xxl: 48px;
+}
 
-  /* Styles specific to Templates.vue */
+/* Base Styles */
+.page-wrapper {
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+}
 
-  .template-options-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: var(--space-lg);
-      margin-top: var(--space-lg);
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-lg);
+}
+
+.section-spacing {
+  padding: var(--space-xxl) 0;
+}
+
+.text-center {
+  text-align: center;
+}
+
+/* Typography */
+.section-title {
+  font-size: 48px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: var(--space-md);
+  line-height: 1.2;
+}
+
+.section-description {
+  font-size: 20px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Messages */
+.message-container {
+  margin-bottom: var(--space-xl);
+}
+
+.message {
+  padding: var(--space-md);
+  border-radius: var(--radius);
+  margin-bottom: var(--space-md);
+  text-align: center;
+}
+
+.message.error {
+  background: #FEF2F2;
+  color: var(--error);
+  border: 1px solid #FECACA;
+}
+
+.message.info {
+  background: #EFF6FF;
+  color: var(--info);
+  border: 1px solid #BFDBFE;
+}
+
+/* Quick Start Card */
+.quick-start-card {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 16px;
+  padding: 3rem;
+  margin-bottom: 4rem;
+  color: white;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.start-content {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.start-icon {
+  width: 80px;
+  height: 80px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  backdrop-filter: blur(10px);
+}
+
+.start-info {
+  flex: 1;
+}
+
+.start-info h2 {
+  font-size: 2rem;
+  margin: 0 0 1rem 0;
+  font-weight: 700;
+}
+
+.start-info p {
+  font-size: 1.125rem;
+  margin: 0;
+  opacity: 0.9;
+  line-height: 1.6;
+}
+
+.start-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 2rem;
+  background: white;
+  color: #667eea;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.125rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.start-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Templates Showcase */
+.templates-showcase {
+  margin-bottom: 4rem;
+}
+
+.showcase-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text);
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+/* Templates Grid */
+.templates-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: var(--space-xl);
+  margin-bottom: var(--space-xxl);
+}
+
+.template-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow);
+}
+
+.template-card:hover {
+  border-color: var(--primary);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+/* Template Preview */
+.template-preview {
+  height: 240px;
+  background: var(--bg-subtle);
+  border-bottom: 1px solid var(--border);
+  padding: var(--space-lg);
+  position: relative;
+}
+
+.preview-header {
+  font-weight: 700;
+  font-size: 12px;
+  color: var(--text);
+  margin-bottom: var(--space-sm);
+}
+
+.preview-header.centered {
+  text-align: center;
+}
+
+.preview-line {
+  height: 4px;
+  background: var(--text-muted);
+  border-radius: 2px;
+  margin-bottom: var(--space-xs);
+  opacity: 0.6;
+}
+
+.preview-line.small { width: 40%; }
+.preview-line.medium { width: 60%; }
+.preview-line.large { width: 75%; }
+.preview-line.full { width: 100%; }
+
+/* Classic Preview */
+.preview-classic {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+/* Modern Preview */
+.preview-modern {
+  display: flex;
+  gap: var(--space-md);
+  height: 100%;
+}
+
+.preview-sidebar {
+  flex: 1;
+  background: rgba(91, 33, 182, 0.1);
+  padding: var(--space-md);
+  border-radius: var(--radius);
+}
+
+.preview-content {
+  flex: 2;
+  padding: var(--space-sm) 0;
+}
+
+.preview-avatar {
+  width: 24px;
+  height: 24px;
+  background: var(--primary);
+  border-radius: 50%;
+  margin: 0 auto var(--space-sm);
+}
+
+/* Professional Preview */
+.preview-professional {
+  text-align: center;
+}
+
+.preview-divider {
+  height: 2px;
+  background: var(--primary);
+  width: 40px;
+  margin: var(--space-sm) auto;
+}
+
+.preview-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+  margin-top: var(--space-md);
+}
+
+/* Creative Preview */
+.preview-creative {
+  position: relative;
+}
+
+.creative-shape {
+  position: absolute;
+  top: var(--space-sm);
+  right: var(--space-sm);
+  width: 16px;
+  height: 16px;
+  background: var(--primary);
+  border-radius: 50%;
+}
+
+.creative-accent {
+  position: absolute;
+  bottom: var(--space-sm);
+  right: var(--space-lg);
+  width: 12px;
+  height: 12px;
+  background: #F59E0B;
+  border-radius: 50%;
+}
+
+/* Template Info */
+.template-info {
+  padding: var(--space-lg);
+  text-align: center;
+}
+
+.template-name {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text);
+  margin: 0 0 var(--space-sm) 0;
+}
+
+.template-description {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Page Actions */
+.page-actions {
+  text-align: center;
+  padding-top: var(--space-xl);
+  border-top: 1px solid var(--border);
+}
+
+.btn-secondary {
+  background: var(--bg);
+  color: var(--text);
+  padding: var(--space-md) var(--space-lg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  text-decoration: none;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.auth-prompt {
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.text-link {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.text-link:hover {
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 32px;
   }
-  .template-option-card {
-      text-decoration: none;
-      color: var(--neutral-text);
-      background-color: var(--neutral-light);
-      border: 1px solid var(--neutral-border);
-      border-radius: var(--radius);
-      padding: var(--space-md);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      box-shadow: var(--shadow-light);
-      transition: all 0.4s var(--animation-ease-out);
-      position: relative;
-      overflow: hidden;
-      /* For tilt effect */
-      transform-style: preserve-3d;
-      transform: perspective(1000px) rotateX(var(--rotate-x, 0deg)) rotateY(var(--rotate-y, 0deg)) scale(var(--scale, 1));
-      cursor: pointer; /* Keep existing cursor style */
-  }
-  .template-option-card:hover {
-      transform: translateY(-10px) scale(1.04);
-      box-shadow: var(--shadow-hover);
-      border-color: var(--primary);
-      /* Add glow on hover */
-      box-shadow: var(--shadow-hover), 0 0 var(--card-hover-glow-spread) rgba(var(--primary-rgb), 0.3);
-  }
-  body.dark-theme .template-option-card {
-      color: var(--dark-neutral-text);
-      background-color: var(--dark-neutral-light);
-      border-color: var(--dark-neutral-border);
-  }
-  body.dark-theme .template-option-card:hover {
-      border-color: var(--dark-primary);
-      background-color: #16161A;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.25), 0 2px 5px rgba(0,0,0,0.15), 0 0 var(--card-hover-glow-spread) rgba(var(--dark-primary-rgb), 0.4);
+
+  .section-description {
+    font-size: 16px;
   }
 
-  .template-thumbnail {
-      width: 100%;
-      height: 220px;
-      background-color: var(--neutral-bg);
-      border: 1px solid var(--divider-color);
-      border-radius: var(--radius-sm);
-      margin-bottom: var(--space-md);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: var(--space-sm);
-      overflow: hidden;
-      font-size: 0.8em;
-      color: var(--muted-text);
-  }
-  body.dark-theme .template-thumbnail {
-      background-color: var(--dark-neutral-container);
-      border-color: var(--dark-divider-color);
-      color: var(--dark-muted-text);
+  .quick-start-card {
+    padding: 2rem;
   }
 
-  .thumb-header, .thumb-header-sm, .thumb-header-alt { font-weight: bold; margin-bottom: var(--space-xs); font-size: 1.1em; color: var(--neutral-text); }
-  .thumb-line { height: 6px; border-radius: 3px; margin-bottom: 4px; }
-  .thumb-line.bg-muted { background-color: var(--subtle-text); }
-  .thumb-line.bg-primary { background-color: var(--dark-primary); opacity: 0.7; }
-  .thumb-line.w-50 { width: 50%; } .thumb-line.w-60 { width: 60%; } .thumb-line.w-70 { width: 70%; }
-  .thumb-line.w-80 { width: 80%; } .thumb-line.w-90 { width: 90%; } .thumb-line.w-full { width: 100%; }
-  .thumb-line.mx-auto { margin-left: auto; margin-right: auto; }
-  .thumb-line.mt-sm { margin-top: var(--space-xs); } .thumb-line.mb-sm { margin-bottom: var(--space-xs); }
-
-  body.dark-theme .thumb-header, body.dark-theme .thumb-header-sm, body.dark-theme .thumb-header-alt { color: var(--dark-neutral-text); }
-  body.dark-theme .thumb-line.bg-muted { background-color: var(--dark-subtle-text); }
-  body.dark-theme .thumb-line.bg-primary { background-color: var(--dark-primary); opacity: 0.6; }
-
-
-  .thumb-modern-layout { display: flex; width: 100%; height: 100%; gap: var(--space-xs); }
-  .thumb-sidebar { flex: 1; background-color: rgba(0,0,0,0.03); padding: var(--space-xs); border-radius: var(--radius-sm); }
-  .thumb-main-content { flex: 2; padding: var(--space-xs); }
-  .thumb-avatar { width: 30px; height: 30px; border-radius: 50%; background-color: var(--subtle-text); margin: 0 auto var(--space-xs); }
-  .thumb-sidebar-alt { flex: 1; padding: var(--space-xs); }
-  .thumb-main-content-alt { flex: 2; padding: var(--space-xs); }
-
-  body.dark-theme .thumb-sidebar, body.dark-theme .thumb-sidebar-alt { background-color: rgba(var(--dark-neutral-light), 0.5); }
-  body.dark-theme .thumb-avatar { background-color: var(--dark-subtle-text); }
-
-  .template-name {
-      font-size: 1.3em;
-      font-weight: 600;
-      margin-top: var(--space-md);
-      color: var(--neutral-text);
+  .start-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 1.5rem;
   }
 
-  .template-description {
-      font-size: 0.95em;
-      color: var(--muted-text);
-      margin-top: var(--space-xs);
-      line-height: 1.5;
+  .start-info h2 {
+    font-size: 1.5rem;
   }
+
+  .templates-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+
+  .template-preview {
+    height: 180px;
+    padding: var(--space-md);
+  }
+
+  .preview-modern {
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .preview-sidebar {
+    padding: var(--space-sm);
+  }
+
+  .preview-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-sm);
+  }
+
+  .template-info {
+    padding: var(--space-md);
+  }
+}
 </style>

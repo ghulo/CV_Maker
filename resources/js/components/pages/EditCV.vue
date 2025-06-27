@@ -1,414 +1,709 @@
 <template>
-  <main class="main">
-    <form @submit.prevent="saveCv" class="cv-form page-container animate-in">
-      <h2 class="reveal-on-scroll">Shto Eksperiencën, Edukimin & Aftësitë</h2>
-      <p class="page-intro-text reveal-on-scroll" data-reveal-delay="100">
-        Shtoni detajet për përvojën tuaj të punës, edukimin dhe aftësitë. Mund të shtoni më shumë se
-        një hyrje për punë dhe edukim.
-      </p>
-
-      <div class="message-area">
-        <!-- Error and success messages here -->
+  <div class="page-wrapper edit-cv-wrapper">
+    <section class="form-container">
+      <!-- Header -->
+      <div class="text-center mb-xl">
+        <h1 class="section-title">Redakto CV</h1>
+        <p class="section-description">
+          Plotësoni informacionin e mëposhtëm për të ndërtuar CV-në tuaj.
+        </p>
       </div>
 
-      <!-- Work Experience Section -->
-      <div class="form-section reveal-on-scroll glassmorphic-card" data-reveal-delay="150">
-        <h3>Eksperienca e Punës</h3>
-        <div v-if="cv.work_experiences && cv.work_experiences.length" class="existing-items-list">
-          <h4>Eksperiencat Ekzistuese:</h4>
-          <ul>
-            <li v-for="work in cv.work_experiences" :key="work.id" class="glassmorphic-card">
-              <strong>{{ work.job_title }} te {{ work.company }}</strong>
-              <p>{{ work.city_country }} ({{ work.start_date }} - {{ work.end_date || 'Tani' }})</p>
-            </li>
-          </ul>
-          <hr />
-        </div>
-        <h4>Shto Eksperiencë të Re Pune (opsionale):</h4>
-        <div class="form-grid">
-          <div class="form-group">
-            <label>Pozita</label><input type="text" v-model="newWork.job_title" />
-          </div>
-          <div class="form-group">
-            <label>Kompania</label><input type="text" v-model="newWork.company" />
-          </div>
-          <div class="form-group">
-            <label>Qyteti, Shteti</label
-            ><input
-              type="text"
-              v-model="newWork.city_country"
-              placeholder="P.sh. Prishtinë, Kosovë"
-            />
-          </div>
-          <div class="form-group">
-            <label>Data e Fillimit</label><input type="date" v-model="newWork.start_date" />
-          </div>
-          <div class="form-group">
-            <label>Data e Mbarimit</label
-            ><input type="date" v-model="newWork.end_date" :disabled="newWork.is_current_job" />
-          </div>
-          <div class="form-group full-width checkbox-group">
-            <input
-              type="checkbox"
-              v-model="newWork.is_current_job"
-              @change="newWork.end_date = ''"
-            />
-            <label>Punë Aktuale</label>
-          </div>
-          <div class="form-group full-width">
-            <label>Përshkrim i Detyrave</label
-            ><textarea rows="4" v-model="newWork.job_description"></textarea>
-          </div>
-          <div class="form-group full-width">
-            <button
-              @click.prevent="addWorkExperience"
-              class="btn btn-secondary"
-              style="align-self: flex-start"
-            >
-              Shto Përvojë
-            </button>
-          </div>
-        </div>
+      <div v-if="loadingCv" class="loading-spinner-wrapper">
+        <i class="fas fa-spinner fa-spin loading-spinner"></i>
+        <p class="text-muted mt-md">Duke ngarkuar të dhënat e CV-së...</p>
       </div>
 
-      <!-- Education Section -->
-      <div class="form-section reveal-on-scroll glassmorphic-card" data-reveal-delay="200">
-        <h3>Edukimi</h3>
-        <div v-if="cv.educations && cv.educations.length" class="existing-items-list">
-          <h4>Edukimet Ekzistuese:</h4>
-          <ul>
-            <li v-for="edu in cv.educations" :key="edu.id" class="glassmorphic-card">
-              <strong>{{ edu.degree }} - {{ edu.field_of_study }}</strong>
-              <p>{{ edu.school }}, {{ edu.city_country }} (Viti: {{ edu.graduation_year }})</p>
-            </li>
-          </ul>
-          <hr />
-        </div>
-        <h4>Shto Edukim të Ri (opsionale):</h4>
-        <div class="form-grid">
-          <div class="form-group">
-            <label>Institucioni Arsimor</label><input type="text" v-model="newEducation.school" />
-          </div>
-          <div class="form-group">
-            <label>Diploma / Certifikata</label><input type="text" v-model="newEducation.degree" />
-          </div>
-          <div class="form-group">
-            <label>Fusha e Studimit</label
-            ><input type="text" v-model="newEducation.field_of_study" />
-          </div>
-          <div class="form-group">
-            <label>Qyteti, Shteti</label><input type="text" v-model="newEducation.city_country" />
-          </div>
-          <div class="form-group">
-            <label>Viti i Diplomimit</label
-            ><input
-              type="text"
-              v-model="newEducation.graduation_year"
-              placeholder="YYYY ose Në vazhdim"
-            />
-          </div>
-          <div class="form-group full-width">
-            <label>Përshkrim Shtesë</label
-            ><textarea rows="3" v-model="newEducation.edu_description"></textarea>
-          </div>
-          <div class="form-group full-width">
-            <button
-              @click.prevent="addEducation"
-              class="btn btn-secondary"
-              style="align-self: flex-start"
-            >
-              Shto Edukim
-            </button>
-          </div>
-        </div>
+      <div v-else-if="error" class="message error">
+        <i class="icon fas fa-exclamation-triangle"></i>
+        <p class="message-text">{{ error }}</p>
       </div>
 
-      <!-- Interests/Skills Section -->
-      <div class="form-section reveal-on-scroll glassmorphic-card" data-reveal-delay="250">
-        <h3>Interesat / Aftësitë (opsionale)</h3>
-        <div class="form-group full-width">
-          <label for="interests_description"
-            >Përshkruani interesat, hobitë dhe aftësitë tuaja</label
+      <form v-else @submit.prevent="saveCv" class="cv-form-sections">
+        <!-- Work Experience Section -->
+        <div class="form-section fade-in">
+          <h2 class="form-section-title">Përvoja e Punës</h2>
+
+          <div
+            v-for="(exp, index) in cv.experience"
+            :key="index"
+            class="card card-md mb-lg relative experience-item"
           >
-          <textarea
-            name="interests_description"
-            id="interests_description"
-            rows="4"
-            v-model="cv.interests"
-            placeholder="P.sh., Lexim, Vullnetarizëm, Sporte, JavaScript, Komunikim..."
-          ></textarea>
+            <div class="form-grid">
+              <div class="form-group">
+                <label :for="`job-title-${index}`" class="form-label required">Titulli i Pozicionit</label>
+                <input
+                  type="text"
+                  :id="`job-title-${index}`"
+                  v-model="exp.title"
+                  required
+                  class="form-input"
+                />
+              </div>
+              <div class="form-group">
+                <label :for="`company-${index}`" class="form-label required">Kompania</label>
+                <input
+                  type="text"
+                  :id="`company-${index}`"
+                  v-model="exp.company"
+                  required
+                  class="form-input"
+                />
+              </div>
+              <div class="form-group">
+                <label :for="`start-date-${index}`" class="form-label required">Data e Fillimit</label>
+                <input
+                  type="date"
+                  :id="`start-date-${index}`"
+                  v-model="exp.startDate"
+                  required
+                  class="form-input"
+                />
+              </div>
+              <div class="form-group">
+                <label :for="`end-date-${index}`" class="form-label">Data e Mbarimit</label>
+                <input
+                  type="date"
+                  :id="`end-date-${index}`"
+                  v-model="exp.endDate"
+                  class="form-input"
+                />
+                <p class="form-helper">
+                  Lëreni bosh nëse jeni ende duke punuar këtu.
+                </p>
+              </div>
+              <div class="form-group form-grid-full">
+                <label :for="`description-${index}`" class="form-label">Përshkrimi i Detyrave</label>
+                <textarea
+                  :id="`description-${index}`"
+                  v-model="exp.description"
+                  rows="3"
+                  class="form-textarea"
+                ></textarea>
+              </div>
+            </div>
+            <button
+              type="button"
+              @click="removeExperience(index)"
+              title="Fshij Përvojën"
+              class="btn btn-danger btn-icon remove-item-btn"
+            >
+              <i class="fas fa-times-circle"></i>
+            </button>
+          </div>
+          <button
+            type="button"
+            @click="addExperience"
+            class="btn btn-secondary btn-full-width mt-lg"
+          >
+            <i class="fas fa-plus icon"></i> Shto Përvojë
+          </button>
         </div>
-      </div>
 
-      <div class="page-actions form-actions-sticky reveal-on-scroll" data-reveal-delay="300">
-        <router-link :to="{ name: 'cv.edit', params: { id: cv.id } }" class="btn btn-secondary">
-          <i class="fas fa-arrow-left"></i> Kthehu te Info Personale
-        </router-link>
-        <button type="submit" class="btn-primary-form btn btn-primary">
-          Ruaj dhe Shiko CV-në <i class="fas fa-eye icon-right"></i>
-        </button>
-      </div>
-    </form>
-  </main>
+        <!-- Education Section -->
+        <div class="form-section fade-in">
+          <h2 class="form-section-title">Edukimi</h2>
+          <div
+            v-for="(edu, index) in cv.education"
+            :key="index"
+            class="card card-md mb-lg relative education-item"
+          >
+            <div class="form-grid">
+              <div class="form-group">
+                <label :for="`degree-${index}`" class="form-label required">Titulli i Diplomës / Fusha e Studimit</label>
+                <input
+                  type="text"
+                  :id="`degree-${index}`"
+                  v-model="edu.degree"
+                  required
+                  class="form-input"
+                />
+              </div>
+              <div class="form-group">
+                <label :for="`university-${index}`" class="form-label required">Institucioni / Universiteti</label>
+                <input
+                  type="text"
+                  :id="`university-${index}`"
+                  v-model="edu.university"
+                  required
+                  class="form-input"
+                />
+              </div>
+              <div class="form-group">
+                <label :for="`edu-start-date-${index}`" class="form-label required">Data e Fillimit</label>
+                <input
+                  type="date"
+                  :id="`edu-start-date-${index}`"
+                  v-model="edu.startDate"
+                  required
+                  class="form-input"
+                />
+              </div>
+              <div class="form-group">
+                <label :for="`edu-end-date-${index}`" class="form-label">Data e Mbarimit</label>
+                <input
+                  type="date"
+                  :id="`edu-end-date-${index}`"
+                  v-model="edu.endDate"
+                  class="form-input"
+                />
+                <p class="form-helper">
+                  Lëreni bosh nëse jeni ende duke studiuar këtu.
+                </p>
+              </div>
+              <div class="form-group form-grid-full">
+                <label :for="`edu-description-${index}`" class="form-label">Përshkrimi (opsionale)</label>
+                <textarea
+                  :id="`edu-description-${index}`"
+                  v-model="edu.description"
+                  rows="3"
+                  class="form-textarea"
+                ></textarea>
+              </div>
+            </div>
+            <button
+              type="button"
+              @click="removeEducation(index)"
+              title="Fshij Edukimin"
+              class="btn btn-danger btn-icon remove-item-btn"
+            >
+              <i class="fas fa-times-circle"></i>
+            </button>
+          </div>
+          <button
+            type="button"
+            @click="addEducation"
+            class="btn btn-secondary btn-full-width mt-lg"
+          >
+            <i class="fas fa-plus icon"></i> Shto Edukim
+          </button>
+        </div>
+
+        <!-- Skills Section -->
+        <div class="form-section fade-in">
+          <h2 class="form-section-title">Aftësitë</h2>
+          <p class="section-description">
+            Shtoni aftësitë tuaja teknike dhe të buta. Këto do të shfaqen si lista ose shirita
+            progresi në varësi të modelit të zgjedhur të CV-së.
+          </p>
+          <div
+            v-for="(skill, index) in cv.skills"
+            :key="index"
+            class="card card-md mb-lg relative skill-item"
+          >
+            <div class="form-grid">
+              <div class="form-group">
+                <label :for="`skill-name-${index}`" class="form-label required">Emri i Aftësisë</label>
+                <input
+                  type="text"
+                  :id="`skill-name-${index}`"
+                  v-model="skill.name"
+                  required
+                  class="form-input"
+                />
+              </div>
+              <div class="form-group">
+                <label :for="`skill-rating-${index}`" class="form-label">Niveli (1-5)</label>
+                <input
+                  type="number"
+                  :id="`skill-rating-${index}`"
+                  v-model="skill.level"
+                  min="1"
+                  max="5"
+                  class="form-input"
+                />
+                <p class="form-helper">
+                  Opsionale. Përdoret për aftësitë me shiritat e progresit.
+                </p>
+              </div>
+            </div>
+            <button
+              type="button"
+              @click="removeSkill(index)"
+              title="Fshij Aftësinë"
+              class="btn btn-danger btn-icon remove-item-btn"
+            >
+              <i class="fas fa-times-circle"></i>
+            </button>
+          </div>
+          <button
+            type="button"
+            @click="addSkill"
+            class="btn btn-secondary btn-full-width mt-lg"
+          >
+            <i class="fas fa-plus icon"></i> Shto Aftësi
+          </button>
+        </div>
+
+        <!-- Interests Section -->
+        <div class="form-section fade-in">
+          <h2 class="form-section-title">Interesat</h2>
+          <p class="section-description">
+            Shtoni interesat tuaja për të treguar më shumë personalitet. Këto do të shfaqen si
+            një listë.
+          </p>
+          <div
+            v-for="(interest, index) in cv.interests"
+            :key="index"
+            class="card card-md mb-lg relative interest-item"
+          >
+            <div class="form-group">
+              <label :for="`interest-name-${index}`" class="form-label required">Emri i Interesit</label>
+              <input
+                type="text"
+                :id="`interest-name-${index}`"
+                v-model="interest.name"
+                required
+                class="form-input"
+              />
+            </div>
+            <button
+              type="button"
+              @click="removeInterest(index)"
+              title="Fshij Interesin"
+              class="btn btn-danger btn-icon remove-item-btn"
+            >
+              <i class="fas fa-times-circle"></i>
+            </button>
+          </div>
+          <button
+            type="button"
+            @click="addInterest"
+            class="btn btn-secondary btn-full-width mt-lg"
+          >
+            <i class="fas fa-plus icon"></i> Shto Interes
+          </button>
+        </div>
+
+        <!-- Action Buttons (Save) -->
+        <div class="form-actions-sticky">
+          <button
+            type="submit"
+            :disabled="loading"
+            class="btn btn-primary ml-auto btn-with-icon"
+          >
+            <font-awesome-icon v-if="loading" icon="fa-solid fa-spinner" class="fa-spin icon" />
+            <i v-else class="fas fa-save icon"></i>
+            Ruaj Ndryshimet
+          </button>
+        </div>
+      </form>
+    </section>
+  </div>
 </template>
 
-<script>
-  import { ref, reactive, onMounted } from 'vue'
-  import { useRouter } from 'vue-router'
+<script setup>
+  import { ref, onMounted, reactive, watch } from 'vue'
+  import { useRoute, useRouter } from 'vue-router'
   import axios from 'axios'
-  import { useConfirmationModal } from '../../composables/useConfirmationModal.js'
 
-  export default {
-    name: 'EditCV',
-    props: ['id'],
-    setup(props) {
-      const router = useRouter()
-      const { showModal } = useConfirmationModal()
+  const route = useRoute()
+  const router = useRouter()
 
-      const cv = ref({
-        id: props.id,
-        title: '',
-        personal_details: {},
-        summary: '',
-        work_experiences: [],
-        educations: [],
-        skills: [],
-        interests: '',
-        selected_template: 'classic',
-      })
+  const cvId = route.params.id
+  const cv = ref({
+    title: '',
+    personalDetails: {},
+    summary: '',
+    experience: [],
+    education: [],
+    skills: [],
+    interests: [],
+    selectedTemplate: 'classic',
+    isFinalized: false,
+  })
 
-      const newWork = reactive({
-        job_title: '',
-        company: '',
-        city_country: '',
-        start_date: '',
-        end_date: '',
-        is_current_job: false,
-        job_description: '',
-      })
-      const newEducation = reactive({
-        school: '',
-        degree: '',
-        field_of_study: '',
-        city_country: '',
-        graduation_year: '',
-        edu_description: '',
-      })
+  const loadingCv = ref(true) // New loading state for fetching CV
+  const loading = ref(false) // For save operations
+  const error = ref(null)
 
-      const fetchCv = async () => {
-        try {
-          const response = await axios.get(`/api/cvs/${props.id}`, {
-            headers: { Authorization: `Bearer ${localStorage.getItem('auth_token')}` },
-          })
-          if (response.data.success && response.data.cv) {
-            const fetchedCv = response.data.cv
-            cv.value.id = fetchedCv.id
-            cv.value.title = fetchedCv.title || ''
-            cv.value.personal_details = fetchedCv.personal_details || {}
-            cv.value.summary = fetchedCv.summary || ''
-            cv.value.work_experiences = fetchedCv.work_experiences || []
-            cv.value.educations = fetchedCv.educations || []
-            cv.value.skills = fetchedCv.skills || []
-            cv.value.interests = fetchedCv.interests || ''
-            cv.value.selected_template = fetchedCv.template_id || 'classic'
-          } else {
-            console.error('CV data not found or success is false:', response.data)
-          }
-        } catch (error) {
-          console.error(
-            'Error fetching CV data:',
-            error.response ? error.response.data : error.message
-          )
-        }
-      }
-
-      const addWorkExperience = () => {
-        cv.value.work_experiences.push({ ...newWork })
-        Object.keys(newWork).forEach(
-          (key) => (newWork[key] = key === 'is_current_job' ? false : '')
-        )
-      }
-
-      const addEducation = () => {
-        cv.value.educations.push({ ...newEducation })
-        Object.keys(newEducation).forEach((key) => (newEducation[key] = ''))
-      }
-
-      const saveCv = async () => {
-        try {
-          const payload = {
-            id: cv.value.id,
-            title: cv.value.title,
-            personal_details: cv.value.personal_details,
-            summary: cv.value.summary,
-            work_experiences: cv.value.work_experiences,
-            education: cv.value.educations,
-            skills: cv.value.skills,
-            interests: cv.value.interests,
-            template_id: cv.value.selected_template,
-          }
-
-          const response = await axios.put(`/api/cvs/${props.id}`, payload, {
-            headers: { Authorization: `Bearer ${localStorage.getItem('auth_token')}` },
-          })
-
-          if (response.data.success) {
-            await showModal({
-              title: 'Sukses!',
-              message: 'CV-ja u ruajt me sukses.',
-              confirmButtonText: 'OK',
-              confirmButtonClass: 'btn-primary',
-              cancelButtonText: '',
-            })
-            router.push({ name: 'cv.preview', params: { id: props.id } })
-          } else {
-            const errorMessages = response.data.errors
-              ? Object.values(response.data.errors).flat().join('\n')
-              : 'Një gabim i panjohur ndodhi.'
-            await showModal({
-              title: 'Gabim!',
-              message: `Gabim gjatë ruajtjes së CV-së:\n${errorMessages}`,
-              confirmButtonText: 'OK',
-              confirmButtonClass: 'btn-danger',
-              cancelButtonText: '',
-            })
-          }
-        } catch (error) {
-          console.error('Error saving CV:', error.response ? error.response.data : error.message)
-          let errorMessage = 'Gabim gjatë ruajtjes së CV-së. Ju lutem provoni përsëri.'
-
-          if (error.response && error.response.data && error.response.data.errors) {
-            const detailedErrors = Object.values(error.response.data.errors).flat().join('\n')
-            errorMessage = `Gabim gjatë ruajtjes së CV-së:\n${detailedErrors}`
-          } else if (error.message) {
-            errorMessage = `Gabim i papritur: ${error.message}`
-          }
-
-          await showModal({
-            title: 'Gabim i Papritur!',
-            message: errorMessage,
-            confirmButtonText: 'OK',
-            confirmButtonClass: 'btn-danger',
-            cancelButtonText: '',
-          })
-        }
-      }
-
-      onMounted(() => {
-        fetchCv()
-        const revealElements = document.querySelectorAll('.reveal-on-scroll')
-        const revealObserver = new IntersectionObserver(
-          (entries, observer) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                const delay = parseInt(entry.target.getAttribute('data-reveal-delay') || '0', 10)
-                setTimeout(() => entry.target.classList.add('is-revealed'), delay)
-                observer.unobserve(entry.target)
-              }
-            })
-          },
-          { threshold: 0.1 }
-        )
-        revealElements.forEach((el) => revealObserver.observe(el))
-      })
-
-      return { cv, newWork, newEducation, addWorkExperience, addEducation, saveCv }
-    },
+  // Dummy initial items for new entries if lists are empty
+  const addInitialItems = () => {
+    if (cv.value.experience.length === 0) addExperience()
+    if (cv.value.education.length === 0) addEducation()
+    if (cv.value.skills.length === 0) addSkill()
+    if (cv.value.interests.length === 0) addInterest()
   }
+
+  const fetchCvData = async () => {
+    loadingCv.value = true
+    error.value = null
+    try {
+      const token = localStorage.getItem('auth_token')
+      const response = await axios.get(`/api/cvs/${cvId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      if (response.data.success && response.data.cv) {
+        const fetchedCv = response.data.cv
+        // Map fetched data to cv.value structure
+        cv.value.title = fetchedCv.title || ''
+        cv.value.personalDetails = fetchedCv.personalDetails || {}
+        cv.value.summary = fetchedCv.summary || ''
+        // Ensure arrays are initialized correctly and contain objects with required keys
+        cv.value.experience = fetchedCv.experience && fetchedCv.experience.length > 0 ? fetchedCv.experience.map(exp => ({...exp, startDate: exp.startDate || '', endDate: exp.endDate || ''})) : []
+        cv.value.education = fetchedCv.education && fetchedCv.education.length > 0 ? fetchedCv.education.map(edu => ({...edu, startDate: edu.startDate || '', endDate: edu.endDate || ''})) : []
+        cv.value.skills = fetchedCv.skills && fetchedCv.skills.length > 0 ? fetchedCv.skills.map(skill => ({...skill, level: skill.level || 3})) : [] // Ensure level is set
+        cv.value.interests = fetchedCv.interests && fetchedCv.interests.length > 0 ? fetchedCv.interests : []
+        cv.value.selectedTemplate = fetchedCv.selectedTemplate || 'classic'
+        cv.value.isFinalized = fetchedCv.isFinalized || false
+        addInitialItems() // Add empty items if a section is empty after fetching
+      } else {
+        error.value = response.data.message || 'CV nuk u gjet.'
+      }
+    } catch (err) {
+      error.value = 'Gabim gjatë ngarkimit të CV-së. Ju lutem provoni përsëri.'
+      console.error(err)
+      // Optionally redirect on severe error
+      // router.push({ name: 'dashboard' });
+    } finally {
+      loadingCv.value = false
+    }
+  }
+
+  const addExperience = () => {
+    cv.value.experience.push({
+      title: '',
+      company: '',
+      startDate: '',
+      endDate: '',
+      description: '',
+    })
+  }
+
+  const removeExperience = (index) => {
+    cv.value.experience.splice(index, 1)
+    if (cv.value.experience.length === 0) addExperience()
+  }
+
+  const addEducation = () => {
+    cv.value.education.push({
+      degree: '',
+      university: '',
+      startDate: '',
+      endDate: '',
+      description: '',
+    })
+  }
+
+  const removeEducation = (index) => {
+    cv.value.education.splice(index, 1)
+    if (cv.value.education.length === 0) addEducation()
+  }
+
+  const addSkill = () => {
+    cv.value.skills.push({ name: '', level: 3 }) // Default level
+  }
+
+  const removeSkill = (index) => {
+    cv.value.skills.splice(index, 1)
+    if (cv.value.skills.length === 0) addSkill()
+  }
+
+  const addInterest = () => {
+    cv.value.interests.push({ name: '', description: '' })
+  }
+
+  const removeInterest = (index) => {
+    cv.value.interests.splice(index, 1)
+    if (cv.value.interests.length === 0) addInterest()
+  }
+
+  const saveCv = async () => {
+    loading.value = true
+    error.value = null // Clear previous errors
+    try {
+      const token = localStorage.getItem('auth_token')
+      if (!token) {
+        router.push('/login')
+        return
+      }
+
+      const payload = {
+        id: cvId,
+        title: cv.value.title,
+        personalDetails: cv.value.personalInfo,
+        summary: cv.value.summary,
+        experience: cv.value.experience.map((exp) => ({ ...exp, is_current_job: !exp.endDate })),
+        education: cv.value.education,
+        skills: cv.value.skills,
+        interests: cv.value.interests,
+        selectedTemplate: cv.value.selectedTemplate,
+        isFinalized: cv.value.isFinalized, // Assuming it remains as it was fetched, or updated elsewhere
+      }
+
+      const response = await axios.put(`/api/cvs/${cvId}`, payload, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+
+      if (response.data.success) {
+        alert('CV u ruajt me sukses!')
+        // Optionally, navigate to preview or dashboard
+        router.push({ name: 'cv.preview', params: { id: cvId } })
+      } else {
+        error.value = response.data.message || 'Gabim gjatë ruajtjes së CV-së.'
+      }
+    } catch (err) {
+      error.value = err.response?.data?.message || 'Ndodhi një gabim gjatë ruajtjes së CV-së. Ju lutem provoni përsëri.'
+      console.error('Error saving CV:', err.response ? err.response.data : err.message)
+    } finally {
+      loading.value = false
+    }
+  }
+
+  onMounted(() => {
+    fetchCvData()
+  })
+
+  watch(cv, () => {
+    // reinitializeScrollReveal()
+  }, { deep: true })
 </script>
 
 <style scoped>
-  @reference "tailwindcss/theme";
+  .edit-cv-wrapper {
+    padding-top: var(--header-height-compact);
+    padding-bottom: var(--space-xxl);
+    background-color: var(--bg-secondary); /* Consistent page background */
+  }
 
-  .reveal-on-scroll {
-    opacity: 0;
-    transform: translateY(30px);
-    transition:
-      opacity 0.8s cubic-bezier(0.645, 0.045, 0.355, 1),
-      transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
+  .form-container {
+    max-width: 900px;
+    margin: var(--space-xxl) auto;
+    padding: var(--space-xxl);
+    background-color: var(--bg-card); /* Consistent with card background */
+    border: 1px solid var(--border); /* Consistent border */
+    border-radius: var(--radius-lg); /* Consistent radius */
+    box-shadow: var(--shadow-md); /* Consistent shadow */
   }
-  .reveal-on-scroll.is-revealed {
-    opacity: 1;
-    transform: translateY(0);
+
+  .text-center {
+    text-align: center;
   }
-  .existing-items-list {
-    margin-bottom: 2rem;
+
+  .mb-xl {
+    margin-bottom: var(--space-xl);
   }
-  .existing-items-list h4 {
-    font-weight: 600;
-    margin-bottom: 1rem;
+
+  /* Section Title and Description (re-using global utility classes) */
+  .section-title {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-4xl);
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: var(--space-md);
+    line-height: var(--line-height-tight); /* Consistent line height */
+    letter-spacing: var(--letter-spacing-tight); /* Consistent letter spacing */
   }
-  .existing-items-list ul {
-    list-style-type: none;
-    padding-left: 0;
+
+  .section-description {
+    font-size: var(--font-size-lg);
+    color: var(--text-secondary);
+    line-height: var(--line-height-normal);
+    max-width: 700px; /* Consistent narrower width */
+    margin: 0 auto var(--space-xl);
   }
-  .existing-items-list li {
-    background: var(--surface-raised);
-    padding: 1rem;
-    border-radius: var(--radius-md);
-    margin-bottom: 1rem;
-    border: 1px solid var(--border-color-soft);
+
+  /* Loading and Error States */
+  .loading-spinner-wrapper,
+  .empty-state-container {
+    padding: var(--space-xxl);
+    text-align: center;
   }
-  .existing-items-list hr {
-    border: none;
-    border-top: 1px solid var(--border-color);
-    margin: 2rem 0;
+
+  .loading-spinner {
+    font-size: var(--font-size-4xl);
+    color: var(--primary);
   }
-  .checkbox-group {
+
+  .message {
+    padding: var(--space-md); /* Consistent padding */
+    border-radius: var(--radius); /* Consistent radius */
+    margin-bottom: var(--space-lg);
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-  }
-  .checkbox-group input {
-    width: auto;
+    gap: var(--space-sm);
+    font-size: var(--font-size-base);
   }
 
-  /* Animations specific to Create/Edit CV components */
-  .fade-in {
-    animation: fadeIn 0.6s ease-out forwards;
+  .message.error {
+    background-color: var(--danger-light); /* Consistent with global message styles */
+    color: var(--danger-dark); /* Consistent with global message styles */
+    border: 1px solid var(--danger); /* Consistent with global message styles */
   }
 
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  .message .icon {
+    font-size: var(--font-size-lg);
   }
 
-  /* Form Layout Grid - shared with CreateCV.vue */
+  /* Form Sections */
+  .cv-form-sections {
+    margin-top: var(--space-xl);
+  }
+
+  .form-section {
+    background-color: var(--bg-card); /* Consistent with card background */
+    border: 1px solid var(--border); /* Consistent border */
+    border-radius: var(--radius-lg); /* Consistent radius */
+    padding: var(--space-xl);
+    margin-bottom: var(--space-xxl);
+    box-shadow: var(--shadow-md); /* Consistent shadow */
+  }
+
+  .form-section-title {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-3xl);
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: var(--space-lg);
+    padding-bottom: var(--space-md);
+    border-bottom: 1px solid var(--border-light); /* Lighter border */
+  }
+
   .form-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: var(--space-md);
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-lg);
   }
-  .form-group.full-width {
+
+  .form-grid-full {
     grid-column: 1 / -1;
   }
 
-  /* Form Section styles - shared with CreateCV.vue */
-  .form-section {
-    margin-bottom: var(--space-xl);
-  }
-  .form-section:last-child {
-    margin-bottom: 0;
-  }
-  .form-section h3 {
-    /* These properties might be overridden by more specific global rules or Tailwind,
-       but are included for completeness if they are intended to be component-specific. */
+  .remove-item-btn {
+    position: absolute;
+    top: var(--space-md);
+    right: var(--space-md);
+    z-index: var(--z-elevate);
+    width: 36px; /* Consistent size */
+    height: 36px; /* Consistent size */
+    font-size: var(--font-size-md); /* Consistent font size */
+    border-radius: var(--radius-full);
+    background-color: var(--danger); /* Explicit danger color */
+    color: white; /* White icon */
+    box-shadow: var(--shadow-sm); /* Subtle shadow */
+    transition: var(--transition-all);
   }
 
-  /* Dark theme specific for form-section */
+  .remove-item-btn:hover {
+    background-color: var(--danger-dark); /* Darker danger on hover */
+    box-shadow: var(--shadow-md); /* Slightly more prominent shadow */
+    transform: translateY(-1px);
+  }
+
+  .remove-item-btn i {
+    font-size: 1em;
+  }
+
+  .btn-full-width {
+    width: 100%;
+  }
+
+  /* Action Buttons at bottom */
+  .form-actions-sticky {
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: var(--space-md) var(--space-xl); /* Consistent padding */
+    background-color: var(--bg-card); /* Consistent background */
+    border-top: 1px solid var(--border-light); /* Consistent border */
+    box-shadow: var(--shadow-sm); /* Consistent shadow */
+    z-index: var(--z-sticky);
+    gap: var(--space-md);
+  }
+
+  /* Font Awesome Icon spacing */
+  .icon {
+    margin-right: var(--space-xs);
+  }
+
+  .btn-with-icon .icon {
+    margin-right: var(--space-xs);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .edit-cv-wrapper {
+      padding: var(--space-md);
+    }
+
+    .form-container {
+      margin: var(--space-lg) auto;
+      padding: var(--space-lg);
+    }
+
+    .section-title {
+      font-size: var(--font-size-3xl);
+    }
+
+    .section-description {
+      font-size: var(--font-size-base);
+    }
+
+    .form-section-title {
+      font-size: var(--font-size-2xl);
+    }
+
+    .form-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .form-actions-sticky {
+      flex-direction: column;
+      gap: var(--space-sm);
+      padding: var(--space-md);
+    }
+
+    .form-actions-sticky .btn {
+      width: 100%;
+      margin-left: 0 !important;
+    }
+
+    .remove-item-btn {
+      position: static;
+      width: 100%;
+      margin-top: var(--space-md);
+      border-radius: var(--radius); /* Consistent radius for full-width */
+    }
+  }
+
+  /* Dark Theme Overrides - Adjusted to use global variables where possible */
+  body.dark-theme .form-container,
   body.dark-theme .form-section {
-    background-color: var(--dark-neutral-light);
-    border-color: var(--dark-neutral-border);
-    box-shadow: 0 3px 8px rgba(0,0,0,0.25);
+    background-color: var(--bg-card);
+    border-color: var(--border);
+    box-shadow: var(--shadow-md);
   }
-  body.dark-theme .form-section h3 {
-    color: var(--dark-primary);
-    border-bottom-color: var(--dark-divider-color);
+
+  body.dark-theme .section-title,
+  body.dark-theme .form-section-title {
+    color: var(--text-primary);
   }
-</style>
+
+  body.dark-theme .section-description {
+    color: var(--text-secondary);
+  }
+
+  body.dark-theme .loading-spinner {
+    color: var(--primary);
+  }
+
+  body.dark-theme .message.error {
+    background-color: var(--danger-dark);
+    color: var(--danger-light);
+    border-color: var(--danger);
+  }
+
+  body.dark-theme .form-section-title {
+    border-bottom-color: var(--border-light);
+  }
+
+  body.dark-theme .form-actions-sticky {
+    background-color: var(--bg-card);
+    border-top-color: var(--border-light);
+    box-shadow: var(--shadow-sm);
+  }
+</style> 

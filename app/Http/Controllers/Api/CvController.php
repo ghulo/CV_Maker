@@ -39,19 +39,20 @@ class CvController extends Controller
      */
     public function store(Request $request)
     {
+        // More lenient validation for drafts
         $validator = Validator::make($request->all(), [
             'title' => 'required|string|max:255',
             'personalDetails.firstName' => 'required|string|max:255',
             'personalDetails.lastName' => 'nullable|string|max:255',
             'personalDetails.email' => 'required|email|max:255',
             'personalDetails.phone' => 'nullable|string|max:255',
-            'personalDetails.address' => 'nullable|string|max:255',
-            'summary' => 'required|string',
+            'personalDetails.address' => 'nullable|string|max:500',
+            'summary' => 'nullable|string|max:2000',
             'experience' => 'present|array',
             'education' => 'present|array',
             'skills' => 'present|array',
             'interests' => 'present|array',
-            'selectedTemplate' => 'required|string|max:255',
+            'selectedTemplate' => 'required|string|in:modern,classic,professional,creative',
         ]);
 
         if ($validator->fails()) {
@@ -100,6 +101,9 @@ class CvController extends Controller
             return response()->json(['success' => false, 'message' => 'CV not found'], 404);
         }
 
+        // Increment view count
+        $cv->increment('views');
+
         return response()->json(['success' => true, 'cv' => $this->transformCvToApi($cv)]);
     }
 
@@ -120,13 +124,13 @@ class CvController extends Controller
             'personalDetails.lastName' => 'nullable|string|max:255',
             'personalDetails.email' => 'required|email|max:255',
             'personalDetails.phone' => 'nullable|string|max:255',
-            'personalDetails.address' => 'nullable|string|max:255',
-            'summary' => 'required|string',
+            'personalDetails.address' => 'nullable|string|max:500',
+            'summary' => 'nullable|string|max:2000',
             'experience' => 'present|array',
             'education' => 'present|array',
             'skills' => 'present|array',
             'interests' => 'present|array',
-            'selectedTemplate' => 'required|string|max:255',
+            'selectedTemplate' => 'required|string|in:modern,classic,professional,creative',
         ]);
 
         if ($validator->fails()) {
@@ -243,16 +247,33 @@ class CvController extends Controller
     /**
      * Download the specified CV as PDF.
      */
-    public function download($id)
+    public function download(Request $request, $id)
     {
-        $cv = Cv::with(['workExperiences', 'education', 'skills'])->find($id);
+        $cv = Cv::with(['workExperiences', 'education', 'skills', 'interests'])->find($id);
 
         if (!$cv || $cv->user_id !== Auth::id()) {
             return response()->json(['success' => false, 'message' => 'CV not found'], 404);
         }
         
-        $pdf = Pdf::loadView('pdf.cv', ['cv' => $cv]);
-        $fileName = 'cv-' . str_replace(' ', '-', $cv->emri . '-' . $cv->mbiemri) . '.pdf';
+        // Get style and quality parameters
+        $style = $request->get('style', 'default');
+        $quality = $request->get('quality', 'high');
+        
+        // Increment download count
+        $cv->increment('downloads');
+        
+        $pdf = Pdf::loadView('pdf.cv', ['cv' => $cv, 'style' => $style, 'quality' => $quality]);
+        
+        // Set PDF options based on quality
+        if ($quality === 'high') {
+            $pdf->setPaper('A4')->setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif']);
+        } elseif ($quality === 'medium') {
+            $pdf->setPaper('A4')->setOptions(['dpi' => 100, 'defaultFont' => 'sans-serif']);
+        } else {
+            $pdf->setPaper('A4')->setOptions(['dpi' => 72, 'defaultFont' => 'sans-serif']);
+        }
+        
+        $fileName = 'cv-' . str_replace(' ', '-', strtolower($cv->emri . '-' . $cv->mbiemri)) . '-' . $style . '.pdf';
 
         return $pdf->download($fileName);
     }
@@ -303,13 +324,15 @@ class CvController extends Controller
             'interests' => $cv->interests->map(function($interest) {
                 return [
                     'id' => $interest->id,
-                    'name' => $interest->name,
+                    'name' => $interest->description,
                 ];
             }),
             'selectedTemplate' => $cv->selected_template,
             'createdAt' => $cv->created_at,
             'updatedAt' => $cv->updated_at,
             'isFinalized' => $cv->is_finalized,
+            'views' => $cv->views ?? 0,
+            'downloads' => $cv->downloads ?? 0,
         ];
     }
     
@@ -326,7 +349,7 @@ class CvController extends Controller
                 'email' => $requestData['personalDetails']['email'],
                 'telefoni' => $requestData['personalDetails']['phone'] ?? null,
                 'address' => $requestData['personalDetails']['address'] ?? null,
-                'summary' => $requestData['summary'],
+                'summary' => $requestData['summary'] ?? '',
                 'cv_title' => $requestData['title'],
                 'selected_template' => $requestData['selectedTemplate'],
                 'is_finalized' => $requestData['isFinalized'] ?? false,
@@ -356,7 +379,7 @@ class CvController extends Controller
             }, $requestData['skills']),
             'interests' => array_map(function($interest) {
                 return [
-                    'name' => $interest['name'],
+                    'description' => $interest['name'],
                 ];
             }, $requestData['interests']),
         ];

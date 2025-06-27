@@ -10,6 +10,9 @@ import Templates from '../components/pages/Templates.vue'
 import Profile from '../components/pages/Profile.vue'
 import CreateCV from '../components/pages/CreateCV.vue'
 import EditCV from '../components/pages/EditCV.vue'
+import PrivacyPolicy from '../components/pages/PrivacyPolicy.vue'
+import TermsOfService from '../components/pages/TermsOfService.vue'
+import { useLiquidAnimations } from '../liquidAnimations'
 
 const routes = [
   {
@@ -31,6 +34,16 @@ const routes = [
     path: '/faq',
     name: 'faq',
     component: FAQ,
+  },
+  {
+    path: '/privacy-policy',
+    name: 'privacy-policy',
+    component: PrivacyPolicy,
+  },
+  {
+    path: '/terms-of-service',
+    name: 'terms-of-service',
+    component: TermsOfService,
   },
   {
     path: '/profile',
@@ -62,17 +75,17 @@ const routes = [
     component: Templates,
   },
   {
-    path: '/cv/create',
-    name: 'cv.create',
+    path: '/create-cv',
+    name: 'create-cv',
     component: CreateCV,
     meta: { requiresAuth: true },
   },
   {
-    path: '/cv/:id/edit',
-    name: 'cv.edit',
+    path: '/edit-cv/:id',
+    name: 'edit-cv',
     component: EditCV,
-    meta: { requiresAuth: true },
     props: true,
+    meta: { requiresAuth: true },
   },
   {
     path: '/cv/:id/preview',
@@ -80,6 +93,18 @@ const routes = [
     component: () => import('../components/pages/PreviewCV.vue'),
     meta: { requiresAuth: true },
     props: true,
+  },
+  // Redirect old preview URL pattern to new one
+  {
+    path: '/preview-cv/:id',
+    redirect: to => {
+      return { path: `/cv/${to.params.id}/preview` }
+    },
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'not-found',
+    component: () => import('../components/pages/NotFound.vue'),
   },
 ]
 
@@ -99,6 +124,15 @@ router.beforeEach((to, from, next) => {
   } else {
     next()
   }
+})
+
+// Refresh animations after route change
+router.afterEach((to, from) => {
+  // Small delay to ensure DOM is updated
+  setTimeout(() => {
+    const liquidAnimations = useLiquidAnimations()
+    liquidAnimations.refresh()
+  }, 50)
 })
 
 export default router

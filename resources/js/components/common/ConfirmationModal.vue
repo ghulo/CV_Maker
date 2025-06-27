@@ -1,6 +1,6 @@
 <template>
-  <div v-show="isVisible" :class="['modal-overlay', { 'is-visible': isVisible }]">
-    <div class="modal-content">
+  <div v-show="isVisible" class="modal-overlay">
+    <div class="modal-content card reveal-on-scroll reveal-scale">
       <h3 class="modal-title">{{ title }}</h3>
       <p class="modal-message">{{ message }}</p>
       <div class="modal-actions">
@@ -39,7 +39,7 @@
     },
     confirmButtonClass: {
       type: String,
-      default: 'btn-primary', // Tailwind classes like 'btn-danger' for delete
+      default: 'btn-primary', // btn-danger for delete
     },
   })
 
@@ -61,91 +61,80 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(5px);
+    background-color: rgba(0, 0, 0, 0.6); /* Slightly lighter overlay */
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000;
+    z-index: var(--z-modal);
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition-opacity);
   }
+
+  .modal-overlay[style*="display: block"] {
+    opacity: 1;
+    visibility: visible;
+  }
+
   .modal-content {
-    background: var(--neutral-light);
-    padding: var(--space-lg);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow-hover);
+    padding: var(--space-xl);
+    max-width: 500px;
     width: 90%;
-    max-width: 400px;
-    transform: translateY(-20px); /* Initial position */
-    transition: all 0.3s ease-out;
-    opacity: 0; /* Start hidden */
-  }
-  .modal-overlay.is-visible .modal-content {
-    transform: translateY(0px); /* Final position */
-    opacity: 1; /* Show content */
-  }
-  body.dark-theme .modal-content {
-    background: var(--dark-neutral-container);
+    text-align: center;
   }
 
   .modal-title {
-    font-size: 1.5em; /* text-2xl */
-    font-weight: 600; /* font-semibold */
-    margin-bottom: 1rem; /* mb-4 */
-    color: var(--neutral-text);
-  }
-  body.dark-theme .modal-title {
-    color: var(--dark-neutral-text);
+    font-family: var(--font-heading);
+    font-size: var(--font-size-2xl);
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: var(--space-md);
   }
 
   .modal-message {
-    font-size: 1em; /* text-base */
-    color: var(--muted-text);
-    margin-bottom: 1.5rem; /* mb-6 */
-  }
-  body.dark-theme .modal-message {
-    color: var(--dark-muted-text);
+    font-size: var(--font-size-base);
+    color: var(--text-secondary);
+    line-height: var(--line-height-normal);
+    margin-bottom: var(--space-lg);
   }
 
   .modal-actions {
-    margin-top: 1.5rem; /* mt-6 */
     display: flex;
-    justify-content: flex-end;
-    gap: 0.75rem; /* gap-3 */
+    justify-content: center;
+    gap: var(--space-md);
+    margin-top: var(--space-xl);
   }
 
-  /* Ensure buttons adopt existing styles */
-  .btn {
-    padding: 0.75rem 1.5rem;
-    border-radius: var(--radius);
-    border: 1px solid transparent;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
+  /* Responsive Adjustments */
+  @media (max-width: 768px) {
+    .modal-content {
+      padding: var(--space-lg);
+    }
+
+    .modal-title {
+      font-size: var(--font-size-xl);
+    }
+
+    .modal-message {
+      font-size: var(--font-size-sm);
+    }
+
+    .modal-actions {
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+
+    .modal-actions .btn {
+      width: 100%;
+    }
   }
-  .btn-primary {
-    background-color: var(--primary);
-    color: white;
+
+  /* Dark Mode Overrides */
+  body.dark-theme .modal-title {
+    color: var(--text-primary);
   }
-  .btn-primary:hover {
-    background-color: var(--primary-darker);
-  }
-  .btn-secondary {
-    background-color: var(--neutral-container);
-    color: var(--neutral-text);
-    border-color: var(--neutral-border);
-  }
-  .btn-secondary:hover {
-    border-color: var(--primary);
-    color: var(--primary);
-  }
-  .btn-danger {
-    background-color: var(--danger);
-    color: white;
-  }
-  .btn-danger:hover {
-    background-color: var(--danger-darker);
+
+  body.dark-theme .modal-message {
+    color: var(--text-secondary);
   }
 </style>

@@ -1,50 +1,21 @@
 <template>
-  <div id="vue-app">
+  <div id="vue-app" :class="{ 'theme-dark': isDarkTheme, 'theme-light': !isDarkTheme }">
     <!-- Navigation Component -->
-    <Navigation />
+    <Navigation @theme-changed="handleThemeChange" />
 
     <!-- Main Content - Router View -->
-    <main>
+    <main class="app-main-content">
       <router-view />
     </main>
 
     <!-- Footer Component -->
     <AppFooter />
 
-    <!-- Background CV Elements -->
-    <div class="background-cvs-container" aria-hidden="true">
-      <div class="background-cv">
-        <div class="header-placeholder"></div>
-        <div class="line-placeholder"></div>
-        <div class="line-placeholder w-80"></div>
-        <div class="block-placeholder"></div>
-        <div class="line-placeholder w-90"></div>
-        <div class="line-placeholder w-70"></div>
-      </div>
-      <div class="background-cv">
-        <div class="header-placeholder"></div>
-        <div class="line-placeholder"></div>
-        <div class="line-placeholder w-80"></div>
-        <div class="block-placeholder"></div>
-        <div class="line-placeholder w-90"></div>
-        <div class="line-placeholder w-70"></div>
-      </div>
-      <div class="background-cv">
-        <div class="header-placeholder"></div>
-        <div class="line-placeholder"></div>
-        <div class="line-placeholder w-80"></div>
-        <div class="block-placeholder"></div>
-        <div class="line-placeholder w-90"></div>
-        <div class="line-placeholder w-70"></div>
-      </div>
-      <div class="background-cv">
-        <div class="header-placeholder"></div>
-        <div class="line-placeholder"></div>
-        <div class="line-placeholder w-80"></div>
-        <div class="block-placeholder"></div>
-        <div class="line-placeholder w-90"></div>
-        <div class="line-placeholder w-70"></div>
-      </div>
+    <!-- Animated Background -->
+    <div class="animated-bg">
+      <div class="gradient-sphere sphere-1"></div>
+      <div class="gradient-sphere sphere-2"></div>
+      <div class="gradient-sphere sphere-3"></div>
     </div>
 
     <!-- Global Confirmation Modal -->
@@ -62,22 +33,24 @@
     <!-- Back-to-Top Button -->
     <button
       @click="scrollToTop"
-      :class="['back-to-top-btn', { 'is-visible': showBackToTop }]"
+      :class="['back-to-top', { 'visible': showBackToTop }]"
       aria-label="Scroll to top"
     >
-      <i class="fas fa-arrow-up"></i>
+      <i class="fas fa-chevron-up"></i>
     </button>
   </div>
 </template>
 
 <script>
-  import { onMounted, watch, ref, onUnmounted } from 'vue'
+  import { onMounted, watch, ref, onUnmounted, nextTick } from 'vue'
   import { useRoute } from 'vue-router'
+  import { useI18n } from 'vue-i18n'
   import Navigation from './layout/Navigation.vue'
   import AppFooter from './layout/AppFooter.vue'
   import ConfirmationModal from './common/ConfirmationModal.vue'
   import { initializeEffects, reinitializeScrollReveal } from '../script.js'
   import { useConfirmationModal } from '../composables/useConfirmationModal.js'
+  import { useLiquidAnimations } from '../liquidAnimations.js'
 
   export default {
     name: 'App',
@@ -88,27 +61,82 @@
     },
     setup() {
       const route = useRoute()
+      const { t, locale } = useI18n()
       const { modalState, confirm, cancel } = useConfirmationModal()
+      const liquidAnimations = useLiquidAnimations()
       const showBackToTop = ref(false)
+      const isDarkTheme = ref(false)
+
+      // Initialize i18n with saved language preference
+      const initializeLanguage = () => {
+        const savedLanguage = localStorage.getItem('preferred-language')
+        if (savedLanguage) {
+          locale.value = savedLanguage
+        }
+      }
 
       const handleScroll = () => {
-        showBackToTop.value = window.scrollY > 200
+        showBackToTop.value = window.scrollY > 300
       }
 
       const scrollToTop = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' })
       }
 
+      const handleThemeChange = (isDark) => {
+        isDarkTheme.value = isDark
+      }
+
+      const initializeTheme = () => {
+        // Check for saved theme preference or default to light
+        const savedTheme = localStorage.getItem('theme')
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+        
+        if (savedTheme) {
+          isDarkTheme.value = savedTheme === 'dark'
+        } else {
+          isDarkTheme.value = prefersDark
+        }
+        
+        // Apply theme to body
+        if (isDarkTheme.value) {
+          document.body.classList.add('theme-dark')
+          document.body.classList.remove('theme-light')
+        } else {
+          document.body.classList.add('theme-light')
+          document.body.classList.remove('theme-dark')
+        }
+      }
+
       onMounted(() => {
+        initializeLanguage()
+        initializeTheme()
         initializeEffects()
         window.addEventListener('scroll', handleScroll)
+        
+        // DISABLE AOS FOR DEBUGGING - this was hiding content!
+        // if (typeof AOS !== 'undefined') {
+        //   AOS.init({
+        //     duration: 800,
+        //     easing: 'ease-out',
+        //     once: true,
+        //     offset: 100
+        //   })
+        // }
       })
 
       watch(
-        () => route.path,
-        () => {
+        () => route.fullPath,
+        async () => {
+          await nextTick()
           reinitializeScrollReveal()
+          liquidAnimations.refresh()
           window.scrollTo({ top: 0, behavior: 'smooth' })
+
+          // DISABLE AOS REFRESH FOR DEBUGGING
+          // if (typeof AOS !== 'undefined') {
+          //   AOS.refresh()
+          // }
         }
       )
 
@@ -122,52 +150,183 @@
         cancel,
         showBackToTop,
         scrollToTop,
+        isDarkTheme,
+        handleThemeChange,
+        t
       }
     },
   }
 </script>
 
 <style>
-  /* Removed global modal styles from here */
-  /* Back-to-Top Button Styles (added here for simplicity, consider moving to global.css if desired) */
-  .back-to-top-btn {
-    position: fixed;
-    bottom: var(--space-xl);
-    right: var(--space-xl);
-    background-color: var(--primary);
-    color: white;
-    padding: var(--space-md);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5em;
-    box-shadow: var(--shadow-interactive);
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s var(--animation-ease-out);
-    z-index: 900;
-    cursor: pointer;
-  }
+/* App-specific styles */
+#vue-app {
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
 
-  .back-to-top-btn.is-visible {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-  }
+.app-main-content {
+  min-height: calc(100vh - var(--header-height-compact) - 300px); /* Adjust based on footer height */
+  padding-top: var(--header-height-compact);
+  position: relative;
+  z-index: 1;
+}
 
-  .back-to-top-btn:hover {
-    transform: translateY(-5px); /* Subtle lift on hover */
-    box-shadow: var(--shadow-hover);
-  }
+/* Animated Background */
+.animated-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0.3;
+}
 
-  /* Dark theme specific styles for back-to-top button */
-  body.dark-theme .back-to-top-btn {
-    background-color: var(--dark-primary);
-    box-shadow: var(--shadow-interactive-dark);
-  }
+.gradient-sphere {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.6;
+  animation: float 20s infinite ease-in-out;
+}
 
-  body.dark-theme .back-to-top-btn:hover {
-    background-color: var(--dark-primary-hover);
+.sphere-1 {
+  width: 600px;
+  height: 600px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+  top: -300px;
+  left: -300px;
+  animation-delay: 0s;
+}
+
+.sphere-2 {
+  width: 400px;
+  height: 400px;
+  background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-light) 100%);
+  bottom: -200px;
+  right: -200px;
+  animation-delay: 5s;
+}
+
+.sphere-3 {
+  width: 300px;
+  height: 300px;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation-delay: 10s;
+}
+
+@keyframes float {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(100px, -100px) scale(1.1); }
+  50% { transform: translate(-100px, 100px) scale(0.9); }
+  75% { transform: translate(50px, 50px) scale(1.05); }
+}
+
+/* Back to Top Button */
+.back-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  background: var(--gradient-primary);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 14px rgba(91, 33, 182, 0.4);
+  z-index: var(--z-sticky);
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.back-to-top:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(91, 33, 182, 0.5);
+}
+
+.back-to-top i {
+  font-size: 20px;
+}
+
+/* Page Transitions */
+.page-enter-active,
+.page-leave-active {
+  transition: all 0.3s ease;
+}
+
+.page-enter-from {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.page-leave-to {
+  opacity: 0;
+  transform: translateY(-20px);
+}
+
+/* Ensure all components respect theme */
+.theme-dark {
+  --header-bg: rgba(15, 23, 42, 0.95);
+  --footer-bg: var(--bg-muted);
+}
+
+.theme-light {
+  --header-bg: rgba(255, 255, 255, 0.95);
+  --footer-bg: var(--bg-muted);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .app-main-content {
+    padding-top: calc(var(--header-height-compact) - 10px);
   }
+  
+  .back-to-top {
+    bottom: 20px;
+    right: 20px;
+    width: 45px;
+    height: 45px;
+  }
+  
+  .gradient-sphere {
+    filter: blur(80px);
+  }
+  
+  .sphere-1 {
+    width: 400px;
+    height: 400px;
+  }
+  
+  .sphere-2 {
+    width: 300px;
+    height: 300px;
+  }
+  
+  .sphere-3 {
+    width: 200px;
+    height: 200px;
+  }
+}
 </style>

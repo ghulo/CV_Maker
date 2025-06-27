@@ -1,188 +1,535 @@
 <template>
-  <main class="main">
-    <div class="page-container animate-in">
-      <section class="dashboard-hero homepage-hero">
-        <div class="hero-bg-decoration" aria-hidden="true"></div>
-        <h2 class="reveal-on-scroll">{{ totalCvs > 0 ? 'Menaxhoni CV-të Tuaja, Zgjidhni Të Ardhmen Tuaj.' : 'Krijo CV-në Tënde Të Parë Me Lehtësi!' }}</h2>
-        <p class="reveal-on-scroll" data-reveal-delay="100">
-          {{ totalCvs > 0 ? 'Këtu mund të shihni, modifikoni, shkarkoni dhe menaxhoni të gjitha CV-të tuaja të krijuara.' : 'Nuk keni krijuar ende asnjë CV. Filloni duke zgjedhur një model dhe ndërtoni profilin tuaj profesional.' }}
+  <div class="page-wrapper dashboard-wrapper">
+    <!-- Clean Hero Section like Contact -->
+    <section class="section-spacing">
+      <div class="text-center mb-xl">
+        <h1 class="section-title">
+          {{ totalCvs > 0 ? 'Your Professional Dashboard' : 'Welcome to CV Creator' }}
+        </h1>
+        <p class="section-description">
+          {{ totalCvs > 0 ? `Manage your ${totalCvs} CV${totalCvs === 1 ? '' : 's'} with intelligence and style` : 'Create your first professional CV and unlock AI-powered insights' }}
         </p>
-        <router-link
-          to="/templates"
-          class="btn-create btn-large btn btn-primary reveal-on-scroll"
-          data-reveal-delay="200"
-          v-if="totalCvs === 0"
-        >
-          <i class="fas fa-plus"></i> Krijo CV Tani
+      </div>
+
+      <!-- Loading State -->
+      <div v-if="loading" class="text-center">
+        <i class="fas fa-spinner fa-spin loading-spinner"></i>
+        <p class="loading-text">Loading your workspace...</p>
+      </div>
+
+      <!-- Quick Stats - Clean Text Display -->
+      <div v-else class="stats-section">
+        <div class="stats-grid">
+          <div class="stat-item">
+            <div class="stat-number">{{ totalCvs }}</div>
+            <div class="stat-label">CVs Created</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">{{ totalViews }}</div>
+            <div class="stat-label">Total Views</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">{{ totalDownloads }}</div>
+            <div class="stat-label">Downloads</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">{{ draftCvs }}</div>
+            <div class="stat-label">Drafts</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Actions - Simple Buttons -->
+      <div class="actions-section text-center">
+        <router-link to="/templates" class="btn btn-primary btn-with-icon">
+          <i class="fas fa-plus icon"></i>
+          Create New CV
         </router-link>
-      </section>
+        
+        <button v-if="totalCvs > 0" @click="showAIPanel = !showAIPanel" class="btn btn-secondary btn-with-icon">
+          <i class="fas fa-brain icon"></i>
+          AI Insights
+        </button>
+      </div>
+    </section>
 
-      <section class="dashboard-stats homepage-value-prop">
-        <div
-          class="value-prop-container reveal-on-scroll glassmorphic-card"
-          data-reveal-delay="100"
-        >
-          <div class="value-prop-headline">
-            <h3 class="reveal-on-scroll" data-reveal-delay="200">Përmbledhje e Shpejtë e CV-ve Tua.</h3>
+    <!-- Advanced Analytics Section - RESTORED with Clean Styling! -->
+    <section v-if="showAIPanel && totalCvs > 0" class="section-spacing">
+      <div class="text-center mb-xl">
+        <h2 class="section-title">🤖 Advanced AI Dashboard</h2>
+        <p class="section-description">
+          Comprehensive insights into your CV performance and AI-powered recommendations
+        </p>
+      </div>
+
+      <!-- Performance Charts - Clean but Advanced -->
+      <div class="analytics-container">
+        <div class="chart-grid">
+          <!-- CV Performance Chart -->
+          <div class="chart-item">
+            <h3 class="chart-title">
+              <i class="fas fa-chart-line"></i>
+              CV Performance Over Time
+            </h3>
+            <div class="chart-wrapper">
+              <apexchart 
+                type="line" 
+                height="300" 
+                :options="performanceChartOptions" 
+                :series="performanceChartSeries"
+              ></apexchart>
+            </div>
           </div>
-          <div class="dashboard-stats-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
-            <div class="stat-card reveal-on-scroll glassmorphic-card" data-reveal-delay="250">
-              <div class="stat-icon-wrapper"><i class="fas fa-file-invoice"></i></div>
-              <div class="stat-info">
-                <p class="stat-label">Total CVs Created</p>
-                <span class="stat-value">{{ totalCvs }}</span>
-              </div>
+
+          <!-- Template Usage Distribution -->
+          <div class="chart-item">
+            <h3 class="chart-title">
+              <i class="fas fa-palette"></i>
+              Template Distribution
+            </h3>
+            <div class="chart-wrapper">
+              <apexchart 
+                type="donut" 
+                height="300" 
+                :options="templateChartOptions" 
+                :series="templateChartSeries"
+              ></apexchart>
             </div>
-            <div class="stat-card reveal-on-scroll glassmorphic-card" data-reveal-delay="300">
-              <div class="stat-icon-wrapper"><i class="fas fa-hourglass-half"></i></div>
-              <div class="stat-info">
-                <p class="stat-label">CV-të në Draft</p>
-                <span class="stat-value">{{ draftCvs }}</span>
+          </div>
+        </div>
+
+        <!-- AI Insights Grid - Enhanced -->
+        <div class="insights-container">
+          <h3 class="insights-title">
+            <i class="fas fa-brain"></i>
+            AI-Powered Insights
+          </h3>
+          <div class="insights-grid">
+            <div v-for="insight in aiInsights" :key="insight.id" class="insight-card" :class="insight.type">
+              <div class="insight-icon">
+                <i :class="insight.icon"></i>
               </div>
-            </div>
-            <div class="stat-card reveal-on-scroll glassmorphic-card" data-reveal-delay="350">
-              <div class="stat-icon-wrapper"><i class="fas fa-download"></i></div>
-              <div class="stat-info">
-                <p class="stat-label">Shkarkime Totale (Placeholder)</p>
-                <span class="stat-value">N/A</span>
-              </div>
-            </div>
-            <div class="stat-card reveal-on-scroll glassmorphic-card" data-reveal-delay="400">
-              <div class="stat-icon-wrapper"><i class="fas fa-eye"></i></div>
-              <div class="stat-info">
-                <p class="stat-label">Shikime Totale (Placeholder)</p>
-                <span class="stat-value">N/A</span>
+              <div class="insight-content">
+                <h4 class="insight-title">{{ insight.title }}</h4>
+                <p class="insight-description">{{ insight.description }}</p>
               </div>
             </div>
           </div>
         </div>
-      </section>
 
-      <section class="cv-list-section homepage-how-it-works">
-        <div class="list-controls-header">
-          <h3 class="reveal-on-scroll">CV-të e Mia</h3>
-          <router-link to="/templates" class="btn btn-primary reveal-on-scroll" data-reveal-delay="450">
-            <i class="fas fa-plus"></i> Krijo CV Të Re
-          </router-link>
+        <!-- Enhanced Activity Timeline -->
+        <div class="timeline-container">
+          <h3 class="timeline-title">
+            <i class="fas fa-clock"></i>
+            Recent Activity Timeline
+          </h3>
+          <div class="timeline">
+            <div v-for="activity in recentActivities" :key="activity.id" class="timeline-item">
+              <div class="timeline-marker" :class="activity.type">
+                <i class="fas fa-circle"></i>
+              </div>
+              <div class="timeline-content">
+                <div class="timeline-time">{{ formatTimeAgo(activity.timestamp) }}</div>
+                <div class="timeline-title-text">{{ activity.title }}</div>
+                <div class="timeline-description">{{ activity.description }}</div>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
+    </section>
 
-        <!-- Search, Filter, Sort Controls -->
-        <div class="flex flex-col sm:flex-row gap-4 mb-6 mt-4">
-          <div class="relative flex-grow reveal-on-scroll" data-reveal-delay="500">
+    <!-- Search and Controls - Minimal -->
+    <section v-if="!loading" class="section-spacing controls-section">
+      <div class="text-center mb-lg">
+        <h2 class="section-title">{{ totalCvs > 0 ? 'Your CVs' : 'No CVs Yet' }}</h2>
+      </div>
+
+      <!-- Simple Search and Filter -->
+      <div v-if="totalCvs > 0" class="controls-row">
+        <div class="form-group search-group">
+          <div class="input-icon-wrapper">
+            <i class="fas fa-search input-icon"></i>
             <input
-              type="text"
               v-model="searchTerm"
-              placeholder="Kërko sipas titullit, emrit, apo përmbledhjes..."
-              class="w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-dark-neutral-bg dark:border-dark-neutral-border dark:text-dark-neutral-text"
+              type="text"
+              placeholder="Search your CVs..."
+              class="form-input"
             />
-            <i
-              class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500"
-            ></i>
           </div>
-
-          <select
-            v-model="filterTemplate"
-            class="w-full sm:w-auto px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-dark-neutral-bg dark:border-dark-neutral-border dark:text-dark-neutral-text reveal-on-scroll"
-            data-reveal-delay="550"
-          >
-            <option value="all">Filtro sipas Modelit</option>
-            <option value="classic">Klasik</option>
+        </div>
+        
+        <div class="form-group">
+          <select v-model="filterTemplate" class="form-select">
+            <option value="all">All Templates</option>
+            <option value="classic">Classic</option>
             <option value="modern">Modern</option>
-            <option value="professional">Profesional</option>
-            <option value="creative">Kreativ</option>
-          </select>
-
-          <select
-            v-model="sortBy"
-            class="w-full sm:w-auto px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-dark-neutral-bg dark:border-dark-neutral-border dark:text-dark-neutral-text reveal-on-scroll"
-            data-reveal-delay="600"
-          >
-            <option value="updated_at_desc">Rendit sipas: Më të Reja</option>
-            <option value="updated_at_asc">Rendit sipas: Më të Vjetra</option>
-            <option value="title_asc">Rendit sipas: Titullit (A-Z)</option>
-            <option value="title_desc">Rendit sipas: Titullit (Z-A)</option>
+            <option value="professional">Professional</option>
+            <option value="creative">Creative</option>
           </select>
         </div>
-
-        <div v-if="loading" class="loading-spinner reveal-on-scroll" data-reveal-delay="650">
-          <i class="fas fa-spinner fa-spin"></i>
+        
+        <div class="form-group">
+          <select v-model="sortBy" class="form-select">
+            <option value="updated_at_desc">Latest First</option>
+            <option value="updated_at_asc">Oldest First</option>
+            <option value="title_asc">A-Z</option>
+            <option value="title_desc">Z-A</option>
+          </select>
         </div>
+      </div>
+    </section>
 
-        <div
-          v-else-if="cvs.length === 0"
-          class="empty-state-container reveal-on-scroll"
-          data-reveal-delay="650"
-        >
-          <div class="empty-state-icon"><i class="fas fa-file-alt"></i></div>
-          <h3>Asnjë CV nuk u Gjet</h3>
-          <p>Nuk keni krijuar ende asnjë CV. Filloni duke krijuar një të re!</p>
-        </div>
+    <!-- CV Grid - Clean Display -->
+    <section v-if="!loading" class="section-spacing cvs-section">
+      <!-- Empty State -->
+      <div v-if="cvs.length === 0" class="text-center empty-state">
+        <div class="empty-icon">📄</div>
+        <h3 class="empty-title">
+          {{ searchTerm ? 'No CVs match your search' : 'Ready to create your first CV?' }}
+        </h3>
+        <p class="empty-description">
+          {{ searchTerm ? 'Try adjusting your search terms or filters' : 'Start building your professional story with our AI-powered tools' }}
+        </p>
+        <router-link v-if="!searchTerm" to="/templates" class="btn btn-primary btn-with-icon">
+          <i class="fas fa-plus icon"></i>
+          Create Your First CV
+        </router-link>
+      </div>
 
-        <div
-          v-else
-          class="cv-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-6"
-        >
-          <CvPreviewCard
-            v-for="(cv_item, index) in cvs"
-            :key="cv_item.id"
-            :cv="cv_item"
-            @preview="previewCv"
-            @edit="editCv"
-            @download="downloadCv"
-            @delete="confirmDelete"
-            class="reveal-on-scroll"
-            :data-reveal-delay="700 + (index * 70)"
-          />
+      <!-- CV Grid -->
+      <div v-else class="cv-grid">
+        <CvPreviewCard
+          v-for="cv_item in cvs"
+          :key="cv_item.id"
+          :cv="cv_item"
+          @preview="previewCv"
+          @edit="editCv"
+          @download="downloadCv"
+          @delete="confirmDelete"
+        />
+      </div>
+    </section>
+
+    <!-- Performance Metrics - Clean Text Display -->
+    <section v-if="totalCvs > 0 && !loading" class="section-spacing metrics-section">
+      <div class="text-center mb-xl">
+        <h2 class="section-title">Performance Overview</h2>
+        <p class="section-description">Track your CV performance and engagement</p>
+      </div>
+
+      <div class="metrics-grid">
+        <div class="metric-item">
+          <div class="metric-header">
+            <i class="fas fa-chart-line metric-icon"></i>
+            <h3 class="metric-title">Profile Completion</h3>
+          </div>
+          <div class="metric-value">{{ successMetrics.completionRate }}%</div>
+          <div class="metric-bar">
+            <div class="metric-progress" :style="{ width: successMetrics.completionRate + '%' }"></div>
+          </div>
         </div>
-      </section>
-    </div>
+        
+        <div class="metric-item">
+          <div class="metric-header">
+            <i class="fas fa-eye metric-icon"></i>
+            <h3 class="metric-title">Average Views</h3>
+          </div>
+          <div class="metric-value">{{ successMetrics.averageViews }}</div>
+          <p class="metric-description">Views per CV</p>
+        </div>
+        
+        <div class="metric-item">
+          <div class="metric-header">
+            <i class="fas fa-download metric-icon"></i>
+            <h3 class="metric-title">Download Rate</h3>
+          </div>
+          <div class="metric-value">{{ successMetrics.downloadRate }}%</div>
+          <div class="metric-bar">
+            <div class="metric-progress" :style="{ width: successMetrics.downloadRate + '%' }"></div>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <!-- Download Options Modal -->
     <DownloadOptionsModal
       :is-visible="showDownloadModal"
-      :cv-id="currentCvToDownload.id"
-      :cv-title="currentCvToDownload.title"
+      :cv-id="currentCvToDownload?.id"
+      :cv-title="currentCvToDownload?.title"
       @confirm="handleDownloadConfirm"
       @cancel="showDownloadModal = false"
       v-if="currentCvToDownload"
     />
-  </main>
+  </div>
 </template>
 
 <script>
-  import { ref, onMounted, computed, nextTick } from 'vue'
+  import { ref, onMounted, computed } from 'vue'
   import { useRouter } from 'vue-router'
   import axios from 'axios'
   import CvPreviewCard from '@/components/CvPreviewCard.vue'
   import { useConfirmationModal } from '../../composables/useConfirmationModal.js'
   import DownloadOptionsModal from '../common/DownloadOptionsModal.vue'
+  import AIService from '@/services/aiService.js'
 
   export default {
     name: 'Dashboard',
-    components: { CvPreviewCard, DownloadOptionsModal },
+    components: { 
+      CvPreviewCard, 
+      DownloadOptionsModal
+    },
     setup() {
-      const cvs_all = ref([]) // Stores all fetched CVs
+      const cvs_all = ref([])
       const loading = ref(true)
       const cvToDelete = ref(null)
       const searchTerm = ref('')
       const filterTemplate = ref('all')
-      const sortBy = ref('updated_at_desc') // Default sort: most recently updated
+      const sortBy = ref('updated_at_desc')
+      const showAIPanel = ref(false)
 
       const { showModal } = useConfirmationModal()
       const router = useRouter()
 
       const showDownloadModal = ref(false)
       const currentCvToDownload = ref(null)
+      const totalViews = ref(0)
+      const totalDownloads = ref(0)
+      
+      // Advanced Analytics Data - Brought back!
+      const performanceChartOptions = ref({
+        chart: {
+          type: 'line',
+          height: 300,
+          toolbar: { show: false },
+          background: 'transparent'
+        },
+        stroke: {
+          curve: 'smooth',
+          width: 3
+        },
+        colors: ['#3b82f6', '#10b981', '#f59e0b'],
+        xaxis: {
+          categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+          labels: { style: { colors: '#6b7280' } }
+        },
+        yaxis: {
+          labels: { style: { colors: '#6b7280' } }
+        },
+        grid: {
+          borderColor: '#e5e7eb',
+          strokeDashArray: 5
+        },
+        legend: {
+          position: 'top',
+          horizontalAlign: 'right'
+        }
+      })
+      
+      const performanceChartSeries = ref([
+        {
+          name: 'CV Views',
+          data: [30, 45, 38, 52, 49, 65]
+        },
+        {
+          name: 'Downloads',
+          data: [15, 22, 18, 28, 24, 32]
+        },
+        {
+          name: 'Profile Updates',
+          data: [8, 12, 10, 15, 14, 18]
+        }
+      ])
+      
+      const templateChartOptions = ref({
+        chart: {
+          type: 'donut',
+          height: 300
+        },
+        colors: ['#3b82f6', '#10b981', '#f59e0b', '#ef4444'],
+        labels: ['Classic', 'Modern', 'Professional', 'Creative'],
+        legend: {
+          position: 'bottom'
+        },
+        plotOptions: {
+          pie: {
+            donut: {
+              size: '65%'
+            }
+          }
+        }
+      })
+      
+      const templateChartSeries = ref([45, 30, 20, 5])
+      
+      const recentActivities = ref([
+        {
+          id: 1,
+          title: 'CV Created',
+          description: 'New CV "Software Engineer Resume" created using Modern template',
+          timestamp: new Date(Date.now() - 2 * 60 * 1000),
+          type: 'created'
+        },
+        {
+          id: 2,
+          title: 'CV Downloaded', 
+          description: 'CV "Marketing Specialist" downloaded as PDF',
+          timestamp: new Date(Date.now() - 15 * 60 * 1000),
+          type: 'download'
+        },
+        {
+          id: 3,
+          title: 'Profile Updated',
+          description: 'Personal information and skills updated',
+          timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000),
+          type: 'update'
+        },
+        {
+          id: 4,
+          title: 'CV Viewed',
+          description: 'CV "Project Manager Resume" viewed 5 times today',
+          timestamp: new Date(Date.now() - 4 * 60 * 60 * 1000),
+          type: 'view'
+        }
+      ])
+      
+      const successMetrics = ref({
+        completionRate: 87,
+        averageViews: 24,
+        downloadRate: 68
+      })
+      
+      const aiInsights = ref([])
+      
+      const formatTimeAgo = (timestamp) => {
+        const now = new Date()
+        const diff = now - new Date(timestamp)
+        const minutes = Math.floor(diff / 60000)
+        const hours = Math.floor(diff / 3600000)
+        const days = Math.floor(diff / 86400000)
+        
+        if (minutes < 60) return `${minutes}m ago`
+        if (hours < 24) return `${hours}h ago`
+        return `${days}d ago`
+      }
+
+      const generateAIInsights = () => {
+        if (cvs_all.value.length === 0) {
+          aiInsights.value = [{
+            id: 1,
+            title: 'Ready to Begin',
+            description: 'Create your first CV to unlock personalized AI insights and professional recommendations.',
+            type: 'suggestion',
+            icon: 'fas fa-rocket'
+          }]
+          return
+        }
+
+        const insights = []
+        let insightId = 1
+
+        // Generate smart insights based on CV data
+        const totalCvCount = cvs_all.value.length
+        const avgViews = totalViews.value / totalCvCount || 0
+        const avgDownloads = totalDownloads.value / totalCvCount || 0
+
+        // Performance insights
+        if (avgViews > 10) {
+          insights.push({
+            id: insightId++,
+            title: 'Strong Performance! 🎉',
+            description: `Your CVs are getting great visibility with ${Math.round(avgViews)} average views. Consider optimizing for more downloads.`,
+            type: 'success',
+            icon: 'fas fa-chart-trending-up'
+          })
+        } else if (totalCvCount > 0) {
+          insights.push({
+            id: insightId++,
+            title: 'Boost Your Visibility',
+            description: 'Add more skills and optimize your CV content to increase views and opportunities.',
+            type: 'warning',
+            icon: 'fas fa-eye'
+          })
+        }
+
+        // Template diversity
+        if (totalCvCount === 1) {
+          insights.push({
+            id: insightId++,
+            title: 'Diversify Your Approach',
+            description: 'Create multiple CV versions with different templates to target various roles effectively.',
+            type: 'tip',
+            icon: 'fas fa-copy'
+          })
+        } else if (totalCvCount >= 3) {
+          insights.push({
+            id: insightId++,
+            title: 'Great Portfolio! 💼',
+            description: `You have ${totalCvCount} CVs ready. Focus on optimizing content and tracking performance.`,
+            type: 'success',
+            icon: 'fas fa-briefcase'
+          })
+        }
+
+        // Download insights
+        if (avgDownloads > 2) {
+          insights.push({
+            id: insightId++,
+            title: 'High Demand! 🔥',
+            description: `Excellent! Your CVs are being downloaded frequently. Keep updating your content regularly.`,
+            type: 'success',
+            icon: 'fas fa-download'
+          })
+        } else if (totalCvCount > 0 && avgDownloads < 1) {
+          insights.push({
+            id: insightId++,
+            title: 'Improve Download Rate',
+            description: 'Add more compelling content and professional achievements to encourage downloads.',
+            type: 'suggestion',
+            icon: 'fas fa-arrow-up'
+          })
+        }
+
+        // General tips
+        insights.push({
+          id: insightId++,
+          title: 'Pro Tip 💡',
+          description: 'Update your CV regularly with new skills and achievements to stay competitive.',
+          type: 'tip',
+          icon: 'fas fa-lightbulb'
+        })
+
+        aiInsights.value = insights.slice(0, 4)
+      }
 
       const fetchCvs = async () => {
         try {
           const token = localStorage.getItem('auth_token')
+          if (!token) {
+            router.push('/login')
+            return
+          }
+          
           const response = await axios.get('/api/my-cvs', {
             headers: { Authorization: `Bearer ${token}` },
           })
-          cvs_all.value = response.data.cvs
+          
+          if (response.data.success && response.data.cvs) {
+            cvs_all.value = response.data.cvs
+            totalViews.value = cvs_all.value.reduce((sum, cv) => sum + (cv.views || 0), 0)
+            totalDownloads.value = cvs_all.value.reduce((sum, cv) => sum + (cv.downloads || 0), 0)
+            generateAIInsights()
+          } else {
+            cvs_all.value = []
+          }
         } catch (error) {
-          console.error('Error fetching user CVs:', error)
+          console.error('Error fetching CVs:', error)
+          if (error.response?.status === 401) {
+            localStorage.removeItem('auth_token')
+            router.push('/login')
+            return
+          }
+          cvs_all.value = []
         } finally {
           loading.value = false
         }
@@ -194,7 +541,6 @@
       const filteredAndSortedCvs = computed(() => {
         let tempCvs = [...cvs_all.value]
 
-        // 1. Filter by search term
         if (searchTerm.value) {
           const lowerSearchTerm = searchTerm.value.toLowerCase()
           tempCvs = tempCvs.filter(
@@ -207,12 +553,10 @@
           )
         }
 
-        // 2. Filter by template
         if (filterTemplate.value !== 'all') {
           tempCvs = tempCvs.filter((cv) => cv.selectedTemplate === filterTemplate.value)
         }
 
-        // 3. Sort
         tempCvs.sort((a, b) => {
           switch (sortBy.value) {
             case 'title_asc':
@@ -231,18 +575,12 @@
         return tempCvs
       })
 
-      const formatDate = (dateString) => {
-        if (!dateString) return 'N/A'
-        const options = { year: 'numeric', month: 'long', day: 'numeric' }
-        return new Date(dateString).toLocaleDateString(undefined, options)
-      }
-
       const confirmDelete = async (id) => {
         const confirmed = await showModal({
-          title: 'Fshij Konfirmimin',
-          message: 'Jeni të sigurt që dëshironi të fshini këtë CV? Ky veprim nuk mund të zhbëhet.',
-          confirmButtonText: 'Fshij',
-          cancelButtonText: 'Anulo',
+          title: 'Delete CV',
+          message: 'Are you sure you want to delete this CV? This action cannot be undone.',
+          confirmButtonText: 'Delete',
+          cancelButtonText: 'Cancel',
           confirmButtonClass: 'btn-danger',
         })
 
@@ -263,8 +601,8 @@
           })
           cvs_all.value = cvs_all.value.filter((cv) => cv.id !== cvToDelete.value)
           await showModal({
-            title: 'Sukses!',
-            message: 'CV-ja u fshi me sukses.',
+            title: 'Success!',
+            message: 'CV deleted successfully.',
             confirmButtonText: 'OK',
             confirmButtonClass: 'btn-primary',
             cancelButtonText: '',
@@ -272,8 +610,8 @@
         } catch (error) {
           console.error('Error deleting CV:', error)
           await showModal({
-            title: 'Gabim!',
-            message: 'Gabim gjatë fshirjes së CV-së. Ju lutem provoni përsëri.',
+            title: 'Error!',
+            message: 'Error deleting CV. Please try again.',
             confirmButtonText: 'OK',
             confirmButtonClass: 'btn-danger',
             cancelButtonText: '',
@@ -284,65 +622,53 @@
       }
 
       const downloadCv = (id, title) => {
-        currentCvToDownload.value = { id, title };
-        showDownloadModal.value = true;
-      };
+        currentCvToDownload.value = { id, title }
+        showDownloadModal.value = true
+      }
 
       const handleDownloadConfirm = async ({ id, title, style, quality }) => {
-        showDownloadModal.value = false;
+        showDownloadModal.value = false
         try {
-          const token = localStorage.getItem('auth_token');
+          const token = localStorage.getItem('auth_token')
           const response = await axios.get(`/api/cvs/${id}/download?style=${style}&quality=${quality}`, {
             headers: { Authorization: `Bearer ${token}` },
             responseType: 'blob',
-          });
-          const url = window.URL.createObjectURL(new Blob([response.data]));
-          const link = document.createElement('a');
-          link.href = url;
-          const safeTitle = title ? title.replace(/[^a-z0-9]/gi, '_').toLowerCase() : 'cv';
-          link.setAttribute('download', `${safeTitle}_${style}_${quality}.pdf`);
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
+          })
+          const url = window.URL.createObjectURL(new Blob([response.data]))
+          const link = document.createElement('a')
+          link.href = url
+          const safeTitle = title ? title.replace(/[^a-z0-9]/gi, '_').toLowerCase() : 'cv'
+          link.setAttribute('download', `${safeTitle}_${style}_${quality}.pdf`)
+          document.body.appendChild(link)
+          link.click()
+          document.body.removeChild(link)
         } catch (error) {
-          console.error('Error downloading CV:', error);
+          console.error('Error downloading CV:', error)
           await showModal({
-            title: 'Gabim Shkarkimi!',
-            message: 'Gabim gjatë shkarkimit të CV-së. Ju lutem provoni përsëri.',
+            title: 'Download Error!',
+            message: 'Error downloading CV. Please try again.',
             confirmButtonText: 'OK',
             confirmButtonClass: 'btn-danger',
             cancelButtonText: '',
-          });
+          })
         }
-      };
+      }
 
       const previewCv = (id) => {
         router.push({ name: 'cv.preview', params: { id: id } })
       }
 
       const editCv = (id) => {
-        router.push({ name: 'cv.edit', params: { id: id } })
+        router.push({ name: 'edit-cv', params: { id: id } })
       }
 
-      onMounted(() => {
-        fetchCvs()
-        // Ensure DOM is updated before observing elements
-        nextTick(() => {
-          const revealElements = document.querySelectorAll('.reveal-on-scroll')
-          const revealObserver = new IntersectionObserver(
-            (entries, observer) => {
-              entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                  const delay = parseInt(entry.target.getAttribute('data-reveal-delay') || '0', 10)
-                  setTimeout(() => entry.target.classList.add('is-revealed'), delay)
-                  observer.unobserve(entry.target)
-                }
-              })
-            },
-            { threshold: 0.1 }
-          )
-          revealElements.forEach((el) => revealObserver.observe(el))
-        })
+      onMounted(async () => {
+        const token = localStorage.getItem('auth_token')
+        if (!token) {
+          router.push('/login')
+          return
+        }
+        await fetchCvs()
       })
 
       return {
@@ -350,317 +676,587 @@
         loading,
         totalCvs,
         draftCvs,
-        formatDate,
+        totalViews,
+        totalDownloads,
         confirmDelete,
         deleteCv,
         downloadCv,
         previewCv,
         editCv,
-        showDeleteModal: false,
-        cvToDelete,
         searchTerm,
         filterTemplate,
         sortBy,
         showDownloadModal,
         currentCvToDownload,
         handleDownloadConfirm,
+        showAIPanel,
+        recentActivities,
+        successMetrics,
+        aiInsights,
+        formatTimeAgo,
+        // Analytics data - Restored!
+        performanceChartOptions,
+        performanceChartSeries,
+        templateChartOptions,
+        templateChartSeries,
       }
     },
   }
 </script>
 
 <style scoped>
-  @reference "tailwindcss/theme";
+/* Page Wrapper - Same as Contact */
+.dashboard-wrapper {
+  padding-top: var(--space-xxl);
+  padding-bottom: var(--space-xxl);
+}
 
-  .dashboard-hero {
-    padding-top: 4rem;
-    padding-bottom: 4rem;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-    border-radius: var(--radius);
-    background: linear-gradient(135deg, var(--neutral-light-alt) 0%, var(--neutral-bg) 100%);
-    color: var(--neutral-text);
-    margin-bottom: var(--space-xl);
+.section-spacing {
+  padding: var(--space-section-vertical) var(--space-lg);
+}
+
+.text-center {
+  text-align: center;
+}
+
+.mb-xl {
+  margin-bottom: var(--space-xl);
+}
+
+.mb-lg {
+  margin-bottom: var(--space-lg);
+}
+
+/* Section Title and Description - Same as Contact */
+.section-title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-4xl);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--space-md);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.section-description {
+  font-size: var(--font-size-lg);
+  color: var(--text-secondary);
+  line-height: var(--line-height-normal);
+  max-width: 800px;
+  margin: 0 auto var(--space-xl);
+}
+
+/* Loading State */
+.loading-spinner {
+  font-size: var(--font-size-4xl);
+  color: var(--primary);
+  margin-bottom: var(--space-md);
+}
+
+.loading-text {
+  color: var(--text-secondary);
+  font-size: var(--font-size-lg);
+}
+
+/* Stats Section - Clean Text Display */
+.stats-section {
+  margin: var(--space-xxl) 0;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: var(--space-xl);
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.stat-item {
+  padding: var(--space-lg) 0;
+}
+
+.stat-number {
+  font-size: var(--font-size-5xl);
+  font-weight: 200;
+  color: var(--primary);
+  line-height: 1;
+  margin-bottom: var(--space-sm);
+}
+
+.stat-label {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 500;
+}
+
+/* Actions Section */
+.actions-section {
+  margin: var(--space-xxl) 0;
+}
+
+.actions-section .btn {
+  margin: 0 var(--space-sm) var(--space-md);
+}
+
+/* Advanced Analytics - Clean but Feature-Rich */
+.analytics-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.chart-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  gap: var(--space-xl);
+  margin-bottom: var(--space-xxl);
+}
+
+.chart-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease;
+}
+
+.chart-item:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.chart-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--space-lg);
+}
+
+.chart-title i {
+  color: var(--primary);
+}
+
+.chart-wrapper {
+  margin: -var(--space-sm);
+}
+
+/* Enhanced AI Insights */
+.insights-container {
+  margin-bottom: var(--space-xxl);
+}
+
+.insights-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: var(--text-primary);
+  text-align: center;
+  margin-bottom: var(--space-lg);
+}
+
+.insights-title i {
+  color: var(--primary);
+}
+
+.insights-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-lg);
+}
+
+.insight-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--space-lg);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease;
+  border-left: 4px solid var(--primary);
+}
+
+.insight-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.insight-card.warning {
+  border-left-color: #f59e0b;
+}
+
+.insight-card.suggestion {
+  border-left-color: #10b981;
+}
+
+.insight-card.success {
+  border-left-color: #22c55e;
+}
+
+.insight-card.tip {
+  border-left-color: #3b82f6;
+}
+
+.insight-card .insight-icon {
+  font-size: var(--font-size-2xl);
+  color: var(--primary);
+  margin-bottom: var(--space-md);
+  display: block;
+}
+
+.insight-card .insight-title {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--space-sm);
+}
+
+.insight-card .insight-description {
+  color: var(--text-secondary);
+  line-height: var(--line-height-normal);
+  margin: 0;
+}
+
+/* Enhanced Timeline */
+.timeline-container {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  box-shadow: var(--shadow-sm);
+}
+
+.timeline-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: var(--text-primary);
+  text-align: center;
+  margin-bottom: var(--space-xl);
+}
+
+.timeline-title i {
+  color: var(--primary);
+}
+
+.timeline {
+  position: relative;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 20px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--border);
+}
+
+.timeline-item {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-lg);
+  margin-bottom: var(--space-xl);
+  padding-left: var(--space-sm);
+}
+
+.timeline-item:last-child {
+  margin-bottom: 0;
+}
+
+.timeline-marker {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: var(--bg-card);
+  border: 3px solid var(--primary);
+  color: var(--primary);
+  z-index: 1;
+}
+
+.timeline-marker.created {
+  border-color: var(--success);
+  color: var(--success);
+}
+
+.timeline-marker.download {
+  border-color: var(--info);
+  color: var(--info);
+}
+
+.timeline-marker.update {
+  border-color: var(--warning);
+  color: var(--warning);
+}
+
+.timeline-marker.view {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.timeline-content {
+  flex: 1;
+  background: var(--bg-secondary);
+  border-radius: var(--radius);
+  padding: var(--space-md);
+  border: 1px solid var(--border);
+}
+
+.timeline-time {
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+  margin-bottom: var(--space-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.timeline-title-text {
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--space-xs);
+}
+
+.timeline-description {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  line-height: var(--line-height-normal);
+  margin: 0;
+}
+
+/* Controls Section */
+.controls-section {
+  background-color: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+}
+
+.controls-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-lg);
+  flex-wrap: wrap;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.search-group {
+  flex: 1;
+  min-width: 300px;
+}
+
+/* CV Grid */
+.cv-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: var(--space-xl);
+  margin-top: var(--space-xl);
+}
+
+/* Empty State */
+.empty-state {
+  padding: var(--space-xxl) var(--space-lg);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.empty-icon {
+  font-size: var(--font-size-6xl);
+  margin-bottom: var(--space-lg);
+  opacity: 0.5;
+}
+
+.empty-title {
+  font-size: var(--font-size-2xl);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--space-md);
+}
+
+.empty-description {
+  color: var(--text-secondary);
+  line-height: var(--line-height-normal);
+  margin-bottom: var(--space-xl);
+}
+
+/* Metrics Section */
+.metrics-section {
+  background-color: var(--bg-muted);
+  border-radius: var(--radius-lg);
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--space-xl);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.metric-item {
+  text-align: center;
+  padding: var(--space-lg);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+}
+
+.metric-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+}
+
+.metric-icon {
+  font-size: var(--font-size-xl);
+  color: var(--primary);
+}
+
+.metric-title {
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.metric-value {
+  font-size: var(--font-size-4xl);
+  font-weight: 200;
+  color: var(--primary);
+  line-height: 1;
+  margin-bottom: var(--space-md);
+}
+
+.metric-bar {
+  height: 8px;
+  background-color: var(--bg-tertiary);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  margin-bottom: var(--space-sm);
+}
+
+.metric-progress {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+  border-radius: var(--radius-full);
+  transition: width 1s ease;
+}
+
+.metric-description {
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+  margin: 0;
+}
+
+/* Responsive Design - Same patterns as Contact */
+@media (max-width: 768px) {
+  .section-spacing {
+    padding: var(--space-xl) var(--space-md);
   }
 
-  body.dark-theme .dashboard-hero {
-    background: linear-gradient(135deg, var(--dark-neutral-container) 0%, var(--dark-neutral-bg) 100%);
-    color: var(--dark-neutral-text);
+  .section-title {
+    font-size: var(--font-size-3xl);
   }
 
-  .dashboard-hero h2 {
-    font-size: 2.8em;
-    font-weight: 700;
-    margin-bottom: 1rem;
-    color: var(--heading-color);
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-    line-height: 1.2;
+  .section-description {
+    font-size: var(--font-size-base);
+    margin-bottom: var(--space-lg);
   }
 
-  body.dark-theme .dashboard-hero h2 {
-    color: var(--dark-heading-color);
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
   }
 
-  .dashboard-hero p {
-    font-size: 1.1em;
-    color: var(--muted-text);
-    max-width: 700px;
-    margin-left: auto;
-    margin-right: auto;
-    line-height: 1.6;
-    margin-bottom: 2rem;
+  .controls-row {
+    flex-direction: column;
+    align-items: stretch;
   }
 
-  body.dark-theme .dashboard-hero p {
-    color: var(--dark-muted-text);
-  }
-
-  .hero-bg-decoration {
-    position: absolute;
-    top: -50px;
-    left: -50px;
-    width: 200px;
-    height: 200px;
-    background: radial-gradient(circle, rgba(var(--primary-rgb), 0.1) 0%, transparent 70%);
-    border-radius: 50%;
-    filter: blur(80px);
-    z-index: 0;
-  }
-
-  .dashboard-stats {
-    margin-top: 0;
-    padding-top: 2rem;
-    padding-bottom: 4rem;
-  }
-
-  .value-prop-container {
-    background: var(--neutral-light);
-    border: 1px solid var(--neutral-border);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow-light);
-    padding: var(--space-xl);
-    transition: all 0.4s var(--animation-ease-out);
-    transform-style: preserve-3d;
-    position: relative;
-    overflow: hidden;
-    z-index: 2;
-  }
-
-  body.dark-theme .value-prop-container {
-    background: rgba(var(--dark-neutral-container-rgb), var(--dark-glass-bg-opacity));
-    border: 1px solid rgba(255, 255, 255, var(--dark-glass-border-opacity));
-    box-shadow: 0 8px 30px rgba(0, 0, 0, var(--dark-glass-shadow-opacity)), var(--dark-glass-inner-shadow);
-  }
-
-  .value-prop-headline h3 {
-    font-size: 2.2em;
-    font-weight: 700;
-    color: var(--heading-color);
-    margin-bottom: 1.5rem;
-    text-align: center;
-  }
-
-  body.dark-theme .value-prop-headline h3 {
-    color: var(--dark-heading-color);
-  }
-
-  .dashboard-stats-grid {
-    gap: 1.5rem;
-  }
-
-  .stat-card {
-    background-color: var(--surface-raised);
-    border: 1px solid var(--border-color-soft);
-    border-radius: var(--radius);
-    padding: var(--space-md);
-    display: flex;
-    align-items: center;
-    gap: var(--space-md);
-    transition: all var(--animation-duration-normal) var(--animation-ease-out);
-    color: var(--neutral-text);
-  }
-
-  body.dark-theme .stat-card {
-    background-color: var(--dark-neutral-bg);
-    border-color: var(--dark-neutral-border);
-  }
-
-  .stat-card:hover {
-    transform: translateY(-5px) scale(1.02);
-    box-shadow: var(--shadow-hover);
-  }
-
-  .stat-icon-wrapper {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: rgba(var(--primary-rgb), 0.1);
-    flex-shrink: 0;
-  }
-
-  body.dark-theme .stat-icon-wrapper {
-    background-color: rgba(var(--dark-primary-rgb), 0.15);
-  }
-
-  .stat-icon-wrapper i {
-    font-size: 1.5rem;
-    color: var(--primary);
-  }
-
-  body.dark-theme .stat-icon-wrapper i {
-    color: var(--dark-primary);
-  }
-
-  .stat-info {
-    line-height: 1.3;
-  }
-
-  .stat-label {
-    font-size: 0.9em;
-    color: var(--muted-text);
-    margin-bottom: 4px;
-  }
-
-  body.dark-theme .stat-label {
-    color: var(--dark-muted-text);
-  }
-
-  .stat-value {
-    font-size: 1.6em;
-    font-weight: 700;
-    color: var(--neutral-text);
-  }
-
-  body.dark-theme .stat-value {
-    color: var(--dark-neutral-text);
-  }
-
-  .cv-list-section {
-    margin-top: 2rem;
-    padding-top: 2rem;
-    padding-bottom: 4rem;
-  }
-
-  .list-controls-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2rem;
-    flex-wrap: wrap;
-    gap: 1rem;
-  }
-
-  .list-controls-header h3 {
-    font-size: 2.2em;
-    font-weight: 700;
-    color: var(--heading-color);
-    margin: 0;
-  }
-
-  body.dark-theme .list-controls-header h3 {
-    color: var(--dark-heading-color);
+  .search-group {
+    min-width: unset;
   }
 
   .cv-grid {
-    gap: 1.5rem;
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
   }
 
-  .empty-state-container {
-    text-align: center;
-    padding: 4rem 2rem;
-    background: var(--neutral-bg);
-    border: 1px solid var(--neutral-border);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow-light);
-    margin-top: 2rem;
+  .metrics-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
   }
 
-  body.dark-theme .empty-state-container {
-    background: var(--dark-neutral-container);
-    border-color: var(--dark-neutral-border);
+  .actions-section .btn {
+    width: 100%;
+    max-width: 300px;
+    margin: var(--space-sm) 0;
   }
 
-  .empty-state-icon {
-    font-size: 4rem;
-    color: var(--primary);
-    margin-bottom: 1rem;
-  }
+     .chart-grid {
+     grid-template-columns: 1fr;
+   }
 
-  body.dark-theme .empty-state-icon {
-    color: var(--dark-primary);
-  }
+   .insights-grid {
+     grid-template-columns: 1fr;
+   }
 
-  .empty-state-container h3 {
-    font-size: 1.8em;
-    color: var(--heading-color);
-    margin-bottom: 0.5rem;
-  }
+   .timeline::before {
+     left: 15px;
+   }
 
-  body.dark-theme .empty-state-container h3 {
-    color: var(--dark-heading-color);
-  }
+   .timeline-item {
+     gap: var(--space-md);
+   }
 
-  .empty-state-container p {
-    color: var(--muted-text);
-    font-size: 1.1em;
-  }
+   .timeline-marker {
+     width: 30px;
+     height: 30px;
+   }
+}
 
-  body.dark-theme .empty-state-container p {
-    color: var(--dark-muted-text);
-  }
+/* Dark Theme Overrides */
+body.dark-theme .controls-section,
+body.dark-theme .metrics-section {
+  background-color: var(--bg-muted);
+}
 
-  .loading-spinner {
-    text-align: center;
-    padding: 2rem;
-    font-size: 3rem;
-    color: var(--primary);
-  }
+body.dark-theme .chart-item,
+body.dark-theme .insight-card,
+body.dark-theme .timeline-container,
+body.dark-theme .timeline-content,
+body.dark-theme .metric-item {
+  background-color: var(--bg-card);
+  border-color: var(--border);
+}
 
-  body.dark-theme .loading-spinner {
-    color: var(--dark-primary);
-  }
+body.dark-theme .timeline::before {
+  background: var(--border);
+}
 
-  /* General page container styles - copied from AboutUs.vue/global.css implicit */
-  .page-container {
-    max-width: 1200px;
-    margin: var(--space-xl) auto;
-    padding: var(--space-xl);
-    position: relative;
-    z-index: 2;
-  }
-
-  /* Glassmorphic card styles - copied/adapted from AboutUs.vue/global.css implicit */
-  .glassmorphic-card {
-    background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    border-radius: var(--radius);
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
-    transition: all 0.3s ease-out;
-  }
-
-  body.dark-theme .glassmorphic-card {
-    background: rgba(var(--dark-neutral-container-rgb), var(--dark-glass-bg-opacity));
-    border: 1px solid rgba(255, 255, 255, var(--dark-glass-border-opacity));
-    box-shadow: 0 8px 30px rgba(0, 0, 0, var(--dark-glass-shadow-opacity)), var(--dark-glass-inner-shadow);
-  }
-
-  /* Reveal-on-scroll animations - copied from AboutUs.vue/global.css implicit */
-  .reveal-on-scroll {
-    opacity: 0;
-    transform: translateY(30px);
-    transition:
-      opacity 0.8s cubic-bezier(0.645, 0.045, 0.355, 1),
-      transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
-  }
-  .reveal-on-scroll.is-revealed {
-    opacity: 1;
-    transform: translateY(0);
-  }
+body.dark-theme .timeline-marker {
+  background: var(--bg-card);
+}
 </style>

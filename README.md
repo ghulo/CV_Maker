@@ -1,61 +1,119 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🏗️ ATELIER CV Maker - Reality Check
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Current Status: **WORK IN PROGRESS** 
 
-## About Laravel
+This is a **Laravel + Vue.js CV maker application** that's currently under heavy development. While we've built some advanced components and architectural improvements, **the core CV creation functionality still has issues**.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### ✅ What's Working
+- Basic Laravel backend with authentication
+- Vue.js frontend with routing
+- Modern UI components and styling
+- Database models and migrations
+- PDF generation capabilities
+- Template system (4 templates available)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### ⚠️ What's Still Broken
+- **CV creation form has data binding issues**
+- **Step validation isn't working properly**
+- **Auto-save functionality needs fixing**
+- **AI integration is incomplete**
+- **Preview system has bugs**
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 🔧 Known Issues
+1. **PersonalInfoStep component** - Props not binding correctly
+2. **CreateCV main component** - Duplicate method definitions
+3. **Data flow between components** - Events not propagating properly
+4. **Backend validation** - API responses not handled correctly
+5. **Auto-save** - Triggers before user is ready
 
-## Learning Laravel
+## 🚀 Installation & Setup
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Prerequisites
+- PHP 8.1+
+- Node.js 18+
+- Composer
+- MySQL/PostgreSQL
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### Quick Start
+```bash
+# Clone the repository
+git clone [repository-url]
+cd CV_Maker-1
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+# Install PHP dependencies
+composer install
 
-## Laravel Sponsors
+# Install Node dependencies
+npm install
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+# Set up environment
+cp .env.example .env
+php artisan key:generate
 
-### Premium Partners
+# Run migrations
+php artisan migrate
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+# Build assets
+npm run build
 
-## Contributing
+# Start development server
+php artisan serve
+npm run dev
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## 📁 Project Structure
+```
+CV_Maker-1/
+├── app/Http/Controllers/Api/     # API controllers
+├── resources/js/components/      # Vue.js components
+│   ├── cv_creator/              # CV creation steps
+│   ├── cv_templates/            # PDF templates
+│   └── pages/                   # Main page components
+├── database/migrations/          # Database schema
+└── public/                      # Built assets
+```
 
-## Code of Conduct
+## 🎯 Next Steps Needed
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### Priority 1: Fix Core Functionality
+- [ ] Fix PersonalInfoStep data binding
+- [ ] Resolve CreateCV component method duplicates
+- [ ] Implement proper form validation
+- [ ] Fix auto-save to work correctly
 
-## Security Vulnerabilities
+### Priority 2: Complete Features
+- [ ] Finish AI integration
+- [ ] Fix preview system
+- [ ] Implement proper error handling
+- [ ] Add comprehensive testing
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Priority 3: Polish
+- [ ] Improve mobile responsiveness
+- [ ] Add loading states
+- [ ] Enhance accessibility
+- [ ] Performance optimization
 
-## License
+## 🤝 Contributing
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project is currently in **active development**. If you want to contribute:
+
+1. **Start with fixing the core CV creation flow**
+2. Focus on functionality over fancy UI
+3. Write tests for any new features
+4. Keep it simple and working
+
+## ⚠️ Disclaimer
+
+**This application is NOT production-ready**. Use it for development and learning purposes only. The CV creation process has known bugs and the data might not save correctly.
+
+## 🏷️ Tech Stack
+- **Backend**: Laravel 11, PHP 8.1+
+- **Frontend**: Vue.js 3, Vue Router, Vue I18n
+- **Database**: MySQL with Eloquent ORM
+- **Build Tools**: Vite, Laravel Mix
+- **Styling**: Tailwind CSS, Custom CSS
+- **PDF Generation**: Laravel DomPDF
+
+---
+
+*Last updated: Phase 3 Development - Core functionality still needs work before any "industry-level" claims can be made.*

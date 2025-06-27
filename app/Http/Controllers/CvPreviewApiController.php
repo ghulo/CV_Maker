@@ -15,30 +15,70 @@ use Barryvdh\DomPDF\Facade\Pdf;
 class CvPreviewApiController extends Controller
 {
     /**
-     * Display the specified CV's preview HTML.
+     * Display the specified CV's preview data as JSON for Vue.js SPA.
      */
     public function show(Cv $cv) // Route Model Binding fetches the Cv
     {
         // Ensure the authenticated user owns this CV
         if (Auth::id() !== $cv->user_id) {
-            // For a web route, returning a view with an error is more user-friendly
-            // than a JSON response. Or redirect with an error message.
-            abort(403, 'Unauthorized access to CV preview.');
+            return response()->json([
+                'success' => false,
+                'message' => 'Unauthorized access to CV preview.'
+            ], 403);
         }
 
         // Load related data using Eloquent relationships
         $workExperiences = $cv->workExperiences()->orderByDesc('start_date')->orderByDesc('id')->get();
-        $educations = $cv->educations()->orderByDesc('graduation_year')->orderByDesc('id')->get();
-        $interest = $cv->interest; // HasOne relationship, so it's a single model or null
-        $interestsText = $interest ? $interest->description : '';
+        $educations = $cv->education()->orderByDesc('end_date')->orderByDesc('id')->get();
+        $skills = $cv->skills()->get();
+        $interests = $cv->interests()->get();
 
-        // Pass data to the full preview Blade view
-        return view('cv.full-preview', [
-            'cv_details' => $cv,
-            'work_experiences' => $workExperiences,
-            'educations' => $educations,
-            'interests_text' => $interestsText,
-            'selected_template' => $cv->selected_template, // This is crucial for template selection
+        // Transform CV data to match frontend expectations
+        $cvData = [
+            'id' => $cv->id,
+            'title' => $cv->cv_title,
+            'selectedTemplate' => $cv->selected_template,
+            'personalInfo' => [
+                'firstName' => $cv->emri,
+                'lastName' => $cv->mbiemri,
+                'email' => $cv->email,
+                'phone' => $cv->telefoni,
+                'address' => $cv->address,
+            ],
+            'summary' => $cv->summary,
+            'workExperiences' => $workExperiences->map(function ($exp) {
+                return [
+                    'job_title' => $exp->job_title,
+                    'company' => $exp->company,
+                    'start_date' => $exp->start_date,
+                    'end_date' => $exp->end_date,
+                    'description' => $exp->job_description,
+                ];
+            }),
+            'educations' => $educations->map(function ($edu) {
+                return [
+                    'degree' => $edu->degree,
+                    'institution' => $edu->institution,
+                    'start_date' => $edu->start_date,
+                    'end_date' => $edu->end_date,
+                ];
+            }),
+            'skills' => $skills->map(function ($skill) {
+                return [
+                    'name' => $skill->name,
+                    'level' => $skill->level ?? 'Intermediate',
+                ];
+            }),
+            'interests' => $interests->map(function ($interest) {
+                return [
+                    'name' => $interest->description,
+                ];
+            }),
+        ];
+
+        return response()->json([
+            'success' => true,
+            'cv' => $cvData
         ]);
     }
 

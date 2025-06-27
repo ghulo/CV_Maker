@@ -19,6 +19,11 @@ export function toggleTheme() {
   const newTheme = isDarkMode ? 'light' : 'dark'
   applyTheme(newTheme)
   localStorage.setItem('theme', newTheme)
+  
+  // Dispatch a theme change event that components can listen to
+  window.dispatchEvent(new CustomEvent('theme-changed', { 
+    detail: { theme: newTheme } 
+  }))
 }
 
 /**
@@ -26,47 +31,15 @@ export function toggleTheme() {
  */
 function initializeTheme() {
   const savedTheme = localStorage.getItem('theme')
-  const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
 
   if (savedTheme) {
     applyTheme(savedTheme)
-  } else if (prefersDark) {
-    applyTheme('dark')
   } else {
-    applyTheme('light')
+    // Use system preference as default
+    applyTheme(prefersDark ? 'dark' : 'light')
+    localStorage.setItem('theme', prefersDark ? 'dark' : 'light')
   }
-}
-
-/**
- * Initializes IntersectionObserver for scroll-reveal animations.
- * @param {string} selector - The CSS selector for elements to reveal.
- */
-function initScrollReveal(selector = '.reveal-on-scroll') {
-  const revealElements = document.querySelectorAll(selector)
-
-  if (revealElements.length === 0) return
-
-  const revealObserver = new IntersectionObserver(
-    (entries, observer) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const delay = parseInt(entry.target.getAttribute('data-reveal-delay') || '0', 10)
-          setTimeout(() => {
-            entry.target.classList.add('is-visible')
-          }, delay)
-          observer.unobserve(entry.target)
-        }
-      })
-    },
-    {
-      threshold: 0.1,
-    }
-  )
-
-  revealElements.forEach((el) => {
-    el.classList.remove('is-visible')
-    revealObserver.observe(el)
-  })
 }
 
 /**
@@ -75,23 +48,72 @@ function initScrollReveal(selector = '.reveal-on-scroll') {
  */
 export function initializeEffects() {
   initializeTheme()
+  initScrollReveal()
 
-  // Add event listener for the theme toggle button inside the main initialization
-  const themeToggleButton = document.getElementById('theme-toggle-button')
-  if (themeToggleButton) {
-    themeToggleButton.addEventListener('click', toggleTheme)
+  // Add event listener for system theme changes
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+    if (!localStorage.getItem('theme')) { // Only auto-switch if user hasn't set a preference
+      applyTheme(e.matches ? 'dark' : 'light')
+    }
+  })
+}
+
+// ===============================
+// Scroll-reveal (fade / slide-in)
+// ===============================
+
+let scrollRevealObserver = null
+
+function createScrollRevealObserver() {
+  // If IntersectionObserver isn't supported, just make everything visible
+  if (!('IntersectionObserver' in window)) {
+    document.querySelectorAll('.reveal-on-scroll').forEach((el) => {
+      el.classList.add('reveal-visible')
+    })
+    return null
   }
 
+  const options = {
+    threshold: 0.15,
+  }
+
+  return new IntersectionObserver((entries, observer) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('reveal-visible')
+        observer.unobserve(entry.target)
+      }
+    })
+  }, options)
+}
+
+export function initScrollReveal() {
+  // Disconnect previous observer (in case of HMR / route change)
+  if (scrollRevealObserver) scrollRevealObserver.disconnect()
+
+  scrollRevealObserver = createScrollRevealObserver()
+  if (!scrollRevealObserver) return // legacy browser fallback handled above
+
+  document.querySelectorAll('.reveal-on-scroll').forEach((el) => {
+    el.classList.remove('reveal-visible')
+    scrollRevealObserver.observe(el)
+  })
+}
+
+export function reinitializeScrollReveal() {
   initScrollReveal()
 }
 
-/**
- * Re-initializes scroll reveal effects.
- * Useful after a route change when new elements are added to the DOM.
- */
-export function reinitializeScrollReveal() {
-  // A short delay may be necessary for Vue to update the DOM
-  setTimeout(() => {
-    initScrollReveal()
-  }, 250)
+// Add minimal CSS via JS for `.reveal-on-scroll` if it doesn't exist – ensures no FOUC
+if (typeof window !== 'undefined') {
+  const styleId = 'scroll-reveal-inline-style'
+  if (!document.getElementById(styleId)) {
+    const style = document.createElement('style')
+    style.id = styleId
+    style.innerHTML = `
+      .reveal-on-scroll { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+      .reveal-on-scroll.reveal-visible { opacity: 1; transform: none; }
+    `
+    document.head.appendChild(style)
+  }
 }

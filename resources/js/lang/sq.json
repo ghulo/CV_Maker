@@ -1,0 +1,248 @@
+{
+  "home": {
+    "hero": {
+      "title": "Krijoheni CV-në Tuaj të Përsosur",
+      "subtitle": "me Saktësi të Fuqizuar nga AI",
+      "description": "Krijoni CV-ra mahnitëse dhe profesionale që dallohen për punëdhënësit. Platforma jonë e fuqizuar nga AI ju ndihmon të tregoni aftësitë dhe përvojën tuaj në mënyrën më të mirë të mundshme.",
+      "getStarted": "Filloni Falas",
+      "watchDemo": "Shikoni Demon"
+    },
+    "features": {
+      "title": "Pse të Zgjidhni ATELIER?",
+      "aiPowered": {
+        "title": "Përmbajtje e Fuqizuar nga AI",
+        "description": "Le të ndihmojë AI-ja jonë të shkruani përshkrime bindëse dhe të optimizoni CV-në tuaj për sistemet e gjurmimit të aplikantëve."
+      },
+      "professionalTemplates": {
+        "title": "Shabllonet Profesionale",
+        "description": "Zgjidhni nga shabllonet e dizajnuara bukur që funksionojnë në të gjitha industritë dhe nivelet e karrierës."
+      },
+      "easyToUse": {
+        "title": "Lehtë për t'u Përdorur", 
+        "description": "Ndërfaqja jonë intuitive e bën krijimin e një CV-je profesionale të shpejtë dhe pa mundim."
+      },
+      "downloadFormats": {
+        "title": "Formate të Shumta",
+        "description": "Shkarkoni CV-në tuaj në PDF, Word, ose ndajeni online me një lidhje të personalizuar."
+      }
+    }
+  },
+  "contact": {
+    "title": "Na Kontaktoni",
+    "subtitle": "Do të donim të dëgjonim prej jush. Dërgona një mesazh dhe ne do t'u përgjigjemi sa më shpejt që të jetë e mundur.",
+    "name": "Emri Juaj",
+    "email": "Email-i Juaj",
+    "subject": "Subjekti",
+    "message": "Mesazhi Juaj",
+    "send": "Dërgo Mesazhin",
+    "sending": "Duke dërguar...",
+    "success": "Faleminderit për mesazhin tuaj! Do t'ju kthejmë përgjigje së shpejti.",
+    "error": "Dështoi dërgimi i mesazhit. Ju lutemi provoni përsëri."
+  },
+  "common": {
+    "dashboard": "Paneli",
+    "preview": "Shiko",
+    "show": "Shfaq",
+    "hide": "Fsheh",
+    "next": "Vazhdo",
+    "previous": "Mbrapa",
+    "step": "Hapi",
+    "of": "nga",
+    "complete": "Përfunduar",
+    "save": "Ruaj",
+    "cancel": "Anulo",
+    "delete": "Fshi",
+    "edit": "Modifiko",
+    "add": "Shto",
+    "remove": "Hiq",
+    "loading": "Duke u ngarkuar...",
+    "error": "Gabim",
+    "success": "Sukses",
+    "warning": "Paralajmërim", 
+    "info": "Informacion",
+    "retry": "Provo Përsëri",
+    "retrying": "Duke provuar përsëri...",
+    "goHome": "Shko në Kreu"
+  },
+  "nav": {
+    "home": "Kreu",
+    "dashboard": "Paneli",
+    "createCV": "Krijo CV",
+    "templates": "Shabllonet",
+    "profile": "Profili",
+    "about": "Rreth Nesh",
+    "contact": "Kontakti",
+    "faq": "Pyetje",
+    "privacy": "Privatësia",
+    "terms": "Kushtet",
+    "logout": "Dil",
+    "login": "Hyr",
+    "register": "Regjistrohu"
+  },
+  "cv": {
+    "createYourCV": "Krijo CV-në Tënde Profesionale",
+    "saveDraft": "Ruaj si Draft",
+    "finishCV": "Përfundo CV-në",
+    "previewCV": "Shiko CV-në",
+    "downloadCV": "Shkarko CV-në",
+    "createdSuccessfully": "CV-ja u Krijua me Sukses!",
+    "savedAndReady": "CV-ja juaj është ruajtur dhe është gati për përdorim.",
+    "draftSaved": "Draft-i u ruajt me sukses!",
+    "title": "Titulli i CV-së",
+    "personalInfo": "Informacioni Personal",
+    "workExperience": "Përvoja në Punë",
+    "education": "Arsimi",
+    "skills": "Aftësitë",
+    "interests": "Interesat dhe Hobiet",
+    "summary": "Përmbledhja Profesionale"
+  },
+  "steps": {
+    "personalInfo": "Info Personale",
+    "experience": "Përvoja",
+    "education": "Arsimi",
+    "skills": "Aftësitë", 
+    "interests": "Interesat",
+    "review": "Rishikimi",
+    "personalInfoDesc": "Le të fillojmë me informacionin tuaj bazë dhe përmbledhjen profesionale",
+    "experienceDesc": "Shtoni përvojën tuaj në punë për të treguar udhëtimin tuaj profesional",
+    "educationDesc": "Përfshini sfondin tuaj arsimor dhe kualifikimet",
+    "skillsDesc": "Theksoni aftësitë tuaja teknike dhe të buta me nivelet e aftësisë",
+    "interestsDesc": "Shtoni interesa personale që tregojnë personalitetin tuaj të plotë",
+    "reviewDesc": "Rishikoni CV-në tuaj dhe bëni rregullime të fundit para përfundimit"
+  },
+  "templates": {
+    "classic": "Klasik",
+    "modern": "Modern",
+    "professional": "Profesional",
+    "creative": "Kreativ",
+    "selectTemplate": "Zgjidhni Shabllon",
+    "templatePreview": "Pamja e Shabllonit"
+  },
+  "autoSave": {
+    "saving": "Duke ruajtur automatikisht...",
+    "saved": "U ruajt automatikisht",
+    "error": "Ruajtja automatike dështoi",
+    "ready": "Ruajtja automatike gati",
+    "needsInfo": "Vendosni emrin dhe email-in për të aktivizuar ruajtjen automatike"
+  },
+  "ai": {
+    "generateSummary": "Gjenero me AI",
+    "generating": "Duke gjeneruar...",
+    "summaryGenerated": "Përmbledhja profesionale u gjenerua me sukses!",
+    "summaryError": "Dështoi gjenerimi i përmbledhjes. Ju lutemi provoni përsëri.",
+    "enhanceDescription": "Përmirëso me AI", 
+    "enhancing": "Duke përmirësuar...",
+    "descriptionEnhanced": "Përshkrimi u përmirësua me sukses!",
+    "descriptionError": "Dështoi përmirësimi i përshkrimit. Ju lutemi provoni përsëri.",
+    "skillSuggestions": "Rekomandimet AI për Aftësitë",
+    "improveTips": "Këshillat AI për Përmirësim", 
+    "optimizeForATS": "Optimizo për ATS"
+  },
+  "validation": {
+    "required": "Ky fushë është e detyrueshme",
+    "email": "Ju lutemi vendosni një adresë email të vlefshme",
+    "phone": "Ju lutemi vendosni një numër telefoni të vlefshëm",
+    "minLength": "Minimumi {min} karaktere të nevojshme",
+    "maxLength": "Maksimumi {max} karaktere të lejuara",
+    "invalidFormat": "Format i pavlefshëm"
+  },
+  "errors": {
+    "notAuthenticated": "Duhet të jeni të kyçur për të kryer këtë veprim",
+    "saveFailed": "Dështoi ruajtja. Ju lutemi provoni përsëri.",
+    "loadFailed": "Dështoi ngarkimi i të dhënave. Ju lutemi rifreskoni faqen.",
+    "networkError": "Gabim rrjeti. Ju lutemi kontrolloni lidhjen tuaj.",
+    "serverError": "Gabim serveri. Ju lutemi provoni më vonë.",
+    "validationError": "Ju lutemi korrigjoni gabimet e theksuara",
+    "somethingWentWrong": "Diçka shkoi keq",
+    "technicalDetails": "Detajet Teknike",
+    "reportError": "Raporto Gabimin",
+    "suggestions": "Sugjerime",
+    "authenticationError": "Vërtetimi dështoi. Ju lutemi kyçuni përsëri.",
+    "clientError": "Ndodhi një gabim klienti. Ju lutemi kontrolloni të dhënat tuaja.",
+    "typeError": "Ndodhi një gabim tipi. Ju lutemi rifreskoni faqen.",
+    "unknownError": "Ndodhi një gabim i panjohur",
+    "checkConnection": "Kontrolloni lidhjen tuaj të internetit",
+    "tryAgainLater": "Provoni përsëri pas disa momentesh",
+    "loginAgain": "Ju lutemi kyçuni përsëri",
+    "checkCredentials": "Verifikoni të dhënat tuaja të kyçjes",
+    "checkConnectionSpeed": "Kontrolloni shpejtësinë e lidhjes",
+    "tryAgainShorter": "Provoni përsëri me një operacion më të shkurtër",
+    "checkFormFields": "Kontrolloni të gjitha fushat e formularit për vlera të sakta",
+    "ensureRequired": "Sigurohuni që të gjitha fushat e detyrueshme janë plotësuar"
+  },
+  "auth": {
+    "email": "Adresa Email",
+    "password": "Fjalëkalimi",
+    "firstName": "Emri",
+    "lastName": "Mbiemri",
+    "confirmPassword": "Konfirmoni Fjalëkalimin",
+    "rememberMe": "Më mbaj mend",
+    "forgotPassword": "Keni harruar fjalëkalimin?",
+    "dontHaveAccount": "Nuk keni llogari?",
+    "alreadyHaveAccount": "Keni tashmë llogari?",
+    "signUp": "Regjistrohuni",
+    "signIn": "Hyni",
+    "signOut": "Dilni",
+    "createAccount": "Krijoni Llogari",
+    "loginToAccount": "Hyni në Llogarinë Tuaj",
+    "welcome": "Mirë se vini në ATELIER",
+    "subtitle": "Atelieri Profesional i CV-ve",
+    "description": "Ku karrierat krijuhen me saktësi AI dhe përsosmëri artistike"
+  },
+  "personal": {
+    "firstName": "Emri",
+    "lastName": "Mbiemri", 
+    "email": "Adresa Email",
+    "phone": "Numri i Telefonit",
+    "address": "Adresa",
+    "city": "Qyteti",
+    "country": "Vendi",
+    "website": "Faqja Web",
+    "linkedin": "Profili LinkedIn",
+    "github": "Profili GitHub"
+  },
+  "experience": {
+    "jobTitle": "Titulli i Punës",
+    "company": "Kompania",
+    "startDate": "Data e Fillimit",
+    "endDate": "Data e Përfundimit",
+    "current": "Pozicion Aktual",
+    "description": "Përshkrimi i Punës",
+    "achievements": "Arritjet Kryesore",
+    "responsibilities": "Përgjegjësitë",
+    "addExperience": "Shto Përvojë Pune",
+    "editExperience": "Modifiko Përvojën"
+  },
+  "education": {
+    "degree": "Diploma",
+    "institution": "Institucioni",
+    "fieldOfStudy": "Fusha e Studimit",
+    "startDate": "Data e Fillimit",
+    "endDate": "Data e Përfundimit", 
+    "currentlyStudying": "Aktualisht Duke Studiuar",
+    "gpa": "Nota Mesatare",
+    "description": "Përshkrimi",
+    "addEducation": "Shto Arsimin",
+    "editEducation": "Modifiko Arsimin"
+  },
+  "skills": {
+    "skillName": "Emri i Aftësisë",
+    "proficiency": "Niveli i Aftësisë",
+    "category": "Kategoria",
+    "addSkill": "Shto Aftësi",
+    "technical": "Aftësitë Teknike",
+    "soft": "Aftësitë e Buta",
+    "language": "Gjuhët",
+    "beginner": "Fillestar",
+    "intermediate": "Mesatar",
+    "advanced": "I avancuar", 
+    "expert": "Ekspert",
+    "native": "Amtare"
+  },
+  "interests": {
+    "interestName": "Interesi/Hobi",
+    "description": "Përshkrimi",
+    "addInterest": "Shto Interes",
+    "editInterest": "Modifiko Interesin"
+  }
+} 

@@ -8,6 +8,7 @@ use App\Models\WorkExperience;
 use App\Models\Skill;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class CvService
 {
@@ -97,8 +98,9 @@ class CvService
      */
     public function generatePdf(CV $cv)
     {
-        // PDF generation logic here
-        // This is a placeholder - implement actual PDF generation
-        return '';
+        // Generate PDF using the 'pdf.cv' Blade view
+        $pdf = Pdf::loadView('pdf.cv', ['cv' => $cv]);
+        $fileName = 'cv-' . str_replace(' ', '-', $cv->emri . '-' . $cv->mbiemri) . '.pdf';
+        return $pdf->download($fileName);
     }
 } 

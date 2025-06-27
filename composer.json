@@ -1,9 +1,9 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
-    "name": "laravel/laravel",
+    "name": "atelier/atelier",
     "type": "project",
-    "description": "The skeleton application for the Laravel framework.",
-    "keywords": ["laravel", "framework"],
+    "description": "Professional Resume Atelier - Where careers are crafted with AI precision and artistic excellence",
+    "keywords": ["laravel", "vue", "resume", "atelier", "ai", "professional", "pdf", "career"],
     "license": "MIT",
     "require": {
         "php": "^8.2",
@@ -57,6 +57,9 @@
         "test": [
             "@php artisan config:clear --ansi",
             "@php artisan test"
+        ],
+        "format": [
+            "@php vendor/bin/pint"
         ]
     },
     "extra": {

@@ -1,104 +1,112 @@
 <template>
-  <header class="header">
+  <header :class="['header', { 'scrolled': isScrolled }]">
     <div class="header-content-wrapper">
-      <router-link to="/" class="header-logo-link-style">
-        <span class="header-gemini-icon">CV</span>
-        <div class="header-logo-text">
-          <h3>CV Maker</h3>
-          <p class="header-subtitle">Build your future</p>
-        </div>
+      <!-- New Logo Branding -->
+      <router-link to="/" class="header-logo-link">
+        <span class="header-logo-svg">
+          <!-- Inline SVG logo for premium branding -->
+          <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" width="40" height="40">
+            <rect width="64" height="64" rx="16" fill="#10131A"/>
+            <path d="M16 48C16 35 32 35 32 48" stroke="#2D9CDB" stroke-width="3" stroke-linecap="round"/>
+            <path d="M48 16C35 16 35 32 48 32" stroke="#2D9CDB" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="32" cy="32" r="10" stroke="#F2C94C" stroke-width="3"/>
+            <circle cx="32" cy="32" r="5" fill="#2D9CDB"/>
+          </svg>
+        </span>
+        <span class="header-logo-text">
+          <span class="brand-title">CV Atelier</span>
+        </span>
       </router-link>
-
-      <!-- Desktop Navigation -->
-      <nav id="desktop-nav-menu-id" class="hidden md:flex">
-        <router-link to="/" :class="{ active: $route.name === 'home' }">Home</router-link>
-        <router-link to="/about" :class="{ active: $route.name === 'about' }">About Us</router-link>
-        <router-link to="/contact" :class="{ active: $route.name === 'contact' }">Contact</router-link>
-        <router-link to="/faq" :class="{ active: $route.name === 'faq' }">FAQ</router-link>
-
-        <!-- Guest Links -->
-        <div class="auth-links-container" v-if="!isAuthenticated">
-          <router-link to="/login" class="auth-link login-link">Login</router-link>
-          <router-link to="/register" class="auth-link signup-link btn">Sign Up</router-link>
-        </div>
-
-        <!-- Authenticated Profile Dropdown -->
-        <div v-if="isAuthenticated" class="profile-menu-container" ref="profileMenu">
-          <button @click="toggleProfileMenu" class="profile-menu-button" aria-label="Profile menu">
-            <i class="fas fa-user-circle"></i>
-          </button>
-          <div v-if="isProfileMenuOpen" class="profile-dropdown">
-            <router-link to="/dashboard" class="dropdown-item">Dashboard</router-link>
-            <router-link to="/templates" class="dropdown-item">Templates</router-link>
-            <router-link to="/profile" class="dropdown-item">Profile</router-link>
-            <div class="dropdown-divider"></div>
-            <button @click="logout" class="dropdown-item logout-btn">Logout</button>
-          </div>
-        </div>
-      </nav>
-
-      <!-- Mobile Menu Toggle -->
-      <button id="mobile-menu-toggle" class="md:hidden hamburger-icon" @click="toggleMobileMenu" aria-label="Toggle mobile menu" :aria-expanded="isMobileMenuOpen">
-        <i class="fas fa-bars"></i>
-      </button>
-
-      <button id="theme-toggle-button" @click="toggleTheme" aria-label="Toggle theme">
-        <i class="fas" :class="{ 'fa-sun': isDarkTheme, 'fa-moon': !isDarkTheme }"></i>
-      </button>
-    </div>
-
-    <!-- Mobile Navigation Overlay -->
-    <div v-if="isMobileMenuOpen" class="mobile-nav-overlay md:hidden">
-      <div class="mobile-nav-header">
-        <router-link to="/" class="header-logo-link-style" @click="closeMobileMenu">
-          <span class="header-gemini-icon">CV</span>
-          <div class="header-logo-text">
-            <h3>CV Maker</h3>
-            <p class="header-subtitle">Build your future</p>
-          </div>
-        </router-link>
-        <button @click="closeMobileMenu" class="close-mobile-menu-btn" aria-label="Close mobile menu">
-          <i class="fas fa-times"></i>
+      <div class="header-right-nav-container">
+        <!-- Desktop Navigation Links -->
+        <nav id="desktop-nav-menu-id">
+          <router-link to="/" :class="{ active: $route.name === 'home' }">{{ t('home') }}</router-link>
+          <router-link to="/templates" :class="{ active: $route.name === 'templates' }">{{ t('templates') }}</router-link>
+          <router-link to="/contact" :class="{ active: $route.name === 'contact' }">{{ t('contact') }}</router-link>
+          <router-link v-if="!isAuthenticated" to="/login" class="auth-link login-link">{{ t('login') }}</router-link>
+          <router-link v-if="!isAuthenticated" to="/register" class="auth-link signup-link btn btn-accent">{{ t('signup') }}</router-link>
+          <router-link v-if="isAuthenticated" to="/dashboard" class="auth-link profile-link">{{ t('dashboard') }}</router-link>
+          <router-link v-if="isAuthenticated" to="/profile" class="auth-link profile-link">{{ t('profile') }}</router-link>
+          <button v-if="isAuthenticated" @click="logout" class="auth-link logout-link btn">{{ t('logout') }}</button>
+        </nav>
+        <!-- Language Switcher -->
+        <LanguageSwitcher />
+        <!-- Theme Toggle Button -->
+        <button id="theme-toggle-button" @click="toggleTheme" aria-label="Toggle theme" class="icon-button">
+          <i class="fas" :class="{ 'fa-sun': isDarkTheme, 'fa-moon': !isDarkTheme }"></i>
+        </button>
+        <!-- Hamburger Icon -->
+        <button id="main-menu-toggle" class="hamburger-icon icon-button" @click="toggleMainMenu" aria-label="Toggle main menu" :aria-expanded="isMainMenuOpen">
+          <i class="fas fa-bars"></i>
         </button>
       </div>
-      <nav class="mobile-nav-menu">
-        <router-link to="/" :class="{ active: $route.name === 'home' }" @click="closeMobileMenu">Home</router-link>
-        <router-link to="/about" :class="{ active: $route.name === 'about' }" @click="closeMobileMenu">About Us</router-link>
-        <router-link to="/contact" :class="{ active: $route.name === 'contact' }" @click="closeMobileMenu">Contact</router-link>
-        <router-link to="/faq" :class="{ active: $route.name === 'faq' }" @click="closeMobileMenu">FAQ</router-link>
-
-        <div class="mobile-auth-links-container" v-if="!isAuthenticated">
-          <router-link to="/login" class="auth-link login-link" @click="closeMobileMenu">Login</router-link>
-          <router-link to="/register" class="auth-link signup-link btn" @click="closeMobileMenu">Sign Up</router-link>
-        </div>
-
-        <div v-if="isAuthenticated" class="mobile-profile-links">
-          <router-link to="/dashboard" class="dropdown-item" @click="closeMobileMenu">Dashboard</router-link>
-          <router-link to="/templates" class="dropdown-item" @click="closeMobileMenu">Templates</router-link>
-          <router-link to="/profile" class="dropdown-item" @click="closeMobileMenu">Profile</router-link>
-          <div class="dropdown-divider"></div>
-          <button @click="logoutAndCloseMobileMenu" class="dropdown-item logout-btn">Logout</button>
-        </div>
-      </nav>
     </div>
+    <!-- Mobile Overlay -->
+    <transition name="fade">
+      <div v-if="isMainMenuOpen" class="main-nav-overlay" @click.self="closeMainMenu">
+        <div :class="['main-nav-menu', { 'open': isMainMenuOpen }]">
+          <div class="main-nav-header">
+            <router-link to="/" class="header-logo-link" @click="closeMainMenu">
+              <span class="header-logo-svg">
+                <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" width="36" height="36">
+                  <rect width="64" height="64" rx="16" fill="#10131A"/>
+                  <path d="M16 48C16 35 32 35 32 48" stroke="#2D9CDB" stroke-width="3" stroke-linecap="round"/>
+                  <path d="M48 16C35 16 35 32 48 32" stroke="#2D9CDB" stroke-width="3" stroke-linecap="round"/>
+                  <circle cx="32" cy="32" r="10" stroke="#F2C94C" stroke-width="3"/>
+                  <circle cx="32" cy="32" r="5" fill="#2D9CDB"/>
+                </svg>
+              </span>
+              <span class="header-logo-text"><span class="brand-title">CV Atelier</span></span>
+            </router-link>
+            <button @click="closeMainMenu" class="close-main-menu-btn icon-button" aria-label="Close main menu">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+          <nav class="main-nav-menu-links">
+            <router-link to="/" :class="{ active: $route.name === 'home' }" @click="closeMainMenu">{{ t('home') }}</router-link>
+            <router-link to="/templates" :class="{ active: $route.name === 'templates' }" @click="closeMainMenu">{{ t('templates') }}</router-link>
+            <router-link to="/contact" :class="{ active: $route.name === 'contact' }" @click="closeMainMenu">{{ t('contact') }}</router-link>
+            <div v-if="!isAuthenticated" class="auth-links-group">
+              <router-link to="/login" class="auth-link login-link" @click="closeMainMenu">{{ t('login') }}</router-link>
+              <router-link to="/register" class="auth-link signup-link btn btn-accent" @click="closeMainMenu">{{ t('signup') }}</router-link>
+            </div>
+            <div v-if="isAuthenticated" class="profile-links-group">
+              <router-link to="/dashboard" class="profile-link" @click="closeMainMenu">{{ t('dashboard') }}</router-link>
+              <router-link to="/profile" class="profile-link" @click="closeMainMenu">{{ t('profile') }}</router-link>
+              <button @click="logoutAndCloseMainMenu" class="logout-btn">{{ t('logout') }}</button>
+            </div>
+            <!-- Language Switcher for Mobile -->
+            <div class="mobile-language-switcher">
+              <LanguageSwitcher />
+            </div>
+          </nav>
+        </div>
+      </div>
+    </transition>
   </header>
 </template>
 
 <script>
   import { ref, watch, onMounted, onBeforeUnmount } from 'vue'
   import { useRouter, useRoute } from 'vue-router'
+  import { useI18n } from 'vue-i18n'
   import { toggleTheme as toggleThemeFunction } from '../../script.js'
+  import LanguageSwitcher from '../common/LanguageSwitcher.vue'
   import axios from 'axios'
 
   export default {
     name: 'Navigation',
+    components: {
+      LanguageSwitcher
+    },
     setup() {
+      const { t } = useI18n()
       const router = useRouter()
       const route = useRoute()
       const isAuthenticated = ref(false)
-      const isProfileMenuOpen = ref(false)
-      const profileMenu = ref(null)
-      const isMobileMenuOpen = ref(false)
+      const isMainMenuOpen = ref(false) // New state for the large menu
+      const isScrolled = ref(false)
+      const isDarkTheme = ref(document.body.classList.contains('dark-theme')) // Initialize based on current body class
 
       const checkAuth = () => {
         isAuthenticated.value = !!localStorage.getItem('auth_token')
@@ -113,76 +121,77 @@
           localStorage.removeItem('auth_token')
           localStorage.removeItem('user')
           delete axios.defaults.headers.common['Authorization']
-          isProfileMenuOpen.value = false
           checkAuth()
           router.push('/login')
         }
       }
 
-      const toggleProfileMenu = () => {
-        isProfileMenuOpen.value = !isProfileMenuOpen.value
+      const toggleMainMenu = () => {
+        isMainMenuOpen.value = !isMainMenuOpen.value
+        document.body.classList.toggle('main-menu-open', isMainMenuOpen.value) // Use main-menu-open class on body
       }
 
-      const toggleMobileMenu = () => {
-        isMobileMenuOpen.value = !isMobileMenuOpen.value
-        document.body.classList.toggle('overflow-hidden', isMobileMenuOpen.value);
-      };
+      const closeMainMenu = () => {
+        isMainMenuOpen.value = false
+        document.body.classList.remove('main-menu-open')
+      }
 
-      const closeMobileMenu = () => {
-        isMobileMenuOpen.value = false;
-        document.body.classList.remove('overflow-hidden');
-      };
-
-      const logoutAndCloseMobileMenu = async () => {
-        await logout();
-        closeMobileMenu();
-      };
+      const logoutAndCloseMainMenu = async () => {
+        await logout()
+        closeMainMenu()
+      }
 
       const handleClickOutside = (event) => {
-        if (profileMenu.value && !profileMenu.value.contains(event.target)) {
-          isProfileMenuOpen.value = false
+        const mainMenuToggle = document.getElementById('main-menu-toggle')
+        const mainNavMenu = document.querySelector('.main-nav-menu') // Target the menu itself
+
+        if (isMainMenuOpen.value && mainMenuToggle && mainNavMenu && 
+            !mainMenuToggle.contains(event.target) && !mainNavMenu.contains(event.target) &&
+            !event.target.closest('.main-nav-menu')) { // Ensure clicks inside the menu don't close it
+          closeMainMenu()
         }
-        if (isMobileMenuOpen.value && !event.target.closest('#mobile-menu-toggle') && !event.target.closest('.mobile-nav-overlay')) {
-          closeMobileMenu();
-        }
+      }
+
+      const handleScroll = () => {
+        isScrolled.value = window.scrollY > 0
+      }
+
+      // Update isDarkTheme reactivity when toggleThemeFunction is called
+      const localToggleTheme = () => {
+        toggleThemeFunction()
+        isDarkTheme.value = document.body.classList.contains('dark-theme')
       }
 
       onMounted(() => {
         checkAuth()
         window.addEventListener('storage', checkAuth)
         document.addEventListener('mousedown', handleClickOutside)
+        window.addEventListener('scroll', handleScroll)
+        // The theme initialization is now handled solely by script.js
       })
 
       onBeforeUnmount(() => {
         document.removeEventListener('mousedown', handleClickOutside)
         window.removeEventListener('storage', checkAuth)
+        window.removeEventListener('scroll', handleScroll)
       })
 
       watch(route, () => {
         checkAuth()
-        isProfileMenuOpen.value = false
-        closeMobileMenu();
+        closeMainMenu() // Close the menu on route change
       })
-
-      const isDarkTheme = ref(document.body.classList.contains('dark-theme'))
-
-      const toggleTheme = () => {
-        toggleThemeFunction()
-        isDarkTheme.value = document.body.classList.contains('dark-theme')
-      }
 
       return {
         isAuthenticated,
         logout,
         isDarkTheme,
-        toggleTheme,
-        isProfileMenuOpen,
-        toggleProfileMenu,
-        profileMenu,
-        isMobileMenuOpen,
-        toggleMobileMenu,
-        closeMobileMenu,
-        logoutAndCloseMobileMenu,
+        toggleTheme: localToggleTheme, // Use the local wrapper
+        isMainMenuOpen,
+        toggleMainMenu,
+        closeMainMenu,
+        logoutAndCloseMainMenu,
+        isScrolled,
+        t // Add translation function
       }
     },
   }
@@ -190,346 +199,354 @@
 
 <style scoped>
   .header {
-    background-color: var(--neutral-light);
-    border-bottom: 1px solid var(--neutral-border);
-    position: sticky;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-  }
-
-  .header.scrolled {
-    background-color: var(--header-bg-scrolled);
-    backdrop-filter: blur(var(--glass-blur-amount)) saturate(var(--glass-saturation));
-    -webkit-backdrop-filter: blur(var(--glass-blur-amount)) saturate(var(--glass-saturation));
-    box-shadow: var(--header-shadow-scrolled);
-    border-color: rgba(0, 0, 0, 0.08);
-  }
-
-  body.dark-theme .header.scrolled {
-    background-color: var(--dark-header-bg-scrolled);
-    box-shadow: var(--dark-header-shadow-scrolled);
-    border-color: rgba(255, 255, 255, 0.1);
-  }
-
-  .header-content-wrapper {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: var(--space-md) var(--space-lg);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  /* Styles related to the logo are now in header.css */
-
-  nav a {
-    text-decoration: none;
-    color: var(--muted-text);
-    font-weight: 500;
-    margin: 0 var(--space-md);
-    transition: color 0.3s ease;
-    position: relative;
-    padding: 5px 0;
-  }
-
-  nav a:hover,
-  nav a.active {
-    color: var(--primary);
-  }
-
-  nav a::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background-color: var(--primary);
-    transform: scaleX(0);
-    transform-origin: bottom right;
-    transition: transform 0.3s ease-out;
-  }
-
-  nav a:hover::after,
-  nav a.active::after {
-    transform: scaleX(1);
-    transform-origin: bottom left;
-  }
-
-  .auth-links-container .auth-link {
-    margin-left: var(--space-lg);
-  }
-
-  .auth-links-container .signup-link {
-    margin-left: var(--space-md);
-  }
-
-  .profile-menu-container {
-    position: relative;
-    display: inline-block;
-    margin-left: var(--space-lg);
-  }
-
-  .profile-menu-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 1.8em;
-    color: var(--primary);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-    transition: color 0.3s ease;
-  }
-
-  .profile-menu-button:hover {
-    color: var(--primary-hover);
-  }
-
-  .profile-dropdown {
-    position: absolute;
-    top: calc(100% + 10px);
-    right: 0;
-    background-color: var(--neutral-light);
-    border: 1px solid var(--neutral-border);
-    border-radius: var(--radius-sm);
-    box-shadow: var(--shadow-light);
-    min-width: 180px;
-    padding: var(--space-xs) 0;
-    z-index: 1000;
-  }
-
-  .profile-dropdown .dropdown-item {
-    display: block;
-    padding: var(--space-sm) var(--space-md);
-    color: var(--neutral-text);
-    text-decoration: none;
-    transition: background-color 0.2s ease, color 0.2s ease;
-  }
-
-  .profile-dropdown .dropdown-item:hover {
-    background-color: var(--neutral-border);
-    color: var(--primary);
-  }
-
-  .profile-dropdown .dropdown-divider {
-    border-top: 1px solid var(--neutral-border);
-    margin: var(--space-xs) 0;
-  }
-
-  .profile-dropdown .logout-btn {
-    width: 100%;
-    text-align: left;
-    border: none;
-    background: none;
-    cursor: pointer;
-  }
-
-  .profile-dropdown .logout-btn:hover {
-    background-color: var(--message-error-bg);
-    color: var(--message-error-color);
-  }
-
-  #theme-toggle-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 1.5em;
-    color: var(--muted-text);
-    margin-left: var(--space-lg);
-    transition: color 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  #theme-toggle-button:hover {
-    color: var(--primary);
-  }
-
-  /* Dark Theme Overrides */
-  body.dark-theme .header {
-    background-color: var(--dark-neutral-container);
-    border-color: var(--dark-neutral-border);
-  }
-
-  body.dark-theme .header-logo-text h3 {
-    color: var(--dark-neutral-text);
-  }
-
-  body.dark-theme .header-logo-text .header-subtitle,
-  body.dark-theme nav a {
-    color: var(--dark-muted-text);
-  }
-
-  body.dark-theme nav a:hover,
-  body.dark-theme nav a.active {
-    color: var(--dark-primary);
-  }
-
-  body.dark-theme nav a::after {
-    background-color: var(--dark-primary);
-  }
-
-  body.dark-theme .profile-menu-button {
-    color: var(--dark-primary);
-  }
-  body.dark-theme .profile-menu-button:hover {
-    color: var(--dark-primary-hover);
-  }
-
-  body.dark-theme .profile-dropdown {
-    background-color: var(--dark-neutral-container);
-    border-color: var(--dark-neutral-border);
-    box-shadow: var(--shadow-dark);
-  }
-  body.dark-theme .profile-dropdown .dropdown-item {
-    color: var(--dark-neutral-text);
-  }
-  body.dark-theme .profile-dropdown .dropdown-item:hover {
-    background-color: var(--dark-neutral-border);
-    color: var(--dark-primary);
-  }
-  body.dark-theme .profile-dropdown .dropdown-divider {
-    border-color: var(--dark-divider-color);
-  }
-  body.dark-theme .profile-dropdown .logout-btn:hover {
-    background-color: var(--dark-message-error-bg);
-    color: var(--dark-message-error-color);
-  }
-
-  body.dark-theme #theme-toggle-button {
-    color: var(--dark-muted-text);
-  }
-  body.dark-theme #theme-toggle-button:hover {
-    color: var(--dark-primary);
-  }
-
-  /* Mobile Navigation Styles */
-  .hamburger-icon {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 1.5em;
-    color: var(--muted-text);
-    margin-left: var(--space-md);
-    transition: color 0.3s ease;
-  }
-
-  .hamburger-icon:hover {
-    color: var(--primary);
-  }
-
-  .mobile-nav-overlay {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
-    background-color: var(--neutral-light);
-    z-index: 1001;
+    z-index: var(--z-sticky);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    height: 72px;
     display: flex;
-    flex-direction: column;
-    transform: translateX(100%);
-    transition: transform 0.4s var(--animation-ease-out);
+    align-items: center;
   }
-
-  .mobile-nav-overlay.is-open {
-    transform: translateX(0);
+  
+  body.dark-theme .header {
+    background: rgba(15, 23, 42, 0.8);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   }
-
-  .mobile-nav-header {
+  
+  .header.scrolled {
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    height: 64px;
+  }
+  
+  body.dark-theme .header.scrolled {
+    background: rgba(15, 23, 42, 0.95);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  }
+  
+  .header-content-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: var(--space-md) var(--space-lg);
-    border-bottom: 1px solid var(--neutral-border);
+    width: 100%;
+    height: 100%;
   }
-
-  .close-mobile-menu-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 1.8em;
-    color: var(--muted-text);
-    transition: color 0.3s ease;
+  
+  .header-logo-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: var(--text-primary);
+    transition: transform 0.3s ease;
   }
-
-  .close-mobile-menu-btn:hover {
+  
+  .header-logo-link:hover {
+    transform: scale(1.05);
+  }
+  
+  .header-logo-svg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(91, 33, 182, 0.2);
+    transition: all 0.3s ease;
+  }
+  
+  .header-logo-link:hover .header-logo-svg {
+    box-shadow: 0 6px 20px rgba(91, 33, 182, 0.3);
+    transform: rotate(-5deg);
+  }
+  
+  .header-logo-svg svg {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .header-logo-svg svg rect {
+    fill: transparent;
+  }
+  
+  .header-logo-svg svg path,
+  .header-logo-svg svg circle {
+    stroke: white;
+    fill: white;
+  }
+  
+  .header-logo-text .brand-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+  }
+  
+  .header-right-nav-container {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+  
+  nav#desktop-nav-menu-id {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+  
+  nav#desktop-nav-menu-id a {
+    color: var(--text-secondary);
+    font-size: 15px;
+    font-weight: 500;
+    position: relative;
+    padding: 8px 0;
+    transition: color 0.2s ease;
+    text-decoration: none;
+  }
+  
+  nav#desktop-nav-menu-id a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--primary);
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  nav#desktop-nav-menu-id a:hover {
     color: var(--primary);
   }
-
-  .mobile-nav-menu {
+  
+  nav#desktop-nav-menu-id a:hover::after,
+  nav#desktop-nav-menu-id a.active::after {
+    width: 100%;
+  }
+  
+  nav#desktop-nav-menu-id a.active {
+    color: var(--primary);
+    font-weight: 600;
+  }
+  
+  .auth-link.signup-link {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    color: white !important;
+    padding: 10px 24px;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 14px rgba(91, 33, 182, 0.25);
+  }
+  
+  .auth-link.signup-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(91, 33, 182, 0.35);
+  }
+  
+  .auth-link.signup-link:hover::after {
+    width: 0 !important;
+  }
+  
+  .icon-button {
+    background: rgba(0, 0, 0, 0.04);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 10px;
+    font-size: 18px;
+    cursor: pointer;
+    color: var(--text-secondary);
+    transition: all 0.2s ease;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  body.dark-theme .icon-button {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+  }
+  
+  .icon-button:hover {
+    color: var(--primary);
+    background: rgba(91, 33, 182, 0.08);
+    border-color: rgba(91, 33, 182, 0.2);
+    transform: translateY(-2px);
+  }
+  
+  .hamburger-icon {
+    display: none;
+  }
+  
+  /* Mobile Menu - Full Screen Overlay */
+  .main-nav-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: var(--z-overlay);
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .main-nav-menu {
+    width: 320px;
+    height: 100%;
+    background: var(--bg-primary);
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
+    transform: translateX(100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
-    padding: var(--space-lg);
-    flex-grow: 1;
-    overflow-y: auto;
   }
-
-  .mobile-nav-menu a,
-  .mobile-nav-menu button {
-    display: block;
-    padding: var(--space-md) var(--space-sm);
-    text-align: center;
-    text-decoration: none;
-    color: var(--neutral-text);
-    font-size: 1.2em;
+  
+  .main-nav-menu.open {
+    transform: translateX(0);
+  }
+  
+  body.dark-theme .main-nav-menu {
+    background: var(--bg-secondary);
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.3);
+  }
+  
+  .main-nav-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  
+  .main-nav-menu-links {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .main-nav-menu-links a {
+    color: var(--text-primary);
+    font-size: 16px;
     font-weight: 500;
-    border-bottom: 1px solid var(--divider-color);
-    transition: background-color 0.2s ease, color 0.2s ease;
+    text-decoration: none;
+    padding: 12px 16px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
   }
-
-  .mobile-nav-menu a:hover,
-  .mobile-nav-menu a.active,
-  .mobile-nav-menu button:hover {
-    background-color: var(--neutral-border);
+  
+  .main-nav-menu-links a:hover {
+    background: rgba(91, 33, 182, 0.08);
     color: var(--primary);
+    transform: translateX(4px);
   }
-
-  .mobile-nav-menu .auth-link,
-  .mobile-nav-menu .dropdown-item {
-    text-align: center;
-    padding: var(--space-md) var(--space-sm);
+  
+  .main-nav-menu-links a.active {
+    background: rgba(91, 33, 182, 0.1);
+    color: var(--primary);
+    font-weight: 600;
   }
-
-  .mobile-nav-menu .signup-link {
-    margin-top: var(--space-md);
+  
+  .auth-links-group,
+  .profile-links-group {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
   }
-
-  .mobile-auth-links-container, .mobile-profile-links {
-    margin-top: var(--space-xl);
-    border-top: 1px solid var(--divider-color);
-    padding-top: var(--space-lg);
+  
+  .logout-btn {
+    background: rgba(239, 68, 68, 0.1);
+    color: var(--danger);
+    border: none;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
   }
-
-  /* Dark theme for mobile navigation */
-  body.dark-theme .mobile-nav-overlay {
-    background-color: var(--dark-neutral-container);
+  
+  .logout-btn:hover {
+    background: rgba(239, 68, 68, 0.2);
+    transform: translateX(4px);
   }
-  body.dark-theme .mobile-nav-header {
-    border-color: var(--dark-neutral-border);
+  
+  .mobile-language-switcher {
+    margin-top: auto;
+    padding: 24px;
+    border-top: 1px solid var(--border);
   }
-  body.dark-theme .close-mobile-menu-btn {
-    color: var(--dark-muted-text);
+  
+  /* Fade transition */
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: opacity 0.3s ease;
   }
-  body.dark-theme .close-mobile-menu-btn:hover {
-    color: var(--dark-primary);
+  
+  .fade-enter-from,
+  .fade-leave-to {
+    opacity: 0;
   }
-  body.dark-theme .mobile-nav-menu a,
-  body.dark-theme .mobile-nav-menu button {
-    color: var(--dark-neutral-text);
-    border-color: var(--dark-divider-color);
+  
+  @media (max-width: 900px) {
+    nav#desktop-nav-menu-id {
+      gap: 20px;
+    }
+    
+    nav#desktop-nav-menu-id a {
+      font-size: 14px;
+    }
   }
-  body.dark-theme .mobile-nav-menu a:hover,
-  body.dark-theme .mobile-nav-menu a.active,
-  body.dark-theme .mobile-nav-menu button:hover {
-    background-color: var(--dark-neutral-border);
-    color: var(--dark-primary);
+  
+  @media (max-width: 768px) {
+    nav#desktop-nav-menu-id,
+    .desktop-only {
+      display: none;
+    }
+    
+    .hamburger-icon {
+      display: flex;
+    }
+    
+    .header {
+      height: 64px;
+    }
+    
+    .header-content-wrapper {
+      padding: 0 16px;
+    }
+    
+    .header-logo-svg {
+      width: 38px;
+      height: 38px;
+    }
+    
+    .header-logo-text .brand-title {
+      font-size: 18px;
+    }
   }
-
 </style>

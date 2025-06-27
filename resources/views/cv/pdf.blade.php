@@ -7,7 +7,7 @@
         body {
             font-family: 'DejaVu Sans', sans-serif;
             line-height: 1.6;
-            color: #333;
+            color: #2c3e50;
             margin: 0;
             padding: 20px;
         }
@@ -16,43 +16,56 @@
             margin-bottom: 30px;
         }
         h1 {
-            font-size: 24px;
-            color: #2d3748;
+            font-size: 28px;
+            color: #001f3f;
             margin: 0 0 10px 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
         h2 {
-            font-size: 18px;
-            color: #2d3748;
-            border-bottom: 1px solid #e2e8f0;
-            padding-bottom: 5px;
-            margin: 25px 0 15px 0;
+            font-size: 20px;
+            color: #001f3f;
+            border-bottom: 2px solid #0056b3;
+            padding-bottom: 8px;
+            margin: 30px 0 18px 0;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
         }
         .contact-info {
-            font-size: 14px;
-            color: #4a5568;
-            margin-bottom: 5px;
+            font-size: 13px;
+            color: #5d6d7e;
+            margin-bottom: 8px;
         }
         .section {
-            margin-bottom: 25px;
+            margin-bottom: 28px;
         }
         .experience-item, .education-item {
-            margin-bottom: 20px;
+            margin-bottom: 22px;
+            padding-left: 5px;
+            border-left: 3px solid #ced4da;
         }
         .experience-header, .education-header {
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
         .company-name, .institution {
             font-weight: bold;
-            color: #2d3748;
+            color: #001f3f;
+            font-size: 15px;
         }
         .position, .degree {
-            color: #4a5568;
+            color: #34495e;
+            font-size: 14px;
+            margin-top: 2px;
         }
         .dates {
-            font-size: 14px;
-            color: #718096;
+            font-size: 12px;
+            color: #7f8c8d;
+            margin-top: 4px;
         }
         .description {
+            font-size: 13px;
+            color: #2c3e50;
+            margin-top: 8px;
             font-size: 14px;
             color: #4a5568;
             margin-top: 5px;

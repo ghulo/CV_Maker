@@ -1,2 +1,18 @@
 User-agent: *
-Disallow:
+Allow: /
+
+# API endpoints
+Disallow: /api/
+
+# Authentication pages
+Disallow: /login
+Disallow: /register
+Disallow: /password
+
+# User-specific pages
+Disallow: /dashboard
+Disallow: /profile
+Disallow: /cv/*/edit
+
+# Sitemap
+Sitemap: https://atelier.com/sitemap.xml

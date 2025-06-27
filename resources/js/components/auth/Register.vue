@@ -1,23 +1,24 @@
 <template>
   <main class="main">
-    <div class="signup-form-container page-container animate-in">
-      <h2 class="reveal-on-scroll">Krijo Llogarinë Tënde</h2>
-      <p class="form-intro-text reveal-on-scroll" data-reveal-delay="100">
-        Regjistrohuni për të krijuar, ruajtur dhe menaxhuar CV-të tuaja profesionale.
+    <div class="auth-form-container page-container reveal-on-scroll reveal-scale">
+      <h1 class="section-title text-center">{{ t('create_your_account') }}</h1>
+      <p class="form-intro-text reveal-on-scroll reveal-delay-100">
+        {{ t('register_to_create_manage') }}
       </p>
 
       <div class="message-area">
         <div v-if="error" class="message error" role="alert">
-          {{ error }}
+          <i class="fas fa-exclamation-triangle icon"></i>
+          <p class="message-text">{{ error }}</p>
         </div>
         <ul v-if="validationErrors" class="message error" role="alert">
-          <li v-for="(value, key) in validationErrors" :key="key">{{ value[0] }}</li>
+          <li v-for="(value, key) in validationErrors" :key="key" class="message-text">{{ value[0] }}</li>
         </ul>
       </div>
 
       <form class="signup-form" @submit.prevent="handleRegister">
-        <div class="form-group reveal-on-scroll" data-reveal-delay="150">
-          <label for="name">Emri i plotë</label>
+        <div class="form-group reveal-on-scroll reveal-delay-150">
+          <label for="name" class="form-label required">{{ t('full_name') }}</label>
           <div class="input-icon-wrapper">
             <i class="fas fa-user input-icon"></i>
             <input
@@ -25,13 +26,14 @@
               v-model="form.name"
               id="name"
               required
-              placeholder="Emri dhe Mbiemri"
+              :placeholder="t('full_name_placeholder')"
               :disabled="loading"
+              class="form-input"
             />
           </div>
         </div>
-        <div class="form-group reveal-on-scroll" data-reveal-delay="200">
-          <label for="email">Email</label>
+        <div class="form-group reveal-on-scroll reveal-delay-200">
+          <label for="email" class="form-label required">{{ t('email') }}</label>
           <div class="input-icon-wrapper">
             <i class="fas fa-envelope input-icon"></i>
             <input
@@ -39,13 +41,14 @@
               v-model="form.email"
               id="email"
               required
-              placeholder="Adresa juaj e emailit"
+              :placeholder="t('email_placeholder')"
               :disabled="loading"
+              class="form-input"
             />
           </div>
         </div>
-        <div class="form-group reveal-on-scroll" data-reveal-delay="250">
-          <label for="password">Fjalëkalimi</label>
+        <div class="form-group reveal-on-scroll reveal-delay-250">
+          <label for="password" class="form-label required">{{ t('password') }}</label>
           <div class="input-icon-wrapper">
             <i class="fas fa-lock input-icon"></i>
             <input
@@ -53,13 +56,14 @@
               v-model="form.password"
               id="password"
               required
-              placeholder="Minimumi 8 karaktere"
+              :placeholder="t('password_min_8')"
               :disabled="loading"
+              class="form-input"
             />
           </div>
         </div>
-        <div class="form-group reveal-on-scroll" data-reveal-delay="300">
-          <label for="password_confirmation">Konfirmo Fjalëkalimin</label>
+        <div class="form-group reveal-on-scroll reveal-delay-300">
+          <label for="password_confirmation" class="form-label required">{{ t('confirm_password') }}</label>
           <div class="input-icon-wrapper">
             <i class="fas fa-lock input-icon"></i>
             <input
@@ -67,23 +71,24 @@
               v-model="form.password_confirmation"
               id="password_confirmation"
               required
-              placeholder="Shkruani përsëri fjalëkalimin"
+              :placeholder="t('confirm_password_placeholder')"
               :disabled="loading"
+              class="form-input"
             />
           </div>
         </div>
         <button
           type="submit"
-          class="btn-primary-form btn btn-primary reveal-on-scroll"
-          data-reveal-delay="350"
+          class="btn btn-primary btn-full-width btn-with-icon reveal-on-scroll reveal-delay-350"
           :disabled="loading"
         >
-          <i v-if="loading" class="fas fa-spinner fa-spin"></i>
-          <span v-else>Regjistrohu <i class="fas fa-user-plus icon-right"></i></span>
+          <i v-if="loading" class="fas fa-spinner fa-spin icon"></i>
+          <i v-else class="fas fa-user-plus icon"></i>
+          {{ t('register_button') }}
         </button>
       </form>
-      <p class="form-alternate-action reveal-on-scroll" data-reveal-delay="400">
-        Keni tashmë një llogari? <router-link to="/login">Kyçu këtu</router-link>
+      <p class="form-alternate-action reveal-on-scroll reveal-delay-400">
+        {{ t('already_have_account') }} <router-link to="/login">{{ t('login_here') }}</router-link>
       </p>
     </div>
   </main>
@@ -92,11 +97,13 @@
 <script>
   import { ref, reactive } from 'vue'
   import { useRouter } from 'vue-router'
+  import { useI18n } from 'vue-i18n'
   import axios from 'axios'
 
   export default {
     name: 'Register',
     setup() {
+      const { t } = useI18n()
       const router = useRouter()
       const loading = ref(false)
       const error = ref('')
@@ -123,17 +130,15 @@
           if (response.data.success) {
             router.push({
               name: 'login',
-              query: { success: 'Llogaria u krijua me sukses! Ju lutemi kyçuni.' },
+              query: { success: t('account_created_successfully') },
             })
           }
         } catch (err) {
           if (err.response?.status === 422) {
             validationErrors.value = err.response.data.errors
-            error.value = 'Ju lutemi korrigjoni gabimet e mëposhtme.'
+            error.value = t('please_correct_errors')
           } else {
-            error.value =
-              err.response?.data?.message ||
-              'Ka ndodhur një gabim gjatë regjistrimit. Provoni përsëri.'
+            error.value = err.response?.data?.message || t('registration_error')
           }
         } finally {
           loading.value = false
@@ -146,181 +151,12 @@
         error,
         validationErrors,
         handleRegister,
+        t
       }
     },
   }
 </script>
 
 <style scoped>
-  @reference "tailwindcss/theme";
-  /* Styles specific to Login.vue and other auth forms */
-  .signup-form-container {
-    padding: var(--space-xl) var(--space-lg);
-    max-width: 700px;
-    margin-left: auto; margin-right: auto;
-    margin-top: var(--space-xl);
-    margin-bottom: var(--space-xl);
-  }
-
-  body.dark-theme .signup-form-container {
-    /* specific dark theme adjustments if needed */
-  }
-
-  .form-intro-text {
-      font-size: 1em;
-      color: var(--muted-text);
-      text-align: center;
-      margin-bottom: var(--space-lg);
-      line-height: 1.5;
-      max-width: 600px;
-      margin-left: auto; margin-right: auto;
-  }
-  body.dark-theme .form-intro-text {
-      color: var(--dark-muted-text);
-  }
-
-  .message-area {
-      margin-bottom: var(--space-md);
-      min-height: 2em; /* Ensure consistent height even without message */
-  }
-  .message {
-      padding: var(--space-md) var(--space-lg);
-      border-radius: var(--radius-sm);
-      text-align: center;
-      font-weight: 500;
-      border: 1px solid transparent;
-      transition: all 0.3s ease;
-  }
-
-  .message.success {
-      background-color: var(--message-success-bg);
-      color: var(--message-success-color);
-      border-color: var(--message-success-border);
-  }
-
-  .message.error {
-      background-color: var(--message-error-bg);
-      color: var(--message-error-color);
-      border-color: var(--message-error-border);
-  }
-
-  body.dark-theme .message.success {
-      background-color: var(--dark-message-success-bg);
-      color: var(--dark-message-success-color);
-      border-color: var(--dark-message-success-border);
-  }
-
-  body.dark-theme .message.error {
-      background-color: var(--dark-message-error-bg);
-      color: var(--dark-message-error-color);
-      border-color: var(--dark-message-error-border);
-  }
-
-  .form-group {
-      margin-bottom: var(--space-md);
-  }
-  .form-group label {
-      font-weight: 500;
-      font-size: 0.9em;
-      margin-bottom: var(--space-xs);
-      display: block;
-      color: var(--neutral-text);
-  }
-  body.dark-theme .form-group label { color: var(--dark-neutral-text); }
-
-  .form-group input, .form-group textarea, .form-group select {
-      padding: var(--space-sm) var(--space-md);
-      font-size: 1em;
-      width: 100%;
-      border: 1px solid var(--neutral-border);
-      border-radius: var(--radius-sm);
-      background-color: var(--neutral-light);
-      color: var(--neutral-text);
-      transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease;
-  }
-  .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
-      border-color: var(--primary);
-      outline: none;
-      box-shadow: 0 0 0 1px var(--form-focus-glow-light);
-  }
-  body.dark-theme .form-group input:focus, body.dark-theme .form-group textarea:focus, body.dark-theme .form-group select:focus {
-      border-color: var(--dark-primary);
-      box-shadow: 0 0 0 3px var(--form-focus-glow-dark);
-  }
-
-  .input-icon-wrapper {
-      position: relative;
-      display: flex;
-      align-items: center;
-  }
-  .input-icon-wrapper input {
-      padding-left: var(--space-xl);
-  }
-  .input-icon {
-      position: absolute;
-      left: var(--space-sm);
-      color: var(--muted-text);
-      font-size: 1em;
-  }
-  body.dark-theme .input-icon { color: var(--dark-muted-text); }
-
-  .btn-primary-form {
-      width: 100%;
-      padding: var(--space-md);
-      font-size: 1.05em;
-      font-weight: 600;
-      margin-top: var(--space-sm);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: var(--space-sm);
-  }
-  .icon-right {
-      margin-left: var(--space-xs);
-      transition: transform 0.2s ease;
-  }
-  .btn-primary-form:hover .icon-right {
-      transform: translateX(3px);
-  }
-
-  .form-alternate-action {
-      text-align: center;
-      margin-top: var(--space-lg);
-      font-size: 0.9em;
-      color: var(--muted-text);
-  }
-  .form-alternate-action a {
-      color: var(--primary);
-      font-weight: 500;
-      text-decoration: none;
-      transition: color 0.2s ease, text-decoration 0.2s ease;
-      position: relative; /* For animated underline */
-  }
-  .form-alternate-action a::after {
-      content: '';
-      position: absolute;
-      bottom: -2px;
-      left: 0;
-      width: 100%;
-      height: var(--link-underline-thickness);
-      background-color: var(--link-underline-color);
-      transform: scaleX(0);
-      transform-origin: bottom right;
-      transition: transform 0.3s var(--animation-ease-out);
-      border-radius: 1px;
-  }
-  .form-alternate-action a:hover::after {
-      transform: scaleX(1);
-      transform-origin: bottom left;
-  }
-  body.dark-theme .form-alternate-action a::after {
-      background-color: var(--link-underline-color-dark);
-  }
-
-  body.dark-theme .form-alternate-action {
-      color: var(--dark-muted-text);
-  }
-  body.dark-theme .form-alternate-action a {
-      color: var(--dark-primary);
-  }
+  /* No scoped styles here, relying on _auth_forms.css and global styles */
 </style>

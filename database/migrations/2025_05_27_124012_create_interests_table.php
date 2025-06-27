@@ -12,7 +12,7 @@
             if (!Schema::hasTable('interests')) {
                 Schema::create('interests', function (Blueprint $table) {
                     $table->increments('id');
-                    $table->unsignedBigInteger('cv_id')->unique(); // Matches cvs.id type, and unique
+                    $table->unsignedBigInteger('cv_id'); // Matches cvs.id type
                     $table->text('description')->nullable();
 
                     $table->foreign('cv_id')->references('id')->on('cvs')->onDelete('cascade');

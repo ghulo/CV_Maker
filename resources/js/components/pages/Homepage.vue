@@ -1,625 +1,1128 @@
 <template>
-  <div class="homepage-content-wrapper animate-in">
-    <section class="homepage-hero">
-      <div class="hero-bg-decoration" aria-hidden="true"></div>
-      <h2 class="reveal-on-scroll">
-        Krijo CV-në që të Dallon.<br class="desktop-only" />
-        Shpejt dhe Lehtë.
-      </h2>
-      <p class="reveal-on-scroll" data-reveal-delay="100">
-        Ndërto një Curriculum Vitae profesional dhe modern në pak minuta. Zgjidh nga modelet tona të
-        kuruara dhe prezanto aftësitë tua në mënyrën më të mirë.
-      </p>
-      <div class="hero-cta-container reveal-on-scroll" data-reveal-delay="200">
-        <router-link to="/register" class="btn-create btn btn-primary">
-          <i class="fas fa-plus-circle"></i> Fillo Krijo CV Tënde Tani
-        </router-link>
-      </div>
-      <div class="hero-visual-element reveal-on-scroll" data-reveal-delay="300">
-        <svg
-          width="400"
-          height="280"
-          viewBox="0 0 400 280"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <rect
-            x="50"
-            y="40"
-            width="300"
-            height="200"
-            rx="8"
-            fill="currentColor"
-            fill-opacity="0.1"
-          />
-          <rect
-            x="75"
-            y="70"
-            width="250"
-            height="15"
-            rx="4"
-            fill="currentColor"
-            fill-opacity="0.2"
-          />
-          <rect
-            x="75"
-            y="95"
-            width="200"
-            height="15"
-            rx="4"
-            fill="currentColor"
-            fill-opacity="0.15"
-          />
-          <rect
-            x="75"
-            y="130"
-            width="250"
-            height="40"
-            rx="4"
-            fill="currentColor"
-            fill-opacity="0.25"
-          />
-          <rect
-            x="75"
-            y="180"
-            width="180"
-            height="15"
-            rx="4"
-            fill="currentColor"
-            fill-opacity="0.15"
-          />
-          <rect
-            x="75"
-            y="205"
-            width="220"
-            height="15"
-            rx="4"
-            fill="currentColor"
-            fill-opacity="0.2"
-          />
-        </svg>
-      </div>
-    </section>
+  <div class="homepage-wrapper">
+    <a href="#main-content" class="skip-to-content">Skip to main content</a>
+    
+    <!-- Simple Theme Toggle -->
+    <button class="theme-toggle" @click="toggleTheme" :aria-label="isDark ? 'Switch to light mode' : 'Switch to dark mode'">
+      <i class="fas" :class="isDark ? 'fa-moon' : 'fa-sun'"></i>
+    </button>
 
-    <section class="homepage-how-it-works">
-      <h3 class="reveal-on-scroll">Si Funksionon?</h3>
-      <p class="page-intro-text reveal-on-scroll" data-reveal-delay="100">
-        Krijimi i CV-së tuaj të ardhshme është i thjeshtë. Ndiqni këto hapa:
-      </p>
-      <div class="how-it-works-steps">
-        <div class="step-item reveal-on-scroll glassmorphic-card" data-reveal-delay="200">
-          <div class="step-icon-wrapper"><i class="fas fa-file-alt"></i></div>
-          <h4>1. Zgjidh Modelin</h4>
-          <p>
-            Filloni duke zgjedhur një nga modelet tona profesionale që i përshtatet stilit tuaj.
-          </p>
-        </div>
-        <div class="step-item reveal-on-scroll glassmorphic-card" data-reveal-delay="300">
-          <div class="step-icon-wrapper"><i class="fas fa-keyboard"></i></div>
-          <h4>2. Plotëso Detajet</h4>
-          <p>Shtoni informacionin tuaj personal, eksperiencën e punës, edukimin dhe aftësitë.</p>
-        </div>
-        <div class="step-item reveal-on-scroll glassmorphic-card" data-reveal-delay="400">
-          <div class="step-icon-wrapper"><i class="fas fa-download"></i></div>
-          <h4>3. Shkarko CV-në</h4>
-          <p>Parapamje dhe shkarkoni CV-në tuaj si një dokument PDF me cilësi të lartë.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="homepage-value-prop">
-      <div class="value-prop-container reveal-on-scroll glassmorphic-card" data-reveal-delay="100">
-        <div class="value-prop-grid">
-          <div class="value-prop-headline">
-            <h3 class="reveal-on-scroll" data-reveal-delay="200">
-              E Dizajnuar për Suksesin Tuaj Profesional.
-            </h3>
-          </div>
-          <div class="value-prop-text">
-            <p class="reveal-on-scroll" data-reveal-delay="300">
-              CV Maker është krijuar me praktikat më të mira në mendje. Ne ofrojmë mjetet dhe
-              modelet që ju ndihmojnë të prezantoni veten në mënyrën më bindëse, duke u fokusuar në
-              qartësi, profesionalizëm dhe rezultate.
+    <!-- HERO SECTION -->
+    <main id="main-content">
+      <section class="hero-section">
+        <div class="container">
+          <div class="hero-content">
+            <div class="hero-badge">
+              <span>🚀</span>
+              <span>{{ t('cv_created_badge') }}</span>
+            </div>
+            <h1 class="hero-title">
+              {{ t('home_title_create') }}<br />
+              <span class="accent-text">{{ typewriterText }}</span>
+            </h1>
+            <p class="hero-subtitle">
+              {{ t('home_subtitle') }}
             </p>
-            <p class="reveal-on-scroll" data-reveal-delay="400">
-              Nga fillestarët deri te profesionistët me përvojë, platforma jonë është intuitive dhe
-              e fuqishme, duke ju lejuar të krijoni një CV që vërtet reflekton potencialin tuaj.
-            </p>
+            <div class="hero-actions">
+              <router-link to="/register" class="btn-primary">
+                {{ t('create_cv_now') }}
+                <i class="fas fa-arrow-right"></i>
+              </router-link>
+              <router-link to="/templates" class="btn-secondary">
+                {{ t('view_templates') }}
+              </router-link>
+            </div>
+            <div class="hero-stats">
+              <div class="stat">
+                <span class="stat-number">{{ stats.cvCreated || '10,000' }}</span>
+                <span class="stat-label">{{ t('cv_created') }}</span>
+              </div>
+              <div class="stat">
+                <span class="stat-number">{{ stats.templates || '4' }}</span>
+                <span class="stat-label">{{ t('templates_count') }}</span>
+              </div>
+              <div class="stat">
+                <span class="stat-number">{{ stats.satisfaction || '98' }}%</span>
+                <span class="stat-label">{{ t('satisfaction') }}</span>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="homepage-features" id="features">
-      <div class="feature-item reveal-on-scroll glassmorphic-card" data-reveal-delay="100">
-        <div class="feature-icon-wrapper">
-          <i class="fas fa-file-alt"></i>
+      <!-- TRUSTED COMPANIES -->
+      <section class="trusted-section">
+        <div class="container">
+          <p class="trusted-text">{{ t('used_by_professionals_at') }}</p>
+          <div class="companies">
+            <span class="company">Google</span>
+            <span class="company">Microsoft</span>
+            <span class="company">Amazon</span>
+            <span class="company">Meta</span>
+            <span class="company">Apple</span>
+            <span class="company">Netflix</span>
+          </div>
         </div>
-        <h3>Modele Profesionale</h3>
-        <p>
-          Zgjidhni nga një koleksion i modeleve moderne dhe të dizajnuara profesionalisht që i
-          përshtatet stilit tuaj dhe profesionit.
-        </p>
-      </div>
-      <div class="feature-item reveal-on-scroll glassmorphic-card" data-reveal-delay="200">
-        <div class="feature-icon-wrapper">
-          <i class="fas fa-magic"></i>
-        </div>
-        <h3>Redaktim Intuitiv</h3>
-        <p>
-          Shtoni dhe modifikoni informacionin tuaj shpejt me një ndërfaqe të thjeshtë për t'u
-          përdorur, pa pasur nevojë për aftësi teknike.
-        </p>
-      </div>
-      <div class="feature-item reveal-on-scroll glassmorphic-card" data-reveal-delay="300">
-        <div class="feature-icon-wrapper">
-          <i class="fas fa-cloud-download-alt"></i>
-        </div>
-        <h3>Shkarko & Ndaj</h3>
-        <p>
-          Shkarkoni CV-në tuaj si PDF me cilësi të lartë, gati për ta ndarë me punëdhënësit
-          potencialë dhe për të lënë përshtypje.
-        </p>
-      </div>
-    </section>
+      </section>
 
-    <section class="homepage-final-cta">
-      <div class="cta-content">
-        <h4 class="reveal-on-scroll">Gati për të krijuar CV-në tuaj të ardhshme?</h4>
-        <p class="reveal-on-scroll" data-reveal-delay="100">
-          Bashkohuni me mijëra përdorues që kanë krijuar CV mbresëlënëse me CV Maker.
-        </p>
-        <router-link
-          to="/signup"
-          class="btn-create btn-large btn-primary reveal-on-scroll"
-          data-reveal-delay="200"
-        >
-          <i class="fas fa-rocket"></i> Fillo Tani, Është Falas!
-        </router-link>
-      </div>
-    </section>
+      <!-- TEMPLATE SHOWCASE -->
+      <section class="templates-section">
+        <div class="container">
+          <div class="section-header">
+            <span class="section-badge">{{ t('our_templates') }}</span>
+            <h2 class="section-title">{{ t('designs_that_impress') }}</h2>
+            <p class="section-subtitle">{{ t('template_description') }}</p>
+          </div>
+          
+          <div class="templates-grid">
+            <div class="template-card" @click="selectTemplate('classic')">
+              <div class="template-preview">
+                <div class="preview-placeholder">
+                  <h4>Classic Template</h4>
+                  <p>John Doe</p>
+                  <p>Software Engineer</p>
+                  <div class="preview-lines">
+                    <div class="line"></div>
+                    <div class="line short"></div>
+                    <div class="line"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="template-info">
+                <h3>{{ t('classic') }}</h3>
+                <p>{{ t('elegant_professional') }}</p>
+                <span class="template-badge">{{ t('most_used') }}</span>
+              </div>
+            </div>
+            
+            <div class="template-card featured" @click="selectTemplate('modern')">
+              <div class="template-preview">
+                <div class="preview-placeholder modern">
+                  <h4>Modern Template</h4>
+                  <p>John Doe</p>
+                  <p>Software Engineer</p>
+                  <div class="preview-lines">
+                    <div class="line"></div>
+                    <div class="line short"></div>
+                    <div class="line"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="template-info">
+                <h3>{{ t('modern') }}</h3>
+                <p>{{ t('minimal_clean') }}</p>
+                <span class="template-badge premium">{{ t('premium') }}</span>
+              </div>
+            </div>
+            
+            <div class="template-card" @click="selectTemplate('professional')">
+              <div class="template-preview">
+                <div class="preview-placeholder">
+                  <h4>Professional Template</h4>
+                  <p>John Doe</p>
+                  <p>Software Engineer</p>
+                  <div class="preview-lines">
+                    <div class="line"></div>
+                    <div class="line short"></div>
+                    <div class="line"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="template-info">
+                <h3>{{ t('professional') }}</h3>
+                <p>{{ t('serious_detailed') }}</p>
+                <span class="template-badge new">{{ t('new') }}</span>
+              </div>
+            </div>
+            
+            <div class="template-card" @click="selectTemplate('creative')">
+              <div class="template-preview">
+                <div class="preview-placeholder creative">
+                  <h4>Creative Template</h4>
+                  <p>John Doe</p>
+                  <p>Software Engineer</p>
+                  <div class="preview-lines">
+                    <div class="line"></div>
+                    <div class="line short"></div>
+                    <div class="line"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="template-info">
+                <h3>{{ t('creative') }}</h3>
+                <p>{{ t('unique_modern') }}</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="template-cta">
+            <router-link to="/templates" class="btn-link">
+              {{ t('view_all_templates') }}
+              <i class="fas fa-arrow-right"></i>
+            </router-link>
+          </div>
+        </div>
+      </section>
+
+      <!-- HOW IT WORKS -->
+      <section class="process-section">
+        <div class="container">
+          <div class="section-header">
+            <span class="section-badge">{{ t('process') }}</span>
+            <h2 class="section-title">{{ t('how_it_works') }}</h2>
+          </div>
+          
+          <div class="process-steps">
+            <div class="step">
+              <div class="step-number">1</div>
+              <div class="step-content">
+                <div class="step-icon">
+                  <i class="fas fa-user-plus"></i>
+                </div>
+                <h3>{{ t('register') }}</h3>
+                <p>{{ t('create_account_fast') }}</p>
+              </div>
+            </div>
+            
+            <div class="step">
+              <div class="step-number">2</div>
+              <div class="step-content">
+                <div class="step-icon">
+                  <i class="fas fa-palette"></i>
+                </div>
+                <h3>{{ t('choose_template') }}</h3>
+                <p>{{ t('explore_templates_match') }}</p>
+              </div>
+            </div>
+            
+            <div class="step">
+              <div class="step-number">3</div>
+              <div class="step-content">
+                <div class="step-icon">
+                  <i class="fas fa-edit"></i>
+                </div>
+                <h3>{{ t('fill_details') }}</h3>
+                <p>{{ t('add_info_intuitive_editor') }}</p>
+              </div>
+            </div>
+            
+            <div class="step">
+              <div class="step-number">4</div>
+              <div class="step-content">
+                <div class="step-icon">
+                  <i class="fas fa-download"></i>
+                </div>
+                <h3>{{ t('download') }}</h3>
+                <p>{{ t('get_professional_cv_pdf') }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FEATURES -->
+      <section class="features-section">
+        <div class="container">
+          <div class="section-header">
+            <span class="section-badge">{{ t('features') }}</span>
+            <h2 class="section-title">{{ t('why_cv_atelier') }}</h2>
+          </div>
+          
+          <div class="features-grid">
+            <div class="feature-card">
+              <div class="feature-icon">
+                <i class="fas fa-bolt"></i>
+              </div>
+              <h3>{{ t('super_fast') }}</h3>
+              <p>{{ t('create_cv_5_minutes') }}</p>
+            </div>
+            
+            <div class="feature-card">
+              <div class="feature-icon">
+                <i class="fas fa-shield-alt"></i>
+              </div>
+              <h3>{{ t('100_secure') }}</h3>
+              <p>{{ t('data_encrypted_private') }}</p>
+            </div>
+            
+            <div class="feature-card">
+              <div class="feature-icon">
+                <i class="fas fa-magic"></i>
+              </div>
+              <h3>{{ t('ai_powered') }}</h3>
+              <p>{{ t('intelligent_suggestions') }}</p>
+            </div>
+            
+            <div class="feature-card premium">
+              <div class="feature-icon">
+                <i class="fas fa-crown"></i>
+              </div>
+              <h3>{{ t('exclusive_templates') }}</h3>
+              <p>{{ t('access_premium_features') }}</p>
+              <span class="premium-badge">{{ t('premium') }}</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TESTIMONIALS -->
+      <section class="testimonials-section">
+        <div class="container">
+          <div class="section-header">
+            <span class="section-badge">{{ t('testimonials') }}</span>
+            <h2 class="section-title">{{ t('what_users_say') }}</h2>
+          </div>
+          
+          <div class="testimonials">
+            <div class="testimonial" v-for="(testimonial, index) in testimonialData" :key="index">
+              <div class="testimonial-content">
+                <div class="stars">
+                  <i class="fas fa-star" v-for="i in 5" :key="i"></i>
+                </div>
+                <p>{{ testimonial.text }}</p>
+                <div class="author">
+                  <img :src="testimonial.image" :alt="testimonial.name" />
+                  <div>
+                    <h4>{{ testimonial.name }}</h4>
+                    <p>{{ testimonial.role }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA SECTION -->
+      <section class="cta-section">
+        <div class="container">
+          <div class="cta-content">
+            <h2>{{ t('ready_to_start_career') }}</h2>
+            <p>{{ t('join_thousands_professionals') }}</p>
+            <div class="cta-actions">
+              <router-link to="/register" class="btn-primary">
+                {{ t('start_now_free') }}
+                <i class="fas fa-arrow-right"></i>
+              </router-link>
+              <router-link to="/templates" class="btn-secondary">
+                {{ t('view_demo') }}
+              </router-link>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
   </div>
 </template>
 
 <script>
-  export default {
-    name: 'Homepage',
-    setup() {
-      // Component-specific logic can go here
-    },
+import { onMounted, onBeforeUnmount, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+
+export default {
+  name: 'Homepage',
+  setup() {
+    const { t, locale } = useI18n()
+    const isDark = ref(false)
+    const typewriterText = ref('')
+    const selectedTemplate = ref('modern')
+    
+    const typewriterPhrases = ref([
+      'that gets you hired',
+      'that stands out', 
+      'that opens doors'
+    ])
+    
+    let typewriterIndex = 0
+    let charIndex = 0
+    let isDeleting = false
+    let typewriterTimeout = null
+    
+    const stats = ref({
+      cvCreated: 10000,
+      templates: 4,
+      satisfaction: 98
+    })
+
+    const testimonialData = ref([
+      {
+        text: 'Amazing tool! Got my dream job within weeks.',
+        name: 'Sarah Johnson',
+        role: 'Software Engineer',
+        image: 'https://i.pravatar.cc/150?img=1'
+      },
+      {
+        text: 'Professional templates that really stand out.',
+        name: 'Michael Chen',
+        role: 'Product Designer',
+        image: 'https://i.pravatar.cc/150?img=2'
+      },
+      {
+        text: 'Simple, fast, and effective. Highly recommended!',
+        name: 'Emily Brown',
+        role: 'Marketing Manager',
+        image: 'https://i.pravatar.cc/150?img=3'
+      }
+    ])
+
+    const toggleTheme = () => {
+      isDark.value = !isDark.value
+      document.body.classList.toggle('dark-theme')
+    }
+
+    const selectTemplate = (template) => {
+      selectedTemplate.value = template
+      console.log('Template selected:', template)
+    }
+
+    const typeWriter = () => {
+      if (!typewriterPhrases.value || typewriterPhrases.value.length === 0) {
+        return
+      }
+      
+      const currentPhrase = typewriterPhrases.value[typewriterIndex]
+      
+      if (isDeleting) {
+        charIndex--
+      } else {
+        charIndex++
+      }
+
+      typewriterText.value = currentPhrase.substring(0, charIndex)
+
+      let typingSpeed = isDeleting ? 50 : 100
+
+      if (!isDeleting && charIndex === currentPhrase.length) {
+        typingSpeed = 2000
+        isDeleting = true
+      } else if (isDeleting && charIndex === 0) {
+        isDeleting = false
+        typewriterIndex = (typewriterIndex + 1) % typewriterPhrases.value.length
+        typingSpeed = 500
+      }
+
+      typewriterTimeout = setTimeout(typeWriter, typingSpeed)
+    }
+
+    onMounted(() => {
+      isDark.value = document.body.classList.contains('dark-theme')
+      
+      // Start typewriter
+      setTimeout(() => {
+        typeWriter()
+      }, 100)
+    })
+
+    onBeforeUnmount(() => {
+      clearTimeout(typewriterTimeout)
+    })
+
+    return {
+      isDark,
+      typewriterText,
+      selectedTemplate,
+      stats,
+      testimonialData,
+      selectTemplate,
+      toggleTheme,
+      t
+    }
   }
+}
 </script>
 
 <style scoped>
-  @reference "tailwindcss/theme";
+/* CSS Variables */
+:root {
+  --primary: #5B21B6;
+  --primary-light: #7C3AED;
+  --secondary: #0EA5E9;
+  --accent: #F59E0B;
+  --success: #10B981;
+  --bg: #FFFFFF;
+  --bg-subtle: #FAFAFA;
+  --text: #111827;
+  --text-muted: #6B7280;
+  --border: #E5E7EB;
+  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+}
 
-  .desktop-only {
-    display: none;
-  }
+body.dark-theme {
+  --bg: #0F172A;
+  --bg-subtle: #1E293B;
+  --text: #F8FAFC;
+  --text-muted: #CBD5E1;
+  --border: #334155;
+}
 
-  @media (min-width: 768px) {
-    .desktop-only {
-      display: inline;
-    }
-  }
+/* Base Styles */
+.homepage-wrapper {
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+}
 
-  /* Homepage Specific Styles */
-  .homepage-content-wrapper {
-      padding-top: 0;
-      padding-bottom: var(--space-xxl);
-      background: transparent;
-      border: none;
-      box-shadow: none;
-      max-width: 1200px;
-      margin: var(--space-xl) auto;
-      position: relative;
-      z-index: 2;
-      opacity: 1 !important;
-      transform: none !important;
-  }
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
 
-  .homepage-hero {
-      text-align: center;
-      padding: var(--space-hero-padding-top) var(--space-lg) var(--space-hero-padding-bottom) var(--space-lg);
-      margin-bottom: var(--space-section-vertical);
-      position: relative;
-      overflow: hidden;
-  }
+/* Theme Toggle */
+.theme-toggle {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  z-index: 1000;
+  width: 48px;
+  height: 48px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow);
+}
 
-  .hero-bg-decoration {
-      position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      width: 100%; max-width: 1400px;
-      height: 1000px;
-      background: radial-gradient(ellipse at center, rgba(var(--primary-rgb), 0.07) 0%, transparent 70%);
-      border-radius: 50%;
-      z-index: -1;
-      opacity: 0.9;
-      filter: blur(100px);
-       animation: pulse-glow 12s infinite alternate ease-in-out;
-  }
-  body.dark-theme .hero-bg-decoration {
-      background: radial-gradient(ellipse at center, rgba(var(--dark-primary-rgb), 0.15) 0%, transparent 70%);
-      opacity: 0.8;
-  }
+.theme-toggle:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.15);
+}
 
-  @keyframes pulse-glow {
-      0% { transform: translate(-50%, -50%) scale(1); opacity: 0.9; }
-      100% { transform: translate(-50%, -50%) scale(1.1) rotate(2deg); opacity: 0.8; }
-  }
+.theme-toggle i {
+  font-size: 18px;
+  color: var(--text);
+}
 
+/* Hero Section */
+.hero-section {
+  padding: 120px 0 80px;
+  text-align: center;
+}
 
-  .homepage-hero h2 {
-      font-size: clamp(3em, 7.5vw, 5em);
-      font-weight: 800;
-      margin-bottom: var(--space-lg);
-      letter-spacing: -0.06em;
-      color: var(--neutral-text);
-      line-height: 1.0;
-  }
-  .homepage-hero h2::after { display: none; }
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border);
+  padding: 8px 16px;
+  border-radius: 100px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-muted);
+  margin-bottom: 32px;
+}
 
-  body.dark-theme .homepage-hero h2 { color: var(--dark-neutral-text); }
+.hero-title {
+  font-size: clamp(48px, 8vw, 72px);
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 24px;
+  color: var(--text);
+}
 
-  .homepage-hero p {
-      font-size: clamp(1.15em, 3vw, 1.5em);
-      color: var(--muted-text);
-      margin-bottom: var(--space-xl);
-      max-width: 750px;
-      margin-left: auto; margin-right: auto;
-      line-height: 1.7;
-  }
-   body.dark-theme .homepage-hero p { color: var(--dark-muted-text); }
+.accent-text {
+  color: var(--primary);
+}
 
-  .hero-cta-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: var(--space-md);
-      margin-top: var(--space-xl);
-  }
-  @media (min-width: 768px) { .hero-cta-container { flex-direction: row; justify-content: center; } }
+.accent-text::after {
+  content: '|';
+  animation: blink 1s infinite;
+  margin-left: 2px;
+}
 
-  .homepage-hero .btn-create {
-      padding: calc(var(--space-md) + 5px) calc(var(--space-xl) + 10px);
-      font-size: clamp(1.15em, 2.6vw, 1.3em);
-      width: auto;
-      min-width: 280px;
-      box-shadow: 0 6px 15px rgba(var(--primary-rgb), 0.28), 0 2px 5px rgba(0,0,0,0.08);
-      transition: all 0.4s var(--animation-ease-out);
-  }
-  body.dark-theme .homepage-hero .btn-create {
-      box-shadow: 0 6px 15px rgba(var(--dark-primary-rgb), 0.35), 0 2px 5px rgba(0,0,0,0.15);
-  }
-  body.dark-theme .homepage-hero .btn-create:hover {
-      box-shadow: 0 9px 22px rgba(var(--primary-rgb), 0.35), 0 5px 10px rgba(0,0,0,0.1);
-  }
-  body.dark-theme .homepage-hero .btn-create:hover {
-      box-shadow: 0 9px 22px rgba(var(--dark-primary-rgb), 0.4), 0 5px 10px rgba(0,0,0,0.2);
-  }
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
 
+.hero-subtitle {
+  font-size: 20px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 40px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
 
-  .hero-visual-element {
-      margin-top: calc(var(--space-xxl) + var(--space-sm));
-      opacity: 1;
-      color: var(--neutral-border);
-      padding: var(--space-md);
-      background-color: rgba(var(--primary-rgb), 0.01);
-      border-radius: var(--radius);
-      border: 1px solid rgba(var(--primary-rgb), 0.03);
-      max-width: 550px;
-      margin-left: auto;
-      margin-right: auto;
-  }
-  body.dark-theme .hero-visual-element {
-      color: var(--dark-neutral-border);
-      background-color: rgba(var(--dark-primary-rgb), 0.02);
-      border: 1px solid rgba(var(--dark-primary-rgb), 0.06);
-  }
-  .hero-visual-element svg {
-      display: block; margin: 0 auto; max-width: 100%;
-  }
+.hero-actions {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 60px;
+  flex-wrap: wrap;
+}
 
-  /* "How it Works" Section */
-  .homepage-how-it-works {
-      padding: var(--space-section-vertical) var(--space-lg);
-      margin-bottom: var(--space-section-vertical);
-      text-align: center;
-  }
-  .homepage-how-it-works h3 {
-      font-size: clamp(2em, 4.5vw, 3em);
-      font-weight: 700;
-      color: var(--neutral-text);
-      line-height: 1.2;
-      letter-spacing: -0.035em;
-      margin-bottom: var(--space-xl);
-  }
-  body.dark-theme .homepage-how-it-works h3 { color: var(--dark-neutral-text); }
+.btn-primary {
+  background: var(--primary);
+  color: white;
+  padding: 16px 32px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+  border: none;
+  cursor: pointer;
+}
 
-  .how-it-works-steps {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: var(--space-xl);
-      margin-top: var(--space-lg);
-  }
+.btn-primary:hover {
+  background: var(--primary-light);
+  transform: translateY(-1px);
+}
 
-  .step-item {
-      background: var(--neutral-light);
-      border: 1px solid var(--neutral-border);
-      border-radius: var(--radius);
-      padding: var(--space-xl);
-      text-align: center;
-      box-shadow: var(--shadow-light);
-      transition: all 0.4s var(--animation-ease-out);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      position: relative;
-      overflow: hidden;
-      /* For tilt effect */
-      transform-style: preserve-3d;
-      transform: perspective(1000px) rotateX(var(--rotate-x, 0deg)) rotateY(var(--rotate-y, 0deg)) scale(var(--scale, 1));
-  }
-  body.dark-theme .step-item {
-      background: var(--dark-neutral-light);
-      border-color: var(--dark-neutral-border);
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2), 0 1px 3px rgba(0,0,0,0.15);
-  }
-  .step-item:hover {
-       transform: translateY(-10px) scale(1.03);
-       box-shadow: var(--shadow-hover);
-       border-color: var(--primary);
-       /* Add glow on hover */
-       box-shadow: var(--shadow-hover), 0 0 var(--card-hover-glow-spread) rgba(var(--primary-rgb), 0.3);
-  }
-  body.dark-theme .step-item:hover {
-      border-color: var(--dark-primary);
-      box-shadow: 0 4px 10px rgba(0,0,0,0.25), 0 2px 5px rgba(0,0,0,0.15), 0 0 var(--card-hover-glow-spread) rgba(var(--dark-primary-rgb), 0.4);
-  }
+.btn-secondary {
+  background: transparent;
+  color: var(--text);
+  padding: 16px 32px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
 
+.btn-secondary:hover {
+  background: var(--bg-subtle);
+  transform: translateY(-1px);
+}
 
-  .step-icon-wrapper {
-      width: 65px;
-      height: 65px;
-      border-radius: 50%;
-      background-color: rgba(var(--primary-rgb), 0.07);
-      display: inline-flex;
-      align-items: center; justify-content: center;
-      margin-bottom: var(--space-md);
-      transition: background-color 0.2s ease, transform 0.4s ease;
-  }
-  body.dark-theme .step-icon-wrapper { background-color: rgba(var(--dark-primary-rgb), 0.1); }
-  .step-item:hover .step-icon-wrapper {
-      transform: rotate(15deg) scale(1.15);
-  }
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  gap: 48px;
+  flex-wrap: wrap;
+}
 
+.stat {
+  text-align: center;
+}
 
-  .step-item i {
-      font-size: 2em;
-      color: var(--primary);
-  }
-  body.dark-theme .step-item i { color: var(--dark-primary); }
+.stat-number {
+  display: block;
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 4px;
+}
 
-  .step-item h4 {
-      font-size: 1.25em;
-      font-weight: 600;
-      color: var(--neutral-text);
-      margin-bottom: var(--space-sm);
-      line-height: 1.3;
-  }
-  body.dark-theme .step-item h4 { color: var(--dark-neutral-text); }
+.stat-label {
+  font-size: 14px;
+  color: var(--text-muted);
+}
 
-  .step-item p {
-      font-size: 1em;
-      color: var(--muted-text);
-      line-height: 1.6;
-      flex-grow: 1;
-  }
-  body.dark-theme .step-item p { color: var(--dark-muted-text); }
+/* Trusted Companies */
+.trusted-section {
+  padding: 60px 0;
+  background: var(--bg-subtle);
+  text-align: center;
+}
 
-  @media (min-width: 768px) {
-      .how-it-works-steps {
-          position: relative;
-          padding-bottom: 30px;
-      }
-      .how-it-works-steps::before {
-          content: '';
-          position: absolute;
-          bottom: 0;
-          left: 50%;
-          transform: translateX(-50%);
-          width: calc(100% - var(--space-xl) * 2);
-          height: 2px;
-          background-color: var(--divider-color);
-          z-index: 0;
-      }
-      body.dark-theme .how-it-works-steps::before { background-color: var(--dark-divider-color); }
+.trusted-text {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+}
 
-      .step-item {
-          padding-bottom: calc(var(--space-xl) + 30px);
-      }
-      .step-item::after {
-          content: '';
-          position: absolute;
-          bottom: 18px;
-          left: 50%;
-          transform: translateX(-50%);
-          width: 12px;
-          height: 12px;
-          background-color: var(--primary);
-          border-radius: 50%;
-          border: 2px solid var(--neutral-light);
-          z-index: 1;
-      }
-      body.dark-theme .step-item::after {
-          background-color: var(--dark-primary);
-          border-color: var(--dark-neutral-light);
-      }
-  }
+.companies {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
 
-  /* Value Prop Section */
-  .homepage-value-prop {
-      padding: var(--space-section-vertical) var(--space-lg);
-      margin-bottom: var(--space-section-vertical);
-  }
-  .value-prop-container {
-      padding: var(--space-xxl) var(--space-lg);
-      max-width: 900px;
-      margin: 0 auto;
-  }
-  body.dark-theme .value-prop-container {
-      background-color: var(--dark-neutral-container);
-  }
-  .value-prop-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: var(--space-xl);
-  }
-  @media (min-width: 768px) {
-      .value-prop-grid {
-          grid-template-columns: 1fr 1.5fr; /* Headline smaller, text larger */
-          align-items: center;
-      }
-  }
+.company {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-muted);
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
 
-  .value-prop-headline h3 {
-      font-size: clamp(2em, 4.5vw, 3em);
-      font-weight: 700;
-      color: var(--neutral-text);
-      line-height: 1.2;
-      letter-spacing: -0.035em;
-      margin-bottom: var(--space-md);
-  }
-  body.dark-theme .value-prop-headline h3 { color: var(--dark-neutral-text); }
+.company:hover {
+  opacity: 1;
+}
 
-  .value-prop-text p {
-      font-size: clamp(1em, 2vw, 1.15em);
-      color: var(--muted-text);
-      line-height: 1.7;
-  }
-  .value-prop-text p:last-child {
-      margin-bottom: 0;
-  }
-  body.dark-theme .value-prop-text p { color: var(--dark-muted-text); }
+/* Section Headers */
+.section-header {
+  text-align: center;
+  margin-bottom: 80px;
+}
 
-  /* Features Section */
-  .homepage-features {
-      padding: var(--space-section-vertical) var(--space-lg);
-      margin-bottom: var(--space-section-vertical);
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: var(--space-xl);
-      max-width: 1200px;
-      margin-left: auto;
-      margin-right: auto;
-  }
-  .feature-item {
-      background: var(--neutral-light);
-      border: 1px solid var(--neutral-border);
-      border-radius: var(--radius);
-      padding: var(--space-xl);
-      text-align: center;
-      box-shadow: var(--shadow-light);
-      transition: all 0.4s var(--animation-ease-out);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      position: relative;
-      overflow: hidden;
-      /* For tilt effect */
-      transform-style: preserve-3d;
-      transform: perspective(1000px) rotateX(var(--rotate-x, 0deg)) rotateY(var(--rotate-y, 0deg)) scale(var(--scale, 1));
-  }
-  body.dark-theme .feature-item {
-      background: var(--dark-neutral-light);
-      border-color: var(--dark-neutral-border);
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2), 0 1px 3px rgba(0,0,0,0.15);
-  }
-  .feature-item:hover {
-      transform: translateY(-10px) scale(1.03);
-      box-shadow: var(--shadow-hover);
-      border-color: var(--primary);
-      /* Add glow on hover */
-      box-shadow: var(--shadow-hover), 0 0 var(--card-hover-glow-spread) rgba(var(--primary-rgb), 0.3);
-  }
-  body.dark-theme .feature-item:hover {
-      border-color: var(--dark-primary);
-      box-shadow: 0 4px 10px rgba(0,0,0,0.25), 0 2px 5px rgba(0,0,0,0.15), 0 0 var(--card-hover-glow-spread) rgba(var(--dark-primary-rgb), 0.4);
-  }
+.section-badge {
+  display: inline-block;
+  background: var(--bg-subtle);
+  color: var(--primary);
+  padding: 8px 16px;
+  border-radius: 100px;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  border: 1px solid var(--border);
+}
 
-  .feature-icon-wrapper {
-      width: 55px;
-      height: 55px;
-      border-radius: 50%;
-      background-color: rgba(var(--primary-rgb), 0.07);
-      display: inline-flex;
-      align-items: center; justify-content: center;
-      margin-bottom: var(--space-md);
-      transition: background-color 0.2s ease, transform 0.4s ease;
-  }
-  body.dark-theme .feature-icon-wrapper { background-color: rgba(var(--dark-primary-rgb), 0.1); }
-  .feature-item:hover .feature-icon-wrapper {
-      transform: rotate(15deg) scale(1.15);
-  }
+.section-title {
+  font-size: clamp(32px, 5vw, 48px);
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: var(--text);
+}
 
-  .feature-item i {
-      font-size: 1.8em;
-      color: var(--primary);
-  }
-  body.dark-theme .feature-item i { color: var(--dark-primary); }
+.section-subtitle {
+  font-size: 18px;
+  color: var(--text-muted);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
 
-  .feature-item h3 {
-      font-size: 1.2em;
-      font-weight: 600;
-      color: var(--neutral-text);
-      margin-bottom: var(--space-sm);
-      line-height: 1.3;
-  }
-  body.dark-theme .feature-item h3 { color: var(--dark-neutral-text); }
+/* Templates Section */
+.templates-section {
+  padding: 120px 0;
+}
 
-  .feature-item p {
-      font-size: 0.95em;
-      color: var(--muted-text);
-      line-height: 1.6;
-      flex-grow: 1;
-  }
-  body.dark-theme .feature-item p { color: var(--dark-muted-text); }
+.templates-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin-bottom: 48px;
+}
 
-  /* Final Call to Action */
-  .homepage-final-cta {
-      padding: var(--space-section-vertical) var(--space-lg);
-      text-align: center;
-      margin-bottom: var(--space-xxl);
-  }
-  body.dark-theme .homepage-final-cta {
-      background: radial-gradient(ellipse at center, rgba(var(--dark-primary-rgb), 0.05) 0%, transparent 70%);
-  }
-  .cta-content {
-      max-width: 800px;
-      margin: 0 auto;
-  }
-  .homepage-final-cta h4 {
-      font-size: clamp(2em, 4vw, 2.8em);
-      font-weight: 700;
-      color: var(--neutral-text);
-      line-height: 1.2;
-      letter-spacing: -0.035em;
-      margin-bottom: var(--space-md);
-  }
-  body.dark-theme .homepage-final-cta h4 { color: var(--dark-neutral-text); }
+.template-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
 
-  .homepage-final-cta p {
-      font-size: clamp(1em, 2vw, 1.15em);
-      color: var(--muted-text);
-      margin-bottom: var(--space-xl);
-      line-height: 1.7;
-  }
-  body.dark-theme .homepage-final-cta p { color: var(--dark-muted-text); }
+.template-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px 0 rgba(0, 0, 0, 0.1);
+  border-color: var(--primary);
+}
 
-  .homepage-final-cta .btn-large {
-      padding: var(--space-md) var(--space-xl);
-      font-size: clamp(1em, 2.2vw, 1.15em);
-      min-width: 250px;
+.template-card.featured {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 1px var(--primary);
+}
+
+.template-preview {
+  padding: 32px;
+  background: var(--bg-subtle);
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.preview-placeholder {
+  background: white;
+  padding: 16px;
+  border-radius: 8px;
+  width: 180px;
+  box-shadow: var(--shadow);
+}
+
+.preview-placeholder.modern {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.preview-placeholder.creative {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+}
+
+.preview-placeholder h4 {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.preview-placeholder p {
+  font-size: 12px;
+  margin-bottom: 4px;
+  opacity: 0.8;
+}
+
+.preview-lines {
+  margin-top: 12px;
+}
+
+.line {
+  height: 2px;
+  background: currentColor;
+  margin-bottom: 4px;
+  opacity: 0.3;
+}
+
+.line.short {
+  width: 60%;
+}
+
+.template-info {
+  padding: 24px;
+  position: relative;
+}
+
+.template-info h3 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--text);
+}
+
+.template-info p {
+  color: var(--text-muted);
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.template-badge {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: var(--bg-subtle);
+  color: var(--text-muted);
+  padding: 4px 12px;
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 600;
+  border: 1px solid var(--border);
+}
+
+.template-badge.premium {
+  background: var(--accent);
+  color: white;
+  border: none;
+}
+
+.template-badge.new {
+  background: var(--success);
+  color: white;
+  border: none;
+}
+
+.template-cta {
+  text-align: center;
+}
+
+.btn-link {
+  color: var(--primary);
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: gap 0.2s ease;
+}
+
+.btn-link:hover {
+  gap: 12px;
+}
+
+/* Process Section */
+.process-section {
+  padding: 120px 0;
+  background: var(--bg-subtle);
+}
+
+.process-steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 40px;
+}
+
+.step {
+  text-align: center;
+  position: relative;
+}
+
+.step-number {
+  width: 48px;
+  height: 48px;
+  background: var(--primary);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  margin: 0 auto 24px;
+  font-size: 18px;
+}
+
+.step-icon {
+  font-size: 32px;
+  color: var(--primary);
+  margin-bottom: 16px;
+}
+
+.step h3 {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--text);
+}
+
+.step p {
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* Features Section */
+.features-section {
+  padding: 120px 0;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 32px;
+}
+
+.feature-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 32px 24px;
+  text-align: center;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px 0 rgba(0, 0, 0, 0.1);
+}
+
+.feature-card.premium {
+  border-color: var(--accent);
+}
+
+.feature-icon {
+  width: 64px;
+  height: 64px;
+  background: var(--bg-subtle);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px;
+  font-size: 24px;
+  color: var(--primary);
+}
+
+.feature-card h3 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--text);
+}
+
+.feature-card p {
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.premium-badge {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: var(--accent);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* Testimonials Section */
+.testimonials-section {
+  padding: 120px 0;
+  background: var(--bg-subtle);
+}
+
+.testimonials {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 32px;
+}
+
+.testimonial {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 32px;
+}
+
+.stars {
+  color: var(--accent);
+  margin-bottom: 16px;
+  display: flex;
+  gap: 4px;
+}
+
+.testimonial p {
+  color: var(--text);
+  line-height: 1.6;
+  margin-bottom: 24px;
+  font-style: italic;
+}
+
+.author {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.author img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.author h4 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: var(--text);
+}
+
+.author p {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin: 0;
+  font-style: normal;
+}
+
+/* CTA Section */
+.cta-section {
+  padding: 120px 0;
+  background: var(--primary);
+  color: white;
+  text-align: center;
+}
+
+.cta-content h2 {
+  font-size: clamp(32px, 5vw, 48px);
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.cta-content p {
+  font-size: 18px;
+  opacity: 0.9;
+  margin-bottom: 32px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cta-actions {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.cta-section .btn-primary {
+  background: white;
+  color: var(--primary);
+}
+
+.cta-section .btn-primary:hover {
+  background: var(--bg-subtle);
+}
+
+.cta-section .btn-secondary {
+  background: transparent;
+  color: white;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.cta-section .btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 80px 0 60px;
   }
+  
+  .hero-actions,
+  .cta-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .hero-actions > *,
+  .cta-actions > * {
+    width: 100%;
+    max-width: 300px;
+    justify-content: center;
+  }
+  
+  .hero-stats {
+    gap: 32px;
+  }
+  
+  .companies {
+    gap: 24px;
+  }
+  
+  .process-steps {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  
+  .features-grid,
+  .testimonials {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  
+  .templates-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+/* Skip to content */
+.skip-to-content {
+  position: absolute;
+  left: -999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  z-index: 10000;
+  background: var(--bg);
+  color: var(--text);
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.skip-to-content:focus {
+  left: 16px;
+  top: 16px;
+  width: auto;
+  height: auto;
+  box-shadow: 0 0 0 2px var(--primary);
+}
 </style>
+

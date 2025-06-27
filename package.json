@@ -5,7 +5,9 @@
         "lint": "eslint .",
         "format": "prettier --write resources/js/",
         "build": "vite build",
-        "dev": "vite"
+        "dev": "vite",
+        "dev:all": "concurrently \"npm run dev\" \"php artisan serve --host=0.0.0.0 --port=8000\"",
+        "preview": "vite preview"
     },
     "devDependencies": {
         "@babel/eslint-parser": "^7.27.5",
@@ -30,12 +32,13 @@
         "@fortawesome/fontawesome-svg-core": "^6.7.2",
         "@fortawesome/free-solid-svg-icons": "^6.7.2",
         "@fortawesome/vue-fontawesome": "^3.0.8",
-        "@tailwindcss/postcss": "^4.1.10",
         "@vitejs/plugin-vue": "^5.2.4",
+        "aos": "^2.3.4",
         "apexcharts": "^4.7.0",
-        "tailwindcss": "^4.1.10",
         "vue": "^3.5.16",
+        "vue-i18n": "^12.0.0-alpha.2",
         "vue-router": "^4.5.1",
+        "vue-toastification": "^2.0.0-rc.5",
         "vue3-apexcharts": "^1.8.0"
     }
 }

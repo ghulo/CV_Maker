@@ -1,113 +1,128 @@
 <template>
-  <div class="page-container profile-container">
-    <header class="page-header">
-      <h1 class="text-3xl font-bold text-gray-800 dark:text-gray-100">User Profile</h1>
-      <p class="text-gray-500 dark:text-gray-400 mt-2">Manage your account details and settings.</p>
-    </header>
+  <div class="page-wrapper profile-wrapper">
+    <section class="section-spacing">
+      <div class="container">
+        <header class="section-header text-center">
+          <h1 class="section-title">Profili i Përdoruesit</h1>
+          <p class="section-description">Menaxhoni detajet dhe cilësimet e llogarisë tuaj.</p>
+        </header>
 
-    <div v-if="user" class="profile-layout-grid">
-      <div class="profile-main-content">
-        <!-- My Details Section -->
-        <div class="profile-section glassmorphic-card">
-          <h3 class="section-title">
-            <font-awesome-icon icon="fa-solid fa-user-circle" class="mr-3 text-indigo-400" />
-            My Details
-          </h3>
-          <div class="details-grid">
-            <div class="profile-avatar">
-              <font-awesome-icon
-                icon="fa-solid fa-user"
-                class="text-5xl text-gray-400 dark:text-gray-500"
-              />
+        <div v-if="user" class="profile-layout-grid">
+          <div class="profile-main-content">
+            <!-- My Details Section -->
+            <div class="profile-section card reveal-on-scroll reveal-left">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i class="fas fa-user-circle icon"></i>
+                  Detajet e Mia
+                </h3>
+              </div>
+              <div class="card-body details-grid">
+                <div class="profile-avatar">
+                  <i class="fas fa-user"></i>
+                </div>
+                <div class="details-info">
+                  <div class="profile-detail">
+                    <strong class="detail-label">Emri:</strong>
+                    <span class="detail-value">{{ user.name }}</span>
+                  </div>
+                  <div class="profile-detail">
+                    <strong class="detail-label">Email:</strong>
+                    <span class="detail-value">{{ user.email }}</span>
+                  </div>
+                  <div class="profile-detail">
+                    <strong class="detail-label">Anëtarësuar Më:</strong>
+                    <span class="detail-value">{{ formatDate(user.created_at) }}</span>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="details-info">
-              <div class="profile-detail">
-                <strong>Name:</strong>
-                <span>{{ user.name }}</span>
+
+            <!-- Change Password Section -->
+            <div class="profile-section card reveal-on-scroll reveal-left delay-1">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i class="fas fa-lock icon"></i>
+                  Ndrysho Fjalëkalimin
+                </h3>
               </div>
-              <div class="profile-detail">
-                <strong>Email:</strong>
-                <span>{{ user.email }}</span>
+              <div class="card-body">
+                <form @submit.prevent="updatePassword" class="space-y-lg">
+                  <div v-if="message" :class="messageClass" class="message" role="alert">
+                    <i :class="['icon', messageType === 'success' ? 'fas fa-check-circle' : 'fas fa-exclamation-triangle']"></i>
+                    <p class="message-text">{{ message }}</p>
+                  </div>
+                  <div class="form-group">
+                    <label for="current_password" class="form-label">Fjalëkalimi Aktual</label>
+                    <input
+                      type="password"
+                      id="current_password"
+                      v-model="passwordForm.current_password"
+                      required
+                      placeholder="Vendosni fjalëkalimin aktual"
+                      class="form-input"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="password" class="form-label">Fjalëkalimi i Ri</label>
+                    <input
+                      type="password"
+                      id="password"
+                      v-model="passwordForm.password"
+                      required
+                      placeholder="Vendosni fjalëkalimin e ri"
+                      class="form-input"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="password_confirmation" class="form-label">Konfirmo Fjalëkalimin e Ri</label>
+                    <input
+                      type="password"
+                      id="password_confirmation"
+                      v-model="passwordForm.password_confirmation"
+                      required
+                      placeholder="Konfirmo fjalëkalimin e ri"
+                      class="form-input"
+                    />
+                  </div>
+                  <button type="submit" :disabled="loading" class="btn btn-primary btn-full-width btn-with-icon">
+                    <font-awesome-icon v-if="loading" icon="fa-solid fa-spinner" class="fa-spin icon" />
+                    <i v-else class="fas fa-save icon"></i>
+                    {{ loading ? 'Duke Ruajtur...' : 'Ndrysho Fjalëkalimin' }}
+                  </button>
+                </form>
               </div>
-              <div class="profile-detail">
-                <strong>Joined:</strong>
-                <span>{{ formatDate(user.created_at) }}</span>
+            </div>
+          </div>
+
+          <div class="profile-sidebar">
+            <!-- Danger Zone Section -->
+            <div class="profile-section danger-zone card reveal-on-scroll reveal-right">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i class="fas fa-exclamation-triangle icon"></i>
+                  Zona e Rrezikut
+                </h3>
+              </div>
+              <div class="card-body">
+                <h4 class="danger-title">Fshini Llogarinë Tuaj</h4>
+                <p class="danger-description">
+                  Pasi të fshini llogarinë tuaj, nuk ka kthim mbrapa. Ju lutemi jini të sigurt.
+                </p>
+                <button @click="confirmDeleteAccount" class="btn btn-danger btn-full-width mt-lg">
+                  Fshij Llogarinë
+                </button>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Change Password Section -->
-        <div class="profile-section glassmorphic-card">
-          <h3 class="section-title">
-            <font-awesome-icon icon="fa-solid fa-lock" class="mr-3 text-indigo-400" />
-            Change Password
-          </h3>
-          <form @submit.prevent="updatePassword" class="space-y-6">
-            <div v-if="message" :class="messageClass" class="message" role="alert">
-              {{ message }}
-            </div>
-            <div class="form-group">
-              <label for="current_password">Current Password</label>
-              <input
-                type="password"
-                id="current_password"
-                v-model="passwordForm.current_password"
-                required
-                placeholder="Enter your current password"
-              />
-            </div>
-            <div class="form-group">
-              <label for="password">New Password</label>
-              <input
-                type="password"
-                id="password"
-                v-model="passwordForm.password"
-                required
-                placeholder="Enter your new password"
-              />
-            </div>
-            <div class="form-group">
-              <label for="password_confirmation">Confirm New Password</label>
-              <input
-                type="password"
-                id="password_confirmation"
-                v-model="passwordForm.password_confirmation"
-                required
-                placeholder="Confirm your new password"
-              />
-            </div>
-            <button type="submit" :disabled="loading" class="btn btn-primary w-full">
-              <font-awesome-icon v-if="loading" icon="fa-solid fa-spinner" class="fa-spin mr-2" />
-              {{ loading ? 'Saving...' : 'Update Password' }}
-            </button>
-          </form>
+        <div v-else class="loading-spinner-wrapper">
+          <i class="fas fa-spinner fa-spin loading-spinner"></i>
+          <p class="text-muted mt-md">Duke ngarkuar profilin...</p>
         </div>
       </div>
-
-      <div class="profile-sidebar">
-        <!-- Danger Zone Section -->
-        <div class="profile-section danger-zone glassmorphic-card">
-          <h3 class="section-title text-red-500">
-            <font-awesome-icon icon="fa-solid fa-exclamation-triangle" class="mr-3" />
-            Danger Zone
-          </h3>
-          <div>
-            <h4 class="font-semibold text-gray-800 dark:text-white">Delete Your Account</h4>
-            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
-              Once you delete your account, there is no going back. Please be certain.
-            </p>
-          </div>
-          <button @click="confirmDeleteAccount" class="btn btn-danger w-full mt-4">
-            Delete Account
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div v-else class="text-center py-20">
-      <font-awesome-icon icon="fa-solid fa-spinner" class="text-5xl text-indigo-500 fa-spin" />
-    </div>
+    </section>
   </div>
 </template>
 
@@ -115,12 +130,14 @@
   import { ref, onMounted, computed } from 'vue'
   import { useRouter } from 'vue-router'
   import axios from 'axios'
+  import { useConfirmationModal } from '../../composables/useConfirmationModal.js'
 
   const user = ref(null)
   const loading = ref(false)
   const message = ref('')
   const messageType = ref('')
   const router = useRouter()
+  const { showModal } = useConfirmationModal()
 
   const passwordForm = ref({
     current_password: '',
@@ -148,12 +165,15 @@
       const response = await axios.get('/api/user', {
         headers: { Authorization: `Bearer ${token}` },
       })
-      user.value = response.data
+      user.value = response.data.user // Assuming API returns { success: true, user: {...} }
     } catch (error) {
       console.error('Error fetching user:', error)
       if (error.response && error.response.status === 401) {
         localStorage.removeItem('auth_token')
         router.push('/login')
+      } else {
+        message.value = 'Gabim gjatë ngarkimit të të dhënave të përdoruesit.'
+        messageType.value = 'error'
       }
     }
   }
@@ -161,16 +181,17 @@
   const updatePassword = async () => {
     loading.value = true
     message.value = ''
+    messageType.value = ''
     try {
       const token = localStorage.getItem('auth_token')
       const response = await axios.put('/api/user/password', passwordForm.value, {
         headers: { Authorization: `Bearer ${token}` },
       })
-      message.value = response.data.message || 'Password updated successfully!'
+      message.value = response.data.message || 'Fjalëkalimi u ndryshua me sukses!'
       messageType.value = 'success'
       passwordForm.value = { current_password: '', password: '', password_confirmation: '' }
     } catch (error) {
-      message.value = error.response?.data?.message || 'An error occurred.'
+      message.value = error.response?.data?.message || 'Ndodhi një gabim.'
       if (error.response?.data?.errors) {
         message.value = Object.values(error.response.data.errors).flat().join(' ')
       }
@@ -179,33 +200,45 @@
       loading.value = false
       setTimeout(() => {
         message.value = ''
-      }, 6000)
+      }, 6000) // Message disappears after 6 seconds
     }
   }
 
-  const confirmDeleteAccount = () => {
-    // Replace default confirm with a more robust modal in a future enhancement
-    if (
-      window.confirm(
-        'Are you absolutely sure you want to delete your account? This action is irreversible and will permanently delete all your data.'
-      )
-    ) {
+  const confirmDeleteAccount = async () => {
+    const confirmed = await showModal({
+      title: 'Konfirmo Fshirjen e Llogarisë',
+      message: 'Jeni absolutisht i sigurt që dëshironi të fshini llogarinë tuaj? Ky veprim është i pakthyeshëm dhe do të fshijë përgjithmonë të gjitha të dhënat tuaja, përfshirë CV-të e krijuara.',
+      confirmButtonText: 'Fshij Llogarinë',
+      cancelButtonText: 'Anulo',
+      confirmButtonClass: 'btn-danger',
+    })
+
+    if (confirmed) {
       deleteAccount()
     }
   }
 
   const deleteAccount = async () => {
+    loading.value = true
+    message.value = ''
+    messageType.value = ''
     try {
       const token = localStorage.getItem('auth_token')
       await axios.delete('/api/user', {
         headers: { Authorization: `Bearer ${token}` },
       })
       localStorage.removeItem('auth_token')
-      // Optionally, show a global message via a store or event bus
-      router.push('/')
+      // No need for a modal here, successful deletion means redirect or success page
+      router.push({ name: 'home', query: { message: 'Llogaria juaj u fshi me sukses.', type: 'success' } })
     } catch (error) {
-      message.value = error.response?.data?.message || 'There was an error deleting your account.'
+      message.value = error.response?.data?.message || 'Ndodhi një gabim gjatë fshirjes së llogarisë tuaj.'
       messageType.value = 'error'
+      console.error('Error deleting account:', error)
+    } finally {
+      loading.value = false
+      setTimeout(() => {
+        message.value = ''
+      }, 6000)
     }
   }
 
@@ -219,176 +252,309 @@
 </script>
 
 <style scoped>
-  /* Using a more component-specific and BEM-like approach for clarity */
-  .profile-container {
-    max-width: 1200px;
-    margin: auto;
+  /* Page and Section Layout */
+  .profile-wrapper {
+    padding-top: var(--space-xxl);
+    padding-bottom: var(--space-xxl);
   }
 
-  .page-header {
-    text-align: center;
-    margin-bottom: 2rem;
+  .section-spacing {
+    padding: var(--space-section-vertical) var(--space-lg);
+  }
+
+  .container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 var(--space-md);
+  }
+
+  .section-header {
+    margin-bottom: var(--space-xl);
+  }
+
+  .section-title {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-4xl);
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: var(--space-md);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+
+  .section-description {
+    font-size: var(--font-size-lg);
+    color: var(--text-secondary);
+    line-height: var(--line-height-normal);
+    max-width: 800px;
+    margin: 0 auto;
   }
 
   .profile-layout-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 2rem;
+    gap: var(--space-xl);
+    margin-top: var(--space-xl);
   }
 
   @media (min-width: 1024px) {
     .profile-layout-grid {
-      grid-template-columns: 2fr 1fr;
+      grid-template-columns: 2fr 1fr; /* Main content 2/3, sidebar 1/3 */
     }
   }
 
   .profile-main-content {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: var(--space-xl);
+  }
+
+  .profile-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
   }
 
   .profile-section {
-    padding: 2rem;
-    transition: all 0.3s ease-in-out;
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    box-shadow: var(--shadow);
+    transition: var(--transition-all);
   }
 
-  .section-title {
-    font-size: 1.5rem;
+  .profile-section .card-header .card-title {
+    font-size: var(--font-size-2xl);
     font-weight: 700;
-    margin-bottom: 1.5rem;
-    padding-bottom: 0.75rem;
-    border-bottom: 1px solid var(--divider-color);
+    color: var(--text-primary);
+    margin: 0;
     display: flex;
     align-items: center;
+    gap: var(--space-sm);
   }
 
+  .profile-section .card-header .card-title .icon {
+    font-size: 1em;
+    color: var(--primary);
+  }
+
+  /* My Details specific styles */
   .details-grid {
     display: flex;
     align-items: center;
-    gap: 2rem;
+    gap: var(--space-xl);
+    margin-top: var(--space-lg);
   }
 
   .profile-avatar {
     width: 80px;
     height: 80px;
-    border-radius: 50%;
-    background-color: var(--neutral-bg);
+    border-radius: var(--radius-full);
+    background-color: var(--neutral-100);
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    font-size: var(--font-size-4xl);
+    color: var(--neutral-400);
   }
 
   .details-info {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: var(--space-md);
   }
 
   .profile-detail {
     display: flex;
     flex-direction: column;
-    font-size: 0.95rem;
+    font-size: var(--font-size-base);
   }
 
-  .profile-detail strong {
+  .profile-detail .detail-label {
     font-weight: 600;
-    color: var(--muted-text);
-    margin-bottom: 0.15rem;
-    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: var(--space-xs);
+    font-size: var(--font-size-sm);
     text-transform: uppercase;
     letter-spacing: 0.05em;
   }
 
-  .profile-detail span {
-    color: var(--neutral-text);
-    font-size: 1rem;
+  .profile-detail .detail-value {
+    color: var(--text-primary);
+    font-size: var(--font-size-md);
   }
 
-  body.dark-theme .profile-detail span {
-    color: var(--dark-neutral-text);
+  /* Danger Zone specific styles */
+  .danger-zone {
+    border-color: var(--error);
   }
 
-  .danger-zone .section-title {
-    color: #ef4444; /* red-500 */
-    border-color: #ef4444;
+  .danger-zone .card-header .card-title {
+    color: var(--error-dark);
   }
 
-  body.dark-theme .danger-zone .section-title {
-    color: #f87171; /* red-400 */
-    border-color: #f87171;
+  .danger-zone .card-header .card-title .icon {
+    color: var(--error);
   }
 
-  .danger-zone h4 {
-    font-size: 1.1rem;
+  .danger-zone .danger-title {
+    font-size: var(--font-size-lg);
     font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: var(--space-sm);
   }
 
-  .form-group label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: 500;
+  .danger-zone .danger-description {
+    font-size: var(--font-size-base);
+    color: var(--text-secondary);
+    line-height: var(--line-height-normal);
   }
 
-  .form-group input {
-    width: 100%;
-    padding: 0.75rem 1rem;
-    border-radius: var(--radius-sm);
-    border: 1px solid var(--neutral-border);
-    background-color: var(--neutral-bg);
-    color: var(--neutral-text);
-    transition:
-      border-color 0.2s,
-      box-shadow 0.2s;
-  }
-
-  .form-group input:focus {
-    outline: none;
-    border-color: var(--primary);
-    box-shadow: 0 0 0 3px var(--form-focus-glow-light);
-  }
-
-  body.dark-theme .form-group input {
-    background-color: #1f2937; /* gray-800 */
-    border-color: #4b5563; /* gray-600 */
-    color: var(--dark-neutral-text);
-  }
-
-  body.dark-theme .form-group input:focus {
-    border-color: var(--dark-primary);
-    box-shadow: 0 0 0 3px var(--form-focus-glow-dark);
-  }
-
-  .message {
-    padding: 0.75rem 1.25rem;
-    border-radius: var(--radius-sm);
+  /* Loading State */
+  .loading-spinner-wrapper {
     text-align: center;
-    font-weight: 500;
-    border: 1px solid transparent;
+    padding: var(--space-xxl);
+  }
+
+  .loading-spinner {
+    font-size: var(--font-size-5xl);
+    color: var(--primary);
+  }
+
+  /* Messages (re-using global message classes) */
+  .message {
+    padding: var(--space-md);
+    border-radius: var(--radius);
+    margin-bottom: var(--space-lg);
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    font-size: var(--font-size-base);
   }
 
   .message.success {
-    background-color: var(--message-success-bg);
-    color: var(--message-success-color);
-    border-color: var(--message-success-border);
+    background-color: var(--success-light);
+    color: var(--success-dark);
+    border: 1px solid var(--success);
   }
 
   .message.error {
-    background-color: var(--message-error-bg);
-    color: var(--message-error-color);
-    border-color: var(--message-error-border);
+    background-color: var(--error-light);
+    color: var(--error-dark);
+    border: 1px solid var(--error);
+  }
+
+  .message .icon {
+    font-size: var(--font-size-lg);
+    flex-shrink: 0;
+  }
+
+  .message-text {
+    flex-grow: 1;
+  }
+
+  /* Form elements inherit from global forms.css */
+
+  /* Responsive Adjustments */
+  @media (max-width: 768px) {
+    .section-spacing {
+      padding: var(--space-xl) var(--space-md);
+    }
+
+    .section-title {
+      font-size: var(--font-size-3xl);
+    }
+
+    .section-description {
+      font-size: var(--font-size-base);
+      margin-bottom: var(--space-lg);
+    }
+
+    .profile-layout-grid {
+      gap: var(--space-lg);
+    }
+
+    .details-grid {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: var(--space-md);
+    }
+
+    .profile-avatar {
+      margin-bottom: var(--space-sm);
+    }
+
+    .profile-detail {
+      align-items: center;
+    }
+
+    .profile-section .card-header .card-title {
+      font-size: var(--font-size-xl);
+    }
+
+    .danger-zone .danger-title,
+    .danger-zone .danger-description {
+      text-align: center;
+    }
+  }
+
+  /* Dark Mode Overrides */
+  body.dark-theme .profile-section {
+    background-color: var(--bg-surface);
+    border-color: var(--border-default);
+    box-shadow: var(--shadow-dark);
+  }
+
+  body.dark-theme .section-title,
+  body.dark-theme .profile-section .card-header .card-title,
+  body.dark-theme .profile-detail .detail-value,
+  body.dark-theme .danger-zone .danger-title {
+    color: var(--text-primary);
+  }
+
+  body.dark-theme .section-description,
+  body.dark-theme .profile-detail .detail-label,
+  body.dark-theme .danger-zone .danger-description {
+    color: var(--text-secondary);
+  }
+
+  body.dark-theme .profile-avatar {
+    background-color: var(--neutral-800);
+    color: var(--neutral-500);
+  }
+
+  body.dark-theme .profile-section .card-header .card-title .icon {
+    color: var(--primary-400);
+  }
+
+  body.dark-theme .danger-zone {
+    border-color: var(--error);
+  }
+
+  body.dark-theme .danger-zone .card-header .card-title {
+    color: var(--error-light);
+  }
+
+  body.dark-theme .danger-zone .card-header .card-title .icon {
+    color: var(--error);
+  }
+
+  body.dark-theme .loading-spinner {
+    color: var(--primary-400);
   }
 
   body.dark-theme .message.success {
-    background-color: var(--dark-message-success-bg);
-    color: var(--dark-message-success-color);
-    border-color: var(--dark-message-success-border);
+    background-color: var(--success-dark);
+    color: white;
+    border-color: var(--success);
   }
 
   body.dark-theme .message.error {
-    background-color: var(--dark-message-error-bg);
-    color: var(--dark-message-error-color);
-    border-color: var(--dark-message-error-border);
+    background-color: var(--error-dark);
+    color: white;
+    border-color: var(--error);
   }
 </style>

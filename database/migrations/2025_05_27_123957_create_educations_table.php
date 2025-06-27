@@ -12,17 +12,17 @@
          */
         public function up(): void
         {
-            Schema::create('education', function (Blueprint $table) {
+            Schema::create('educations', function (Blueprint $table) {
                 $table->id();
                 $table->foreignId('cv_id')->constrained()->onDelete('cascade');
                 $table->string('institution');
                 $table->string('degree');
-                $table->string('field_of_study');
-                $table->date('start_date');
+                $table->string('field_of_study')->nullable();
+                $table->date('start_date')->nullable();
                 $table->date('end_date')->nullable();
                 $table->boolean('is_current')->default(false);
                 $table->text('description')->nullable();
-                $table->string('location');
+                $table->string('location')->nullable();
                 $table->timestamps();
             });
         }
@@ -32,6 +32,6 @@
          */
         public function down(): void
         {
-            Schema::dropIfExists('education');
+            Schema::dropIfExists('educations');
         }
     };

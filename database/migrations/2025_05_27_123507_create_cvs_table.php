@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('email');
             $table->string('telefoni')->nullable();
             $table->string('address')->nullable();
-            $table->text('summary');
+            $table->text('summary')->nullable();
             $table->date('date_of_birth')->nullable();
             $table->string('place_of_birth')->nullable();
             $table->string('gender')->nullable();

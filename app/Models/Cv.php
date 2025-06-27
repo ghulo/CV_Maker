@@ -43,6 +43,8 @@ class Cv extends Model
         'driving_license',
         'selected_template',
         'is_finalized',
+        'views',
+        'downloads',
     ];
 
     /**
