@@ -171,19 +171,32 @@ onErrorCaptured((err, instance, info) => {
   return false // Prevent error from propagating
 })
 
-// Handle uncaught errors
-onMounted(() => {
-  window.addEventListener('error', handleWindowError)
-  window.addEventListener('unhandledrejection', handleUnhandledRejection)
-})
-
+// Enhanced error handling with performance monitoring
 const handleError = (err, info = null) => {
+  // Performance impact measurement
+  const errorTime = performance.now()
+  
   hasError.value = true
   error.value = err
   
   // Add context information
   if (info) {
     error.value.componentInfo = info
+  }
+  
+  // Add performance context
+  error.value.performanceContext = {
+    timestamp: errorTime,
+    memoryUsage: performance.memory ? {
+      used: Math.round(performance.memory.usedJSHeapSize / 1024 / 1024),
+      total: Math.round(performance.memory.totalJSHeapSize / 1024 / 1024),
+      limit: Math.round(performance.memory.jsHeapSizeLimit / 1024 / 1024)
+    } : null,
+    navigationTiming: performance.timing ? {
+      domLoading: performance.timing.domLoading,
+      domInteractive: performance.timing.domInteractive,
+      domComplete: performance.timing.domComplete
+    } : null
   }
   
   emit('error', err)
@@ -195,7 +208,7 @@ const handleError = (err, info = null) => {
     }, 2000 * (retryCount.value + 1)) // Exponential backoff
   }
   
-  // Log error for monitoring
+  // Enhanced error logging
   logError(err)
 }
 
@@ -274,12 +287,14 @@ const reportError = async () => {
   }
 }
 
+// Enhanced error logging with better debugging
 const logError = (err) => {
   // Log to console in development
   if (import.meta.env.DEV) {
     console.group('🚨 Error Boundary Caught Error')
     console.error('Error:', err)
     console.error('Component Info:', err.componentInfo)
+    console.error('Performance Context:', err.performanceContext)
     console.trace()
     console.groupEnd()
   }
@@ -288,7 +303,16 @@ const logError = (err) => {
   if (import.meta.env.PROD) {
     // Example: Sentry, LogRocket, etc.
     try {
-      // window.Sentry?.captureException(err)
+      // window.Sentry?.captureException(err, {
+      //   tags: {
+      //     component: 'ErrorBoundary',
+      //     retryCount: retryCount.value
+      //   },
+      //   extra: {
+      //     performanceContext: err.performanceContext,
+      //     componentInfo: err.componentInfo
+      //   }
+      // })
     } catch (trackingError) {
       console.error('Failed to track error:', trackingError)
     }

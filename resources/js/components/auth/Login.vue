@@ -15,7 +15,7 @@
             <i class="fas fa-file-alt"></i>
           </div>
           <h1 class="section-title">{{ t('welcome_back') }}</h1>
-          <p class="section-description">{{ t('login_intro') }}</p>
+          <p class="section-description">{{ t('loginDescription') }}</p>
         </div>
 
         <!-- Messages -->

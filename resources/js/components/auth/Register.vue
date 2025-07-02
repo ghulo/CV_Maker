@@ -15,7 +15,7 @@
             <i class="fas fa-user-plus"></i>
           </div>
           <h1 class="section-title">{{ t('create_your_account') }}</h1>
-          <p class="section-description">{{ t('register_to_create_manage') }}</p>
+          <p class="section-description">{{ t('registerDescription') }}</p>
         </div>
 
         <!-- Messages -->
@@ -160,18 +160,40 @@
           await axios.get('/sanctum/csrf-cookie')
           const response = await axios.post('/api/register', form)
 
-          if (response.data.success) {
+          // Check if registration was successful
+          if (response.data && response.data.success) {
+            // Clear any existing errors
+            error.value = ''
+            validationErrors.value = null
+            
+            // Navigate to login with success message
             router.push({
-              name: 'login',
+              name: 'Login',
               query: { success: t('account_created_successfully') },
             })
+          } else {
+            // Handle case where response doesn't have success=true
+            error.value = response.data?.message || t('registration_error')
           }
         } catch (err) {
+          console.error('Registration error:', err)
+          
           if (err.response?.status === 422) {
+            // Validation errors
             validationErrors.value = err.response.data.errors
             error.value = t('please_correct_errors')
+          } else if (err.response?.status >= 500) {
+            // Server errors
+            error.value = 'Server error. Please try again later.'
+          } else if (err.response?.data?.message) {
+            // API error message
+            error.value = err.response.data.message
+          } else if (err.message) {
+            // Network or other errors
+            error.value = 'Network error. Please check your connection.'
           } else {
-            error.value = err.response?.data?.message || t('registration_error')
+            // Fallback error
+            error.value = t('registration_error')
           }
         } finally {
           loading.value = false

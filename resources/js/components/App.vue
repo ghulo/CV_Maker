@@ -5,7 +5,7 @@
 
     <!-- Main Content - Router View -->
     <main class="app-main-content">
-      <router-view />
+      <router-view :key="$route.fullPath" />
     </main>
 
     <!-- Footer Component -->
@@ -167,11 +167,22 @@
 
       watch(
         () => route.fullPath,
-        async () => {
+        async (newPath, oldPath) => {
+          // Only proceed if route actually changed
+          if (newPath === oldPath) return
+          
           await nextTick()
+          
+          // Force component re-render for navigation issues
+          await new Promise(resolve => setTimeout(resolve, 50))
+          
           reinitializeScrollReveal()
           liquidAnimations.refresh()
-          window.scrollTo({ top: 0, behavior: 'smooth' })
+          
+          // Smooth scroll to top only if not going to same page
+          if (newPath !== oldPath) {
+            window.scrollTo({ top: 0, behavior: 'smooth' })
+          }
 
           // DISABLE AOS REFRESH FOR DEBUGGING
           // if (typeof AOS !== 'undefined') {

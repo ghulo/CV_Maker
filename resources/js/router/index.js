@@ -208,5 +208,21 @@ router.beforeEach(async (to, from, next) => {
   }
 })
 
+// After each navigation, ensure proper component loading
+router.afterEach((to, from) => {
+  // Add small delay to ensure component mounting
+  setTimeout(() => {
+    // Dispatch a custom event to notify components of navigation completion
+    window.dispatchEvent(new CustomEvent('navigation-complete', {
+      detail: { to: to.name, from: from.name }
+    }))
+  }, 100)
+})
+
+// Handle navigation errors
+router.onError((error) => {
+  console.error('Router navigation error:', error)
+})
+
 export default router
 

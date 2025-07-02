@@ -38,8 +38,10 @@
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useRouter } from 'vue-router'
 
-const { locale } = useI18n()
+const { locale, t } = useI18n()
+const router = useRouter()
 const isOpen = ref(false)
 
 const languages = [
@@ -63,10 +65,23 @@ const changeLanguage = (langCode) => {
   localStorage.setItem('preferred-language', langCode)
   isOpen.value = false
   
-  // Emit a custom event for other components to listen to
-  window.dispatchEvent(new CustomEvent('language-changed', { 
-    detail: { language: langCode } 
-  }))
+  // Update HTML lang attribute for accessibility
+  document.documentElement.lang = langCode
+  
+  // Force Vue to re-render components by updating the locale
+  // This ensures all components react to the language change
+  setTimeout(() => {
+    // Trigger a global event for components that need to manually refresh
+    window.dispatchEvent(new CustomEvent('language-changed', { 
+      detail: { language: langCode } 
+    }))
+    
+    // Force update of the document title and meta if needed
+    const currentRoute = router?.currentRoute?.value
+    if (currentRoute?.meta?.title) {
+      document.title = t(currentRoute.meta.title)
+    }
+  }, 10)
 }
 
 const closeDropdown = (event) => {

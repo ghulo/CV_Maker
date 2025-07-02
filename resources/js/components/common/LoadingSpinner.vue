@@ -3,46 +3,39 @@
     class="loading-spinner" 
     :class="[`size-${size}`, `variant-${variant}`, { 'with-overlay': overlay }]"
   >
+    <!-- Background Overlay -->
     <div v-if="overlay" class="spinner-overlay" @click="$emit('cancel')"></div>
     
+    <!-- Spinner Container -->
     <div class="spinner-container">
       <!-- Default Spinner -->
       <div v-if="variant === 'default'" class="spinner-default">
-        <div class="spinner-circle"></div>
-        <div class="spinner-circle"></div>
-        <div class="spinner-circle"></div>
+        <div class="spinner-ring"></div>
+        <div class="spinner-inner"></div>
       </div>
       
       <!-- Pulse Spinner -->
       <div v-else-if="variant === 'pulse'" class="spinner-pulse">
         <div class="pulse-ring"></div>
-        <div class="pulse-ring"></div>
-        <div class="pulse-ring"></div>
+        <div class="pulse-core"></div>
       </div>
       
       <!-- Dots Spinner -->
       <div v-else-if="variant === 'dots'" class="spinner-dots">
-        <div class="dot"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
+        <div class="dot" v-for="i in 3" :key="i"></div>
       </div>
       
       <!-- Ring Spinner -->
-      <div v-else-if="variant === 'ring'" class="spinner-ring">
-        <div class="ring"></div>
+      <div v-else-if="variant === 'ring'" class="spinner-ring-loader">
+        <div class="ring" v-for="i in 2" :key="i"></div>
       </div>
       
       <!-- Bars Spinner -->
       <div v-else-if="variant === 'bars'" class="spinner-bars">
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
+        <div class="bar" v-for="i in 5" :key="i"></div>
       </div>
       
-      <!-- ATELIER Logo Spinner -->
+      <!-- Logo Spinner -->
       <div v-else-if="variant === 'logo'" class="spinner-logo">
         <div class="logo-container">
           <svg viewBox="0 0 100 100" class="logo-svg">
@@ -212,20 +205,28 @@ onUnmounted(() => {
   gap: 0.25rem;
 }
 
-.spinner-circle {
-  width: 8px;
-  height: 8px;
-  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+.spinner-ring {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #f3f4f6;
+  border-top: 4px solid #3b82f6;
   border-radius: 50%;
-  animation: bounce 1.4s ease-in-out infinite both;
+  animation: spin 1s linear infinite;
 }
 
-.spinner-circle:nth-child(1) { animation-delay: -0.32s; }
-.spinner-circle:nth-child(2) { animation-delay: -0.16s; }
+.spinner-inner {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  background: transparent;
+}
 
-.size-small .spinner-circle { width: 6px; height: 6px; }
-.size-large .spinner-circle { width: 12px; height: 12px; }
-.size-xlarge .spinner-circle { width: 16px; height: 16px; }
+.size-small .spinner-ring { width: 30px; height: 30px; border-width: 3px; }
+.size-large .spinner-ring { width: 60px; height: 60px; border-width: 6px; }
+.size-xlarge .spinner-ring { width: 80px; height: 80px; border-width: 8px; }
 
 /* Pulse Spinner */
 .spinner-pulse {
@@ -241,9 +242,15 @@ onUnmounted(() => {
   animation: pulse 1.25s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
 }
 
-.pulse-ring:nth-child(1) { animation-delay: 0s; }
-.pulse-ring:nth-child(2) { animation-delay: -0.4s; }
-.pulse-ring:nth-child(3) { animation-delay: -0.8s; }
+.pulse-core {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  background: transparent;
+}
 
 .size-small .spinner-pulse { width: 30px; height: 30px; }
 .size-large .spinner-pulse { width: 60px; height: 60px; }
@@ -273,7 +280,12 @@ onUnmounted(() => {
 .size-xlarge .spinner-dots .dot { width: 20px; height: 20px; }
 
 /* Ring Spinner */
-.spinner-ring .ring {
+.spinner-ring-loader {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.spinner-ring-loader .ring {
   width: 40px;
   height: 40px;
   border: 4px solid #f3f4f6;
@@ -282,9 +294,9 @@ onUnmounted(() => {
   animation: spin 1s linear infinite;
 }
 
-.size-small .spinner-ring .ring { width: 30px; height: 30px; border-width: 3px; }
-.size-large .spinner-ring .ring { width: 60px; height: 60px; border-width: 6px; }
-.size-xlarge .spinner-ring .ring { width: 80px; height: 80px; border-width: 8px; }
+.size-small .spinner-ring-loader .ring { width: 30px; height: 30px; border-width: 3px; }
+.size-large .spinner-ring-loader .ring { width: 60px; height: 60px; border-width: 6px; }
+.size-xlarge .spinner-ring-loader .ring { width: 80px; height: 80px; border-width: 8px; }
 
 /* Bars Spinner */
 .spinner-bars {
@@ -369,13 +381,9 @@ onUnmounted(() => {
 }
 
 /* Animations */
-@keyframes bounce {
-  0%, 80%, 100% { 
-    transform: scale(0);
-  } 
-  40% { 
-    transform: scale(1.0);
-  }
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 @keyframes pulse {
@@ -404,11 +412,6 @@ onUnmounted(() => {
   40% { 
     transform: scale(1);
   }
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
 }
 
 @keyframes bars {

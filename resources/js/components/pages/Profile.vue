@@ -27,10 +27,13 @@
                     <div class="avatar-overlay">
                       <input 
                         type="file" 
+                        id="avatar-upload"
+                        name="avatar"
                         ref="avatarInput" 
                         @change="handleAvatarUpload" 
                         accept="image/*" 
                         class="avatar-input"
+                        aria-label="Upload profile picture"
                       />
                       <button @click="triggerAvatarUpload" class="avatar-upload-btn" :disabled="avatarUploading">
                         <i class="fas" :class="avatarUploading ? 'fa-spinner fa-spin' : 'fa-camera'"></i>
@@ -46,28 +49,28 @@
                   <h1 class="profile-name">{{ user.name }}</h1>
                   <p class="profile-email">{{ user.email }}</p>
                   <div class="profile-badges">
-                    <span class="badge premium" v-if="user.is_premium">
-                      <i class="fas fa-crown"></i>
-                      Premium Member
-                    </span>
-                    <span class="badge verified">
-                      <i class="fas fa-check-circle"></i>
-                      Verified
-                    </span>
-                    <span class="badge member-since">
-                      <i class="fas fa-calendar"></i>
-                      Member since {{ formatDate(user.created_at, 'short') }}
-                    </span>
+                                      <span class="badge premium" v-if="user.is_premium">
+                    <i class="fas fa-crown"></i>
+                    {{ t('profile.premiumMember') }}
+                  </span>
+                  <span class="badge verified">
+                    <i class="fas fa-check-circle"></i>
+                    {{ t('profile.verified') }}
+                  </span>
+                  <span class="badge member-since">
+                    <i class="fas fa-calendar"></i>
+                    {{ t('profile.memberSince', { date: formatDate(user.created_at, 'short') }) }}
+                  </span>
                   </div>
                 </div>
                 <div class="profile-actions">
                   <button @click="toggleEditMode" class="btn btn-primary" :disabled="profileLoading">
                     <i class="fas" :class="editMode ? 'fa-times' : 'fa-edit'"></i>
-                    {{ editMode ? 'Cancel' : 'Edit Profile' }}
+                    {{ editMode ? t('common.cancel') : t('profile.editProfile') }}
                   </button>
                   <button @click="downloadProfileData" class="btn btn-secondary" :disabled="loading">
                     <i class="fas" :class="loading ? 'fa-spinner fa-spin' : 'fa-download'"></i>
-                    Export Data
+                    {{ t('profile.exportData') }}
                   </button>
                 </div>
               </div>
@@ -115,22 +118,24 @@
                   <div class="card-icon">
                     <i class="fas fa-user-circle"></i>
                   </div>
-                  <h3 class="card-title">Profile Information</h3>
+                  <h3 class="card-title">{{ t('profile.profileInformation') }}</h3>
                 </div>
                 <button @click="toggleEditMode" class="btn btn-sm btn-primary" :disabled="profileLoading">
                   <i class="fas" :class="editMode ? 'fa-times' : 'fa-edit'"></i>
-                  {{ editMode ? 'Cancel' : 'Edit' }}
+                  {{ editMode ? t('common.cancel') : t('common.edit') }}
                 </button>
               </div>
               <div class="card-body">
                 <form v-if="editMode" @submit.prevent="updateProfile" class="profile-edit-form">
                   <div class="form-grid enhanced-grid">
                     <div class="form-group">
-                      <label class="form-label">Full Name</label>
+                      <label for="profile-name" class="form-label">{{ t('personal.fullName') }}</label>
                       <div class="input-icon-wrapper">
                         <i class="fas fa-user input-icon"></i>
                         <input 
                           type="text" 
+                          id="profile-name"
+                          name="name"
                           v-model="editForm.name" 
                           class="form-input enhanced-input"
                           placeholder="Enter your full name"
@@ -139,11 +144,13 @@
                       </div>
                     </div>
                     <div class="form-group">
-                      <label class="form-label">Email</label>
+                      <label for="profile-email" class="form-label">Email</label>
                       <div class="input-icon-wrapper">
                         <i class="fas fa-envelope input-icon"></i>
                         <input 
                           type="email" 
+                          id="profile-email"
+                          name="email"
                           v-model="editForm.email" 
                           class="form-input enhanced-input"
                           placeholder="Enter your email"
@@ -152,11 +159,13 @@
                       </div>
                     </div>
                     <div class="form-group">
-                      <label class="form-label">Phone</label>
+                      <label for="profile-phone" class="form-label">Phone</label>
                       <div class="input-icon-wrapper">
                         <i class="fas fa-phone input-icon"></i>
                         <input 
                           type="tel" 
+                          id="profile-phone"
+                          name="phone"
                           v-model="editForm.phone" 
                           class="form-input enhanced-input"
                           placeholder="Enter your phone number"
@@ -164,11 +173,13 @@
                       </div>
                     </div>
                     <div class="form-group">
-                      <label class="form-label">Location</label>
+                      <label for="profile-location" class="form-label">Location</label>
                       <div class="input-icon-wrapper">
                         <i class="fas fa-map-marker-alt input-icon"></i>
                         <input 
                           type="text" 
+                          id="profile-location"
+                          name="location"
                           v-model="editForm.location" 
                           class="form-input enhanced-input"
                           placeholder="Enter your location"
@@ -176,9 +187,11 @@
                       </div>
                     </div>
                     <div class="form-group full-width">
-                      <label class="form-label">Bio</label>
+                      <label for="profile-bio" class="form-label">Bio</label>
                       <div class="textarea-wrapper">
                         <textarea 
+                          id="profile-bio"
+                          name="bio"
                           v-model="editForm.bio" 
                           class="form-textarea enhanced-textarea"
                           placeholder="Tell us about yourself..."
@@ -191,7 +204,7 @@
                     <button type="submit" class="btn btn-primary btn-enhanced" :disabled="profileLoading">
                       <i v-if="profileLoading" class="fas fa-spinner fa-spin"></i>
                       <i v-else class="fas fa-save"></i>
-                      Save Changes
+                      {{ t('common.saveChanges') }}
                     </button>
                   </div>
                 </form>
@@ -265,11 +278,13 @@
                   </div>
                   
                   <div class="form-group">
-                    <label class="form-label">Current Password</label>
+                    <label for="current-password" class="form-label">Current Password</label>
                     <div class="input-icon-wrapper">
                       <i class="fas fa-lock input-icon"></i>
                       <input 
                         type="password" 
+                        id="current-password"
+                        name="current_password"
                         v-model="passwordForm.current_password" 
                         class="form-input enhanced-input"
                         placeholder="Enter current password"
@@ -279,11 +294,13 @@
                   </div>
                   
                   <div class="form-group">
-                    <label class="form-label">New Password</label>
+                    <label for="new-password" class="form-label">New Password</label>
                     <div class="input-icon-wrapper">
                       <i class="fas fa-key input-icon"></i>
                       <input 
                         type="password" 
+                        id="new-password"
+                        name="password"
                         v-model="passwordForm.password" 
                         class="form-input enhanced-input"
                         placeholder="Enter new password"
@@ -294,11 +311,13 @@
                   </div>
                   
                   <div class="form-group">
-                    <label class="form-label">Confirm New Password</label>
+                    <label for="confirm-password" class="form-label">Confirm New Password</label>
                     <div class="input-icon-wrapper">
                       <i class="fas fa-key input-icon"></i>
                       <input 
                         type="password" 
+                        id="confirm-password"
+                        name="password_confirmation"
                         v-model="passwordForm.password_confirmation" 
                         class="form-input enhanced-input"
                         placeholder="Confirm new password"
@@ -484,11 +503,9 @@
       <!-- Enhanced Loading State -->
       <div v-else class="loading-wrapper enhanced-loading">
         <div class="loading-spinner">
-          <div class="spinner-ring"></div>
-          <div class="spinner-ring"></div>
-          <div class="spinner-ring"></div>
+          <div class="simple-spinner"></div>
         </div>
-        <p class="loading-text">Loading your profile...</p>
+        <p class="loading-text">{{ t('common.loading') }}...</p>
       </div>
     </div>
   </div>
@@ -497,11 +514,13 @@
 <script setup>
 import { ref, reactive, onMounted, computed } from 'vue'
 import { useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 import axios from 'axios'
 import { useConfirmationModal } from '../../composables/useConfirmationModal.js'
 
-// Router and modal
+// Router, i18n and modal
 const router = useRouter()
+const { t } = useI18n()
 const { showModal } = useConfirmationModal()
 
 // Refs
@@ -1718,36 +1737,24 @@ onMounted(fetchUser)
   text-align: center;
 }
 
-.spinner-ring {
-  display: inline-block;
-  position: relative;
-  width: 80px;
-  height: 80px;
-  margin: 0 5px;
+.loading-spinner {
+  margin-bottom: var(--space-lg);
 }
 
-.spinner-ring:nth-child(1) {
+.simple-spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid rgba(124, 58, 237, 0.2);
+  border-left: 4px solid var(--primary);
+  border-radius: 50%;
   animation: spin 1s linear infinite;
 }
 
-.spinner-ring:nth-child(2) {
-  animation: spin 1s linear infinite 0.3s;
-}
-
-.spinner-ring:nth-child(3) {
-  animation: spin 1s linear infinite 0.6s;
-}
-
-.spinner-ring::after {
-  content: " ";
-  display: block;
-  width: 64px;
-  height: 64px;
-  margin: 8px;
-  border-radius: 50%;
-  border: 6px solid var(--primary);
-  border-color: var(--primary) transparent var(--primary) transparent;
-  animation: spin 1.2s linear infinite;
+.loading-text {
+  font-size: var(--font-size-lg);
+  color: var(--text-secondary);
+  margin: 0;
+  font-weight: 500;
 }
 
 @keyframes spin {

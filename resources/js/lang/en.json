@@ -8,6 +8,12 @@
   "createCV": "Create CV",
   "templates": "Templates",
   "profile": "Profile",
+  "profile.premiumMember": "Premium Member",
+  "profile.verified": "Verified", 
+  "profile.memberSince": "Member since {date}",
+  "profile.editProfile": "Edit Profile",
+  "profile.exportData": "Export Data",
+  "profile.profileInformation": "Profile Information",
   "about": "About Us",
   "contact": "Contact",
   "faq": "FAQ",
@@ -106,7 +112,9 @@
   "loginSuccessful": "Login successful! Welcome back.",
   "logoutSuccessful": "You have been logged out successfully.",
   "registerToCreate": "Register to create, save and manage your professional CVs.",
+  "registerDescription": "Register to create, save and manage your professional CVs.",
   "loginIntro": "Login to your account to continue managing your CVs.",
+  "loginDescription": "Login to your account to continue managing your CVs.",
   "createAccountButton": "Create Account",
   "registerButton": "Register",
   "register_button": "Register",
@@ -463,7 +471,6 @@
   "locationClassic": "New York, NY",
   
   "create_your_account": "Create Your Account",
-  "register_to_create_manage": "Register to create, save and manage your professional CVs.",
   
   "ai": {
     "assistant": "AI Assistant",
@@ -633,6 +640,7 @@
   "personal": {
     "firstName": "First Name",
     "lastName": "Last Name",
+    "fullName": "Full Name",
     "email": "Email Address",
     "phone": "Phone Number",
     "address": "Address",

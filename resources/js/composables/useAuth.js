@@ -14,6 +14,18 @@ const initializeAuth = () => {
   
   isAuthenticated.value = !!token
   user.value = userData
+  
+  // Listen for storage changes (logout from another tab)
+  if (typeof window !== 'undefined') {
+    window.addEventListener('storage', (e) => {
+      if (e.key === 'auth_token') {
+        isAuthenticated.value = !!e.newValue
+        if (!e.newValue) {
+          user.value = null
+        }
+      }
+    })
+  }
 }
 
 // Watch for storage changes (multi-tab support)

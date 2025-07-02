@@ -20,13 +20,13 @@
       <div class="header-right-nav-container">
         <!-- Desktop Navigation Links -->
         <nav id="desktop-nav-menu-id">
-          <router-link to="/" :class="{ active: $route.name === 'home' }">{{ t('home') }}</router-link>
-          <router-link to="/templates" :class="{ active: $route.name === 'templates' }">{{ t('templates') }}</router-link>
-          <router-link to="/contact" :class="{ active: $route.name === 'contact' }">{{ t('contact') }}</router-link>
+          <router-link to="/" :class="{ active: $route.name === 'Homepage' }">{{ t('home') }}</router-link>
+          <router-link to="/templates" :class="{ active: $route.name === 'Templates' }">{{ t('templates') }}</router-link>
+          <router-link to="/contact" :class="{ active: $route.name === 'Contact' }">{{ t('contact') }}</router-link>
           <router-link v-if="!isAuthenticated" to="/login" class="auth-link login-link">{{ t('login') }}</router-link>
           <router-link v-if="!isAuthenticated" to="/register" class="auth-link signup-link btn btn-accent">{{ t('signup') }}</router-link>
-          <router-link v-if="isAuthenticated" to="/dashboard" class="auth-link profile-link">{{ t('dashboard') }}</router-link>
-          <router-link v-if="isAuthenticated" to="/profile" class="auth-link profile-link">{{ t('profile') }}</router-link>
+          <router-link v-if="isAuthenticated" to="/dashboard" :class="{ active: $route.name === 'Dashboard' }" class="auth-link profile-link">{{ t('dashboard') }}</router-link>
+          <router-link v-if="isAuthenticated" to="/profile" :class="{ active: $route.name === 'Profile' }" class="auth-link profile-link">{{ t('profile') }}</router-link>
           <button v-if="isAuthenticated" @click="logout" class="auth-link logout-link btn">{{ t('logout') }}</button>
         </nav>
         <!-- Language Switcher -->
@@ -63,16 +63,16 @@
             </button>
           </div>
           <nav class="main-nav-menu-links">
-            <router-link to="/" :class="{ active: $route.name === 'home' }" @click="closeMainMenu">{{ t('home') }}</router-link>
-            <router-link to="/templates" :class="{ active: $route.name === 'templates' }" @click="closeMainMenu">{{ t('templates') }}</router-link>
-            <router-link to="/contact" :class="{ active: $route.name === 'contact' }" @click="closeMainMenu">{{ t('contact') }}</router-link>
+            <router-link to="/" :class="{ active: $route.name === 'Homepage' }" @click="closeMainMenu">{{ t('home') }}</router-link>
+            <router-link to="/templates" :class="{ active: $route.name === 'Templates' }" @click="closeMainMenu">{{ t('templates') }}</router-link>
+            <router-link to="/contact" :class="{ active: $route.name === 'Contact' }" @click="closeMainMenu">{{ t('contact') }}</router-link>
             <div v-if="!isAuthenticated" class="auth-links-group">
               <router-link to="/login" class="auth-link login-link" @click="closeMainMenu">{{ t('login') }}</router-link>
               <router-link to="/register" class="auth-link signup-link btn btn-accent" @click="closeMainMenu">{{ t('signup') }}</router-link>
             </div>
             <div v-if="isAuthenticated" class="profile-links-group">
-              <router-link to="/dashboard" class="profile-link" @click="closeMainMenu">{{ t('dashboard') }}</router-link>
-              <router-link to="/profile" class="profile-link" @click="closeMainMenu">{{ t('profile') }}</router-link>
+              <router-link to="/dashboard" :class="{ active: $route.name === 'Dashboard' }" class="profile-link" @click="closeMainMenu">{{ t('dashboard') }}</router-link>
+              <router-link to="/profile" :class="{ active: $route.name === 'Profile' }" class="profile-link" @click="closeMainMenu">{{ t('profile') }}</router-link>
               <button @click="logoutAndCloseMainMenu" class="logout-btn">{{ t('logout') }}</button>
             </div>
             <!-- Language Switcher for Mobile -->
@@ -109,7 +109,9 @@
       const isDarkTheme = ref(document.body.classList.contains('dark-theme')) // Initialize based on current body class
 
       const checkAuth = () => {
-        isAuthenticated.value = !!localStorage.getItem('auth_token')
+        const token = localStorage.getItem('auth_token')
+        isAuthenticated.value = !!token
+        return isAuthenticated.value
       }
 
       const logout = async () => {
@@ -167,6 +169,13 @@
         window.addEventListener('storage', checkAuth)
         document.addEventListener('mousedown', handleClickOutside)
         window.addEventListener('scroll', handleScroll)
+        
+        // Listen for language changes to refresh navigation
+        window.addEventListener('language-changed', () => {
+          // Force re-render by triggering reactivity
+          checkAuth()
+        })
+        
         // The theme initialization is now handled solely by script.js
       })
 
@@ -174,9 +183,10 @@
         document.removeEventListener('mousedown', handleClickOutside)
         window.removeEventListener('storage', checkAuth)
         window.removeEventListener('scroll', handleScroll)
+        window.removeEventListener('language-changed', checkAuth)
       })
 
-      watch(route, () => {
+      watch(route, (newRoute, oldRoute) => {
         checkAuth()
         closeMainMenu() // Close the menu on route change
       })
@@ -317,6 +327,9 @@
     padding: 8px 0;
     transition: color 0.2s ease;
     text-decoration: none;
+    cursor: pointer;
+    z-index: 10;
+    pointer-events: auto;
   }
   
   nav#desktop-nav-menu-id a::after {

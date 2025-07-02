@@ -8,6 +8,12 @@
   "createCV": "Krijo CV",
   "templates": "Shabllone",
   "profile": "Profili",
+  "profile.premiumMember": "Anëtar Premium",
+  "profile.verified": "I Verifikuar",
+  "profile.memberSince": "Anëtar që nga {date}",
+  "profile.editProfile": "Redakto Profilin",
+  "profile.exportData": "Eksporto të Dhënat",
+  "profile.profileInformation": "Informacionet e Profilit",
   "about": "Rreth Nesh",
   "contact": "Kontakti",
   "faq": "Pyetje",
@@ -106,7 +112,9 @@
   "loginSuccessful": "Hyrja u krye me sukses! Mirë se vini përsëri.",
   "logoutSuccessful": "U çkyçët me sukses.",
   "registerToCreate": "Regjistrohuni për të krijuar, ruajtur dhe menaxhuar CV-të tuaja profesionale.",
+  "registerDescription": "Regjistrohuni për të krijuar, ruajtur dhe menaxhuar CV-të tuaja profesionale.",
   "loginIntro": "Hyni në llogarinë tuaj për të vazhduar menaxhimin e CV-ve tuaja.",
+  "loginDescription": "Hyni në llogarinë tuaj për të vazhduar menaxhimin e CV-ve tuaja.",
   "createAccountButton": "Krijoni Llogari",
   "registerButton": "Regjistrohuni",
   "register_button": "Regjistrohuni",
@@ -463,7 +471,6 @@
   "locationClassic": "New York, NY",
   
   "create_your_account": "Krijoni Llogarinë Tuaj",
-  "register_to_create_manage": "Regjistrohuni për të krijuar, ruajtur dhe menaxhuar CV-të tuaja profesionale.",
   
   "ai": {
     "assistant": "Asistenti AI",
@@ -633,6 +640,7 @@
   "personal": {
     "firstName": "Emri",
     "lastName": "Mbiemri",
+    "fullName": "Emri i Plotë",
     "email": "Adresa Email",
     "phone": "Numri i Telefonit",
     "address": "Adresa",

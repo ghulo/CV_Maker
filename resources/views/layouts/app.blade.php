@@ -17,10 +17,7 @@
     <!-- Font Awesome fallback - Load immediately for critical icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
     
-    <!-- Resource hints for faster loading -->
-    <link rel="modulepreload" href="{{ asset('build/assets/vendor-vue-9gKnepuK.js') }}" as="script" crossorigin>
-    <link rel="modulepreload" href="{{ asset('build/assets/vendor-ui-BiS5L0ED.js') }}" as="script" crossorigin>
-    <link rel="modulepreload" href="{{ asset('build/assets/vendor-utils-B1ga0eaz.js') }}" as="script" crossorigin>
+    <!-- Resource hints for faster loading - Vite will handle these automatically -->
     
     <!-- SEO Meta Tags -->
     <meta name="description" content="ATELIER - Professional Resume Atelier. Where careers are crafted with AI precision and artistic excellence. Create stunning resumes in minutes.">
