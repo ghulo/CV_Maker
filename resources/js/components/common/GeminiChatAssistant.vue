@@ -1,14 +1,25 @@
 <template>
   <div class="gemini-chat-wrapper">
-    <!-- Chat Toggle Button -->
+    <!-- AI Avatar Chat Toggle Button -->
     <button
       v-if="!isOpen"
       @click="toggleChat"
-      class="chat-toggle-btn"
+      class="chat-toggle-btn ai-avatar-button"
     >
-      <svg class="chat-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-3.582 8-8 8a8.955 8.955 0 01-4.946-1.524A11.015 11.015 0 012 20c0-4.418 3.582-8 8-8s8 3.582 8 8z"></path>
-      </svg>
+      <div class="ai-avatar-chat">
+        <div class="ai-face">
+          <div class="ai-eyes">
+            <div class="eye"></div>
+            <div class="eye"></div>
+          </div>
+          <div class="ai-mouth"></div>
+        </div>
+        <div class="ai-pulse-rings">
+          <div class="pulse-ring ring-1"></div>
+          <div class="pulse-ring ring-2"></div>
+          <div class="pulse-ring ring-3"></div>
+        </div>
+      </div>
     </button>
 
     <!-- Chat Window -->
@@ -489,46 +500,127 @@ export default {
   z-index: var(--z-modal);
 }
 
-/* Chat Toggle Button */
-.chat-toggle-btn {
-  width: 60px;
-  height: 60px;
-  border-radius: var(--radius-full);
-  background: var(--gradient-primary);
-  border: none;
-  color: var(--white);
+/* AI Avatar Chat Toggle Button */
+.chat-toggle-btn.ai-avatar-button {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: rgba(102, 126, 234, 0.9);
+  border: 3px solid rgba(255, 255, 255, 0.3);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: var(--shadow-lg);
-  transition: var(--transition-all);
+  box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
+  transition: all 0.3s ease;
   position: relative;
-  overflow: hidden;
+  backdrop-filter: blur(20px);
+  animation: ai-float 6s ease-in-out infinite;
+  overflow: visible;
 }
 
-.chat-toggle-btn::before {
-  content: '';
+.chat-toggle-btn.ai-avatar-button:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+  background: rgba(102, 126, 234, 1);
+}
+
+/* AI Avatar Face */
+.ai-avatar-chat {
+  color: white;
+  position: relative;
+  z-index: 3;
+}
+
+.ai-face {
+  position: relative;
+  z-index: 3;
+}
+
+.ai-eyes {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 8px;
+  justify-content: center;
+}
+
+.eye {
+  width: 8px;
+  height: 8px;
+  background: white;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  animation: ai-blink 4s ease-in-out infinite;
+}
+
+.ai-mouth {
+  width: 16px;
+  height: 8px;
+  background: white;
+  border-radius: 0 0 16px 16px;
+  margin: 0 auto;
+  transition: all 0.2s ease;
+  animation: ai-smile 3s ease-in-out infinite;
+}
+
+/* AI Pulse Rings */
+.ai-pulse-rings {
   position: absolute;
   inset: 0;
-  background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transform: translateX(-100%);
-  transition: transform 0.6s ease;
+  pointer-events: none;
 }
 
-.chat-toggle-btn:hover {
-  transform: translateY(-3px) scale(1.05);
-  box-shadow: var(--shadow-primary);
+.pulse-ring {
+  position: absolute;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  animation-fill-mode: both;
 }
 
-.chat-toggle-btn:hover::before {
-  transform: translateX(100%);
+.ring-1 {
+  inset: -15px;
+  animation: ai-pulse-1 4s ease-out infinite;
 }
 
-.chat-icon {
-  width: 24px;
-  height: 24px;
-  z-index: 1;
+.ring-2 {
+  inset: -25px;
+  animation: ai-pulse-2 4s ease-out infinite 1.5s;
+}
+
+.ring-3 {
+  inset: -35px;
+  animation: ai-pulse-3 4s ease-out infinite 3s;
+}
+
+/* AI Animations */
+@keyframes ai-float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-5px); }
+}
+
+@keyframes ai-blink {
+  0%, 90%, 100% { height: 8px; }
+  95% { height: 2px; }
+}
+
+@keyframes ai-smile {
+  0%, 50%, 100% { border-radius: 0 0 16px 16px; }
+  25% { border-radius: 0 0 20px 20px; }
+}
+
+@keyframes ai-pulse-1 {
+  0% { transform: scale(0.8); opacity: 1; }
+  100% { transform: scale(1.2); opacity: 0; }
+}
+
+@keyframes ai-pulse-2 {
+  0% { transform: scale(0.8); opacity: 1; }
+  100% { transform: scale(1.4); opacity: 0; }
+}
+
+@keyframes ai-pulse-3 {
+  0% { transform: scale(0.8); opacity: 1; }
+  100% { transform: scale(1.6); opacity: 0; }
 }
 
 /* Chat Window */
@@ -949,14 +1041,24 @@ export default {
     max-width: 380px;
   }
   
-  .chat-toggle-btn {
-    width: 56px;
-    height: 56px;
+  .chat-toggle-btn.ai-avatar-button {
+    width: 60px;
+    height: 60px;
   }
   
-  .chat-icon {
-    width: 20px;
-    height: 20px;
+  .ai-eyes {
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  
+  .eye {
+    width: 6px;
+    height: 6px;
+  }
+  
+  .ai-mouth {
+    width: 12px;
+    height: 6px;
   }
 
   .message-bubble {
