@@ -2,31 +2,60 @@
   <div class="page-container content-page">
     <section class="section-spacing text-center">
       <div class="container">
-        <h1 class="section-title">Kushtet e Shërbimit</h1>
+        <h1 class="section-title">Terms of Service</h1>
         <p class="section-subtitle">
-          Këto kushte rregullojnë përdorimin tuaj të shërbimit tonë.
+          These terms govern your use of our CV creation service.
         </p>
       </div>
     </section>
 
     <section class="container mb-xxl">
       <div class="card p-xl">
-        <h2 class="card-title mb-md">1. Pranimi i Kushteve</h2>
-        <p>Duke hyrë ose përdorur shërbimin tonë, ju pranoni të jeni të detyruar nga këto Kushte të Shërbimit. Nëse nuk pajtoheni me ndonjë pjesë të kushteve, atëherë nuk mund të përdorni Shërbimin.</p>
+        <h2 class="card-title mb-md">1. Acceptance of Terms</h2>
+        <p>By accessing or using CV Atelier, you agree to be bound by these Terms of Service. If you disagree with any part of these terms, then you may not access the Service.</p>
 
-        <h2 class="card-title mb-md">2. Llogaritë</h2>
-        <p>Kur krijoni një llogari me ne, ju garantoni se jeni mbi 18 vjeç dhe se informacioni që na jepni është i saktë, i plotë dhe aktual në çdo kohë. Informacioni i pasaktë, i paplotë ose i vjetëruar mund të rezultojë në ndërprerjen e menjëhershme të llogarisë tuaj në Shërbimin tonë.</p>
+        <h2 class="card-title mb-md">2. Description of Service</h2>
+        <p>CV Atelier is a web-based platform that allows users to create, edit, and download professional CVs and resumes. We provide templates, design tools, and features to help you build compelling professional documents.</p>
 
-        <h2 class="card-title mb-md">3. Përmbajtja</h2>
-        <p>Shërbimi ynë ju lejon të postoni, lidhni, ruani, ndani dhe ndryshe të bëni të disponueshme informacione, tekst, grafika ose materiale të tjera (më poshtë, "Përmbajtja"). Ju jeni përgjegjës për Përmbajtjen që postoni në ose përmes Shërbimit, duke përfshirë ligjshmërinë, besueshmërinë dhe përshtatshmërinë e saj.</p>
+        <h2 class="card-title mb-md">3. User Accounts</h2>
+        <p>When you create an account with us, you must provide information that is accurate, complete, and current at all times. You are responsible for safeguarding the password and for all activities that occur under your account.</p>
 
-        <h2 class="card-title mb-md">4. Ndërprerja</h2>
-        <p>Ne mund të ndërpresim ose pezullojmë menjëherë aksesin në Shërbimin tonë, pa njoftim paraprak ose përgjegjësi, për çfarëdo arsye, duke përfshirë pa kufizim, nëse shkelni Kushtet.</p>
+        <h2 class="card-title mb-md">4. User Content</h2>
+        <p>Our Service allows you to post, link, store, share and otherwise make available certain information, text, graphics, or other material ("Content"). You are responsible for the Content that you post to the Service, including its legality, reliability, and appropriateness.</p>
+        <p>By posting Content to the Service, you grant us the right and license to use, modify, publicly perform, publicly display, reproduce, and distribute such Content on and through the Service.</p>
 
-        <h2 class="card-title mb-md">5. Lidhjet me Faqet e Tjera të Internetit</h2>
-        <p>Shërbimi ynë mund të përmbajë lidhje me faqe interneti ose shërbime të palëve të treta që nuk janë në pronësi ose të kontrolluara nga CV Maker. Ne nuk kemi kontroll dhe nuk marrim përgjegjësi për përmbajtjen, politikat e privatësisë ose praktikat e ndonjë faqe interneti ose shërbimi të palës së tretë.</p>
+        <h2 class="card-title mb-md">5. Prohibited Uses</h2>
+        <p>You may not use our Service:</p>
+        <ul class="list-disc list-inside mb-lg">
+          <li>For any unlawful purpose or to solicit others to perform unlawful acts</li>
+          <li>To violate any international, federal, provincial, or state regulations, rules, laws, or local ordinances</li>
+          <li>To infringe upon or violate our intellectual property rights or the intellectual property rights of others</li>
+          <li>To harass, abuse, insult, harm, defame, slander, disparage, intimidate, or discriminate</li>
+          <li>To submit false or misleading information</li>
+        </ul>
 
-        <p class="text-sm text-tertiary mt-lg">Data e fundit e azhurnimit: 24 Korrik 2024</p>
+        <h2 class="card-title mb-md">6. Intellectual Property Rights</h2>
+        <p>The Service and its original content, features, and functionality are and will remain the exclusive property of CV Atelier and its licensors. The Service is protected by copyright, trademark, and other laws.</p>
+
+        <h2 class="card-title mb-md">7. Privacy Policy</h2>
+        <p>Your privacy is important to us. Please review our Privacy Policy, which also governs your use of the Service, to understand our practices.</p>
+
+        <h2 class="card-title mb-md">8. Termination</h2>
+        <p>We may terminate or suspend your account immediately, without prior notice or liability, for any reason whatsoever, including without limitation if you breach the Terms.</p>
+
+        <h2 class="card-title mb-md">9. Limitation of Liability</h2>
+        <p>In no event shall CV Atelier, nor its directors, employees, partners, agents, suppliers, or affiliates, be liable for any indirect, incidental, special, consequential, or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses.</p>
+
+        <h2 class="card-title mb-md">10. Disclaimer</h2>
+        <p>The information on this Service is provided on an "as is" basis. To the fullest extent permitted by law, CV Atelier excludes all representations, warranties, conditions, and terms.</p>
+
+        <h2 class="card-title mb-md">11. Governing Law</h2>
+        <p>These Terms shall be interpreted and governed by the laws of the jurisdiction in which CV Atelier operates, without regard to its conflict of law provisions.</p>
+
+        <h2 class="card-title mb-md">12. Changes to Terms</h2>
+        <p>We reserve the right, at our sole discretion, to modify or replace these Terms at any time. If a revision is material, we will try to provide at least 30 days notice prior to any new terms taking effect.</p>
+
+        <p class="text-sm text-tertiary mt-lg">Last updated: December 2024</p>
       </div>
     </section>
   </div>
@@ -124,5 +153,45 @@ export default {
   .card-body p, .card-body ul, .card-body li {
     font-size: var(--font-size-sm);
   }
+}
+
+/* Dark Theme Overrides */
+body.dark-theme .content-page {
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+}
+
+body.dark-theme .card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+}
+
+body.dark-theme .section-title {
+  color: var(--text-primary);
+}
+
+body.dark-theme .section-subtitle {
+  color: var(--text-secondary);
+}
+
+body.dark-theme .card-title {
+  color: var(--primary-light);
+}
+
+body.dark-theme .card-body p {
+  color: var(--text-secondary);
+}
+
+body.dark-theme .card-body ul {
+  color: var(--text-secondary);
+}
+
+body.dark-theme .card-body li {
+  color: var(--text-secondary);
+}
+
+body.dark-theme .text-tertiary {
+  color: var(--text-muted);
 }
 </style> 

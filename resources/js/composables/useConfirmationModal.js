@@ -29,6 +29,7 @@ export function useConfirmationModal() {
     modalState.isVisible = false
     if (modalState.resolvePromise) {
       modalState.resolvePromise(true)
+      modalState.resolvePromise = null
     }
   }
 
@@ -36,6 +37,7 @@ export function useConfirmationModal() {
     modalState.isVisible = false
     if (modalState.resolvePromise) {
       modalState.resolvePromise(false)
+      modalState.resolvePromise = null
     }
   }
 

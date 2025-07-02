@@ -212,4 +212,54 @@
       margin-bottom: var(--space-xs);
     }
   }
+
+  /* Dark Theme Overrides */
+  body.dark-theme .site-footer {
+    background: var(--bg-elevated);
+    color: var(--text-secondary);
+    border-color: var(--border);
+  }
+
+  body.dark-theme .footer-column-title {
+    color: var(--text-primary);
+  }
+
+  body.dark-theme .footer-links-list a {
+    color: var(--text-secondary);
+  }
+
+  body.dark-theme .footer-links-list a:hover {
+    color: var(--primary-light);
+    border-bottom-color: var(--primary-light);
+  }
+
+  body.dark-theme .footer-about-text,
+  body.dark-theme .footer-subtitle {
+    color: var(--text-secondary);
+  }
+
+  body.dark-theme .footer-logo {
+    color: var(--text-primary);
+  }
+
+  body.dark-theme .footer-logo-text h3 {
+    color: var(--text-primary);
+  }
+
+  body.dark-theme .footer-social-icon {
+    color: var(--text-secondary);
+  }
+
+  body.dark-theme .footer-social-icon:hover {
+    color: var(--primary-light);
+  }
+
+  body.dark-theme .footer-bottom {
+    border-color: var(--border);
+  }
+
+  body.dark-theme .footer-copyright,
+  body.dark-theme .footer-tagline {
+    color: var(--text-tertiary);
+  }
 </style>

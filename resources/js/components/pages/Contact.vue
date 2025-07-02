@@ -271,4 +271,77 @@
       width: 100%;
     }
   }
+
+  /* Dark Theme Overrides */
+  body.dark-theme .contact-wrapper {
+    background: var(--bg-base);
+    color: var(--text-primary);
+  }
+
+  body.dark-theme .section-title {
+    color: var(--text-primary);
+  }
+
+  body.dark-theme .section-description {
+    color: var(--text-secondary);
+  }
+
+  body.dark-theme .form-container {
+    background: var(--bg-elevated);
+  }
+
+  body.dark-theme .contact-form {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: var(--space-xl);
+  }
+
+  body.dark-theme .form-label {
+    color: var(--text-primary);
+  }
+
+  body.dark-theme .form-input,
+  body.dark-theme .form-textarea {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+  }
+
+  body.dark-theme .form-input:focus,
+  body.dark-theme .form-textarea:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(91, 33, 182, 0.1);
+  }
+
+  body.dark-theme .form-input::placeholder,
+  body.dark-theme .form-textarea::placeholder {
+    color: var(--text-muted);
+  }
+
+  body.dark-theme .input-icon {
+    color: var(--text-muted);
+  }
+
+  body.dark-theme .btn.btn-primary {
+    background: var(--primary);
+    color: var(--text-inverse);
+    border-color: var(--primary);
+  }
+
+  body.dark-theme .btn.btn-primary:hover {
+    background: var(--primary-light);
+  }
+
+  body.dark-theme .message.success {
+    background: rgba(16, 185, 129, 0.1);
+    border-color: var(--success);
+    color: var(--success-light);
+  }
+
+  body.dark-theme .message.error {
+    background: rgba(239, 68, 68, 0.1);
+    border-color: var(--error);
+    color: var(--error-light);
+  }
 </style>

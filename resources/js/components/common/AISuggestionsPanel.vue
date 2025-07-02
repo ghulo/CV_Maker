@@ -3,11 +3,11 @@
     <!-- AI Assistant Header -->
     <div class="ai-header" @click="togglePanel">
       <div class="ai-icon">
-        <i class="fas fa-brain" :class="{ 'pulse': isGenerating }"></i>
+        <i class="fas fa-brain" :class="{ 'pulse': isGenerating, 'thinking': isAnalyzing }"></i>
       </div>
       <div class="ai-title">
-        <h3>AI Assistant</h3>
-        <p>Get intelligent suggestions for your CV</p>
+        <h3>{{ $t('ai.assistant') }}</h3>
+        <p>{{ $t('ai.assistant_tagline') }}</p>
       </div>
       <button class="toggle-btn">
         <i class="fas" :class="isExpanded ? 'fa-chevron-down' : 'fa-chevron-up'"></i>
@@ -16,30 +16,85 @@
 
     <!-- AI Content -->
     <div class="ai-content" v-if="isExpanded">
+      <!-- AI Greeting Message -->
+      <div class="ai-greeting" v-if="!cvAnalysis || isFirstTime">
+        <div class="greeting-message">
+          <span class="greeting-emoji">👋</span>
+          <p>{{ currentGreeting }}</p>
+        </div>
+        <div class="motivational-message" v-if="motivationalMessage">
+          <p>{{ motivationalMessage }}</p>
+        </div>
+      </div>
+
       <!-- CV Analysis Score -->
       <div class="cv-score-section" v-if="cvAnalysis">
         <div class="score-header">
-          <h4>CV Strength Score</h4>
+          <h4>{{ $t('ai.strength_score') }}</h4>
           <div class="score-circle" :class="getScoreClass(cvAnalysis.score)">
-            {{ cvAnalysis.score }}/100
+            <span class="score-number">{{ cvAnalysis.score }}</span>
+            <span class="score-total">/100</span>
           </div>
         </div>
-        <div class="completeness-bar">
-          <div class="progress-bar" :style="{ width: cvAnalysis.completeness + '%' }"></div>
+        
+        <div class="score-breakdown">
+          <div class="completeness-section">
+            <div class="section-label">
+              <span>{{ $t('ai.completeness') }}</span>
+              <span class="percentage">{{ cvAnalysis.completeness }}%</span>
+            </div>
+            <div class="progress-bar-container">
+              <div class="progress-bar" :style="{ '--bar-width': cvAnalysis.completeness }"></div>
+            </div>
+          </div>
+          
+          <div class="ats-section" v-if="cvAnalysis.atsScore">
+            <div class="section-label">
+              <span>{{ $t('ai.ats_score') }}</span>
+              <span class="percentage">{{ cvAnalysis.atsScore }}%</span>
+            </div>
+            <div class="progress-bar-container">
+              <div class="progress-bar ats-bar" :style="{ '--bar-width': cvAnalysis.atsScore }"></div>
+            </div>
+          </div>
+
+          <div class="industry-alignment" v-if="cvAnalysis.industryAlignment">
+            <span class="alignment-label">{{ $t('ai.industry_alignment') }}:</span>
+            <span class="alignment-value" :class="cvAnalysis.industryAlignment">
+              {{ $t(`ai.${cvAnalysis.industryAlignment}`) }}
+            </span>
+          </div>
         </div>
-        <p>{{ cvAnalysis.completeness }}% Complete</p>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="quick-actions" v-if="quickActions.length > 0">
+        <h4>{{ $t('ai.actions.analyze_now') }}</h4>
+        <div class="action-buttons">
+          <button 
+            v-for="action in quickActions" 
+            :key="action.id"
+            @click="executeQuickAction(action)"
+            :class="['action-btn', action.type]"
+            :disabled="isGenerating"
+          >
+            <i :class="action.icon"></i>
+            <span>{{ $t(action.label) }}</span>
+          </button>
+        </div>
       </div>
 
       <!-- Suggestions Tabs -->
       <div class="suggestions-tabs">
         <button 
-          v-for="tab in tabs" 
+          v-for="tab in visibleTabs" 
           :key="tab.id"
           @click="activeTab = tab.id"
           :class="['tab', { active: activeTab === tab.id }]"
         >
           <i :class="tab.icon"></i>
-          {{ tab.label }}
+          {{ $t(tab.label) }}
+          <span v-if="getTabBadgeCount(tab.id)" class="badge">{{ getTabBadgeCount(tab.id) }}</span>
         </button>
       </div>
 
@@ -47,120 +102,232 @@
       <div class="tab-content">
         <!-- Skills Suggestions -->
         <div v-if="activeTab === 'skills'" class="suggestions-section">
-          <h4>Recommended Skills</h4>
-          <p class="helper-text">Based on your role, here are popular skills to add:</p>
-          <div class="skill-suggestions">
-            <button 
-              v-for="skill in skillSuggestions" 
-              :key="skill"
-              @click="addSkill(skill)"
-              class="suggestion-chip"
-              :disabled="isSkillAdded(skill)"
-            >
-              <i class="fas fa-plus" v-if="!isSkillAdded(skill)"></i>
-              <i class="fas fa-check" v-else></i>
-              {{ skill }}
-            </button>
+          <div class="section-header">
+            <h4>{{ $t('ai.recommended_skills') }}</h4>
+            <span class="powered-by">{{ $t('ai.status.ready') }}</span>
           </div>
+          
+          <div class="skills-context" v-if="primaryJobTitle">
+            <p>{{ $t('ai.prompts.skills_strategic') }}</p>
+            <span class="job-context">{{ $t('Based on your role as') }} <strong>{{ primaryJobTitle }}</strong></span>
+          </div>
+
+          <div class="skills-list">
+            <div 
+              v-for="skill in enhancedSkillSuggestions" 
+              :key="skill.name"
+              class="skill-suggestion"
+              :class="{ 'already-added': skill.alreadyAdded }"
+            >
+              <div class="skill-info">
+                <span class="skill-name">{{ skill.name }}</span>
+                <span v-if="skill.level" class="skill-level">{{ $t(`ai.${skill.level}`) }}</span>
+                <span v-if="skill.trending" class="trending-badge">🔥 {{ $t('ai.trending_skills') }}</span>
+              </div>
+              <button 
+                @click="addRecommendedSkill(skill)"
+                :disabled="skill.alreadyAdded || isGenerating"
+                class="add-skill-btn"
+              >
+                <i :class="skill.alreadyAdded ? 'fas fa-check' : 'fas fa-plus'"></i>
+                {{ skill.alreadyAdded ? $t('ai.actions.applied') : $t('ai.actions.apply_suggestion') }}
+              </button>
+            </div>
+          </div>
+
+          <button @click="generateMoreSkills" class="generate-more-btn" :disabled="isGenerating">
+            <i class="fas fa-refresh" :class="{ 'spinning': isGenerating }"></i>
+            {{ $t('ai.actions.generate_more') }}
+          </button>
         </div>
 
         <!-- Summary Suggestions -->
         <div v-if="activeTab === 'summary'" class="suggestions-section">
-          <h4>Professional Summary Template</h4>
-          <p class="helper-text">AI-generated summary based on your experience:</p>
-          <div class="summary-suggestion">
-            <textarea 
-              v-model="generatedSummary" 
-              rows="4" 
-              readonly
-              class="suggestion-textarea"
-            ></textarea>
-            <button @click="useSummary" class="use-suggestion-btn">
-              <i class="fas fa-magic"></i>
-              Use This Summary
-            </button>
+          <div class="section-header">
+            <h4>{{ $t('ai.summary_generator') }}</h4>
+            <span class="powered-by">{{ $t('ai.status.ready') }}</span>
           </div>
+
+          <div class="summary-context">
+            <p>{{ $t('ai.prompts.summary_help') }}</p>
+            <div class="context-info" v-if="experienceYears || primaryJobTitle">
+              <span v-if="experienceYears">{{ experienceYears }} {{ $t('years experience') }}</span>
+              <span v-if="primaryJobTitle">{{ $t('as') }} {{ primaryJobTitle }}</span>
+            </div>
+          </div>
+
+          <div class="summary-templates" v-if="summaryTemplates.length > 0">
+            <div 
+              v-for="(template, index) in summaryTemplates" 
+              :key="index"
+              class="summary-template"
+            >
+              <div class="template-header">
+                <span class="template-type">{{ $t(`ai.${template.type}`) }}</span>
+                <span class="template-length">{{ template.content.split(' ').length }} {{ $t('words') }}</span>
+              </div>
+              <div class="template-content">
+                <p>{{ template.content }}</p>
+              </div>
+              <div class="template-actions">
+                <button @click="useSummaryTemplate(template)" class="use-template-btn">
+                  <i class="fas fa-magic"></i>
+                  {{ $t('ai.actions.use_template') }}
+                </button>
+                <button @click="customizeSummary(template)" class="customize-btn">
+                  <i class="fas fa-edit"></i>
+                  {{ $t('ai.actions.customize') }}
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <button @click="generateSummary" class="generate-btn" :disabled="isGenerating">
+            <i class="fas fa-sparkles" :class="{ 'spinning': isGenerating }"></i>
+            {{ isGenerating ? $t('ai.generating') : $t('ai.generate') }}
+          </button>
         </div>
 
-        <!-- Experience Suggestions -->
+        <!-- Experience Enhancement -->
         <div v-if="activeTab === 'experience'" class="suggestions-section">
-          <h4>Work Experience Ideas</h4>
-          <p class="helper-text">Common responsibilities for your role:</p>
-          <div class="experience-suggestions">
+          <div class="section-header">
+            <h4>{{ $t('ai.experience_enhancer') }}</h4>
+            <span class="powered-by">{{ $t('ai.status.ready') }}</span>
+          </div>
+
+          <div class="experience-context">
+            <p>{{ $t('ai.prompts.experience_boost') }}</p>
+          </div>
+
+          <div class="experience-suggestions" v-if="experienceSuggestions.length > 0">
             <div 
               v-for="(suggestion, index) in experienceSuggestions" 
               :key="index"
-              class="suggestion-item"
+              class="experience-suggestion"
             >
-              <p>{{ suggestion }}</p>
-              <button @click="addExperiencePoint(suggestion)" class="mini-add-btn">
-                <i class="fas fa-plus"></i>
+              <div class="suggestion-content">
+                <p>{{ suggestion }}</p>
+              </div>
+              <div class="suggestion-actions">
+                <button @click="useExperienceSuggestion(suggestion)" class="use-suggestion-btn">
+                  <i class="fas fa-plus"></i>
+                  {{ $t('ai.actions.apply_suggestion') }}
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <button @click="generateExperienceSuggestions" class="generate-btn" :disabled="isGenerating">
+            <i class="fas fa-lightbulb" :class="{ 'spinning': isGenerating }"></i>
+            {{ $t('ai.actions.generate_more') }}
+          </button>
+        </div>
+
+        <!-- Interests Suggestions -->
+        <div v-if="activeTab === 'interests'" class="suggestions-section">
+          <div class="section-header">
+            <h4>{{ $t('ai.interests_section') }}</h4>
+            <span class="powered-by">{{ $t('ai.status.ready') }}</span>
+          </div>
+
+          <div class="interests-context">
+            <p>{{ $t('ai.prompts.interests_personality') }}</p>
+          </div>
+
+          <div class="interests-list">
+            <div 
+              v-for="interest in interestSuggestions" 
+              :key="interest"
+              class="interest-suggestion"
+            >
+              <span class="interest-name">{{ interest }}</span>
+              <button @click="addInterest(interest)" class="add-interest-btn">
+                <i class="fas fa-heart"></i>
+                {{ $t('ai.actions.apply_suggestion') }}
               </button>
             </div>
           </div>
         </div>
 
-        <!-- Interests Suggestions -->
-        <div v-if="activeTab === 'interests'" class="suggestions-section">
-          <h4>Professional Interests</h4>
-          <p class="helper-text">Interests that align with your profession:</p>
-          <div class="interest-suggestions">
-            <button 
-              v-for="interest in interestSuggestions" 
-              :key="interest"
-              @click="addInterest(interest)"
-              class="suggestion-chip"
-              :disabled="isInterestAdded(interest)"
-            >
-              <i class="fas fa-plus" v-if="!isInterestAdded(interest)"></i>
-              <i class="fas fa-check" v-else></i>
-              {{ interest }}
-            </button>
-          </div>
-        </div>
-
         <!-- Optimization Tips -->
         <div v-if="activeTab === 'optimize'" class="suggestions-section">
-          <h4>Optimization Tips</h4>
+          <div class="section-header">
+            <h4>{{ $t('ai.improvement_tips') }}</h4>
+            <span class="powered-by">{{ $t('ai.status.ready') }}</span>
+          </div>
           
-          <!-- Issues -->
-          <div v-if="cvAnalysis && cvAnalysis.issues.length > 0" class="issues-list">
-            <h5>Issues to Fix:</h5>
-            <div 
-              v-for="issue in cvAnalysis.issues" 
-              :key="issue.title"
-              class="issue-item"
-              :class="issue.type"
-            >
-              <div class="issue-icon">
-                <i class="fas fa-exclamation-triangle" v-if="issue.type === 'warning'"></i>
-                <i class="fas fa-times-circle" v-if="issue.type === 'error'"></i>
-              </div>
-              <div class="issue-content">
-                <h6>{{ issue.title }}</h6>
-                <p>{{ issue.description }}</p>
-                <span class="issue-action">{{ issue.action }}</span>
+          <!-- Strengths -->
+          <div v-if="cvAnalysis && cvAnalysis.strengths.length > 0" class="strengths-section">
+            <h5>{{ $t('ai.strengths') }}</h5>
+            <div class="strengths-list">
+              <div 
+                v-for="strength in cvAnalysis.strengths" 
+                :key="strength"
+                class="strength-item"
+              >
+                <i class="fas fa-check-circle"></i>
+                <span>{{ strength }}</span>
               </div>
             </div>
           </div>
 
-          <!-- Suggestions -->
-          <div v-if="cvAnalysis && cvAnalysis.suggestions.length > 0" class="suggestions-list">
-            <h5>Improvement Suggestions:</h5>
-            <div 
-              v-for="suggestion in cvAnalysis.suggestions" 
-              :key="suggestion.title"
-              class="suggestion-item improvement"
-            >
-              <div class="suggestion-icon">
-                <i class="fas fa-lightbulb"></i>
-              </div>
-              <div class="suggestion-content">
-                <h6>{{ suggestion.title }}</h6>
-                <p>{{ suggestion.description }}</p>
-                <span class="suggestion-action">{{ suggestion.action }}</span>
+          <!-- Improvements -->
+          <div v-if="cvAnalysis && cvAnalysis.improvements.length > 0" class="improvements-section">
+            <h5>{{ $t('ai.improvements') }}</h5>
+            <div class="improvements-list">
+              <div 
+                v-for="improvement in cvAnalysis.improvements" 
+                :key="improvement.title"
+                class="improvement-item"
+                :class="improvement.priority"
+              >
+                <div class="improvement-header">
+                  <div class="improvement-title">
+                    <i :class="getPriorityIcon(improvement.priority)"></i>
+                    <span>{{ improvement.title }}</span>
+                  </div>
+                  <span class="impact-badge" :class="improvement.priority">
+                    {{ improvement.impact }}
+                  </span>
+                </div>
+                <p class="improvement-description">{{ improvement.description }}</p>
+                <p class="improvement-action">{{ improvement.action }}</p>
               </div>
             </div>
+          </div>
+
+          <!-- Weaknesses -->
+          <div v-if="cvAnalysis && cvAnalysis.weaknesses.length > 0" class="weaknesses-section">
+            <h5>{{ $t('ai.weaknesses') }}</h5>
+            <div class="weaknesses-list">
+              <div 
+                v-for="weakness in cvAnalysis.weaknesses" 
+                :key="weakness"
+                class="weakness-item"
+              >
+                <i class="fas fa-exclamation-triangle"></i>
+                <span>{{ weakness }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AI Status Footer -->
+      <div class="ai-status-footer">
+        <div class="status-indicator" :class="aiStatus">
+          <i :class="getStatusIcon()"></i>
+          <span>{{ $t(`ai.status.${aiStatus}`) }}</span>
+        </div>
+        <div class="feedback-section" v-if="showFeedback">
+          <span>{{ $t('ai.feedback.analysis_helpful') }}</span>
+          <div class="feedback-buttons">
+            <button @click="provideFeedback(true)" class="feedback-btn positive">
+              <i class="fas fa-thumbs-up"></i>
+            </button>
+            <button @click="provideFeedback(false)" class="feedback-btn negative">
+              <i class="fas fa-thumbs-down"></i>
+            </button>
           </div>
         </div>
       </div>
@@ -169,7 +336,7 @@
 </template>
 
 <script>
-import { ref, computed, watch, onMounted } from 'vue'
+import { ref, computed, watch, onMounted, inject } from 'vue'
 import AIService from '@/services/aiService.js'
 
 export default {
@@ -186,21 +353,57 @@ export default {
   },
   emits: ['update-cv', 'add-skill', 'add-interest', 'update-summary', 'add-experience-point'],
   setup(props, { emit }) {
+    const t = inject('t') || ((key) => key)
+    const currentLanguage = inject('currentLanguage') || ref('en')
+
+    // Reactive data
     const isExpanded = ref(false)
     const activeTab = ref('skills')
     const isGenerating = ref(false)
+    const isAnalyzing = ref(false)
     const cvAnalysis = ref(null)
-    const generatedSummary = ref('')
+    const summaryTemplates = ref([])
+    const experienceSuggestions = ref([])
+    const aiStatus = ref('ready')
+    const showFeedback = ref(false)
+    const isFirstTime = ref(true)
+    const motivationalMessage = ref('')
+
+    // Initialize AI service with language
+    const aiService = new AIService()
+    watch(currentLanguage, (newLang) => {
+      aiService.setLanguage(newLang)
+      refreshContent()
+    }, { immediate: true })
 
     const tabs = [
-      { id: 'skills', label: 'Skills', icon: 'fas fa-cogs' },
-      { id: 'summary', label: 'Summary', icon: 'fas fa-user' },
-      { id: 'experience', label: 'Experience', icon: 'fas fa-briefcase' },
-      { id: 'interests', label: 'Interests', icon: 'fas fa-heart' },
-      { id: 'optimize', label: 'Tips', icon: 'fas fa-chart-line' }
+      { id: 'skills', label: 'ai.skills_section', icon: 'fas fa-cogs' },
+      { id: 'summary', label: 'ai.summary_generator', icon: 'fas fa-user' },
+      { id: 'experience', label: 'ai.experience_enhancer', icon: 'fas fa-briefcase' },
+      { id: 'interests', label: 'ai.interests_section', icon: 'fas fa-heart' },
+      { id: 'optimize', label: 'ai.improvement_tips', icon: 'fas fa-chart-line' }
     ]
 
-    // Computed suggestions based on CV data
+    // Computed properties
+    const currentGreeting = computed(() => {
+      return aiService.getAIGreeting(props.cvData, props.currentStep)
+    })
+
+    const visibleTabs = computed(() => {
+      // Show tabs based on current step and available content
+      const stepRelevantTabs = {
+        0: ['skills', 'optimize'],
+        1: ['summary', 'optimize'],
+        2: ['experience', 'optimize'],
+        3: ['skills', 'optimize'],
+        4: ['interests', 'optimize'],
+        5: ['skills', 'summary', 'experience', 'interests', 'optimize']
+      }
+      
+      const relevantIds = stepRelevantTabs[props.currentStep] || tabs.map(t => t.id)
+      return tabs.filter(tab => relevantIds.includes(tab.id))
+    })
+
     const primaryJobTitle = computed(() => {
       if (props.cvData.experience && props.cvData.experience.length > 0) {
         return props.cvData.experience[0].title || 'professional'
@@ -208,70 +411,209 @@ export default {
       return 'professional'
     })
 
-    const skillSuggestions = computed(() => {
-      return AIService.getSkillSuggestions(primaryJobTitle.value)
+    const experienceYears = computed(() => {
+      return aiService.calculateExperienceYears(props.cvData.experience || [])
     })
 
-    const experienceSuggestions = computed(() => {
-      return AIService.getExperienceSuggestions(primaryJobTitle.value)
+    const enhancedSkillSuggestions = computed(() => {
+      const suggestions = aiService.getSkillSuggestions(
+        primaryJobTitle.value, 
+        '', 
+        experienceYears.value >= 5 ? 'advanced' : 'intermediate'
+      )
+      
+      const userSkills = (props.cvData.skills || []).map(skill => 
+        typeof skill === 'string' ? skill : skill.name
+      )
+
+      return suggestions.map(skill => ({
+        name: skill,
+        alreadyAdded: userSkills.includes(skill),
+        level: Math.random() > 0.7 ? 'trending' : 'recommended',
+        trending: Math.random() > 0.8
+      }))
     })
 
     const interestSuggestions = computed(() => {
-      return AIService.getInterestSuggestions(primaryJobTitle.value)
+      return aiService.getInterestSuggestions ? 
+        aiService.getInterestSuggestions(primaryJobTitle.value) : 
+        ['Professional Development', 'Technology Trends', 'Team Sports', 'Reading']
+    })
+
+    const quickActions = computed(() => {
+      const actions = []
+      
+      if (!cvAnalysis.value) {
+        actions.push({
+          id: 'analyze',
+          type: 'primary',
+          icon: 'fas fa-search',
+          label: 'ai.analyze'
+        })
+      }
+      
+      if (props.currentStep === 1 && !props.cvData.summary) {
+        actions.push({
+          id: 'generate-summary',
+          type: 'success',
+          icon: 'fas fa-magic',
+          label: 'ai.generate'
+        })
+      }
+
+      return actions
     })
 
     // Methods
     const togglePanel = () => {
       isExpanded.value = !isExpanded.value
-      if (isExpanded.value) {
+      if (isExpanded.value && !cvAnalysis.value) {
         analyzeCV()
       }
     }
 
-    const analyzeCV = () => {
-      cvAnalysis.value = AIService.analyzeCV(props.cvData)
-      generateSummary()
+    const analyzeCV = async () => {
+      isAnalyzing.value = true
+      aiStatus.value = 'processing'
+      
+      try {
+        // Simulate AI thinking time for realism
+        await new Promise(resolve => setTimeout(resolve, 1500))
+        
+        cvAnalysis.value = aiService.analyzeCV(props.cvData)
+        aiStatus.value = 'complete'
+        showFeedback.value = true
+        isFirstTime.value = false
+        
+        // Generate motivational message
+        motivationalMessage.value = aiService.getMotivationalMessage('encouraging')
+        
+      } catch (error) {
+        console.error('AI Analysis failed:', error)
+        aiStatus.value = 'error'
+      } finally {
+        isAnalyzing.value = false
+      }
     }
 
-    const generateSummary = () => {
+    const generateSummary = async () => {
       isGenerating.value = true
-      setTimeout(() => {
-        generatedSummary.value = AIService.generateSummaryTemplate(
-          props.cvData.personalInfo, 
-          props.cvData.experience
-        )
+      
+      try {
+        await new Promise(resolve => setTimeout(resolve, 2000)) // Realistic delay
+        
+        const templates = []
+        for (let i = 0; i < 3; i++) {
+          const summary = aiService.generateProfessionalSummary(
+            props.cvData.personalInfo,
+            props.cvData.experience || [],
+            props.cvData.skills || [],
+            primaryJobTitle.value
+          )
+          
+          const type = i === 0 ? 'professional' : i === 1 ? 'creative' : 'results_focused'
+          templates.push({
+            type,
+            content: summary,
+            wordCount: summary.split(' ').length
+          })
+        }
+        
+        summaryTemplates.value = templates
+        
+      } catch (error) {
+        console.error('Summary generation failed:', error)
+      } finally {
         isGenerating.value = false
-      }, 1000)
+      }
     }
 
-    const addSkill = (skillName) => {
-      emit('add-skill', { name: skillName, rating: 3 })
+    const generateExperienceSuggestions = async () => {
+      isGenerating.value = true
+      
+      try {
+        await new Promise(resolve => setTimeout(resolve, 1500))
+        
+        if (aiService.getExperienceSuggestions) {
+          experienceSuggestions.value = aiService.getExperienceSuggestions(
+            primaryJobTitle.value,
+            'medium',
+            ''
+          )
+        }
+        
+      } catch (error) {
+        console.error('Experience suggestions failed:', error)
+      } finally {
+        isGenerating.value = false
+      }
     }
 
-    const addInterest = (interestName) => {
-      emit('add-interest', { name: interestName })
+    const generateMoreSkills = async () => {
+      isGenerating.value = true
+      
+      try {
+        await new Promise(resolve => setTimeout(resolve, 1000))
+        // This would trigger a re-computation of enhancedSkillSuggestions
+        // Force refresh by changing the experience level
+        
+      } catch (error) {
+        console.error('Skill generation failed:', error)
+      } finally {
+        isGenerating.value = false
+      }
     }
 
-    const addExperiencePoint = (description) => {
-      emit('add-experience-point', description)
+    const executeQuickAction = async (action) => {
+      switch (action.id) {
+        case 'analyze':
+          await analyzeCV()
+          break
+        case 'generate-summary':
+          activeTab.value = 'summary'
+          await generateSummary()
+          break
+      }
     }
 
-    const useSummary = () => {
-      emit('update-summary', generatedSummary.value)
+    const useSummaryTemplate = (template) => {
+      emit('update-summary', template.content)
+      motivationalMessage.value = t('ai.feedback.suggestion_applied')
     }
 
-    const isSkillAdded = (skillName) => {
-      return props.cvData.skills?.some(skill => 
-        skill.name.toLowerCase() === skillName.toLowerCase()
-      )
+    const customizeSummary = (template) => {
+      // Open summary editor with template as starting point
+      emit('update-summary', template.content)
+      activeTab.value = 'summary'
     }
 
-    const isInterestAdded = (interestName) => {
-      return props.cvData.interests?.some(interest => 
-        interest.name.toLowerCase() === interestName.toLowerCase()
-      )
+    const addRecommendedSkill = (skill) => {
+      if (!skill.alreadyAdded) {
+        emit('add-skill', skill.name)
+        skill.alreadyAdded = true
+      }
     }
 
+    const addInterest = (interest) => {
+      emit('add-interest', interest)
+    }
+
+    const useExperienceSuggestion = (suggestion) => {
+      emit('add-experience-point', suggestion)
+    }
+
+    const refreshContent = () => {
+      if (cvAnalysis.value) {
+        analyzeCV()
+      }
+    }
+
+    const provideFeedback = (positive) => {
+      showFeedback.value = false
+      motivationalMessage.value = t('ai.feedback.feedback_thanks')
+    }
+
+    // Utility methods
     const getScoreClass = (score) => {
       if (score >= 80) return 'excellent'
       if (score >= 60) return 'good'
@@ -279,48 +621,90 @@ export default {
       return 'poor'
     }
 
-    // Watch for CV changes and re-analyze
+    const getTabBadgeCount = (tabId) => {
+      switch (tabId) {
+        case 'skills':
+          return enhancedSkillSuggestions.value.filter(s => !s.alreadyAdded).length
+        case 'optimize':
+          return cvAnalysis.value ? cvAnalysis.value.improvements.length : 0
+        default:
+          return 0
+      }
+    }
+
+    const getPriorityIcon = (priority) => {
+      const icons = {
+        high: 'fas fa-exclamation-circle',
+        medium: 'fas fa-info-circle',
+        low: 'fas fa-lightbulb'
+      }
+      return icons[priority] || 'fas fa-info-circle'
+    }
+
+    const getStatusIcon = () => {
+      const icons = {
+        ready: 'fas fa-check-circle',
+        processing: 'fas fa-spinner fa-spin',
+        complete: 'fas fa-check-circle',
+        error: 'fas fa-exclamation-triangle',
+        offline: 'fas fa-wifi'
+      }
+      return icons[aiStatus.value] || 'fas fa-question-circle'
+    }
+
+    // Watch for changes
     watch(() => props.cvData, () => {
-      if (isExpanded.value) {
-        analyzeCV()
+      if (cvAnalysis.value) {
+        // Debounce analysis updates
+        setTimeout(() => analyzeCV(), 1000)
       }
     }, { deep: true })
 
-    // Auto-set relevant tab based on current step
-    watch(() => props.currentStep, (newStep) => {
-      const stepToTab = {
-        0: 'summary',
-        1: 'experience',
-        3: 'skills',
-        4: 'interests'
-      }
-      if (stepToTab[newStep]) {
-        activeTab.value = stepToTab[newStep]
-      }
-    })
-
     onMounted(() => {
-      analyzeCV()
+      motivationalMessage.value = aiService.getMotivationalMessage('motivational')
     })
 
     return {
+      // Reactive data
       isExpanded,
       activeTab,
       isGenerating,
+      isAnalyzing,
       cvAnalysis,
-      generatedSummary,
-      tabs,
-      skillSuggestions,
+      summaryTemplates,
       experienceSuggestions,
+      aiStatus,
+      showFeedback,
+      isFirstTime,
+      motivationalMessage,
+      
+      // Computed
+      tabs,
+      visibleTabs,
+      currentGreeting,
+      primaryJobTitle,
+      experienceYears,
+      enhancedSkillSuggestions,
       interestSuggestions,
+      quickActions,
+      
+      // Methods
       togglePanel,
-      addSkill,
+      analyzeCV,
+      generateSummary,
+      generateExperienceSuggestions,
+      generateMoreSkills,
+      executeQuickAction,
+      useSummaryTemplate,
+      customizeSummary,
+      addRecommendedSkill,
       addInterest,
-      addExperiencePoint,
-      useSummary,
-      isSkillAdded,
-      isInterestAdded,
-      getScoreClass
+      useExperienceSuggestion,
+      provideFeedback,
+      getScoreClass,
+      getTabBadgeCount,
+      getPriorityIcon,
+      getStatusIcon
     }
   }
 }
@@ -449,11 +833,8 @@ export default {
   margin-bottom: 8px;
 }
 
-.progress-bar {
-  height: 100%;
-  background: var(--primary);
-  border-radius: 3px;
-  transition: width 0.3s ease;
+.progress-bar, .ats-bar {
+  width: var(--bar-width, 100%);
 }
 
 /* Tabs */

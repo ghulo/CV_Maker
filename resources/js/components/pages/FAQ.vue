@@ -168,7 +168,7 @@ export default {
       {
         question: 'Is my personal data secure?',
         answer:
-          'We take the privacy and security of your data very seriously. Please review our <a href="/privacy-policy" class="text-link">Privacy Policy</a> for detailed information on how we collect, use, and protect your data.',
+          'We take the privacy and security of your data very seriously. Please review our <a href="/privacy" class="text-link">Privacy Policy</a> for detailed information on how we collect, use, and protect your data.',
         open: false,
       },
       {
@@ -208,6 +208,16 @@ export default {
   --space-lg: 24px;
   --space-xl: 32px;
   --space-xxl: 48px;
+}
+
+/* Dark Theme Variables */
+body.dark-theme {
+  --bg: #0F172A;
+  --bg-subtle: #1E293B;
+  --text: #F8FAFC;
+  --text-muted: #CBD5E1;
+  --border: #334155;
+  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
 }
 
 /* Base Styles */

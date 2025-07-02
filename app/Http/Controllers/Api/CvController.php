@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Cv;
+use App\Models\UserActivity;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -12,6 +13,14 @@ use Barryvdh\DomPDF\Facade\Pdf;
 
 class CvController extends Controller
 {
+    /**
+     * Get all CVs for the authenticated user (index method for dashboard).
+     */
+    public function index(Request $request)
+    {
+        return $this->userCvs($request);
+    }
+
     /**
      * Get all CVs for the authenticated user.
      */
@@ -39,6 +48,9 @@ class CvController extends Controller
      */
     public function store(Request $request)
     {
+        // Log incoming request data for debugging
+        \Log::info('CV Store Request Data:', $request->all());
+        
         // More lenient validation for drafts
         $validator = Validator::make($request->all(), [
             'title' => 'required|string|max:255',
@@ -47,6 +59,13 @@ class CvController extends Controller
             'personalDetails.email' => 'required|email|max:255',
             'personalDetails.phone' => 'nullable|string|max:255',
             'personalDetails.address' => 'nullable|string|max:500',
+            'personalDetails.dateOfBirth' => 'nullable|date',
+            'personalDetails.placeOfBirth' => 'nullable|string|max:255',
+            'personalDetails.gender' => 'nullable|string|in:male,female,other,prefer_not_to_say',
+            'personalDetails.nationality' => 'nullable|string|max:255',
+            'personalDetails.zipCode' => 'nullable|string|max:20',
+            'personalDetails.maritalStatus' => 'nullable|string|in:single,married,divorced,widowed',
+            'personalDetails.drivingLicense' => 'nullable|string|max:255',
             'summary' => 'nullable|string|max:2000',
             'experience' => 'present|array',
             'education' => 'present|array',
@@ -81,8 +100,32 @@ class CvController extends Controller
 
             DB::commit();
 
+            // Log activity
+            UserActivity::log(
+                Auth::id(),
+                UserActivity::TYPE_CV_CREATED,
+                'CV Created',
+                'Created new CV: "' . $cv->cv_title . '"',
+                [
+                    'cv_id' => $cv->id,
+                    'cv_title' => $cv->cv_title,
+                    'template' => $cv->selected_template,
+                    'sections' => [
+                        'experience_count' => count($cvData['experience']),
+                        'education_count' => count($cvData['education']),
+                        'skills_count' => count($cvData['skills']),
+                        'interests_count' => count($cvData['interests'])
+                    ]
+                ]
+            );
+
             $cv->load(['workExperiences', 'education', 'skills', 'interests']);
-            return response()->json(['success' => true, 'message' => 'CV created successfully', 'cv' => $this->transformCvToApi($cv)], 201);
+            return response()->json([
+                'success' => true, 
+                'message' => 'CV created successfully', 
+                'cv' => $this->transformCvToApi($cv),
+                'id' => $cv->id // Add ID at root level for easier access
+            ], 201);
         } catch (\Exception $e) {
             DB::rollBack();
             \Log::error('Failed to create CV: ' . $e->getMessage() . '\n' . $e->getTraceAsString());
@@ -103,6 +146,21 @@ class CvController extends Controller
 
         // Increment view count
         $cv->increment('views');
+
+        // Log activity (only log every 5th view to avoid spam)
+        if ($cv->views % 5 === 0) {
+            UserActivity::log(
+                Auth::id(),
+                UserActivity::TYPE_CV_PREVIEWED,
+                'CV Previewed',
+                'Viewed CV: "' . $cv->cv_title . '"',
+                [
+                    'cv_id' => $cv->id,
+                    'cv_title' => $cv->cv_title,
+                    'total_views' => $cv->views
+                ]
+            );
+        }
 
         return response()->json(['success' => true, 'cv' => $this->transformCvToApi($cv)]);
     }
@@ -125,6 +183,13 @@ class CvController extends Controller
             'personalDetails.email' => 'required|email|max:255',
             'personalDetails.phone' => 'nullable|string|max:255',
             'personalDetails.address' => 'nullable|string|max:500',
+            'personalDetails.dateOfBirth' => 'nullable|date',
+            'personalDetails.placeOfBirth' => 'nullable|string|max:255',
+            'personalDetails.gender' => 'nullable|string|in:male,female,other,prefer_not_to_say',
+            'personalDetails.nationality' => 'nullable|string|max:255',
+            'personalDetails.zipCode' => 'nullable|string|max:20',
+            'personalDetails.maritalStatus' => 'nullable|string|in:single,married,divorced,widowed',
+            'personalDetails.drivingLicense' => 'nullable|string|max:255',
             'summary' => 'nullable|string|max:2000',
             'experience' => 'present|array',
             'education' => 'present|array',
@@ -164,6 +229,25 @@ class CvController extends Controller
             }
 
             DB::commit();
+
+            // Log activity
+            UserActivity::log(
+                Auth::id(),
+                UserActivity::TYPE_CV_UPDATED,
+                'CV Updated',
+                'Updated CV: "' . $cv->cv_title . '"',
+                [
+                    'cv_id' => $cv->id,
+                    'cv_title' => $cv->cv_title,
+                    'template' => $cv->selected_template,
+                    'sections' => [
+                        'experience_count' => count($cvData['experience']),
+                        'education_count' => count($cvData['education']),
+                        'skills_count' => count($cvData['skills']),
+                        'interests_count' => count($cvData['interests'])
+                    ]
+                ]
+            );
             
             $cv->load(['workExperiences', 'education', 'skills', 'interests']);
             return response()->json(['success' => true, 'message' => 'CV updated successfully', 'cv' => $this->transformCvToApi($cv)]);
@@ -210,6 +294,21 @@ class CvController extends Controller
 
             DB::commit();
 
+            // Log activity
+            UserActivity::log(
+                Auth::id(),
+                UserActivity::TYPE_CV_CREATED,
+                'CV Duplicated',
+                'Duplicated CV: "' . $originalCv->cv_title . '" as "' . $newCv->cv_title . '"',
+                [
+                    'original_cv_id' => $originalCv->id,
+                    'new_cv_id' => $newCv->id,
+                    'original_title' => $originalCv->cv_title,
+                    'new_title' => $newCv->cv_title,
+                    'template' => $newCv->selected_template
+                ]
+            );
+
             $newCv->load(['workExperiences', 'education', 'skills', 'interests']);
 
             return response()->json([
@@ -239,7 +338,22 @@ class CvController extends Controller
             return response()->json(['success' => false, 'message' => 'Unauthorized'], 403);
         }
 
+        $cvTitle = $cv->cv_title;
+        $cvId = $cv->id;
+
         $cv->delete();
+
+        // Log activity
+        UserActivity::log(
+            Auth::id(),
+            UserActivity::TYPE_CV_DELETED,
+            'CV Deleted',
+            'Deleted CV: "' . $cvTitle . '"',
+            [
+                'cv_id' => $cvId,
+                'cv_title' => $cvTitle
+            ]
+        );
 
         return response()->json(['success' => true, 'message' => 'CV deleted successfully']);
     }
@@ -261,6 +375,21 @@ class CvController extends Controller
         
         // Increment download count
         $cv->increment('downloads');
+
+        // Log activity
+        UserActivity::log(
+            Auth::id(),
+            UserActivity::TYPE_CV_DOWNLOADED,
+            'CV Downloaded',
+            'Downloaded CV: "' . $cv->cv_title . '" as PDF',
+            [
+                'cv_id' => $cv->id,
+                'cv_title' => $cv->cv_title,
+                'style' => $style,
+                'quality' => $quality,
+                'total_downloads' => $cv->downloads
+            ]
+        );
         
         $pdf = Pdf::loadView('pdf.cv', ['cv' => $cv, 'style' => $style, 'quality' => $quality]);
         
@@ -293,6 +422,13 @@ class CvController extends Controller
                 'email' => $cv->email,
                 'phone' => $cv->telefoni,
                 'address' => $cv->address,
+                'dateOfBirth' => $cv->date_of_birth,
+                'placeOfBirth' => $cv->place_of_birth,
+                'gender' => $cv->gender,
+                'nationality' => $cv->nationality,
+                'zipCode' => $cv->zip_code,
+                'maritalStatus' => $cv->marital_status,
+                'drivingLicense' => $cv->driving_license,
             ],
             'summary' => $cv->summary,
             'experience' => $cv->workExperiences->map(function($exp) {
@@ -341,47 +477,155 @@ class CvController extends Controller
      */
     private function transformCvFromRequest(array $requestData): array
     {
-        return [
+        // Enhanced data extraction with fallbacks
+        $personalDetails = $requestData['personalDetails'] ?? [];
+        
+        // Log transformation data for debugging
+        \Log::info('Transforming CV data:', [
+            'personalDetails' => $personalDetails,
+            'title' => $requestData['title'] ?? 'NO_TITLE',
+            'summary' => $requestData['summary'] ?? 'NO_SUMMARY'
+        ]);
+        
+        $cvData = [
             'cv' => [
                 'user_id' => Auth::id(),
-                'emri' => $requestData['personalDetails']['firstName'],
-                'mbiemri' => $requestData['personalDetails']['lastName'] ?? '',
-                'email' => $requestData['personalDetails']['email'],
-                'telefoni' => $requestData['personalDetails']['phone'] ?? null,
-                'address' => $requestData['personalDetails']['address'] ?? null,
-                'summary' => $requestData['summary'] ?? '',
-                'cv_title' => $requestData['title'],
-                'selected_template' => $requestData['selectedTemplate'],
-                'is_finalized' => $requestData['isFinalized'] ?? false,
+                'emri' => trim($personalDetails['firstName'] ?? ''),
+                'mbiemri' => trim($personalDetails['lastName'] ?? ''),
+                'email' => trim($personalDetails['email'] ?? ''),
+                'telefoni' => trim($personalDetails['phone'] ?? ''),
+                'address' => trim($personalDetails['address'] ?? ''),
+                'date_of_birth' => $this->formatDate($personalDetails['dateOfBirth'] ?? null),
+                'place_of_birth' => trim($personalDetails['placeOfBirth'] ?? ''),
+                'gender' => trim($personalDetails['gender'] ?? ''),
+                'nationality' => trim($personalDetails['nationality'] ?? ''),
+                'zip_code' => trim($personalDetails['zipCode'] ?? ''),
+                'marital_status' => trim($personalDetails['maritalStatus'] ?? ''),
+                'driving_license' => trim($personalDetails['drivingLicense'] ?? ''),
+                'summary' => trim($requestData['summary'] ?? ''),
+                'cv_title' => trim($requestData['title'] ?? ''),
+                'selected_template' => $requestData['selectedTemplate'] ?? 'modern',
+                'is_finalized' => (bool)($requestData['isFinalized'] ?? false),
             ],
-            'experience' => array_map(function($exp) {
-                return [
-                    'job_title' => $exp['title'],
-                    'company' => $exp['company'],
-                    'start_date' => $exp['startDate'] ?? null,
-                    'end_date' => $exp['endDate'] ?? null,
-                    'job_description' => $exp['description'] ?? null,
-                ];
-            }, $requestData['experience']),
-            'education' => array_map(function($edu) {
-                return [
-                    'institution' => $edu['university'],
-                    'degree' => $edu['degree'],
-                    'start_date' => $edu['startDate'] ?? null,
-                    'end_date' => $edu['endDate'] ?? null,
-                ];
-            }, $requestData['education']),
-            'skills' => array_map(function($skill) {
-                return [
-                    'name' => $skill['name'],
-                    'level' => $skill['level'] ?? null,
-                ];
-            }, $requestData['skills']),
-            'interests' => array_map(function($interest) {
-                return [
-                    'description' => $interest['name'],
-                ];
-            }, $requestData['interests']),
+            'experience' => [],
+            'education' => [],
+            'skills' => [],
+            'interests' => [],
         ];
+        
+        // Process enhanced experience data safely
+        if (isset($requestData['experience']) && is_array($requestData['experience'])) {
+            foreach ($requestData['experience'] as $exp) {
+                if (is_array($exp) && !empty($exp['title']) && !empty($exp['company'])) {
+                    $cvData['experience'][] = [
+                        'job_title' => trim($exp['title']),
+                        'company' => trim($exp['company']),
+                        'city_country' => trim($exp['cityCountry'] ?? ''),
+                        'start_date' => $this->formatDate($exp['startDate'] ?? null),
+                        'end_date' => $this->formatDate($exp['endDate'] ?? null),
+                        'is_current_job' => (bool)($exp['current'] ?? $exp['isCurrentJob'] ?? false),
+                        'job_description' => trim($exp['description'] ?? ''),
+                    ];
+                }
+            }
+        }
+        
+        // Process enhanced education data safely
+        if (isset($requestData['education']) && is_array($requestData['education'])) {
+            foreach ($requestData['education'] as $edu) {
+                if (is_array($edu) && !empty($edu['degree']) && !empty($edu['university'])) {
+                    $cvData['education'][] = [
+                        'institution' => trim($edu['university']),
+                        'degree' => trim($edu['degree']),
+                        'field_of_study' => trim($edu['fieldOfStudy'] ?? ''),
+                        'location' => trim($edu['location'] ?? ''),
+                        'start_date' => $this->formatDate($edu['startDate'] ?? null),
+                        'end_date' => $this->formatDate($edu['endDate'] ?? null),
+                        'is_current' => (bool)($edu['isCurrent'] ?? false),
+                        'description' => trim($edu['description'] ?? ''),
+                    ];
+                }
+            }
+        }
+        
+        // Process enhanced skills data safely
+        if (isset($requestData['skills']) && is_array($requestData['skills'])) {
+            foreach ($requestData['skills'] as $skill) {
+                if (is_array($skill) && !empty($skill['name'])) {
+                    $cvData['skills'][] = [
+                        'name' => trim($skill['name']),
+                        'level' => isset($skill['level']) ? (int)$skill['level'] : 3,
+                        'category' => trim($skill['category'] ?? ''),
+                        'years_of_experience' => isset($skill['yearsOfExperience']) ? (float)$skill['yearsOfExperience'] : null,
+                    ];
+                }
+            }
+        }
+        
+        // Process interests data safely
+        if (isset($requestData['interests']) && is_array($requestData['interests'])) {
+            foreach ($requestData['interests'] as $interest) {
+                if (is_array($interest) && !empty($interest['name'])) {
+                    $cvData['interests'][] = [
+                        'description' => trim($interest['name']),
+                    ];
+                }
+            }
+        }
+        
+        \Log::info('Transformed CV data:', $cvData);
+        return $cvData;
+    }
+    
+    /**
+     * Format date for database storage
+     */
+    private function formatDate($date)
+    {
+        if (empty($date)) return null;
+        
+        try {
+            // Handle different date formats
+            if (preg_match('/^\d{4}-\d{2}$/', $date)) {
+                return $date . '-01'; // Add day for YYYY-MM format
+            }
+            if (preg_match('/^\d{4}$/', $date)) {
+                return $date . '-01-01'; // Add month and day for YYYY format
+            }
+            if (preg_match('/^\d{4}-\d{2}-\d{2}$/', $date)) {
+                return $date; // Already in correct format
+            }
+            return null;
+        } catch (\Exception $e) {
+            return null;
+        }
+    }
+
+    /**
+     * Debug endpoint to test data transformation
+     */
+    public function debugStore(Request $request)
+    {
+        \Log::info('=== CV DEBUG STORE ===');
+        \Log::info('Raw Request:', $request->all());
+        
+        try {
+            $transformedData = $this->transformCvFromRequest($request->all());
+            \Log::info('Transformed Data:', $transformedData);
+            
+            return response()->json([
+                'success' => true,
+                'raw_data' => $request->all(),
+                'transformed_data' => $transformedData,
+                'message' => 'Debug data transformation successful'
+            ]);
+        } catch (\Exception $e) {
+            \Log::error('Debug transformation failed:', ['error' => $e->getMessage()]);
+            return response()->json([
+                'success' => false,
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ], 500);
+        }
     }
 }

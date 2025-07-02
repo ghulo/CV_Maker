@@ -38,11 +38,14 @@
     >
       <i class="fas fa-chevron-up"></i>
     </button>
+
+    <!-- Floating AI Assistant - Always visible -->
+    <GeminiChatAssistant :cvData="currentCvData" />
   </div>
 </template>
 
 <script>
-  import { onMounted, watch, ref, onUnmounted, nextTick } from 'vue'
+  import { onMounted, watch, ref, onUnmounted, nextTick, computed } from 'vue'
   import { useRoute } from 'vue-router'
   import { useI18n } from 'vue-i18n'
   import Navigation from './layout/Navigation.vue'
@@ -51,6 +54,7 @@
   import { initializeEffects, reinitializeScrollReveal } from '../script.js'
   import { useConfirmationModal } from '../composables/useConfirmationModal.js'
   import { useLiquidAnimations } from '../liquidAnimations.js'
+  import GeminiChatAssistant from './common/GeminiChatAssistant.vue'
 
   export default {
     name: 'App',
@@ -58,14 +62,25 @@
       Navigation,
       AppFooter,
       ConfirmationModal,
+      GeminiChatAssistant
     },
     setup() {
       const route = useRoute()
       const { t, locale } = useI18n()
       const { modalState, confirm, cancel } = useConfirmationModal()
       const liquidAnimations = useLiquidAnimations()
-      const showBackToTop = ref(false)
-      const isDarkTheme = ref(false)
+              const showBackToTop = ref(false)
+        const isDarkTheme = ref(false)
+        const userCvData = ref({})
+        const currentCvData = computed(() => {
+          // If we're on a specific CV route, get that CV's data
+          if (route.params.id) {
+            // This would be the specific CV being viewed/edited
+            return userCvData.value
+          }
+          // Otherwise return the most recent CV for general analysis
+          return userCvData.value
+        })
 
       // Initialize i18n with saved language preference
       const initializeLanguage = () => {
@@ -108,6 +123,28 @@
         }
       }
 
+      const loadUserCvData = async () => {
+        try {
+          // Get user's most recent CV for AI analysis
+          const token = localStorage.getItem('auth_token')
+          if (!token) return
+          
+          const response = await fetch('/api/my-cvs', {
+            headers: { Authorization: `Bearer ${token}` }
+          })
+          
+          if (response.ok) {
+            const data = await response.json()
+            if (data.success && data.cvs && data.cvs.length > 0) {
+              // Use the most recent CV for AI analysis
+              userCvData.value = data.cvs[0]
+            }
+          }
+        } catch (error) {
+          console.log('No CV data available yet')
+        }
+      }
+
       onMounted(() => {
         initializeLanguage()
         initializeTheme()
@@ -123,6 +160,9 @@
         //     offset: 100
         //   })
         // }
+
+        // Load user CV data if available
+        loadUserCvData()
       })
 
       watch(
@@ -152,7 +192,10 @@
         scrollToTop,
         isDarkTheme,
         handleThemeChange,
-        t
+        t,
+        userCvData,
+        currentCvData,
+        loadUserCvData
       }
     },
   }

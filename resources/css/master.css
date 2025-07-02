@@ -6,14 +6,6 @@
 /* Font Imports */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
 
-/* External Libraries */
-@import "aos/dist/aos.css";
-
-/* Custom Animation Systems */
-@import "./liquid-animations.css";
-@import "./liquid-animations-advanced.css";
-@import "./liquid-polish.css";
-
 /* Tailwind Base - Completely disabled to fix 666 errors */
 /* @tailwind base; */
 /* @tailwind components; */
@@ -44,12 +36,15 @@
     --success: #10B981;
     --success-light: #34D399;
     --success-dark: #059669;
+    --success-rgb: 16, 185, 129;
     --warning: #F59E0B;
     --warning-light: #FCD34D;
     --warning-dark: #D97706;
+    --warning-rgb: 245, 158, 11;
     --danger: #EF4444;
     --danger-light: #F87171;
     --danger-dark: #DC2626;
+    --danger-rgb: 239, 68, 68;
     --info: #3B82F6;
     --info-light: #60A5FA;
     --info-dark: #2563EB;
@@ -200,6 +195,23 @@
     --focus-ring-width: 3px;
     --focus-ring-offset: 2px;
     --focus-ring-color: rgba(var(--primary-rgb), 0.5);
+    
+    /* Semantic Background Colors */
+    --success-bg: #f0fdf4;
+    --success-border: #bbf7d0;
+    --warning-bg: #fffbeb;
+    --warning-border: #fed7aa;
+    --danger-bg: #fef2f2;
+    --danger-border: #fecaca;
+    --info-bg: #eff6ff;
+    --info-border: #bfdbfe;
+    --primary-bg: #f0f9ff;
+    --primary-bg-dark: #e0f2fe;
+    --primary-border: #bae6fd;
+    
+    /* Disabled States */
+    --bg-disabled: #f9fafb;
+    --text-disabled-light: #d1d5db;
 }
 
 /* Dark Theme Variables */
@@ -227,6 +239,23 @@ body.dark-theme {
     --shadow-lg: 0 8px 16px -4px rgba(0, 0, 0, 0.6);
     --shadow-xl: 0 16px 32px -8px rgba(0, 0, 0, 0.7);
     --shadow-elevated: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
+    
+    /* Dark Theme Semantic Colors */
+    --success-bg: rgba(16, 185, 129, 0.1);
+    --success-border: rgba(16, 185, 129, 0.3);
+    --warning-bg: rgba(245, 158, 11, 0.1);
+    --warning-border: rgba(245, 158, 11, 0.3);
+    --danger-bg: rgba(239, 68, 68, 0.1);
+    --danger-border: rgba(239, 68, 68, 0.3);
+    --info-bg: rgba(59, 130, 246, 0.1);
+    --info-border: rgba(59, 130, 246, 0.3);
+    --primary-bg: rgba(var(--primary-rgb), 0.1);
+    --primary-bg-dark: rgba(var(--primary-rgb), 0.15);
+    --primary-border: rgba(var(--primary-rgb), 0.3);
+    
+    /* Dark Theme Disabled States */
+    --bg-disabled: var(--gray-800);
+    --text-disabled-light: var(--gray-600);
 }
 
 /* =============================================================================
@@ -446,6 +475,8 @@ body {
     transition: var(--transition-all);
     font-family: inherit;
     white-space: nowrap;
+    position: relative;
+    overflow: hidden;
 }
 
 .btn:disabled {
@@ -566,6 +597,15 @@ body {
 .gap-md { gap: var(--space-md); }
 .gap-lg { gap: var(--space-lg); }
 .gap-xl { gap: var(--space-xl); }
+
+/* Homepage Image Style */
+.homepage-img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: var(--radius-full);
+  display: block;
+}
 
 /* =============================================================================
    CARD COMPONENTS
@@ -3735,10 +3775,10 @@ body.dark-theme .preview-content {
     left: 50%;
     width: 0;
     height: 0;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
-    transition: all 0.5s ease;
-    transform: translate(-50%, -50%);
     border-radius: 50%;
+    background: rgba(var(--primary-rgb), 0.18);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
 }
 
 .btn:hover::before {

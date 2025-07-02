@@ -14,7 +14,7 @@
         </p>
       </header>
 
-              <main class="grid grid-cols-3" style="gap: 0.5rem;">
+              <main class="grid grid-cols-3 gap-2" style="gap: 0.5rem;">
         <!-- Left Column: Skills (scaled) -->
         <div class="col-span-1 pr-1">
           <section class="mb-2">
@@ -110,5 +110,8 @@
   }
   .text-muted-text, p {
     color: #10131A;
+  }
+  .gap-2 {
+    gap: var(--space-sm, 0.5rem);
   }
 </style>

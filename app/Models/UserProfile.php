@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class UserProfile extends Model
 {
@@ -17,6 +18,7 @@ class UserProfile extends Model
         'social_links',
         'phone',
         'address',
+        'location',
         'website',
         'portfolio_links',
         'skills',
@@ -34,6 +36,8 @@ class UserProfile extends Model
         'is_public' => 'boolean',
     ];
 
+    protected $appends = ['avatar_url'];
+
     /**
      * Get the user that owns the profile.
      */
@@ -47,7 +51,17 @@ class UserProfile extends Model
      */
     public function getAvatarUrlAttribute()
     {
-        return $this->avatar ? asset('storage/' . $this->avatar) : null;
+        if (!$this->avatar) {
+            return null;
+        }
+
+        // If it's already a full URL, return as is
+        if (str_starts_with($this->avatar, 'http')) {
+            return $this->avatar;
+        }
+
+        // Return the storage URL
+        return Storage::url($this->avatar);
     }
 
     /**

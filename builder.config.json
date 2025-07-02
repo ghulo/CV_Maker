@@ -1,0 +1,6 @@
+{
+  "command": "npm run dev",
+  "serverUrl": "http://cvmaker.test",
+  "authenticateProxy": false,
+  "commitMode": "commits"
+}

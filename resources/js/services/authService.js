@@ -4,7 +4,40 @@ class AuthService {
   constructor() {
     this.baseURL = '/api'
     this.tokenKey = 'auth_token'
-    this.userKey = 'auth_user'
+    this.userKey = 'user'
+    this.setupAxiosInterceptors()
+  }
+
+  /**
+   * Setup axios interceptors for automatic token management
+   */
+  setupAxiosInterceptors() {
+    // Request interceptor to add token
+    axios.interceptors.request.use(
+      (config) => {
+        const token = this.getToken()
+        if (token) {
+          config.headers.Authorization = `Bearer ${token}`
+        }
+        return config
+      },
+      (error) => Promise.reject(error)
+    )
+
+    // Response interceptor to handle 401 errors
+    axios.interceptors.response.use(
+      (response) => response,
+      (error) => {
+        if (error.response?.status === 401) {
+          this.clearAuth()
+          // Only redirect if not already on login page
+          if (!window.location.pathname.includes('/login')) {
+            window.location.href = '/login'
+          }
+        }
+        return Promise.reject(error)
+      }
+    )
   }
 
   /**
@@ -12,6 +45,9 @@ class AuthService {
    */
   async register(userData) {
     try {
+      // Get CSRF cookie first
+      await axios.get('/sanctum/csrf-cookie')
+      
       const response = await axios.post(`${this.baseURL}/register`, {
         name: userData.name,
         email: userData.email,
@@ -21,13 +57,13 @@ class AuthService {
       })
 
       if (response.data.token) {
-        this.setToken(response.data.token)
-        this.setUser(response.data.user)
+        this.setAuth(response.data.token, response.data.user)
       }
 
       return {
         success: true,
         user: response.data.user,
+        token: response.data.token,
         message: response.data.message || 'Registration successful'
       }
     } catch (error) {
@@ -44,6 +80,9 @@ class AuthService {
    */
   async login(credentials) {
     try {
+      // Get CSRF cookie first
+      await axios.get('/sanctum/csrf-cookie')
+      
       const response = await axios.post(`${this.baseURL}/login`, {
         email: credentials.email,
         password: credentials.password,
@@ -52,8 +91,7 @@ class AuthService {
       })
 
       if (response.data.token) {
-        this.setToken(response.data.token)
-        this.setUser(response.data.user)
+        this.setAuth(response.data.token, response.data.user)
         
         // Track login activity
         this.trackLoginActivity(response.data.user)
@@ -62,12 +100,13 @@ class AuthService {
       return {
         success: true,
         user: response.data.user,
+        token: response.data.token,
         message: response.data.message || 'Login successful'
       }
     } catch (error) {
       return {
         success: false,
-        message: error.response?.data?.message || 'Login failed',
+        message: error.response?.data?.message || 'Invalid credentials',
         errors: error.response?.data?.errors || {}
       }
     }
@@ -78,15 +117,13 @@ class AuthService {
    */
   async logout() {
     try {
-      const token = this.getToken()
-      if (token) {
+      if (this.isAuthenticated()) {
         await axios.post(`${this.baseURL}/logout`)
       }
     } catch (error) {
       console.error('Logout error:', error)
     } finally {
-      this.clearToken()
-      this.clearUser()
+      this.clearAuth()
     }
   }
 
@@ -99,7 +136,7 @@ class AuthService {
       this.setUser(response.data.user)
       return response.data.user
     } catch (error) {
-      this.clearUser()
+      this.clearAuth()
       throw error
     }
   }
@@ -195,6 +232,21 @@ class AuthService {
   }
 
   /**
+   * Unified auth management
+   */
+  setAuth(token, user) {
+    this.setToken(token)
+    this.setUser(user)
+    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+  }
+
+  clearAuth() {
+    this.clearToken()
+    this.clearUser()
+    delete axios.defaults.headers.common['Authorization']
+  }
+
+  /**
    * Token Management Methods
    */
   setToken(accessToken) {
@@ -234,6 +286,16 @@ class AuthService {
 
   isGuest() {
     return !this.isAuthenticated()
+  }
+
+  /**
+   * Initialize authentication state on app start
+   */
+  initializeAuth() {
+    const token = this.getToken()
+    if (token) {
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+    }
   }
 
   /**

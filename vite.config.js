@@ -32,14 +32,32 @@ export default defineConfig({
     publicDir: 'public',
     build: {
         outDir: 'public/build',
-        chunkSizeWarningLimit: 700,
+        chunkSizeWarningLimit: 500,
         rollupOptions: {
             output: {
-                manualChunks(id) {
-                    if (id.includes('node_modules')) {
-                        return id.toString().split('node_modules/')[1].split('/')[0].toString()
-                    }
+                manualChunks: {
+                    // Core vendor libraries
+                    'vendor-vue': ['vue', 'vue-router'],
+                    'vendor-ui': ['@fortawesome/fontawesome-svg-core', '@fortawesome/vue-fontawesome'],
+                    'vendor-i18n': ['vue-i18n'],
+                    'vendor-utils': ['axios'],
+                    
+                    // Split large components
+                    'cv-templates': [
+                        './resources/js/components/cv_templates/ClassicTemplate.vue',
+                        './resources/js/components/cv_templates/ModernTemplate.vue',
+                        './resources/js/components/cv_templates/ProfessionalTemplate.vue',
+                        './resources/js/components/cv_templates/CreativeTemplate.vue'
+                    ]
                 },
+            },
+        },
+        target: 'esnext',
+        minify: 'terser',
+        terserOptions: {
+            compress: {
+                drop_console: true,
+                drop_debugger: true,
             },
         },
     },
@@ -48,6 +66,19 @@ export default defineConfig({
             '~css': '/resources/css',
             '@': '/resources/js',
         },
+    },
+    optimizeDeps: {
+        include: [
+            'vue',
+            'vue-router',
+            'vue-i18n',
+            'axios'
+        ],
+        exclude: [
+            '@fortawesome/free-solid-svg-icons',
+            'vue3-apexcharts',
+            'apexcharts'
+        ]
     },
 });
 

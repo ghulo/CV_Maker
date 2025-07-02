@@ -84,7 +84,7 @@
         >
           <i class="fas fa-lightbulb mr-3 text-accent-blue"></i> Aftësitë
         </h2>
-        <div class="flex flex-wrap" style="gap: 0.5rem;">
+        <div class="flex flex-wrap gap-2">
           <span
             v-for="(skill, index) in cv.skills"
             :key="index"
@@ -119,4 +119,7 @@
 <style scoped>
   /* Tailwind utility classes are largely used directly in the template. */
   /* Any specific custom styles for the classic template can be added here. */
+  .gap-2 {
+    gap: var(--space-sm, 0.5rem);
+  }
 </style>

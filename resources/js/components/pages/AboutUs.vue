@@ -1,94 +1,85 @@
 <template>
-  <div class="page-wrapper">
-    <!-- Hero Section -->
-    <section class="section-spacing">
+  <div class="page-wrapper about-page">
+    <section class="hero-section section-spacing">
       <div class="container">
         <div class="text-center">
-          <h1 class="section-title">Building Your Future, One CV at a Time</h1>
+          <h1 class="section-title">{{ t('aboutTitle') }}</h1>
           <p class="section-description">
-            CV Maker is built with passion to empower individuals in their professional journey. 
-            We believe a great CV can open doors and create opportunities.
+            {{ t('ourMissionDescription') }}
           </p>
         </div>
       </div>
     </section>
 
-    <!-- Mission Section -->
-    <section class="section-spacing">
+    <section class="mission-section section-spacing">
       <div class="container">
-        <div class="mission-section">
-          <h2 class="mission-title">Our Mission & Vision</h2>
+        <div class="mission-card card">
+          <h2 class="mission-title">{{ t('ourMission') }}</h2>
           <div class="mission-content">
-            <p>
-              Our mission is to provide an intuitive and powerful platform that simplifies 
-              the process of creating professional CVs. We aim to make CV design accessible 
-              to everyone, helping you present your skills and experience in the best possible way.
+            <p class="mission-text">
+              {{ t('ourMissionDescription') }}
             </p>
-            <p>
-              Our vision is to be the top choice for individuals looking to make a strong 
-              impression in the job market, offering innovative tools and ongoing support.
+            <p class="mission-text">
+              {{ t('ourValues') }}
             </p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Story Section -->
-    <section class="section-spacing">
+    <section class="values-section section-spacing">
       <div class="container">
-        <div class="text-center">
-          <h2 class="section-title">Our Story</h2>
+        <div class="text-center mb-xl">
+          <h2 class="section-title">{{ t('ourValues') }}</h2>
           <p class="section-description">
-            CV Maker started as a small project with a big idea: to simplify CV creation. 
-            We've evolved based on user feedback and industry trends, always keeping you at the center.
+            {{ t('qualityDescription') }}
           </p>
         </div>
         
-        <div class="story-grid">
-          <div class="story-item">
-            <div class="story-icon">
+        <div class="values-grid">
+          <div class="value-card card">
+            <div class="value-icon">
               <i class="fas fa-lightbulb"></i>
             </div>
-            <h3>The Idea</h3>
-            <p>
-              It all started with a simple idea to help people create CVs without hassle.
+            <h3 class="value-title">{{ t('innovation') }}</h3>
+            <p class="value-description">
+              {{ t('innovationDescription') }}
             </p>
           </div>
           
-          <div class="story-item">
-            <div class="story-icon">
+          <div class="value-card card">
+            <div class="value-icon">
               <i class="fas fa-code"></i>
             </div>
-            <h3>Development</h3>
-            <p>
-              We worked diligently to build a powerful and easy-to-use platform.
+            <h3 class="value-title">{{ t('quality') }}</h3>
+            <p class="value-description">
+              {{ t('qualityDescription') }}
             </p>
           </div>
           
-          <div class="story-item">
-            <div class="story-icon">
+          <div class="value-card card">
+            <div class="value-icon">
               <i class="fas fa-users"></i>
             </div>
-            <h3>Community</h3>
-            <p>
-              With our users' support, we continue to grow and improve.
+            <h3 class="value-title">{{ t('support') }}</h3>
+            <p class="value-description">
+              {{ t('supportDescription') }}
             </p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- CTA Section -->
-    <section class="section-spacing">
+    <section class="cta-section section-spacing">
       <div class="container">
-        <div class="cta-section">
-          <h2 class="cta-title">Join Our Community!</h2>
+        <div class="cta-card card text-center">
+          <h2 class="cta-title">{{ t('join_thousands_professionals') }}</h2>
           <p class="cta-description">
-            We're here to support you at every step of your professional journey.
+            {{ t('supportDescription') }}
           </p>
-          <router-link to="/contact" class="btn-primary">
+          <router-link to="/contact" class="btn btn-primary">
             <i class="fas fa-envelope"></i>
-            Contact Us
+            {{ t('contact') }}
           </router-link>
         </div>
       </div>
@@ -96,39 +87,21 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'AboutUs',
-}
+<script setup>
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 </script>
 
 <style scoped>
-/* CSS Variables */
-:root {
-  --primary: #5B21B6;
-  --primary-light: #7C3AED;
-  --secondary: #0EA5E9;
-  --success: #10B981;
-  --bg: #FFFFFF;
-  --bg-subtle: #FAFAFA;
-  --text: #111827;
-  --text-muted: #6B7280;
-  --border: #E5E7EB;
-  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
-  --radius: 8px;
-  --space-xs: 4px;
-  --space-sm: 8px;
-  --space-md: 16px;
-  --space-lg: 24px;
-  --space-xl: 32px;
-  --space-xxl: 48px;
+.about-page {
+  padding-top: var(--header-height);
+  background-color: var(--bg-secondary);
+  min-height: 100vh;
 }
 
-/* Base Styles */
-.page-wrapper {
-  min-height: 100vh;
-  background: var(--bg);
-  color: var(--text);
+.section-spacing {
+  padding: var(--space-xxl) 0;
 }
 
 .container {
@@ -137,44 +110,45 @@ export default {
   padding: 0 var(--space-lg);
 }
 
-.section-spacing {
-  padding: var(--space-xxl) 0;
-}
-
 .text-center {
   text-align: center;
 }
 
+.mb-xl {
+  margin-bottom: var(--space-xl);
+}
+
 /* Typography */
 .section-title {
-  font-size: 48px;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-4xl);
   font-weight: 700;
-  color: var(--text);
+  color: var(--text-primary);
   margin-bottom: var(--space-md);
-  line-height: 1.2;
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--letter-spacing-tight);
 }
 
 .section-description {
-  font-size: 20px;
-  color: var(--text-muted);
-  line-height: 1.6;
+  font-size: var(--font-size-lg);
+  color: var(--text-secondary);
+  line-height: var(--line-height-normal);
   max-width: 600px;
   margin: 0 auto;
 }
 
 /* Mission Section */
-.mission-section {
-  background: var(--bg-subtle);
-  border-radius: var(--radius);
-  padding: var(--space-xxl);
+.mission-card {
   max-width: 800px;
   margin: 0 auto;
+  padding: var(--space-xxl);
 }
 
 .mission-title {
-  font-size: 32px;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-3xl);
   font-weight: 600;
-  color: var(--text);
+  color: var(--text-primary);
   margin-bottom: var(--space-lg);
   text-align: center;
 }
@@ -185,145 +159,154 @@ export default {
   gap: var(--space-lg);
 }
 
-.mission-content p {
-  font-size: 18px;
-  color: var(--text-muted);
-  line-height: 1.6;
+.mission-text {
+  font-size: var(--font-size-lg);
+  color: var(--text-secondary);
+  line-height: var(--line-height-relaxed);
   margin: 0;
 }
 
-/* Story Section */
-.story-grid {
+/* Values Section */
+.values-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: var(--space-xl);
   margin-top: var(--space-xxl);
 }
 
-.story-item {
+.value-card {
   text-align: center;
   padding: var(--space-xl);
+  transition: var(--transition-all);
 }
 
-.story-icon {
+.value-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.value-icon {
   width: 80px;
   height: 80px;
-  background: var(--primary);
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
   color: white;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0 auto var(--space-lg);
-  font-size: 24px;
+  font-size: var(--font-size-2xl);
+  box-shadow: var(--shadow-md);
 }
 
-.story-item h3 {
-  font-size: 24px;
+.value-title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-2xl);
   font-weight: 600;
-  color: var(--text);
+  color: var(--text-primary);
   margin-bottom: var(--space-md);
 }
 
-.story-item p {
-  font-size: 16px;
-  color: var(--text-muted);
-  line-height: 1.6;
+.value-description {
+  font-size: var(--font-size-base);
+  color: var(--text-secondary);
+  line-height: var(--line-height-relaxed);
   margin: 0;
 }
 
 /* CTA Section */
-.cta-section {
-  background: var(--bg-subtle);
-  border-radius: var(--radius);
-  padding: var(--space-xxl);
-  text-align: center;
+.cta-card {
   max-width: 600px;
   margin: 0 auto;
+  padding: var(--space-xxl);
 }
 
 .cta-title {
-  font-size: 32px;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-3xl);
   font-weight: 600;
-  color: var(--text);
+  color: var(--text-primary);
   margin-bottom: var(--space-md);
 }
 
 .cta-description {
-  font-size: 18px;
-  color: var(--text-muted);
+  font-size: var(--font-size-lg);
+  color: var(--text-secondary);
   margin-bottom: var(--space-xl);
+  line-height: var(--line-height-relaxed);
 }
 
-/* Buttons */
-.btn-primary {
-  background: var(--primary);
-  color: white;
-  padding: var(--space-md) var(--space-lg);
-  border-radius: var(--radius);
-  text-decoration: none;
-  font-weight: 500;
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-sm);
-  transition: background-color 0.2s ease;
-}
-
-.btn-primary:hover {
-  background: var(--primary-light);
-}
-
-/* Responsive */
+/* Responsive Design */
 @media (max-width: 768px) {
+  .about-page {
+    padding-top: var(--header-height-compact);
+  }
+
+  .section-spacing {
+    padding: var(--space-xl) 0;
+  }
+
+  .container {
+    padding: 0 var(--space-md);
+  }
+
   .section-title {
-    font-size: 32px;
+    font-size: var(--font-size-3xl);
   }
 
   .section-description {
-    font-size: 16px;
+    font-size: var(--font-size-base);
   }
 
-  .mission-section {
+  .mission-card,
+  .cta-card {
     padding: var(--space-xl);
   }
 
-  .mission-title {
-    font-size: 28px;
+  .mission-title,
+  .cta-title {
+    font-size: var(--font-size-2xl);
   }
 
-  .mission-content p {
-    font-size: 16px;
+  .mission-text,
+  .cta-description {
+    font-size: var(--font-size-base);
   }
 
-  .story-grid {
+  .values-grid {
     grid-template-columns: 1fr;
     gap: var(--space-lg);
   }
 
-  .story-item {
+  .value-card {
     padding: var(--space-lg);
   }
 
-  .story-icon {
+  .value-icon {
     width: 60px;
     height: 60px;
-    font-size: 20px;
+    font-size: var(--font-size-xl);
   }
 
-  .story-item h3 {
-    font-size: 20px;
+  .value-title {
+    font-size: var(--font-size-xl);
+  }
+}
+
+@media (max-width: 480px) {
+  .section-title {
+    font-size: var(--font-size-2xl);
   }
 
-  .cta-section {
-    padding: var(--space-xl);
-  }
-
+  .mission-title,
   .cta-title {
-    font-size: 28px;
+    font-size: var(--font-size-xl);
   }
 
-  .cta-description {
-    font-size: 16px;
+  .value-icon {
+    width: 50px;
+    height: 50px;
+    font-size: var(--font-size-lg);
   }
 }
 </style>

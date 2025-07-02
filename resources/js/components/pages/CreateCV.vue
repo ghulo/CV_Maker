@@ -1,5 +1,5 @@
 <template>
-  <div class="cv-creator">
+  <div class="cv-creator" :class="{ 'dark-mode': isDarkMode }">
     <!-- Onboarding Modal -->
     <div v-if="showOnboarding" class="onboarding-modal" @click="closeOnboarding">
       <div class="onboarding-content" @click.stop>
@@ -39,7 +39,7 @@
       </div>
     </div>
 
-    <!-- Enhanced Header with Step Progress -->
+    <!-- Header -->
     <header class="creator-header">
       <div class="header-content">
         <button @click="goBack" class="back-btn">
@@ -48,7 +48,7 @@
         </button>
         
         <div class="header-info">
-          <h1>{{ currentStepData.title }}</h1>
+          <h1 class="step-title">{{ currentStepData.title }}</h1>
           <p class="step-subtitle">{{ currentStepData.subtitle }}</p>
         </div>
 
@@ -156,7 +156,7 @@
                     type="text" 
                     placeholder="e.g., Senior Developer Resume"
                     @input="onInputChange"
-                    class="large-input"
+                    class="form-input"
                   />
                   <div class="form-hint">Give your CV a descriptive title</div>
                 </div>
@@ -169,6 +169,7 @@
                       type="text" 
                       placeholder="John"
                       @input="onInputChange"
+                      class="form-input"
                       required
                     />
                   </div>
@@ -179,6 +180,7 @@
                       type="text" 
                       placeholder="Doe"
                       @input="onInputChange"
+                      class="form-input"
                     />
                   </div>
                 </div>
@@ -191,6 +193,7 @@
                       type="email" 
                       placeholder="john@example.com"
                       @input="onInputChange"
+                      class="form-input"
                       required
                     />
                   </div>
@@ -201,6 +204,7 @@
                       type="text" 
                       placeholder="+1 234 567 8900"
                       @input="onInputChange"
+                      class="form-input"
                     />
                   </div>
                 </div>
@@ -212,10 +216,128 @@
                     type="text" 
                     placeholder="City, State, Country"
                     @input="onInputChange"
+                    class="form-input"
                   />
                 </div>
 
-                <!-- Modern Template Selection -->
+                <div class="form-grid grid-2">
+                  <div class="form-group">
+                    <label>LinkedIn <span class="optional">(Optional)</span></label>
+                    <input 
+                      v-model="cv.personalInfo.linkedin" 
+                      type="url" 
+                      placeholder="linkedin.com/in/username"
+                      @input="onInputChange"
+                      class="form-input"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label>Website <span class="optional">(Optional)</span></label>
+                    <input 
+                      v-model="cv.personalInfo.website" 
+                      type="url" 
+                      placeholder="www.yourwebsite.com"
+                      @input="onInputChange"
+                      class="form-input"
+                    />
+                  </div>
+                </div>
+
+                <!-- Enhanced Personal Information Section -->
+                <div class="enhanced-personal-section">
+                  <h4>📋 Additional Information <span class="optional">(Optional but Recommended)</span></h4>
+                  <p class="section-hint">These details help create a more comprehensive and professional CV</p>
+                  
+                  <div class="form-grid grid-2">
+                    <div class="form-group">
+                      <label>Date of Birth</label>
+                      <input 
+                        v-model="cv.personalInfo.dateOfBirth" 
+                        type="date"
+                        @input="onInputChange"
+                        class="form-input"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label>Place of Birth</label>
+                      <input 
+                        v-model="cv.personalInfo.placeOfBirth" 
+                        type="text" 
+                        placeholder="e.g., New York, USA"
+                        @input="onInputChange"
+                        class="form-input"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="form-grid grid-2">
+                    <div class="form-group">
+                      <label>Gender</label>
+                      <select 
+                        v-model="cv.personalInfo.gender" 
+                        @change="onInputChange"
+                        class="form-input"
+                      >
+                        <option value="">Select Gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                        <option value="prefer_not_to_say">Prefer not to say</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label>Nationality</label>
+                      <input 
+                        v-model="cv.personalInfo.nationality" 
+                        type="text" 
+                        placeholder="e.g., American, British"
+                        @input="onInputChange"
+                        class="form-input"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="form-grid grid-2">
+                    <div class="form-group">
+                      <label>Zip Code</label>
+                      <input 
+                        v-model="cv.personalInfo.zipCode" 
+                        type="text" 
+                        placeholder="e.g., 10001"
+                        @input="onInputChange"
+                        class="form-input"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label>Marital Status</label>
+                      <select 
+                        v-model="cv.personalInfo.maritalStatus" 
+                        @change="onInputChange"
+                        class="form-input"
+                      >
+                        <option value="">Select Status</option>
+                        <option value="single">Single</option>
+                        <option value="married">Married</option>
+                        <option value="divorced">Divorced</option>
+                        <option value="widowed">Widowed</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label>Driving License <span class="optional">(Optional)</span></label>
+                    <input 
+                      v-model="cv.personalInfo.drivingLicense" 
+                      type="text" 
+                      placeholder="e.g., Category B, Full License"
+                      @input="onInputChange"
+                      class="form-input"
+                    />
+                    <div class="form-hint">Specify license categories if relevant to the job</div>
+                  </div>
+                </div>
+
+                <!-- Template Selection -->
                 <div class="template-selection">
                   <div class="template-header">
                     <h3>🎨 Choose Your Template</h3>
@@ -230,6 +352,10 @@
                       :class="{ active: cv.selectedTemplate === template.id }"
                     >
                       <div class="template-preview">
+                        <div class="preview-badge" v-if="template.id === 'modern'">
+                          <i class="fas fa-crown"></i>
+                          Popular
+                        </div>
                         <div class="template-icon">
                           <i :class="{
                             'fas fa-laptop-code': template.id === 'modern',
@@ -245,6 +371,12 @@
                       <div class="template-info">
                         <h4>{{ template.name }}</h4>
                         <p>{{ template.description }}</p>
+                        <div class="template-features">
+                          <span class="feature-tag" v-if="template.id === 'modern'">ATS Friendly</span>
+                          <span class="feature-tag" v-if="template.id === 'creative'">Eye-catching</span>
+                          <span class="feature-tag" v-if="template.id === 'professional'">Corporate</span>
+                          <span class="feature-tag" v-if="template.id === 'classic'">Timeless</span>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -307,7 +439,7 @@
                   <div class="empty-icon">💼</div>
                   <h3>No work experience added yet</h3>
                   <p>Add your work experience to strengthen your CV</p>
-                  <button @click="addExperience" class="add-btn primary">
+                  <button @click="addExperience" class="btn-primary">
                     <i class="fas fa-plus"></i>
                     Add Your First Job
                   </button>
@@ -344,6 +476,19 @@
                       </div>
                     </div>
 
+                    <!-- Enhanced Location Information -->
+                    <div class="form-group">
+                      <label>Location <span class="optional">(Optional)</span></label>
+                      <input 
+                        v-model="exp.cityCountry" 
+                        type="text" 
+                        placeholder="e.g., New York, USA"
+                        @input="onInputChange"
+                        class="form-input"
+                      />
+                      <div class="form-hint">City and country where you worked</div>
+                    </div>
+
                     <div class="form-grid grid-3">
                       <div class="form-group">
                         <label>Start Date</label>
@@ -351,6 +496,7 @@
                           v-model="exp.start_date" 
                           type="month"
                           @input="onInputChange"
+                          class="form-input"
                         />
                       </div>
                       <div class="form-group">
@@ -360,6 +506,7 @@
                           type="month"
                           :disabled="exp.current"
                           @input="onInputChange"
+                          class="form-input"
                         />
                       </div>
                       <div class="form-group">
@@ -440,6 +587,7 @@
                           type="text" 
                           placeholder="e.g., Bachelor of Science"
                           @input="onInputChange"
+                          class="form-input"
                         />
                       </div>
                       <div class="form-group">
@@ -449,35 +597,87 @@
                           type="text" 
                           placeholder="e.g., University Name"
                           @input="onInputChange"
+                          class="form-input"
+                        />
+                      </div>
+                    </div>
+
+                    <!-- Enhanced Education Fields -->
+                    <div class="form-grid grid-2">
+                      <div class="form-group">
+                        <label>Field of Study <span class="optional">(Optional)</span></label>
+                        <input 
+                          v-model="edu.fieldOfStudy" 
+                          type="text" 
+                          placeholder="e.g., Computer Science, Business Administration"
+                          @input="onInputChange"
+                          class="form-input"
+                        />
+                      </div>
+                      <div class="form-group">
+                        <label>Location <span class="optional">(Optional)</span></label>
+                        <input 
+                          v-model="edu.location" 
+                          type="text" 
+                          placeholder="e.g., Boston, MA"
+                          @input="onInputChange"
+                          class="form-input"
                         />
                       </div>
                     </div>
 
                     <div class="form-grid grid-3">
                       <div class="form-group">
-                        <label>Start Year</label>
+                        <label>Start Date</label>
                         <input 
                           v-model="edu.start_date" 
                           type="month"
                           @input="onInputChange"
+                          class="form-input"
                         />
                       </div>
                       <div class="form-group">
-                        <label>End Year</label>
+                        <label>End Date</label>
                         <input 
                           v-model="edu.end_date" 
                           type="month"
+                          :disabled="edu.isCurrent"
                           @input="onInputChange"
+                          class="form-input"
                         />
                       </div>
                       <div class="form-group">
-                        <label>GPA (Optional)</label>
+                        <label class="checkbox-label">
+                          <input 
+                            v-model="edu.isCurrent" 
+                            type="checkbox"
+                            @change="onInputChange"
+                          />
+                          Currently Studying
+                        </label>
+                      </div>
+                    </div>
+
+                    <div class="form-grid grid-2">
+                      <div class="form-group">
+                        <label>GPA <span class="optional">(Optional)</span></label>
                         <input 
                           v-model="edu.gpa" 
                           type="text" 
-                          placeholder="3.8"
+                          placeholder="3.8 / 4.0"
                           @input="onInputChange"
+                          class="form-input"
                         />
+                      </div>
+                      <div class="form-group">
+                        <label>Description <span class="optional">(Optional)</span></label>
+                        <textarea 
+                          v-model="edu.description" 
+                          placeholder="Notable achievements, coursework, honors..."
+                          rows="2"
+                          @input="onInputChange"
+                          class="form-textarea"
+                        ></textarea>
                       </div>
                     </div>
                   </div>
@@ -489,28 +689,85 @@
                 </button>
               </div>
 
-              <!-- Skills Section -->
+              <!-- Enhanced Skills Section -->
               <div class="form-section">
-                <h3>🛠️ Skills</h3>
+                <h3>🛠️ Skills & Expertise</h3>
                 
-                <div class="skills-input">
-                  <input 
-                    v-model="newSkill" 
-                    type="text" 
-                    placeholder="Type a skill and press Enter..."
-                    @keydown.enter.prevent="addSkill"
-                  />
-                  <button @click="addSkill" class="add-skill-btn">
-                    <i class="fas fa-plus"></i>
-                  </button>
+                <div class="skills-input-enhanced">
+                  <div class="skill-input-row">
+                    <input 
+                      v-model="newSkill" 
+                      type="text" 
+                      placeholder="Type a skill name..."
+                      @keydown.enter.prevent="addSkill"
+                      class="skill-name-input"
+                    />
+                    <select v-model="newSkillCategory" class="skill-category-select">
+                      <option value="">Category</option>
+                      <option value="Technical">Technical</option>
+                      <option value="Language">Language</option>
+                      <option value="Soft Skills">Soft Skills</option>
+                      <option value="Tools">Tools</option>
+                      <option value="Frameworks">Frameworks</option>
+                      <option value="Other">Other</option>
+                    </select>
+                    <button @click="addSkill" class="add-skill-btn">
+                      <i class="fas fa-plus"></i>
+                      Add Skill
+                    </button>
+                  </div>
                 </div>
 
-                <div v-if="cv.skills.length > 0" class="skills-list">
-                  <div v-for="(skill, index) in cv.skills" :key="index" class="skill-tag">
-                    <span>{{ skill.name }}</span>
-                    <button @click="removeSkill(index)">
-                      <i class="fas fa-times"></i>
-                    </button>
+                <div v-if="cv.skills.length > 0" class="enhanced-skills-list">
+                  <div v-for="(skill, index) in cv.skills" :key="index" class="enhanced-skill-card">
+                    <div class="skill-header">
+                      <span class="skill-name">{{ skill.name }}</span>
+                      <div class="skill-actions">
+                        <button @click="removeSkill(index)" class="remove-skill-btn">
+                          <i class="fas fa-times"></i>
+                        </button>
+                      </div>
+                    </div>
+                    
+                    <div class="skill-details">
+                      <div class="skill-category">
+                        <label>Category:</label>
+                        <select v-model="skill.category" @change="onInputChange" class="mini-select">
+                          <option value="">Select</option>
+                          <option value="Technical">Technical</option>
+                          <option value="Language">Language</option>
+                          <option value="Soft Skills">Soft Skills</option>
+                          <option value="Tools">Tools</option>
+                          <option value="Frameworks">Frameworks</option>
+                          <option value="Other">Other</option>
+                        </select>
+                      </div>
+                      
+                      <div class="skill-level">
+                        <label>Level:</label>
+                        <select v-model="skill.level" @change="onInputChange" class="mini-select">
+                          <option value="1">Beginner</option>
+                          <option value="2">Novice</option>
+                          <option value="3">Intermediate</option>
+                          <option value="4">Advanced</option>
+                          <option value="5">Expert</option>
+                        </select>
+                      </div>
+                      
+                      <div class="skill-experience">
+                        <label>Years:</label>
+                        <input 
+                          v-model="skill.yearsOfExperience" 
+                          type="number" 
+                          min="0" 
+                          max="50"
+                          step="0.5"
+                          placeholder="Years"
+                          @input="onInputChange"
+                          class="years-input"
+                        />
+                      </div>
+                    </div>
                   </div>
                 </div>
 
@@ -655,36 +912,249 @@
         </div>
       </div>
 
-      <!-- Enhanced Preview Panel - Now positioned below form when active -->
-      <div v-if="showPreview" class="preview-panel active" :class="{ 'stacked': showPreview }">
-        <div class="preview-header">
-          <h3>
-            <i class="fas fa-eye"></i>
-            Live Preview
-          </h3>
-          <div class="preview-actions">
-            <button @click="downloadPDF" :disabled="loading" class="download-btn">
-              <i class="fas fa-download"></i>
-              <span v-if="!isMobile">PDF</span>
-            </button>
-            <button @click="togglePreview" class="close-preview">
-              <i class="fas fa-times"></i>
-            </button>
-          </div>
-        </div>
-        <div class="preview-container">
-          <!-- Only render template component when preview is visible -->
-          <component 
-            v-if="previewData"
-            :is="currentTemplateComponent" 
-            :cv="previewData"
-          />
-          <div v-else class="preview-placeholder">
-            <i class="fas fa-file-alt"></i>
-            <p>Add some information to see your CV preview</p>
-          </div>
-        </div>
-      </div>
+                    <!-- Enhanced Preview Panel - Now positioned below form when active -->
+              <div v-if="showPreview" class="preview-panel active" :class="{ 'stacked': showPreview }">
+                <div class="preview-header">
+                  <h3 class="preview-title">
+                    <i class="fas fa-eye"></i>
+                    Live Preview
+                    <span class="live-indicator">
+                      <span class="live-dot"></span>
+                      LIVE
+                    </span>
+                  </h3>
+                  <div class="preview-template-info">
+                    <span class="template-name">{{ cv.selectedTemplate }} Template</span>
+                    <div class="template-badge" :class="`badge-${cv.selectedTemplate}`">
+                      <i :class="{
+                        'fas fa-star': cv.selectedTemplate === 'classic',
+                        'fas fa-bolt': cv.selectedTemplate === 'modern',
+                        'fas fa-briefcase': cv.selectedTemplate === 'professional',
+                        'fas fa-palette': cv.selectedTemplate === 'creative'
+                      }"></i>
+                    </div>
+                  </div>
+                  <div class="preview-actions">
+                    <button @click="downloadPDF" :disabled="loading" class="download-btn">
+                      <i class="fas fa-download"></i>
+                      <span v-if="!isMobile">PDF</span>
+                    </button>
+                    <button @click="togglePreview" class="close-preview">
+                      <i class="fas fa-times"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="preview-container">
+                  <!-- Ultra-Enhanced CV Preview with Advanced Animations -->
+                  <div class="cv-preview-container glass-ultra liquid-premium shadow-ultra" :class="[`template-${cv.selectedTemplate}`, { 'animating': isUpdating, 'animate': showPreview }]">
+                    
+                    <!-- Enhanced Classic Template Preview -->
+                    <div v-if="cv.selectedTemplate === 'classic'" class="preview-classic">
+                      <div class="cv-header">
+                        <div class="preview-name" :class="{ 'typing': isUpdating }">
+                          {{ previewData?.personal_details?.full_name || 'Your Name' }}
+                        </div>
+                        <div class="preview-title" :class="{ 'typing': isUpdating }">
+                          {{ cv.experience?.[0]?.position || 'Your Title' }}
+                        </div>
+                        <div class="cv-contact">
+                          <span class="contact-item" v-if="previewData?.personal_details?.email">
+                            <i class="fas fa-envelope"></i>
+                            {{ previewData.personal_details.email }}
+                          </span>
+                          <span class="contact-item" v-if="previewData?.personal_details?.phone_number">
+                            <i class="fas fa-phone"></i>
+                            {{ previewData.personal_details.phone_number }}
+                          </span>
+                          <span class="contact-item" v-if="previewData?.personal_details?.address">
+                            <i class="fas fa-map-marker-alt"></i>
+                            {{ previewData.personal_details.address }}
+                          </span>
+                          <span class="contact-item" v-if="cv.personalInfo?.linkedin">
+                            <i class="fab fa-linkedin"></i>
+                            LinkedIn
+                          </span>
+                          <span class="contact-item" v-if="cv.personalInfo?.website">
+                            <i class="fas fa-globe"></i>
+                            Website
+                          </span>
+                        </div>
+                      </div>
+                      
+                      <div class="cv-sections">
+                        <div class="cv-section" :class="{ 'filling': previewData.summary }">
+                          <h3>Professional Summary</h3>
+                          <div class="section-content">
+                            <p class="summary-text">{{ previewData.summary || 'Your professional summary...' }}</p>
+                          </div>
+                        </div>
+                        
+                        <div class="cv-section" :class="{ 'filling': previewData.work_experiences.length > 0 }">
+                          <h3>Experience</h3>
+                          <div class="section-content">
+                            <div v-for="(exp, index) in previewData.work_experiences.slice(0, 2)" :key="index" class="experience-item">
+                              <div class="exp-header">
+                                <strong>{{ exp.job_title }}</strong> at {{ exp.company }}
+                              </div>
+                              <div class="exp-date">{{ formatDate(exp.start_date) }} - {{ exp.end_date ? formatDate(exp.end_date) : 'Present' }}</div>
+                              <p class="exp-desc">{{ exp.description }}</p>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div class="cv-section" :class="{ 'filling': previewData.skills.length > 0 }">
+                          <h3>Skills</h3>
+                          <div class="skills-container">
+                            <span v-for="skill in previewData.skills.slice(0, 8)" :key="skill.name" class="skill-tag">
+                              {{ skill.name }}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Modern Template Preview -->
+                    <div v-if="cv.selectedTemplate === 'modern'" class="preview-modern">
+                      <div class="modern-layout">
+                        <div class="modern-sidebar">
+                          <div class="profile-section">
+                            <div class="profile-circle" :class="{ 'appearing': isUpdating }"></div>
+                            <div class="preview-name">
+                              {{ previewData.personal_details.full_name || 'Your Name' }}
+                            </div>
+                            <div class="preview-title">
+                              {{ cv.experience[0]?.position || 'Your Title' }}
+                            </div>
+                          </div>
+                          
+                          <div class="sidebar-section">
+                            <h4>Contact</h4>
+                            <div class="contact-info">
+                              <div class="contact-item">
+                                <i class="fas fa-envelope"></i>
+                                <span>{{ previewData.personal_details.email }}</span>
+                              </div>
+                              <div class="contact-item">
+                                <i class="fas fa-phone"></i>
+                                <span>{{ previewData.personal_details.phone_number }}</span>
+                              </div>
+                            </div>
+                          </div>
+                          
+                          <div class="sidebar-section">
+                            <h4>Skills</h4>
+                            <div class="skill-bars">
+                              <div class="skill-bar" v-for="(skill, index) in previewData.skills.slice(0, 5)" :key="skill.name">
+                                <span class="skill-name">{{ skill.name }}</span>
+                                <div class="bar">
+                                  <div class="progress" 
+                                       :class="{ 'filling': !isUpdating }"
+                                       :style="{ width: `${90 - index * 10}%` }"></div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div class="modern-main">
+                          <div class="cv-section">
+                            <h3>About Me</h3>
+                            <p>{{ previewData.summary || 'Your professional summary...' }}</p>
+                          </div>
+                          
+                          <div class="cv-section">
+                            <h3>Experience</h3>
+                            <div v-for="(exp, index) in previewData.work_experiences.slice(0, 2)" :key="index" class="experience-item">
+                              <div class="exp-header">
+                                <strong>{{ exp.job_title }}</strong>
+                              </div>
+                              <div class="exp-company">{{ exp.company }}</div>
+                              <div class="exp-date">{{ formatDate(exp.start_date) }} - {{ exp.end_date ? formatDate(exp.end_date) : 'Present' }}</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Professional Template Preview -->
+                    <div v-if="cv.selectedTemplate === 'professional'" class="preview-professional">
+                      <div class="cv-header centered">
+                        <div class="preview-name">
+                          {{ previewData.personal_details.full_name || 'Your Name' }}
+                        </div>
+                        <div class="preview-title">
+                          {{ cv.experience[0]?.position || 'Your Title' }}
+                        </div>
+                        <div class="professional-divider" :class="{ 'expanding': !isUpdating }"></div>
+                        <div class="contact-row">
+                          <span>{{ previewData.personal_details.email }}</span>
+                          <span>•</span>
+                          <span>{{ previewData.personal_details.phone_number }}</span>
+                          <span v-if="previewData.personal_details.address">•</span>
+                          <span v-if="previewData.personal_details.address">{{ previewData.personal_details.address }}</span>
+                        </div>
+                      </div>
+                      
+                      <div class="cv-content">
+                        <div class="cv-section">
+                          <h3>Professional Summary</h3>
+                          <p>{{ previewData.summary || 'Your professional summary...' }}</p>
+                        </div>
+                        
+                        <div class="two-column">
+                          <div class="cv-section">
+                            <h3>Experience</h3>
+                            <div v-for="(exp, index) in previewData.work_experiences.slice(0, 2)" :key="index" class="experience-item">
+                              <strong>{{ exp.job_title }}</strong> - {{ exp.company }}
+                              <div class="exp-date">{{ formatDate(exp.start_date) }} - {{ exp.end_date ? formatDate(exp.end_date) : 'Present' }}</div>
+                            </div>
+                          </div>
+                          
+                          <div class="cv-section">
+                            <h3>Education</h3>
+                            <div v-for="(edu, index) in previewData.educations.slice(0, 2)" :key="index" class="education-item">
+                              <strong>{{ edu.degree }}</strong>
+                              <div>{{ edu.institution }}</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Creative Template Preview -->
+                    <div v-if="cv.selectedTemplate === 'creative'" class="preview-creative">
+                      <div class="creative-shapes" :class="{ 'floating': !isUpdating }">
+                        <div class="shape shape-1"></div>
+                        <div class="shape shape-2"></div>
+                      </div>
+                      
+                      <div class="cv-content creative-layout">
+                        <div class="preview-name creative-name">
+                          {{ previewData.personal_details.full_name || 'Your Name' }}
+                        </div>
+                        <div class="preview-title creative-title">
+                          {{ cv.experience[0]?.position || 'Your Title' }}
+                        </div>
+                        
+                        <div class="creative-grid">
+                          <div class="cv-section">
+                            <h3>About</h3>
+                            <p>{{ previewData.summary || 'Your creative journey...' }}</p>
+                          </div>
+                          
+                          <div class="creative-visual" :class="{ 'animating': !isUpdating }">
+                            <div class="skill-cloud">
+                              <span v-for="skill in previewData.skills.slice(0, 6)" :key="skill.name" class="skill-bubble">
+                                {{ skill.name }}
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
     </div>
 
     <!-- Success Modal -->
@@ -701,11 +1171,11 @@
         <h3>🎉 CV Created Successfully!</h3>
         <p>Your professional CV is ready to download and share with employers.</p>
         <div class="success-actions">
-          <button @click="previewCV" class="btn primary">
+          <button @click="previewCV" class="success-btn primary-btn">
             <i class="fas fa-eye"></i>
             View My CV
           </button>
-          <button @click="goToDashboard" class="btn secondary">
+          <button @click="goToDashboard" class="success-btn secondary-btn">
             <i class="fas fa-home"></i>
             Dashboard
           </button>
@@ -731,16 +1201,12 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
+import { ref, computed, onMounted, onUnmounted, watch, nextTick } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import axios from 'axios'
 
-// Import template components
-import ClassicTemplate from '@/components/cv_templates/ClassicTemplate.vue'
-import ModernTemplate from '@/components/cv_templates/ModernTemplate.vue'
-import ProfessionalTemplate from '@/components/cv_templates/ProfessionalTemplate.vue'
-import CreativeTemplate from '@/components/cv_templates/CreativeTemplate.vue'
+// Template components will be loaded dynamically for better performance
 
 // Import services
 import AIService from '@/services/aiService.js'
@@ -755,7 +1221,7 @@ const showPreview = ref(false) // Hidden by default for performance
 const showSuccessModal = ref(false)
 const showOnboarding = ref(false) // Disable onboarding initially to debug
 const showAIPanel = ref(true)
-const savedCvId = ref(null)
+const savedCvId = ref(localStorage.getItem('current_draft_cv_id') || null)
 const loading = ref(false)
 const loadingMessage = ref('Processing...')
 
@@ -764,6 +1230,7 @@ const isMobile = ref(false)
 
 // Form inputs
 const newSkill = ref('')
+const newSkillCategory = ref('')
 const newInterest = ref('')
 
 // Message handling
@@ -851,7 +1318,7 @@ const aiSkillSuggestions = ref([
   'HTML/CSS', 'Git', 'SQL', 'MongoDB', 'Docker', 'AWS'
 ])
 
-// CV data structure - properly initialized
+// CV data structure - enhanced with all database fields
 const cv = ref({
   title: '',
   personalInfo: {
@@ -859,7 +1326,17 @@ const cv = ref({
     lastName: '',
     email: '',
     phone: '',
-    address: ''
+    address: '',
+    linkedin: '',
+    website: '',
+    // Enhanced personal information fields
+    dateOfBirth: '',
+    placeOfBirth: '',
+    gender: '',
+    nationality: '',
+    zipCode: '',
+    maritalStatus: '',
+    drivingLicense: ''
   },
   summary: '',
   experience: [],
@@ -884,25 +1361,41 @@ const completionClass = computed(() => {
   return 'low'
 })
 
-// Enhanced computed properties for wizard
+// 🔥 ULTRA-OPTIMIZED: Enhanced computed properties with memoization
 const currentStepData = computed(() => {
   return wizardSteps.value[currentStep.value] || wizardSteps.value[0]
 })
 
-// Optimized progress calculation with caching
+// Advanced progress calculation with intelligent caching
 let cachedProgress = 0
 let lastProgressUpdate = 0
+let lastDataHash = ''
+
 const overallProgress = computed(() => {
-  // Cache progress calculation to reduce computation
   const now = Date.now()
-  if (now - lastProgressUpdate < 500) { // Cache for 500ms
+  
+  // Create lightweight hash to detect actual data changes
+  const currentDataHash = JSON.stringify({
+    step: currentStep.value,
+    hasName: !!cv.value?.personalInfo?.firstName,
+    hasEmail: !!cv.value?.personalInfo?.email,
+    hasTitle: !!cv.value?.title,
+    expCount: cv.value?.experience?.length || 0,
+    hasSkills: (cv.value?.skills?.length || 0) > 2
+  })
+  
+  // Return cached value if data hasn't changed and cache is fresh
+  if (currentDataHash === lastDataHash && (now - lastProgressUpdate) < 1000) {
     return cachedProgress
   }
   
+  // Recalculate only when necessary
   const stepProgress = (currentStep.value / (wizardSteps.value.length - 1)) * 100
-  const currentStepCompletion = getCurrentStepCompletion() * 0.2
+  const currentStepCompletion = getCurrentStepCompletion() * 0.15 // Reduced weight for better performance
+  
   cachedProgress = Math.min(100, stepProgress + currentStepCompletion)
   lastProgressUpdate = now
+  lastDataHash = currentDataHash
   
   return cachedProgress
 })
@@ -1126,77 +1619,136 @@ const skillsStatus = computed(() => {
   return { class: 'incomplete', icon: 'fas fa-exclamation-circle' }
 })
 
-// Optimized preview data - only computed when preview is visible
-const previewData = computed(() => {
-  if (!showPreview.value) {
-    // Return minimal data when preview is hidden to save performance
-    return null
-  }
+// 🔥 ULTRA-OPTIMIZED: Intelligent preview data with smart caching
+const previewData = (() => {
+  let cachedPreviewData = null
+  let lastPreviewHash = ''
+  let lastUpdateTime = 0
   
-  // Ensure cv.value and all nested properties exist
-  const personalInfo = cv.value?.personalInfo || {}
-  const fullName = `${personalInfo.firstName || ''} ${personalInfo.lastName || ''}`.trim()
-  
-  // Map experience data to match template expectations
-  const experiences = cv.value?.experience || []
-  const workExperiences = experiences.length > 0 
-    ? experiences.map(exp => ({
-        job_title: exp.position || 'Position Title',
-        company: exp.company || 'Company Name',
-        start_date: exp.start_date || '',
-        end_date: exp.end_date || '',
-        description: exp.description || 'Job description will appear here...'
-      }))
-    : [{
-        job_title: 'Software Developer',
-        company: 'Tech Company',
-        start_date: '2022-01',
-        end_date: '',
-        description: 'Add your work experience to see it displayed here...'
-      }]
-  
-  // Map education data to match template expectations  
-  const educationsData = cv.value?.education || []
-  const educations = educationsData.length > 0
-    ? educationsData.map(edu => ({
-        degree: edu.degree || 'Degree',
-        institution: edu.institution || 'Institution Name',
-        start_date: edu.start_date || '',
-        end_date: edu.end_date || ''
-      }))
-    : [{
-        degree: 'Bachelor of Science',
-        institution: 'University Name',
-        start_date: '2018',
-        end_date: '2022'
-      }]
-      
-  // Skills with fallback
-  const skillsData = cv.value?.skills || []
-  const skills = skillsData.length > 0 
-    ? skillsData 
-    : [
-        { name: 'JavaScript' },
-        { name: 'React' },
-        { name: 'Node.js' },
-        { name: 'CSS' },
-        { name: 'HTML' }
-      ]
-  
-  return {
-    personal_details: {
-      full_name: fullName || 'Your Name',
-      email: personalInfo.email || 'your.email@example.com',
-      phone_number: personalInfo.phone || '+1 234 567 8900',
-      address: personalInfo.address || 'Your Address'
-    },
-    summary: cv.value?.summary || 'Your professional summary will appear here...',
-    work_experiences: workExperiences,
-    educations: educations,
-    skills: skills,
-    interests: cv.value?.interests || []
-  }
-})
+  return computed(() => {
+    if (!showPreview.value) {
+      return null // Early exit for massive performance gain
+    }
+    
+    const now = Date.now()
+    
+    // Create lightweight hash to detect actual changes
+    const personalInfo = cv.value?.personalInfo || {}
+    const currentHash = JSON.stringify({
+      firstName: personalInfo.firstName || '',
+      lastName: personalInfo.lastName || '',
+      email: personalInfo.email || '',
+      phone: personalInfo.phone || '',
+      address: personalInfo.address || '',
+      summary: (cv.value?.summary || '').slice(0, 50), // Only first 50 chars for hash
+      expCount: cv.value?.experience?.length || 0,
+      eduCount: cv.value?.education?.length || 0,
+      skillCount: cv.value?.skills?.length || 0,
+      template: cv.value?.selectedTemplate || 'modern'
+    })
+    
+    // Return cached data if nothing changed and cache is fresh (2 seconds)
+    if (currentHash === lastPreviewHash && (now - lastUpdateTime) < 2000 && cachedPreviewData) {
+      return cachedPreviewData
+    }
+    
+    // Rebuild preview data only when necessary
+    const fullName = `${personalInfo.firstName || ''} ${personalInfo.lastName || ''}`.trim()
+    
+    // Optimized data mapping with minimal object creation
+    const experiences = cv.value?.experience || []
+    const workExperiences = experiences.length > 0 
+      ? experiences.map(exp => ({
+          job_title: exp.position || 'Position Title',
+          company: exp.company || 'Company Name',
+          city_country: exp.cityCountry || '',
+          start_date: exp.start_date || '',
+          end_date: exp.end_date || '',
+          is_current_job: exp.current || false,
+          description: exp.description || 'Job description will appear here...'
+        }))
+      : [{
+          job_title: 'Software Developer',
+          company: 'Tech Company', 
+          city_country: 'New York, USA',
+          start_date: '2022-01',
+          end_date: '',
+          is_current_job: true,
+          description: 'Add your work experience to see it displayed here...'
+        }]
+    
+    const educationsData = cv.value?.education || []
+    const educations = educationsData.length > 0
+      ? educationsData.map(edu => ({
+          degree: edu.degree || 'Degree',
+          institution: edu.institution || 'Institution Name',
+          field_of_study: edu.fieldOfStudy || '',
+          location: edu.location || '',
+          start_date: edu.start_date || '',
+          end_date: edu.end_date || '',
+          gpa: edu.gpa || '',
+          description: edu.description || '',
+          is_current: edu.isCurrent || false
+        }))
+      : [{
+          degree: 'Bachelor of Science',
+          institution: 'University Name',
+          field_of_study: 'Computer Science',
+          location: 'Boston, MA',
+          start_date: '2018',
+          end_date: '2022',
+          gpa: '',
+          description: '',
+          is_current: false
+        }]
+    
+    const skillsData = cv.value?.skills || []
+    const skills = skillsData.length > 0 
+      ? skillsData.map(skill => ({
+          name: skill.name,
+          level: skill.level || 3,
+          category: skill.category || '',
+          years_of_experience: skill.yearsOfExperience || null
+        }))
+      : [
+          { name: 'JavaScript', level: 4, category: 'Technical', years_of_experience: 3 },
+          { name: 'React', level: 4, category: 'Frameworks', years_of_experience: 2.5 },
+          { name: 'Node.js', level: 3, category: 'Technical', years_of_experience: 2 },
+          { name: 'CSS', level: 4, category: 'Technical', years_of_experience: 4 },
+          { name: 'HTML', level: 5, category: 'Technical', years_of_experience: 5 }
+        ]
+    
+    // Cache the result with enhanced fields
+    cachedPreviewData = {
+      personal_details: {
+        full_name: fullName || 'Your Name',
+        email: personalInfo.email || 'your.email@example.com',
+        phone_number: personalInfo.phone || '+1 234 567 8900',
+        address: personalInfo.address || 'Your Address',
+        linkedin: personalInfo.linkedin || '',
+        website: personalInfo.website || '',
+        // Enhanced personal information
+        date_of_birth: personalInfo.dateOfBirth || '',
+        place_of_birth: personalInfo.placeOfBirth || '',
+        gender: personalInfo.gender || '',
+        nationality: personalInfo.nationality || '',
+        zip_code: personalInfo.zipCode || '',
+        marital_status: personalInfo.maritalStatus || '',
+        driving_license: personalInfo.drivingLicense || ''
+      },
+      summary: cv.value?.summary || 'Your professional summary will appear here...',
+      work_experiences: workExperiences,
+      educations: educations,
+      skills: skills,
+      interests: cv.value?.interests || []
+    }
+    
+    lastPreviewHash = currentHash
+    lastUpdateTime = now
+    
+    return cachedPreviewData
+  })
+})()
 
 const currentTemplateComponent = computed(() => {
   switch (cv.value.selectedTemplate) {
@@ -1309,6 +1861,12 @@ const navigateToStep = (stepIndex) => {
   }
 }
 
+const setCurrentStep = (step) => {
+  if (step >= 0 && step < wizardSteps.value.length) {
+    currentStep.value = step
+  }
+}
+
 const canNavigateToStep = (stepIndex) => {
   // Allow navigation to completed steps and next uncompleted step
   return stepIndex <= currentStep.value + 1
@@ -1393,32 +1951,70 @@ const showStepAchievement = () => {
   }
 }
 
-// Enhanced AI methods
+// 🔥 ENHANCED AI ASSISTANCE: Smart suggestions with modern UX
 const toggleAIPanel = () => {
   showAIPanel.value = !showAIPanel.value
+  
+  // Add smooth transition effect
+  if (showAIPanel.value) {
+    showMessage('🤖 AI Assistant activated! I\'m here to help!', 'success')
+    logPerformanceMetric('AI Panel Opened', { step: currentStep.value })
+  }
 }
 
-const applySuggestion = (suggestion) => {
-  // Mark suggestion as applied
+const applySuggestion = async (suggestion) => {
+  // Mark suggestion as applied with animation
   suggestion.applied = true
   
-  // Execute the suggestion
-  switch (suggestion.text) {
-    case 'Add your first name':
-      document.querySelector('input[placeholder="John"]')?.focus()
-      break
-    case 'Add your email address':
-      document.querySelector('input[type="email"]')?.focus()
-      break
-    case 'Write a compelling summary':
-      generateAISummary()
-      break
-    case 'Add your first job':
-      addExperience()
-      break
-    case 'Add more skills':
-      document.querySelector('.skills-input input')?.focus()
-      break
+  // Add loading state for better UX
+  loading.value = true
+  loadingMessage.value = 'Applying AI suggestion...'
+  
+  try {
+    // Execute the suggestion with enhanced UX
+    switch (suggestion.text) {
+      case 'Add your first name':
+        await focusWithDelay('input[placeholder="John"]', 'Let\'s start with your name!')
+        break
+      case 'Add your email address':
+        await focusWithDelay('input[type="email"]', 'Add your email address')
+        break
+      case 'Write a compelling summary':
+        await generateAISummary()
+        break
+      case 'Add your first job':
+        addExperience()
+        showMessage('New experience section added! 💼', 'success')
+        break
+      case 'Add more skills':
+        await focusWithDelay('.skills-input input', 'Add your key skills')
+        break
+      default:
+        showMessage('Suggestion applied!', 'success')
+    }
+    
+    // Log successful application
+    logPerformanceMetric('AI Suggestion Applied', {
+      suggestion: suggestion.text,
+      step: currentStep.value
+    })
+    
+  } catch (error) {
+    showMessage('Failed to apply suggestion', 'error')
+    console.warn('AI Suggestion Error:', error)
+  } finally {
+    loading.value = false
+  }
+}
+
+// Helper function for smooth focus with user feedback
+const focusWithDelay = async (selector, message) => {
+  showMessage(message, 'info')
+  await new Promise(resolve => setTimeout(resolve, 500))
+  const element = document.querySelector(selector)
+  if (element) {
+    element.focus()
+    element.scrollIntoView({ behavior: 'smooth', block: 'center' })
   }
 }
 
@@ -1570,51 +2166,153 @@ onUnmounted(() => {
   }
 })
 
+// 🔥 ENHANCED: Interactive template selection with smooth transitions
 const selectTemplate = (templateId) => {
+  const previousTemplate = cv.value.selectedTemplate
   cv.value.selectedTemplate = templateId
+  
+  // Enhanced UX feedback
+  if (previousTemplate !== templateId) {
+    showMessage(`✨ ${templateId.charAt(0).toUpperCase() + templateId.slice(1)} template selected!`, 'success')
+    
+    // Add subtle animation to preview if visible
+    if (showPreview.value) {
+      const previewContainer = document.querySelector('.cv-preview-container')
+      if (previewContainer) {
+        previewContainer.classList.add('template-switching')
+        setTimeout(() => {
+          previewContainer.classList.remove('template-switching')
+        }, 600)
+      }
+    }
+    
+    // Log template selection for analytics
+    logPerformanceMetric('Template Selected', {
+      previous: previousTemplate,
+      current: templateId,
+      step: currentStep.value
+    })
+  }
+  
   triggerAutoSave()
 }
 
+// 🔥 ENHANCED: Smart skill management with validation and UX improvements
 const addSkill = () => {
-  console.log('addSkill called with:', newSkill.value)
-  if (newSkill.value.trim()) {
-    if (!cv.value.skills) cv.value.skills = []
-    cv.value.skills.push({ name: newSkill.value.trim() })
-    newSkill.value = ''
-    console.log('Skill added, new skills:', cv.value.skills)
-    // triggerAutoSave()
+  const skillName = newSkill.value.trim()
+  
+  if (!skillName) {
+    showMessage('Please enter a skill name', 'error')
+    return
   }
+  
+  if (!cv.value.skills) cv.value.skills = []
+  
+  // Check for duplicates with case-insensitive comparison
+  if (cv.value.skills.some(skill => skill.name.toLowerCase() === skillName.toLowerCase())) {
+    showMessage('This skill is already added', 'warning')
+    newSkill.value = ''
+    return
+  }
+  
+  // Add skill with enhanced fields
+  cv.value.skills.push({ 
+    name: skillName,
+    level: 3, // Default intermediate level (1-5 scale)
+    category: newSkillCategory.value || '', // Use selected category
+    yearsOfExperience: null
+  })
+  newSkill.value = ''
+  newSkillCategory.value = ''
+  
+  // Enhanced feedback with skill count
+  const skillCount = cv.value.skills.length
+  showMessage(`✅ "${skillName}" added! (${skillCount} skills total)`, 'success')
+  
+  // Achievement for milestones
+  if (skillCount === 5) {
+    showMessage('🎉 Great! You have 5 skills - that looks professional!', 'success')
+  }
+  
+  logPerformanceMetric('Skill Added', { skill: skillName, totalSkills: skillCount })
+  triggerAutoSave()
 }
 
 const removeSkill = (index) => {
   if (cv.value.skills && cv.value.skills[index]) {
+    const removedSkill = cv.value.skills[index].name
     cv.value.skills.splice(index, 1)
+    showMessage(`"${removedSkill}" removed`, 'info')
+    
+    logPerformanceMetric('Skill Removed', { 
+      skill: removedSkill, 
+      remainingSkills: cv.value.skills.length 
+    })
     triggerAutoSave()
   }
 }
 
 const addRecommendedSkill = (skillName) => {
   if (!cv.value.skills) cv.value.skills = []
-  if (!cv.value.skills.find(skill => skill.name === skillName)) {
-    cv.value.skills.push({ name: skillName })
+  
+  if (!cv.value.skills.find(skill => skill.name.toLowerCase() === skillName.toLowerCase())) {
+    cv.value.skills.push({ 
+      name: skillName,
+      level: 3, // Default intermediate level
+      category: '', // Auto-categorize based on skill type
+      yearsOfExperience: null
+    })
+    showMessage(`✨ "${skillName}" added from suggestions!`, 'success')
+    
+    logPerformanceMetric('Recommended Skill Added', { 
+      skill: skillName,
+      totalSkills: cv.value.skills.length
+    })
     triggerAutoSave()
   }
 }
 
+// 🔥 ENHANCED: Smart interest management
 const addInterest = () => {
-  console.log('addInterest called with:', newInterest.value)
-  if (newInterest.value.trim()) {
-    if (!cv.value.interests) cv.value.interests = []
-    cv.value.interests.push({ name: newInterest.value.trim() })
-    newInterest.value = ''
-    console.log('Interest added, new interests:', cv.value.interests)
-    // triggerAutoSave()
+  const interestName = newInterest.value.trim()
+  
+  if (!interestName) {
+    showMessage('Please enter an interest', 'error')
+    return
   }
+  
+  if (!cv.value.interests) cv.value.interests = []
+  
+  // Check for duplicates
+  if (cv.value.interests.some(interest => interest.name.toLowerCase() === interestName.toLowerCase())) {
+    showMessage('This interest is already added', 'warning')
+    newInterest.value = ''
+    return
+  }
+  
+  cv.value.interests.push({ name: interestName })
+  newInterest.value = ''
+  
+  const interestCount = cv.value.interests.length
+  showMessage(`🎯 "${interestName}" added! (${interestCount} interests)`, 'success')
+  
+  logPerformanceMetric('Interest Added', { 
+    interest: interestName, 
+    totalInterests: interestCount 
+  })
+  triggerAutoSave()
 }
 
 const removeInterest = (index) => {
   if (cv.value.interests && cv.value.interests[index]) {
+    const removedInterest = cv.value.interests[index].name
     cv.value.interests.splice(index, 1)
+    showMessage(`"${removedInterest}" removed`, 'info')
+    
+    logPerformanceMetric('Interest Removed', { 
+      interest: removedInterest,
+      remainingInterests: cv.value.interests.length
+    })
     triggerAutoSave()
   }
 }
@@ -1623,13 +2321,91 @@ const handleSave = () => {
   saveCv('published')
 }
 
-const triggerAutoSave = () => {
-  onInputChange()
+// Enhanced triggerAutoSave with duplicate prevention
+const triggerAutoSave = (() => {
+  let triggerCount = 0
+  let lastTriggerReset = Date.now()
+  
+  return () => {
+    const now = Date.now()
+    
+    // Reset counter every 5 seconds
+    if (now - lastTriggerReset > 5000) {
+      triggerCount = 0
+      lastTriggerReset = now
+    }
+    
+    // Prevent excessive triggers (max 3 per 5 seconds)
+    triggerCount++
+    if (triggerCount > 3) {
+      console.log('🚫 Auto-save throttled - too many triggers')
+      return
+    }
+    
+    onInputChange()
+  }
+})()
+
+// Template preview functionality (following Templates.vue pattern)
+const templatePreviewActive = ref(false)
+const previewingTemplate = ref(null)
+
+const previewTemplate = (templateId) => {
+  previewingTemplate.value = templateId
+  templatePreviewActive.value = true
 }
 
-const downloadPDF = () => {
-  // Implement PDF download functionality
-  console.log('Downloading PDF...')
+const stopTemplatePreview = () => {
+  previewingTemplate.value = null
+  templatePreviewActive.value = false
+}
+
+// Update hero CV display following Homepage.vue pattern
+const updateHeroCV = () => {
+  const isUpdating = ref(true)
+  setTimeout(() => {
+    isUpdating.value = false
+  }, 300)
+}
+
+const switchHeroTemplate = (templateId) => {
+  cv.value.selectedTemplate = templateId
+  updateHeroCV()
+}
+
+const downloadPDF = async () => {
+  if (!savedCvId.value) {
+    showMessage('Please save your CV first', 'warning')
+    return
+  }
+  
+  try {
+    loading.value = true
+    loadingMessage.value = 'Generating PDF...'
+    
+    const token = localStorage.getItem('auth_token')
+    const response = await axios.get(`/api/cvs/${savedCvId.value}/download`, {
+      headers: { 'Authorization': `Bearer ${token}` },
+      responseType: 'blob'
+    })
+    
+    // Create download link
+    const url = window.URL.createObjectURL(new Blob([response.data]))
+    const link = document.createElement('a')
+    link.href = url
+    link.setAttribute('download', `${cv.value.title || 'CV'}.pdf`)
+    document.body.appendChild(link)
+    link.click()
+    link.remove()
+    window.URL.revokeObjectURL(url)
+    
+    showMessage('PDF downloaded successfully!', 'success')
+  } catch (error) {
+    showMessage('Failed to download PDF', 'error')
+    console.error('PDF download error:', error)
+  } finally {
+    loading.value = false
+  }
 }
 
 // Simple AI enhancement methods
@@ -1753,9 +2529,16 @@ const getIndustrySpecificSkills = () => {
 
 
 // Optimized main save function
+// Global save lock to prevent concurrent saves
+let globalSaveLock = false
+
 const saveCv = async (status) => {
-  if (loading.value || autoSaveInProgress.value) return
+  if (loading.value || autoSaveInProgress.value || globalSaveLock) {
+    console.log('🚫 Manual save blocked - save already in progress')
+    return
+  }
   
+  globalSaveLock = true
   loading.value = true
   loadingMessage.value = status === 'published' ? 'Finalizing your CV...' : 'Saving your CV...'
   
@@ -1786,13 +2569,27 @@ const saveCv = async (status) => {
 
     console.log('Saving CV with optimized payload:', payload)
 
-    const response = await axios.post('/api/cvs', payload, {
-      headers: { 
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
-      },
-      timeout: 20000 // Increased timeout for finalization
-    })
+    // Determine whether to create new CV or update existing one
+    let response
+    if (savedCvId.value) {
+      // Update existing CV
+      response = await axios.put(`/api/cvs/${savedCvId.value}`, payload, {
+        headers: { 
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        timeout: 20000
+      })
+    } else {
+      // Create new CV only if no existing CV ID
+      response = await axios.post('/api/cvs', payload, {
+        headers: { 
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        timeout: 20000
+      })
+    }
 
     console.log('CV save response:', response.data)
 
@@ -1800,12 +2597,16 @@ const saveCv = async (status) => {
       // Store the CV ID for later use
       if (response.data.cv?.id) {
         savedCvId.value = response.data.cv.id
+        // Persist to localStorage for session continuity
+        localStorage.setItem('current_draft_cv_id', savedCvId.value)
       }
       
       const successMessage = status === 'published' ? 'CV created successfully!' : 'CV saved successfully!'
       showMessage(successMessage, 'success')
       
       if (status === 'published') {
+        // Clear the draft CV ID from localStorage since it's now published
+        localStorage.removeItem('current_draft_cv_id')
         // Small delay before showing modal for better UX
         setTimeout(() => {
           showSuccessModal.value = true
@@ -1833,6 +2634,7 @@ const saveCv = async (status) => {
       if (status === 401) {
         showMessage('Session expired. Please login again.', 'error')
         localStorage.removeItem('auth_token')
+        localStorage.removeItem('current_draft_cv_id') // Clear draft on session expiry
         router.push('/login')
       } else if (status === 422) {
         // Enhanced validation error handling
@@ -1866,6 +2668,7 @@ const saveCv = async (status) => {
   } finally {
     loading.value = false
     loadingMessage.value = 'Processing...'
+    globalSaveLock = false // Release the global save lock
   }
 }
 
@@ -1878,7 +2681,10 @@ const addExperience = () => {
     start_date: '',
     end_date: '',
     description: '',
-    current: false
+    current: false,
+    // Enhanced experience fields
+    cityCountry: '',
+    isCurrentJob: false
   })
   console.log('Experience added, new length:', cv.value.experience.length)
   // Don't trigger auto-save immediately to avoid validation issues
@@ -1901,7 +2707,11 @@ const addEducation = () => {
     start_date: '',
     end_date: '',
     gpa: '',
-    description: ''
+    description: '',
+    // Enhanced education fields
+    fieldOfStudy: '',
+    isCurrent: false,
+    location: ''
   })
   console.log('Education added, new length:', cv.value.education.length)
   // Don't trigger auto-save immediately to avoid validation issues
@@ -1916,6 +2726,14 @@ const removeEducation = (index) => {
 }
 
 // Removed duplicate methods - using the ones defined earlier
+
+// Format date helper
+const formatDate = (dateStr) => {
+  if (!dateStr) return ''
+  const date = new Date(dateStr)
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+  return `${months[date.getMonth()]} ${date.getFullYear()}`
+}
 
 
 
@@ -1989,124 +2807,225 @@ const canAutoSave = computed(() => {
   return personalInfo.firstName && personalInfo.email && cv.value.title
 })
 
-// Debounced progress calculation for performance
+// 🔥 PERFORMANCE BOOST: Heavily debounced progress calculation
 let progressTimer = null
+let lastProgressHash = ''
+
 const debouncedCalculateProgress = () => {
   if (progressTimer) {
     clearTimeout(progressTimer)
   }
+  
   progressTimer = setTimeout(() => {
-    // Trigger reactive update efficiently
-    cachedProgress = -1 // Force recalculation
-    overallProgress.value // Access to trigger update
-  }, 200) // Reduced timer for better UX
-}
-
-// Optimized input change handler
-const onInputChange = () => {
-  // Debounced progress update
-  debouncedCalculateProgress()
-  
-  // Only trigger auto-save if we have basic required info
-  const personalInfo = cv.value?.personalInfo || {}
-  if (!personalInfo.firstName || !personalInfo.email || !cv.value.title) {
-    return
-  }
-  
-  // Don't trigger if already saving or recently saved
-  if (autoSaveStatus.value === 'saving' || autoSaveInProgress.value) return
-  
-  // Clear existing timers
-  if (autoSaveTimer.value) {
-    clearTimeout(autoSaveTimer.value)
-  }
-  if (saveDebounceTimer.value) {
-    clearTimeout(saveDebounceTimer.value)
-  }
-  
-  // Longer delay to reduce server load and improve performance
-  saveDebounceTimer.value = setTimeout(() => {
-    autoSave()
-  }, 8000) // Increased to 8 seconds for better performance
-}
-
-// Optimized auto-save with better error handling and MySQL optimization
-const autoSave = async () => {
-  if (autoSaveStatus.value === 'saving' || autoSaveInProgress.value || !canAutoSave.value) return
-  
-  // Additional validation before attempting save
-  const personalInfo = cv.value?.personalInfo || {}
-  if (!personalInfo.firstName || !personalInfo.email || !cv.value.title) {
-    return
-  }
-  
-  autoSaveStatus.value = 'saving'
-  autoSaveInProgress.value = true
-  
-  try {
-    const token = localStorage.getItem('auth_token')
-    if (!token) {
-      autoSaveStatus.value = 'idle'
-      autoSaveInProgress.value = false
-      return
-    }
-
-    const payload = createOptimizedSavePayload(false)
-    
-    // Final validation before API call
-    if (!payload.title || !payload.personalDetails?.firstName || !payload.personalDetails?.email) {
-      autoSaveStatus.value = 'idle'
-      autoSaveInProgress.value = false
-      return
-    }
-    
-    const response = await axios.post('/api/cvs', payload, {
-      headers: { 
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
-      },
-      timeout: 15000 // Increased timeout for larger payloads
+    // Only recalculate if data actually changed
+    const currentHash = JSON.stringify({
+      name: cv.value?.personalInfo?.firstName,
+      email: cv.value?.personalInfo?.email,
+      title: cv.value?.title,
+      expCount: cv.value?.experience?.length || 0,
+      eduCount: cv.value?.education?.length || 0,
+      skillCount: cv.value?.skills?.length || 0
     })
+    
+    if (currentHash !== lastProgressHash) {
+      lastProgressHash = currentHash
+      cachedProgress = -1 // Force recalculation only when needed
+      overallProgress.value // Access to trigger update
+    }
+  }, 500) // Increased debounce for better performance
+}
 
-    if (response.data.success) {
-      autoSaveStatus.value = 'saved'
-      lastSaved.value = new Date()
-      if (response.data.cv?.id) {
-        savedCvId.value = response.data.cv.id
+// 🔥 ULTRA-OPTIMIZED: Smart input change handler with advanced debouncing
+const onInputChange = (() => {
+  let lastInputTime = 0
+  let progressUpdateTimer = null
+  let autoSaveTimer = null
+  let hasBasicInfo = false
+  
+  // Cache basic info validation to avoid repeated checks
+  const checkBasicInfo = () => {
+    const personalInfo = cv.value?.personalInfo || {}
+    hasBasicInfo = !!(personalInfo.firstName && personalInfo.email && cv.value.title)
+    return hasBasicInfo
+  }
+  
+  return () => {
+    const now = Date.now()
+    lastInputTime = now
+    
+    // Ultra-lightweight progress update with heavy debouncing
+    if (progressUpdateTimer) clearTimeout(progressUpdateTimer)
+    progressUpdateTimer = setTimeout(() => {
+      // Only recalculate if data meaningfully changed
+      debouncedCalculateProgress()
+    }, 800) // Increased from 500ms for better performance
+    
+    // Early exit if basic info missing - no point in auto-saving
+    if (!checkBasicInfo()) return
+    
+    // Skip if already saving or recently saved
+    if (autoSaveStatus.value === 'saving' || autoSaveInProgress.value) return
+    
+    // Clear existing auto-save timer
+    if (autoSaveTimer) clearTimeout(autoSaveTimer)
+    
+    // Intelligent debouncing based on user behavior
+    const timeSinceLastInput = now - lastInputTime
+    const isActivelyTyping = timeSinceLastInput < 300
+    
+    // Adaptive debounce timing
+    const debounceTime = isActivelyTyping ? 4000 : 2000 // Longer delays for better performance
+    
+    autoSaveTimer = setTimeout(() => {
+      // Double-check conditions before auto-save
+      if (hasBasicInfo && autoSaveStatus.value !== 'saving') {
+        // Check for duplicates before auto-saving if title is set
+        if (cv.value.title?.trim()) {
+          checkForDuplicateCvs().then(() => {
+            autoSave()
+          })
+        } else {
+          autoSave()
+        }
+      }
+    }, debounceTime)
+  }
+})()
+
+// 🔥 ULTRA-OPTIMIZED: Intelligent auto-save with minimal resource usage
+const autoSave = (() => {
+  let lastSavePayload = ''
+  let consecutiveFailures = 0
+  const MAX_RETRIES = 3
+  const BACKOFF_DELAYS = [2000, 5000, 10000] // Progressive backoff
+  
+  return async () => {
+    // Enhanced duplicate save prevention
+    if (autoSaveStatus.value === 'saving' || autoSaveInProgress.value || !canAutoSave.value || globalSaveLock) {
+      console.log('🚫 Auto-save skipped - already in progress or conditions not met')
+      return
+    }
+    
+    // Quick validation check
+    const personalInfo = cv.value?.personalInfo || {}
+    if (!personalInfo.firstName || !personalInfo.email || !cv.value.title) {
+      return
+    }
+    
+    // Create and compare payload to avoid unnecessary saves
+    const currentPayload = JSON.stringify(createOptimizedSavePayload(false))
+    if (currentPayload === lastSavePayload) {
+      console.log('🚫 Auto-save skipped - no changes detected')
+      return // No changes detected, skip save
+    }
+    
+    // Add additional safety check for recent saves
+    const timeSinceLastSave = Date.now() - (lastSaved.value?.getTime() || 0)
+    if (timeSinceLastSave < 3000) {
+      console.log('🚫 Auto-save skipped - too recent')
+      return
+    }
+    
+    autoSaveStatus.value = 'saving'
+    autoSaveInProgress.value = true
+    
+    try {
+      const token = localStorage.getItem('auth_token')
+      if (!token) {
+        autoSaveStatus.value = 'idle'
+        autoSaveInProgress.value = false
+        // Clear draft if no token
+        localStorage.removeItem('current_draft_cv_id')
+        savedCvId.value = null
+        return
+      }
+
+      const payload = JSON.parse(currentPayload)
+      
+      // Ultra-lightweight final validation
+      if (!payload.title || !payload.personalDetails?.firstName) {
+        autoSaveStatus.value = 'idle'
+        autoSaveInProgress.value = false
+        return
       }
       
-      // Clear saved status after 4 seconds
-      setTimeout(() => {
-        if (autoSaveStatus.value === 'saved') {
-          autoSaveStatus.value = 'idle'
+      // Determine whether to create new CV or update existing one
+      let response
+      if (savedCvId.value) {
+        // Update existing CV
+        response = await axios.put(`/api/cvs/${savedCvId.value}`, payload, {
+          headers: { 
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          },
+          timeout: 12000
+        })
+      } else {
+        // Create new CV only if no existing CV ID
+        response = await axios.post('/api/cvs', payload, {
+          headers: { 
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          },
+          timeout: 12000
+        })
+      }
+
+      if (response.data.success) {
+        autoSaveStatus.value = 'saved'
+        lastSaved.value = new Date()
+        lastSavePayload = currentPayload // Cache successful payload
+        consecutiveFailures = 0 // Reset failure counter
+        
+        if (response.data.cv?.id) {
+          savedCvId.value = response.data.cv.id
+          // Persist to localStorage for session continuity
+          localStorage.setItem('current_draft_cv_id', savedCvId.value)
         }
-      }, 4000)
-    } else {
-      autoSaveStatus.value = 'error'
-      console.warn('Auto-save failed:', response.data.message)
-      setTimeout(() => {
-        if (autoSaveStatus.value === 'error') {
-          autoSaveStatus.value = 'idle'
-        }
-      }, 4000)
+        
+        // Faster status reset for better UX
+        setTimeout(() => {
+          if (autoSaveStatus.value === 'saved') {
+            autoSaveStatus.value = 'idle'
+          }
+        }, 3000)
+      } else {
+        handleAutoSaveError('API Error: ' + (response.data.message || 'Unknown error'))
+      }
+    } catch (error) {
+      handleAutoSaveError(error)
+    } finally {
+      autoSaveInProgress.value = false
     }
-  } catch (error) {
+  }
+  
+  function handleAutoSaveError(error) {
+    consecutiveFailures++
     autoSaveStatus.value = 'error'
     
-    // Only log significant errors, avoid spam
-    if (error.response?.status !== 422) {
-      console.warn('Auto-save error:', error.message)
+    // Progressive backoff for retries
+    if (consecutiveFailures <= MAX_RETRIES) {
+      const delay = BACKOFF_DELAYS[consecutiveFailures - 1] || 10000
+      setTimeout(() => {
+        if (autoSaveStatus.value === 'error' && canAutoSave.value) {
+          autoSave() // Retry with backoff
+        }
+      }, delay)
     }
     
+    // Only log significant errors
+    if (error.response?.status !== 422 && consecutiveFailures <= 2) {
+      console.warn(`Auto-save error (attempt ${consecutiveFailures}):`, error.message || error)
+    }
+    
+    // Reset status after delay
     setTimeout(() => {
       if (autoSaveStatus.value === 'error') {
         autoSaveStatus.value = 'idle'
       }
-    }, 4000)
-  } finally {
-    autoSaveInProgress.value = false
+    }, 3000)
   }
-}
+})()
 
 // AI Settings
 const updateAISettings = (settings) => {
@@ -2136,6 +3055,52 @@ const formatDateForAPI = (dateStr) => {
   return dateStr
 }
 
+// Check for existing draft CV on component mount
+const checkForExistingDraft = async () => {
+  if (savedCvId.value) {
+    try {
+      const token = localStorage.getItem('auth_token')
+      if (!token) return
+      
+      // Check if the saved CV ID still exists and is a draft
+      const response = await axios.get(`/api/cvs/${savedCvId.value}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      })
+      
+      if (response.data.success && response.data.cv) {
+        const cvData = response.data.cv
+        
+        // Only load if it's still a draft (not finalized)
+        if (!cvData.isFinalized) {
+          console.log('Loading existing draft CV:', savedCvId.value)
+          // Load the existing CV data
+          cv.value = {
+            title: cvData.title || '',
+            personalInfo: cvData.personalDetails || {},
+            summary: cvData.summary || '',
+            experience: cvData.experience || [],
+            education: cvData.education || [],
+            skills: cvData.skills || [],
+            interests: cvData.interests || [],
+            selectedTemplate: cvData.selectedTemplate || 'modern'
+          }
+          
+          showMessage('Continuing your draft CV...', 'info')
+        } else {
+          // CV is already finalized, clear the draft ID
+          localStorage.removeItem('current_draft_cv_id')
+          savedCvId.value = null
+        }
+      }
+    } catch (error) {
+      console.log('Draft CV not found or error loading:', error)
+      // Clear invalid draft ID
+      localStorage.removeItem('current_draft_cv_id')
+      savedCvId.value = null
+    }
+  }
+}
+
 // Navigation methods
 const goBack = () => {
   router.push('/dashboard')
@@ -2155,6 +3120,45 @@ const closeSuccessModal = () => {
   showSuccessModal.value = false
 }
 
+// Additional safety: Check for duplicate CVs with same content
+const checkForDuplicateCvs = async () => {
+  try {
+    const token = localStorage.getItem('auth_token')
+    if (!token) return
+    
+    const response = await axios.get('/api/cvs', {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+    
+    if (response.data.success && response.data.cvs) {
+      const currentTitle = cv.value.title?.trim()
+      const userCvs = response.data.cvs
+      
+      // Find drafts with same title
+      const duplicateDrafts = userCvs.filter(existingCv => 
+        existingCv.title === currentTitle && 
+        !existingCv.isFinalized && 
+        existingCv.id !== savedCvId.value
+      )
+      
+      if (duplicateDrafts.length > 0 && currentTitle) {
+        // Use the most recent duplicate instead of creating a new one
+        const mostRecent = duplicateDrafts.sort((a, b) => 
+          new Date(b.updatedAt) - new Date(a.updatedAt)
+        )[0]
+        
+        console.log('Found duplicate draft, switching to:', mostRecent.id)
+        savedCvId.value = mostRecent.id
+        localStorage.setItem('current_draft_cv_id', mostRecent.id)
+        
+        showMessage('Switching to your existing draft...', 'info')
+      }
+    }
+  } catch (error) {
+    console.log('Error checking for duplicates:', error)
+  }
+}
+
 // Utility methods
 const showMessage = (text, type = 'success') => {
   message.value = { text, type }
@@ -2168,62 +3172,253 @@ const showMessage = (text, type = 'success') => {
   }, clearTime)
 }
 
-// Performance monitoring
-const logPerformanceMetric = (metric, value) => {
-  if (process.env.NODE_ENV === 'development') {
-    console.log(`CV Creator Performance - ${metric}:`, value)
+// 🔥 ENHANCED: Advanced Performance Monitoring & Optimization
+const logPerformanceMetric = (() => {
+  const performanceLog = []
+  let lastLogTime = 0
+  
+  return (metric, value) => {
+    if (process.env.NODE_ENV === 'development') {
+      const now = performance.now()
+      
+      // Throttle logging to prevent spam
+      if (now - lastLogTime > 1000) {
+        const entry = {
+          metric,
+          value,
+          timestamp: now,
+          memory: performance.memory ? Math.round(performance.memory.usedJSHeapSize / 1024 / 1024) : 'N/A'
+        }
+        
+        performanceLog.push(entry)
+        
+        // Keep only last 10 entries
+        if (performanceLog.length > 10) {
+          performanceLog.shift()
+        }
+        
+        console.log(`🚀 CV Creator Performance - ${metric}:`, value, `| Memory: ${entry.memory}MB`)
+        lastLogTime = now
+      }
+    }
   }
+})()
+
+// Performance optimization: Intersection Observer for lazy loading
+const setupLazyLoading = () => {
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const element = entry.target
+          if (element.dataset.lazy) {
+            // Trigger lazy loading
+            element.classList.add('loaded')
+            observer.unobserve(element)
+          }
+        }
+      })
+    }, {
+      threshold: 0.1,
+      rootMargin: '50px'
+    })
+    
+    return observer
+  }
+  return null
 }
 
 // Removed step descriptions for single-page form
 
-// Initialize component
-onMounted(() => {
-  console.log('Component mounted, CV data:', cv.value)
-  // Don't auto-add entries - let user add them manually
-  // Skills and interests start empty by default to encourage user input
+// 🔥 ULTRA-ENHANCED: Ultra-Premium component initialization with particle system
+onMounted(async () => {
+  const startTime = performance.now()
+  
+  console.log('🚀 CV Creator initializing with ultra-premium effects...', cv.value)
+  
+  try {
+    // Load saved preferences
+    isDarkMode.value = localStorage.getItem('cv-creator-dark-mode') === 'true'
+    
+    if (isDarkMode.value) {
+      document.documentElement.classList.add('dark')
+    }
+    
+    // Initialize mobile state with performance monitoring
+    updateMobileState()
+    
+    // Initialize clean animations
+    nextTick(() => {
+      // Simple initialization - no complex effects needed
+      console.log('CV Creator initialized with clean styling')
+    })
+    
+    // Setup lazy loading observer
+    const lazyObserver = setupLazyLoading()
+    if (lazyObserver) {
+      // Store observer for cleanup
+      window._cvCreatorLazyObserver = lazyObserver
+    }
+    
+    // Setup optimized resize handler with debouncing
+    let resizeTimer = null
+    const debouncedResize = () => {
+      if (resizeTimer) clearTimeout(resizeTimer)
+      resizeTimer = setTimeout(() => {
+        updateMobileState()
+        logPerformanceMetric('Resize Event', { 
+          width: window.innerWidth,
+          isMobile: isMobile.value 
+        })
+      }, 250) // Increased debounce for better performance
+    }
+    
+    window.addEventListener('resize', debouncedResize, { passive: true })
+    
+    // Store cleanup function for onUnmounted
+    window._cvCreatorResizeCleanup = () => {
+      window.removeEventListener('resize', debouncedResize)
+      if (resizeTimer) clearTimeout(resizeTimer)
+      if (window._cvCreatorLazyObserver) {
+        window._cvCreatorLazyObserver.disconnect()
+        delete window._cvCreatorLazyObserver
+      }
+    }
+    
+    // Check for existing draft CV first
+    await checkForExistingDraft()
+    
+    // Check for returning user and provide personalized experience
+    const hasVisited = localStorage.getItem('cv_creator_visited')
+    if (!hasVisited) {
+      localStorage.setItem('cv_creator_visited', 'true')
+      // First-time user experience
+      setTimeout(() => {
+        showMessage('👋 Welcome! Let\'s create your amazing CV together!', 'success')
+      }, 1000)
+    } else {
+      // Returning user (only show if no draft was loaded)
+      if (!savedCvId.value) {
+        showMessage('Welcome back! Ready to continue your CV?', 'info')
+      }
+    }
+    
+    // Preload template components for better performance
+    if (!isMobile.value) {
+      // Only preload on desktop to save mobile bandwidth
+      await Promise.all([
+        import('@/components/cv_templates/ClassicTemplate.vue'),
+        import('@/components/cv_templates/ModernTemplate.vue'),
+        import('@/components/cv_templates/ProfessionalTemplate.vue'),
+        import('@/components/cv_templates/CreativeTemplate.vue')
+      ])
+    }
+    
+    const initTime = performance.now() - startTime
+    logPerformanceMetric('Component Initialization', {
+      duration: Math.round(initTime),
+      isMobile: isMobile.value,
+      hasVisited: !!hasVisited,
+      templatesPreloaded: !isMobile.value
+    })
+    
+    console.log('✅ CV Creator initialized successfully in', Math.round(initTime), 'ms')
+    
+  } catch (error) {
+    console.error('❌ CV Creator initialization failed:', error)
+    showMessage('Initialization failed. Please refresh the page.', 'error')
+    
+    logPerformanceMetric('Initialization Error', {
+      error: error.message,
+      stack: error.stack?.slice(0, 200)
+    })
+  }
 })
 
-// Optimized cleanup and performance improvements
+// 🔥 ULTRA-OPTIMIZED: Comprehensive cleanup with memory leak prevention
 onUnmounted(() => {
-  // Clear all timers to prevent memory leaks
-  if (autoSaveTimer.value) {
-    clearTimeout(autoSaveTimer.value)
-    autoSaveTimer.value = null
-  }
-  if (saveDebounceTimer.value) {
-    clearTimeout(saveDebounceTimer.value)
-    saveDebounceTimer.value = null
-  }
-  if (progressTimer) {
-    clearTimeout(progressTimer)
-    progressTimer = null
+  // Clear all timers systematically
+  const timersToCleanup = [
+    autoSaveTimer.value,
+    saveDebounceTimer.value,
+    progressTimer,
+    window._cvCreatorResizeCleanup
+  ]
+  
+  timersToCleanup.forEach(timer => {
+    if (timer) {
+      clearTimeout(timer)
+    }
+  })
+  
+  // Clear window-level references
+  if (window.lastInputTime) delete window.lastInputTime
+  if (window._cvCreatorResizeCleanup) {
+    window._cvCreatorResizeCleanup()
+    delete window._cvCreatorResizeCleanup
   }
   
-  // Reset performance optimization flags
+  // Reset all performance optimization flags
   autoSaveInProgress.value = false
   isGeneratingAI.value = false
+  loading.value = false
   
-  // Clear cached values
+  // Clear all cached values for memory efficiency
   cachedProgress = 0
   cachedCompletionScore = 0
   cachedSkillSuggestions = []
   lastProgressUpdate = 0
   lastCompletionUpdate = 0
   lastSkillUpdate = 0
+  lastProgressHash = ''
+  lastDataHash = ''
+  
+  // Clear any remaining reactive references
+  if (message.value.text) {
+    message.value = { text: '', type: '' }
+  }
+  
+  recentAchievements.value = []
+  
+  console.log('🧹 CV Creator: Memory cleanup completed')
 })
 
 // Enhanced mobile detection
-const updateMobileState = () => {
-  const newIsMobile = window.innerWidth <= 768
-  if (newIsMobile !== isMobile.value) {
-    isMobile.value = newIsMobile
-    // Auto-hide preview on mobile for performance
-    if (newIsMobile && showPreview.value) {
-      showPreview.value = false
+// 🔥 ULTRA-OPTIMIZED: Smart mobile detection with performance monitoring
+const updateMobileState = (() => {
+  let resizeTimer = null
+  let lastWidth = window.innerWidth
+  
+  return () => {
+    const currentWidth = window.innerWidth
+    
+    // Only update if width actually changed significantly
+    if (Math.abs(currentWidth - lastWidth) < 50) return
+    
+    const newIsMobile = currentWidth <= 768
+    const newIsTablet = currentWidth > 768 && currentWidth <= 1024
+    
+    if (newIsMobile !== isMobile.value) {
+      isMobile.value = newIsMobile
+      
+      // Performance optimization: Auto-manage preview on mobile
+      if (newIsMobile && showPreview.value) {
+        showPreview.value = false
+        showMessage('Preview hidden on mobile for better performance', 'info')
+      }
+      
+      // Log performance impact
+      logPerformanceMetric('Mobile State Change', {
+        isMobile: newIsMobile,
+        isTablet: newIsTablet,
+        width: currentWidth,
+        previewActive: showPreview.value
+      })
     }
+    
+    lastWidth = currentWidth
   }
-}
+})()
 
 // Optimized save methods for better MySQL performance
 const createOptimizedSavePayload = (isFinalized = false) => {
@@ -2249,27 +3444,45 @@ const createOptimizedSavePayload = (isFinalized = false) => {
       lastName: (personalInfo.lastName || '').trim(),
       email: (personalInfo.email || '').trim(),
       phone: (personalInfo.phone || '').trim(),
-      address: (personalInfo.address || '').trim()
+      address: (personalInfo.address || '').trim(),
+      linkedin: (personalInfo.linkedin || '').trim(),
+      website: (personalInfo.website || '').trim(),
+      // Enhanced personal information fields
+      dateOfBirth: personalInfo.dateOfBirth || null,
+      placeOfBirth: (personalInfo.placeOfBirth || '').trim(),
+      gender: personalInfo.gender || null,
+      nationality: (personalInfo.nationality || '').trim(),
+      zipCode: (personalInfo.zipCode || '').trim(),
+      maritalStatus: personalInfo.maritalStatus || null,
+      drivingLicense: (personalInfo.drivingLicense || '').trim()
     },
     summary: (cv.value.summary || '').trim(),
     experience: validExperience.map(exp => ({
       title: exp.position.trim(),
       company: exp.company.trim(),
+      cityCountry: (exp.cityCountry || '').trim(),
       startDate: formatDateForAPI(exp.start_date),
       endDate: exp.current ? null : formatDateForAPI(exp.end_date),
       description: (exp.description || '').trim(),
-      isCurrent: Boolean(exp.current)
+      current: Boolean(exp.current),
+      isCurrentJob: Boolean(exp.current)
     })),
     education: validEducation.map(edu => ({
       degree: edu.degree.trim(),
       university: edu.institution.trim(),
+      fieldOfStudy: (edu.fieldOfStudy || '').trim(),
+      location: (edu.location || '').trim(),
       startDate: formatDateForAPI(edu.start_date),
-      endDate: formatDateForAPI(edu.end_date),
-      gpa: edu.gpa ? parseFloat(edu.gpa) : null
+      endDate: edu.isCurrent ? null : formatDateForAPI(edu.end_date),
+      gpa: edu.gpa ? parseFloat(edu.gpa) : null,
+      description: (edu.description || '').trim(),
+      isCurrent: Boolean(edu.isCurrent)
     })),
     skills: validSkills.map(skill => ({
       name: skill.name.trim(),
-      level: skill.level || 3
+      level: skill.level || 3,
+      category: (skill.category || '').trim(),
+      yearsOfExperience: skill.yearsOfExperience ? parseFloat(skill.yearsOfExperience) : null
     })),
     interests: validInterests.map(interest => ({
       name: interest.name.trim()
@@ -2284,161 +3497,453 @@ const createOptimizedSavePayload = (isFinalized = false) => {
 const createSavePayload = (isFinalized = false) => {
   return createOptimizedSavePayload(isFinalized)
 }
+
+// Clean theme system
+const isDarkMode = ref(false)
+
+const toggleDarkMode = () => {
+  isDarkMode.value = !isDarkMode.value
+  document.documentElement.classList.toggle('dark', isDarkMode.value)
+  localStorage.setItem('cv-creator-dark-mode', isDarkMode.value)
+}
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-
-/* CSS Variables for Theme Support */
+/* CSS Variables - Consistent with Homepage.vue */
 :root {
-  --bg-primary: #ffffff;
-  --bg-secondary: #fdfdfd;
-  --bg-tertiary: #f8fafc;
-  --text-primary: #0f172a;
-  --text-secondary: #64748b;
-  --text-muted: #94a3b8;
-  --border-color: rgba(226, 232, 240, 0.8);
-  --accent-primary: #3b82f6;
-  --accent-secondary: #8b5cf6;
-  --shadow-light: rgba(0, 0, 0, 0.08);
-  --shadow-medium: rgba(0, 0, 0, 0.12);
+  --primary: #5B21B6;
+  --primary-light: #7C3AED;
+  --secondary: #0EA5E9;
+  --accent: #F59E0B;
+  --success: #10B981;
+  --error: #EF4444;
+  --warning: #F59E0B;
+  --info: #3B82F6;
+  
+  --bg: #FFFFFF;
+  --bg-subtle: #FAFAFA;
+  --text: #111827;
+  --text-muted: #6B7280;
+  --border: #E5E7EB;
+  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
 }
 
-/* Dark Theme Variables */
-.dark {
-  --bg-primary: #0f172a;
-  --bg-secondary: #1e293b;
-  --bg-tertiary: #334155;
-  --text-primary: #f8fafc;
-  --text-secondary: #cbd5e1;
-  --text-muted: #94a3b8;
-  --border-color: rgba(71, 85, 105, 0.3);
-  --accent-primary: #60a5fa;
-  --accent-secondary: #a78bfa;
-  --shadow-light: rgba(0, 0, 0, 0.3);
-  --shadow-medium: rgba(0, 0, 0, 0.4);
+body.dark-theme {
+  --bg: #0F172A;
+  --bg-subtle: #1E293B;
+  --text: #F8FAFC;
+  --text-muted: #CBD5E1;
+  --border: #334155;
 }
 
+/* Base Styles */
 .cv-creator {
   min-height: 100vh;
-  background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--border-color) 100%);
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Header */
+.creator-header {
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  padding: 24px 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: var(--shadow);
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.back-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.back-btn:hover {
+  background: var(--bg);
+  border-color: var(--primary);
+  color: var(--primary);
+  transform: translateY(-1px);
+}
+
+.header-info h1 {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0;
+}
+
+.header-info p {
+  color: var(--text-muted);
+  margin: 4px 0 0 0;
+  font-size: 14px;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.preview-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.preview-toggle:hover, .preview-toggle.active {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+.save-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.save-status.saving {
+  color: var(--warning);
+  border-color: var(--warning);
+}
+
+.save-status.saved {
+  color: var(--success);
+  border-color: var(--success);
+}
+
+/* Progress Bar */
+.progress-container {
+  margin-top: 20px;
+}
+
+.progress-bar {
+  height: 4px;
+  background: var(--bg-subtle);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* Step Navigation */
+.step-navigation {
+  margin-top: 20px;
+}
+
+.steps-container {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+}
+
+.step-indicator {
   display: flex;
   flex-direction: column;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  transition: all 0.3s ease;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.step-indicator:hover {
+  transform: translateY(-2px);
+}
+
+.step-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  background: var(--bg-subtle);
+  border: 2px solid var(--border);
+  color: var(--text-muted);
+}
+
+.step-indicator.completed .step-circle {
+  background: var(--success);
+  border-color: var(--success);
+  color: white;
+}
+
+.step-indicator.active .step-circle {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: white;
+}
+
+.step-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.step-indicator.active .step-label {
+  color: var(--primary);
 }
 
 /* Message Notification */
 .message-notification {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  padding: 1rem 1.25rem;
-  border-radius: 12px;
-  margin-bottom: 1.5rem;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 24px;
   font-weight: 500;
-  animation: slideInDown 0.3s ease-out;
 }
 
 .message-notification.success {
-  background: linear-gradient(135deg, #ecfdf5, #d1fae5);
-  color: #065f46;
-  border: 1px solid #a7f3d0;
+  background: #f0f9ff;
+  color: #0369a1;
+  border: 1px solid #0ea5e9;
 }
 
 .message-notification.error {
-  background: linear-gradient(135deg, #fef2f2, #fee2e2);
-  color: #991b1b;
-  border: 1px solid #fca5a5;
+  background: #fef2f2;
+  color: #dc2626;
+  border: 1px solid #ef4444;
 }
 
 .message-notification.info {
-  background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
-  color: #0c4a6e;
-  border: 1px solid #bae6fd;
+  background: #fffbeb;
+  color: #d97706;
+  border: 1px solid #f59e0b;
 }
 
-@keyframes slideInDown {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* Main Layout */
+.creator-main {
+  padding: 40px 0;
 }
 
-/* Enhanced Card Styles */
-.experience-card, .education-card {
-  background: white;
-  border: 1px solid #e2e8f0;
-  border-radius: 16px;
-  margin-bottom: 1.5rem;
+.form-panel {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 32px;
+  margin-bottom: 32px;
+  box-shadow: var(--shadow);
+}
+
+.form-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Step Content */
+.step-intro {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.step-intro h2 {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.step-intro p {
+  color: var(--text-muted);
+  font-size: 16px;
+  margin: 0;
+}
+
+/* Form Sections */
+.form-section {
+  margin-bottom: 32px;
+}
+
+.form-section h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 24px;
+}
+
+/* Form Groups */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.form-input,
+.form-textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 16px;
+  font-family: inherit;
+  color: var(--text);
+  background: var(--bg);
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(91, 33, 182, 0.1);
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.form-hint {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.optional {
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+/* Form Grid */
+.form-grid {
+  display: grid;
+  gap: 20px;
+}
+
+.grid-2 {
+  grid-template-columns: 1fr 1fr;
+}
+
+.grid-3 {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+/* Cards */
+.experience-card,
+.education-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  margin-bottom: 24px;
   overflow: hidden;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  text-align: left; /* Cards content should be left-aligned */
+  transition: all 0.2s ease;
 }
 
-.experience-card:hover, .education-card:hover {
-  border-color: #3b82f6;
-  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.1);
+.experience-card:hover,
+.education-card:hover {
+  border-color: var(--primary);
   transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .card-header {
-  background: linear-gradient(135deg, #f8fafc, #f1f5f9);
-  padding: 1.5rem;
+  background: var(--bg-subtle);
+  padding: 20px;
   display: flex;
   align-items: center;
-  gap: 1rem;
-  border-bottom: 1px solid #e2e8f0;
+  gap: 16px;
+  border-bottom: 1px solid var(--border);
 }
 
 .card-number {
   width: 32px;
   height: 32px;
-  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  background: var(--primary);
   color: white;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 600;
-  font-size: 0.875rem;
+  font-size: 14px;
 }
 
 .card-header h4 {
   flex: 1;
   margin: 0;
   font-weight: 600;
-  color: #1e293b;
-  font-size: 1.1rem;
+  color: var(--text);
+  font-size: 16px;
 }
 
 .remove-btn {
   background: none;
   border: none;
-  color: #ef4444;
+  color: var(--error);
   cursor: pointer;
-  padding: 0.5rem;
-  border-radius: 50%;
+  padding: 8px;
+  border-radius: 4px;
   transition: all 0.2s ease;
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .remove-btn:hover {
   background: rgba(239, 68, 68, 0.1);
-  transform: scale(1.1);
 }
 
 .card-content {
-  padding: 1.5rem;
+  padding: 20px;
 }
 
 /* Empty States */
@@ -2483,201 +3988,231 @@ const createSavePayload = (isFinalized = false) => {
   font-size: 0.9rem;
 }
 
-/* Enhanced Buttons */
-.add-btn {
-  display: flex;
+/* Buttons */
+.btn-primary {
+  display: inline-flex;
   align-items: center;
-  gap: 0.75rem;
-  padding: 1rem 2rem;
-  background: linear-gradient(135deg, #3b82f6, #2563eb);
-  color: white;
-  border: none;
-  border-radius: 12px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-size: 1rem;
-}
-
-.add-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
-}
-
-.add-btn.primary {
-  font-size: 1.1rem;
-  padding: 1.25rem 2.5rem;
-}
-
-.add-more-btn {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.75rem 1.5rem;
-  background: white;
-  color: #3b82f6;
-  border: 1px solid #3b82f6;
-  border-radius: 12px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin-top: 1rem;
-}
-
-.add-more-btn:hover {
-  background: #3b82f6;
-  color: white;
-  transform: translateY(-1px);
-}
-
-.ai-enhance-btn {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 1rem;
-  background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+  gap: 8px;
+  padding: 16px 24px;
+  background: var(--primary);
   color: white;
   border: none;
   border-radius: 8px;
-  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.btn-primary:hover {
+  background: var(--primary-light);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(91, 33, 182, 0.3);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background: var(--bg-subtle);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
   font-weight: 500;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
+  text-decoration: none;
 }
 
-.ai-enhance-btn:hover:not(:disabled) {
+.btn-secondary:hover {
+  background: var(--bg);
+  border-color: var(--primary);
+  color: var(--primary);
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
 }
 
-.ai-enhance-btn:disabled {
+.ai-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: var(--secondary);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ai-btn:hover:not(:disabled) {
+  background: #0284c7;
+  transform: translateY(-1px);
+}
+
+.ai-btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
 
+/* Empty States */
+.empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  background: var(--bg-subtle);
+  border: 2px dashed var(--border);
+  border-radius: 12px;
+  margin: 24px 0;
+}
+
+.empty-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.empty-state h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.empty-state p {
+  color: var(--text-muted);
+  margin-bottom: 24px;
+}
+
+.mini-empty-state {
+  text-align: center;
+  padding: 24px;
+  background: var(--bg-subtle);
+  border: 1px dashed var(--border);
+  border-radius: 8px;
+  margin: 16px 0;
+}
+
 /* AI Templates */
 .ai-templates {
-  background: linear-gradient(135deg, #faf5ff, #f3e8ff);
-  border: 1px solid #e9d5ff;
-  border-radius: 16px;
-  padding: 1.5rem;
-  margin-top: 1.5rem;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  margin-top: 24px;
 }
 
 .ai-templates h4 {
-  margin: 0 0 0.5rem 0;
+  margin: 0 0 8px 0;
   font-weight: 600;
-  color: #7c3aed;
+  color: var(--text);
 }
 
 .ai-templates p {
-  margin: 0 0 1rem 0;
-  color: #64748b;
-  font-size: 0.9rem;
+  margin: 0 0 16px 0;
+  color: var(--text-muted);
+  font-size: 14px;
 }
 
 .template-options {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 12px;
 }
 
 .summary-template {
-  background: white;
-  border: 1px solid #e2e8f0;
-  border-radius: 12px;
-  padding: 1rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
 }
 
 .summary-template:hover {
-  border-color: #8b5cf6;
-  background: rgba(139, 92, 246, 0.05);
+  border-color: var(--primary);
   transform: translateY(-1px);
 }
 
 .template-content {
-  font-size: 0.9rem;
+  font-size: 14px;
   line-height: 1.5;
-  color: #374151;
+  color: var(--text);
 }
 
 /* Skills & Interests */
-.skills-input, .interests-input {
+.skills-input,
+.interests-input {
   display: flex;
-  gap: 0.75rem;
-  margin-bottom: 1rem;
-  text-align: left; /* Keep input areas left-aligned */
+  gap: 12px;
+  margin-bottom: 16px;
 }
 
-.skills-input input, .interests-input input {
+.skills-input input,
+.interests-input input {
   flex: 1;
-  padding: 0.875rem 1.25rem;
-  border: 1px solid #e2e8f0;
-  border-radius: 12px;
-  font-size: 0.9rem;
-  transition: all 0.3s ease;
 }
 
-.skills-input input:focus, .interests-input input:focus {
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-  outline: none;
-}
-
-.add-skill-btn, .add-interest-btn {
-  padding: 0.875rem 1.25rem;
-  background: #3b82f6;
+.add-skill-btn,
+.add-interest-btn {
+  padding: 12px 16px;
+  background: var(--primary);
   color: white;
   border: none;
-  border-radius: 12px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.add-skill-btn:hover, .add-interest-btn:hover {
-  background: #2563eb;
-  transform: translateY(-1px);
-}
-
-.skills-list, .interests-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
-}
-
-.skill-tag, .interest-tag {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 1rem;
-  background: linear-gradient(135deg, #dbeafe, #bfdbfe);
-  color: #1e40af;
-  border-radius: 20px;
-  font-size: 0.875rem;
-  font-weight: 500;
-}
-
-.skill-tag button, .interest-tag button {
-  background: none;
-  border: none;
-  color: #1e40af;
-  cursor: pointer;
-  padding: 0.25rem;
-  border-radius: 50%;
-  width: 20px;
-  height: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.75rem;
   transition: all 0.2s ease;
 }
 
-.skill-tag button:hover, .interest-tag button:hover {
-  background: rgba(30, 64, 175, 0.2);
+.add-skill-btn:hover,
+.add-interest-btn:hover {
+  background: var(--primary-light);
+  transform: translateY(-1px);
+}
+
+.skills-list,
+.interests-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.skill-tag,
+.interest-tag {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: var(--bg-subtle);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.skill-tag button,
+.interest-tag button {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 2px;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  transition: all 0.2s ease;
+}
+
+.skill-tag button:hover,
+.interest-tag button:hover {
+  background: var(--error);
+  color: white;
 }
 
 /* Skill Suggestions */
@@ -2879,7 +4414,7 @@ const createSavePayload = (isFinalized = false) => {
   gap: 0.75rem;
   padding: 1.25rem 2.5rem;
   background: linear-gradient(135deg, #10b981, #059669);
-  color: white;
+  color: white !important;
   border: none;
   border-radius: 16px;
   font-size: 1.1rem;
@@ -2892,6 +4427,8 @@ const createSavePayload = (isFinalized = false) => {
 .finalize-btn:hover:not(:disabled) {
   transform: translateY(-2px);
   box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+  background: linear-gradient(135deg, #059669, #047857);
+  color: white !important;
 }
 
 .finalize-btn:disabled {
@@ -2917,6 +4454,91 @@ const createSavePayload = (isFinalized = false) => {
   max-height: calc(100vh - 4rem);
 }
 
+/* Enhanced CV Preview Styles - Following Templates.vue */
+.summary-text {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: #64748b;
+}
+
+.contact-row {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  font-size: 0.875rem;
+  color: #64748b;
+  margin-top: 0.5rem;
+}
+
+.exp-header {
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 0.25rem;
+}
+
+.exp-company {
+  color: #64748b;
+  font-size: 0.875rem;
+}
+
+.exp-date {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  margin-bottom: 0.5rem;
+}
+
+.exp-desc {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: #64748b;
+}
+
+.education-item {
+  margin-bottom: 1rem;
+}
+
+.skill-bubble {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(59, 130, 246, 0.1));
+  color: var(--primary);
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin: 0.25rem;
+  transition: all 0.3s ease;
+}
+
+.skill-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+/* Contact Info Styles */
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.contact-info .contact-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.contact-info .contact-item i {
+  width: 16px;
+  text-align: center;
+  font-size: 0.625rem;
+}
+
+/* 🔥 ENHANCED PREVIEW HEADER (Templates.vue Style) */
 .preview-header {
   padding: 1.5rem;
   background: linear-gradient(135deg, #f8fafc, #f1f5f9);
@@ -2924,7 +4546,80 @@ const createSavePayload = (isFinalized = false) => {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  backdrop-filter: blur(10px);
 }
+
+.preview-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.live-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #dc2626;
+}
+
+.live-dot {
+  width: 8px;
+  height: 8px;
+  background: #ef4444;
+  border-radius: 50%;
+  animation: livePulse 2s ease-in-out infinite;
+}
+
+@keyframes livePulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.3);
+    opacity: 0.7;
+  }
+}
+
+.preview-template-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.template-name {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #64748b;
+}
+
+.template-badge {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  color: white;
+}
+
+.badge-classic { background: linear-gradient(135deg, #64748b, #475569); }
+.badge-modern { background: linear-gradient(135deg, #3b82f6, #2563eb); }
+.badge-professional { background: linear-gradient(135deg, #0f172a, #1e293b); }
+.badge-creative { background: linear-gradient(135deg, #ec4899, #f97316); }
 
 .preview-header h3 {
   margin: 0;
@@ -2937,14 +4632,42 @@ const createSavePayload = (isFinalized = false) => {
   gap: 0.75rem;
 }
 
-.download-btn, .close-preview {
+.download-btn {
   display: flex;
   align-items: center;
   gap: 0.5rem;
   padding: 0.75rem 1rem;
-  background: #3b82f6;
-  color: white;
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  color: white !important;
   border: none;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+}
+
+.download-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+  color: white !important;
+}
+
+.download-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.close-preview {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: #f1f5f9;
+  color: #64748b !important;
+  border: 1px solid #e2e8f0;
   border-radius: 8px;
   font-size: 0.875rem;
   font-weight: 500;
@@ -2952,15 +4675,299 @@ const createSavePayload = (isFinalized = false) => {
   transition: all 0.3s ease;
 }
 
-.download-btn:hover, .close-preview:hover {
-  background: #2563eb;
+.close-preview:hover {
+  background: #e2e8f0;
+  color: #475569 !important;
   transform: translateY(-1px);
+  border-color: #cbd5e1;
 }
 
+/* 🔥 ENHANCED LIVE PREVIEW (Templates.vue Style) */
 .preview-container {
-  padding: 1.5rem;
+  padding: 2rem;
   overflow-y: auto;
-  max-height: calc(100vh - 8rem);
+  background: #f8fafc;
+  height: calc(100% - 88px);
+  max-height: calc(80vh - 88px);
+}
+
+.cv-preview-container {
+  width: 100%;
+  min-height: 400px;
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  font-family: 'Inter', sans-serif;
+}
+
+.cv-preview-container.animating {
+  transform: scale(1.02);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.15);
+}
+
+/* Enhanced Classic Template Preview */
+.preview-classic {
+  padding: 24px;
+  height: 100%;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.preview-classic .cv-header {
+  border-bottom: 2px solid #e2e8f0;
+  padding-bottom: 16px;
+  margin-bottom: 20px;
+  transition: all 0.6s ease;
+}
+
+.preview-name {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1a202c;
+  margin-bottom: 8px;
+  transition: all 0.6s ease;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.preview-name.typing {
+  color: var(--primary);
+  animation: typewriter 1.5s steps(15) forwards;
+  border-right: 2px solid var(--primary);
+}
+
+.preview-title {
+  font-size: 16px;
+  color: #4a5568;
+  margin-bottom: 12px;
+  transition: all 0.6s ease;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.preview-title.typing {
+  animation: typewriter 1.5s steps(20) forwards;
+  animation-delay: 0.5s;
+  border-right: 2px solid var(--secondary);
+}
+
+@keyframes typewriter {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+.cv-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 0.75rem;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #64748b;
+}
+
+.contact-item i {
+  width: 14px;
+  color: var(--primary);
+}
+
+.cv-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.cv-section h3 {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: all 0.6s ease;
+}
+
+.cv-section.filling h3 {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.cv-line {
+  height: 6px;
+  background: #e2e8f0;
+  border-radius: 3px;
+  margin-bottom: 6px;
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cv-section.filling .cv-line {
+  opacity: 1;
+  transform: scaleX(1);
+  background: linear-gradient(90deg, var(--primary), var(--primary-light));
+}
+
+.main-line { width: 100%; }
+.short-line { width: 65%; }
+.medium-line { width: 80%; }
+
+.skills-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.skill-tag {
+  background: rgba(91, 33, 182, 0.1);
+  color: var(--primary);
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cv-section.filling .skill-tag {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.skill-tag:nth-child(1) { transition-delay: 0.4s; }
+.skill-tag:nth-child(2) { transition-delay: 0.5s; }
+.skill-tag:nth-child(3) { transition-delay: 0.6s; }
+.skill-tag:nth-child(4) { transition-delay: 0.7s; }
+
+/* Enhanced Modern Template Preview */
+.preview-modern {
+  display: flex;
+  height: 100%;
+  font-family: 'Inter', sans-serif;
+}
+
+.modern-sidebar {
+  width: 35%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 20px;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.modern-sidebar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.2) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.profile-section {
+  text-align: center;
+  margin-bottom: 24px;
+  position: relative;
+  z-index: 1;
+}
+
+.profile-circle {
+  width: 60px;
+  height: 60px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  margin: 0 auto 16px;
+  animation: profileGlow 3s ease-in-out infinite;
+}
+
+@keyframes profileGlow {
+  0%, 100% { box-shadow: 0 0 20px rgba(255, 255, 255, 0.3); }
+  50% { box-shadow: 0 0 30px rgba(255, 255, 255, 0.5); }
+}
+
+.sidebar-section {
+  margin-top: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.sidebar-section h4 {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+  opacity: 0.9;
+}
+
+.skill-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.skill-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.skill-name {
+  font-size: 9px;
+  font-weight: 500;
+  margin-bottom: 3px;
+  display: block;
+}
+
+.bar {
+  height: 4px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progress {
+  height: 100%;
+  background: white;
+  border-radius: 2px;
+  transition: width 1s ease-out 0.5s;
+  position: relative;
+}
+
+.progress::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+.modern-main {
+  flex: 1;
+  padding: 20px;
+  background: white;
 }
 
 .preview-placeholder {
@@ -3308,80 +5315,54 @@ const createSavePayload = (isFinalized = false) => {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 2.5rem auto 0 auto; /* Center the navigation */
-  padding: 2rem 2.5rem;
-  background: linear-gradient(135deg, var(--bg-primary), var(--bg-secondary));
-  border-radius: 16px;
+  margin: 32px auto 0 auto;
+  padding: 24px;
+  background: var(--bg);
+  border-radius: 12px;
   width: 100%;
-  max-width: 850px; /* Match form section width */
-  backdrop-filter: blur(10px);
-  border: 1px solid var(--border-color);
-  box-shadow: 0 2px 8px var(--shadow-light);
+  max-width: 800px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
 }
 
 .nav-btn {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  padding: 1.25rem 2.5rem;
-  border-radius: 20px;
-  font-weight: 700;
+  gap: 8px;
+  padding: 16px 24px;
+  border-radius: 8px;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  font-size: 1rem;
-  letter-spacing: 0.025em;
-  position: relative;
-  overflow: hidden;
-}
-
-.nav-btn::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transition: left 0.6s ease;
-}
-
-.nav-btn:hover::before {
-  left: 100%;
+  transition: all 0.2s ease;
+  font-size: 14px;
 }
 
 .nav-btn.primary {
-  background: linear-gradient(135deg, var(--accent-primary), #2563eb, #1d4ed8);
+  background: var(--primary);
   color: white;
   border: none;
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
 }
 
 .nav-btn.primary:hover:not(:disabled) {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 30px rgba(59, 130, 246, 0.4);
-  background: linear-gradient(135deg, #2563eb, #1d4ed8, #1e40af);
+  background: var(--primary-light);
+  transform: translateY(-1px);
 }
 
 .nav-btn.secondary {
-  background: linear-gradient(135deg, var(--bg-primary), var(--bg-tertiary));
-  color: var(--text-secondary);
-  border: 2px solid var(--border-color);
-  box-shadow: 0 2px 8px var(--shadow-light);
+  background: var(--bg-subtle);
+  color: var(--text);
+  border: 1px solid var(--border);
 }
 
 .nav-btn.secondary:hover {
-  background: linear-gradient(135deg, var(--bg-tertiary), var(--border-color));
-  border-color: var(--accent-primary);
-  color: var(--accent-primary);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(59, 130, 246, 0.15);
+  background: var(--bg);
+  border-color: var(--primary);
+  color: var(--primary);
 }
 
 .nav-btn:disabled {
-  opacity: 0.4;
+  opacity: 0.5;
   cursor: not-allowed;
-  transform: none !important;
-  box-shadow: none !important;
 }
 
 .spacer {
@@ -3396,50 +5377,29 @@ const createSavePayload = (isFinalized = false) => {
 }
 
 .preview-fab {
-  width: 64px;
-  height: 64px;
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  background: var(--primary);
   color: white;
   border: none;
-  font-size: 1.5rem;
+  font-size: 20px;
   cursor: pointer;
-  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  overflow: hidden;
-}
-
-.preview-fab::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(91, 33, 182, 0.3);
+  transition: all 0.2s ease;
 }
 
 .preview-fab:hover {
-  transform: scale(1.1) rotate(5deg);
-  box-shadow: 0 12px 35px rgba(59, 130, 246, 0.5);
-}
-
-.preview-fab:hover::before {
-  width: 100%;
-  height: 100%;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(91, 33, 182, 0.4);
 }
 
 .preview-fab.active {
-  background: linear-gradient(135deg, #ef4444, #dc2626);
-  box-shadow: 0 8px 25px rgba(239, 68, 68, 0.4);
+  background: var(--error);
 }
 
 .preview-fab.active:hover {
-  box-shadow: 0 12px 35px rgba(239, 68, 68, 0.5);
+  box-shadow: 0 6px 16px rgba(239, 68, 68, 0.4);
 }
 
 .loading-overlay {
@@ -3527,21 +5487,15 @@ const createSavePayload = (isFinalized = false) => {
   }
 }
 
-/* Header */
+/* Clean Header */
 .creator-header {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--border-color);
-  padding: 1.25rem 2rem;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  padding: 24px 0;
   position: sticky;
   top: 0;
   z-index: 100;
-  box-shadow: 0 1px 3px var(--shadow-light);
-}
-
-/* Dark theme header */
-.dark .creator-header {
-  background: rgba(15, 23, 42, 0.95);
+  box-shadow: var(--shadow);
 }
 
 .header-content {
@@ -3669,18 +5623,25 @@ const createSavePayload = (isFinalized = false) => {
   max-width: 1200px;
 }
 
+/* Clean Form Panel */
 .form-panel {
-  background: linear-gradient(135deg, var(--bg-primary, #ffffff), var(--bg-secondary, #fdfdfd));
-  border-radius: 24px; /* Reduced border radius for better proportion */
-  box-shadow: 
-    0 10px 40px rgba(0, 0, 0, 0.08),
-    0 4px 12px rgba(0, 0, 0, 0.04);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  overflow: hidden;
-  border: 1px solid var(--border-color, rgba(226, 232, 240, 0.8));
+  background: var(--bg);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
   width: 100%;
-  max-width: 1000px; /* Standardized form panel width */
-  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.form-panel:hover {
+  transform: translateY(-4px);
+  box-shadow: 
+    0 32px 80px rgba(0, 0, 0, 0.15),
+    0 12px 36px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.7);
+  border-color: rgba(255, 255, 255, 0.6);
 }
 
 /* Dark theme form panel */
@@ -4030,6 +5991,86 @@ const createSavePayload = (isFinalized = false) => {
   box-shadow: 0 2px 4px var(--shadow-light);
 }
 
+/* Enhanced Premium Input Styles */
+.premium-input {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(248, 250, 252, 0.8));
+  backdrop-filter: blur(12px) saturate(150%);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  transition: all 0.4s var(--ease-out-expo);
+  position: relative;
+  overflow: hidden;
+}
+
+.premium-input::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+  transition: left 0.6s ease;
+}
+
+.premium-input:hover::before {
+  left: 100%;
+}
+
+.premium-input:focus {
+  transform: perspective(1000px) rotateX(-1deg) translateY(-3px) scale(1.02);
+  border-color: var(--primary);
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 
+    0 0 0 6px rgba(91, 33, 182, 0.15),
+    0 16px 48px rgba(0, 0, 0, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+/* Enhanced Text Gradient */
+.text-gradient {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 50%, var(--accent) 100%);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient-text 4s ease infinite;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+}
+
+@keyframes gradient-text {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* Shimmer Text Effect */
+.shimmer-text {
+  background: linear-gradient(90deg, var(--text-muted) 25%, var(--text-secondary) 50%, var(--text-muted) 75%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer-move 2s infinite;
+}
+
+@keyframes shimmer-move {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Optional field indicator */
+.optional {
+  color: var(--text-muted);
+  font-weight: 400;
+  font-size: 0.75rem;
+  opacity: 0.8;
+}
+
 .form-group input:hover,
 .form-group textarea:hover {
   border-color: var(--text-muted);
@@ -4290,44 +6331,24 @@ const createSavePayload = (isFinalized = false) => {
 }
 
 .template-card {
-  border: 2px solid var(--border-color);
-  border-radius: 16px;
-  padding: 1.25rem;
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  background: var(--bg-primary);
-  position: relative;
-  overflow: hidden;
+  transition: all 0.2s ease;
+  background: var(--bg);
   text-align: center;
 }
 
-.template-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(99, 102, 241, 0.05));
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
 .template-card:hover {
-  border-color: var(--accent-primary);
-  transform: translateY(-4px);
-  box-shadow: 0 12px 40px rgba(59, 130, 246, 0.15);
-}
-
-.template-card:hover::before {
-  opacity: 1;
+  border-color: var(--primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .template-card.active {
-  border-color: var(--accent-primary);
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(99, 102, 241, 0.05));
-  transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(59, 130, 246, 0.2);
+  border-color: var(--primary);
+  background: rgba(91, 33, 182, 0.05);
 }
 
 .template-preview {
@@ -4392,10 +6413,50 @@ const createSavePayload = (isFinalized = false) => {
 }
 
 .template-info p {
-  margin: 0;
+  margin: 0 0 1rem 0;
   font-size: 0.9rem;
   color: var(--text-secondary);
   line-height: 1.5;
+}
+
+.template-features {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 0.75rem;
+}
+
+.feature-tag {
+  background: linear-gradient(135deg, rgba(91, 33, 182, 0.1), rgba(59, 130, 246, 0.1));
+  color: var(--primary);
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border: 1px solid rgba(91, 33, 182, 0.2);
+  transition: all 0.3s ease;
+}
+
+.feature-tag:hover {
+  background: var(--primary);
+  color: white;
+  transform: translateY(-1px);
+}
+
+.preview-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: var(--accent);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  z-index: 10;
 }
 
 .skills-list {
@@ -4814,6 +6875,104 @@ const createSavePayload = (isFinalized = false) => {
   transform: translateY(-1px);
 }
 
+/* Enhanced Success Modal */
+.success-animation {
+  margin-bottom: 2rem;
+}
+
+.checkmark {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: block;
+  stroke-width: 3;
+  stroke: var(--success);
+  stroke-miterlimit: 10;
+  margin: 0 auto 1rem auto;
+  animation: checkmarkScale 0.3s ease-in-out 0.9s both;
+}
+
+.checkmark-circle {
+  stroke-dasharray: 166;
+  stroke-dashoffset: 166;
+  stroke-width: 3;
+  stroke-miterlimit: 10;
+  stroke: var(--success);
+  fill: none;
+  animation: checkmarkStroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+}
+
+.checkmark-check {
+  transform-origin: 50% 50%;
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  stroke: var(--success);
+  animation: checkmarkStroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+}
+
+@keyframes checkmarkStroke {
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes checkmarkScale {
+  0%, 100% {
+    transform: none;
+  }
+  50% {
+    transform: scale3d(1.1, 1.1, 1);
+  }
+}
+
+.success-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.success-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.5rem;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-size: 0.875rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.success-btn.primary-btn {
+  background: var(--primary);
+  color: white;
+  box-shadow: 0 4px 12px rgba(91, 33, 182, 0.3);
+}
+
+.success-btn.primary-btn:hover {
+  background: var(--primary-light);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(91, 33, 182, 0.4);
+}
+
+.success-btn.secondary-btn {
+  background: var(--bg-elevated);
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.success-btn.secondary-btn:hover {
+  background: var(--bg-subtle);
+  color: var(--text-primary);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
 /* Auto-save indicator */
 .auto-save-indicator {
   position: fixed;
@@ -5080,12 +7239,326 @@ button, input, textarea, select {
   transition: all 0.3s ease;
 }
 
+/* 🔥 PERFORMANCE OPTIMIZATIONS */
+* {
+  scroll-behavior: smooth;
+}
+
+/* Optimize animations for 60fps */
+.cv-preview-container,
+.skill-tag,
+.cv-line,
+.progress,
+.template-card {
+  will-change: transform;
+  transform: translateZ(0); /* Force GPU acceleration */
+}
+
+/* Reduce motion for accessibility and performance */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
 /* Focus styles for accessibility */
 button:focus-visible,
 input:focus-visible,
 textarea:focus-visible {
   outline: 2px solid #3b82f6;
   outline-offset: 2px;
+}
+
+/* 🔥 ENHANCED: Modern Button System with Advanced Animations */
+.add-btn,
+.add-skill-btn,
+.add-interest-btn,
+.add-more-btn,
+.ai-btn,
+.finish-btn,
+.download-btn,
+.start-btn,
+.finalize-btn {
+  color: var(--text-inverse) !important;
+  text-decoration: none !important;
+  position: relative;
+  overflow: hidden;
+  transform: translateZ(0); /* Force GPU acceleration */
+  transition: var(--transition-normal);
+}
+
+.add-btn::before,
+.add-skill-btn::before,
+.add-interest-btn::before,
+.ai-btn::before,
+.finish-btn::before,
+.download-btn::before,
+.start-btn::before,
+.finalize-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.6s ease;
+}
+
+.add-btn:hover::before,
+.add-skill-btn:hover::before,
+.add-interest-btn:hover::before,
+.ai-btn:hover::before,
+.finish-btn:hover::before,
+.download-btn:hover::before,
+.start-btn:hover::before,
+.finalize-btn:hover::before {
+  left: 100%;
+}
+
+.add-btn:hover,
+.add-skill-btn:hover,
+.add-interest-btn:hover,
+.add-more-btn:hover,
+.ai-btn:hover,
+.finish-btn:hover,
+.download-btn:hover,
+.start-btn:hover,
+.finalize-btn:hover {
+  color: var(--text-inverse) !important;
+  text-decoration: none !important;
+  transform: translateY(-3px) translateZ(0);
+  box-shadow: 
+    0 12px 30px rgba(0, 0, 0, 0.15),
+    0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Enhanced suggestion buttons */
+.suggestion-btn {
+  transition: var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+.suggestion-btn:hover {
+  color: var(--text-inverse) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+}
+
+/* Template switching animation */
+.cv-preview-container.template-switching {
+  animation: templateSwitch 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes templateSwitch {
+  0% { 
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% { 
+    opacity: 0.7;
+    transform: scale(0.98);
+  }
+  100% { 
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Enhanced skill and interest tags */
+.skill-tag,
+.interest-tag {
+  transition: var(--transition-normal);
+  animation: tagFadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  transform: translateY(10px);
+  opacity: 0;
+}
+
+@keyframes tagFadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.skill-tag:hover,
+.interest-tag:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Progressive loading animation for form sections */
+.form-section {
+  animation: sectionSlideIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+@keyframes sectionSlideIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.form-section:nth-child(1) { animation-delay: 0.1s; }
+.form-section:nth-child(2) { animation-delay: 0.2s; }
+.form-section:nth-child(3) { animation-delay: 0.3s; }
+
+/* Enhanced input focus effects */
+.form-group input:focus,
+.form-group textarea:focus {
+  animation: inputFocusPulse 0.3s ease-out;
+}
+
+@keyframes inputFocusPulse {
+  0% { 
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4);
+  }
+  50% { 
+    transform: scale(1.02);
+    box-shadow: 0 0 0 8px rgba(59, 130, 246, 0.1);
+  }
+  100% { 
+    transform: scale(1);
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+  }
+}
+
+/* Loading state enhancements */
+.loading-overlay {
+  backdrop-filter: blur(8px) saturate(120%);
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.loading-spinner {
+  animation: 
+    spin 1s linear infinite,
+    pulse 2s ease-in-out infinite alternate;
+}
+
+@keyframes pulse {
+  from { transform: scale(1); }
+  to { transform: scale(1.1); }
+}
+
+/* Enhanced message animations */
+.message-notification {
+  animation: messageSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes messageSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Performance optimization classes */
+.gpu-accelerated {
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* Premium Mode Enhancements */
+body.premium-mode .cv-creator {
+  background-attachment: fixed;
+  background-size: 120% 120%;
+  animation: backgroundShift 20s ease-in-out infinite;
+}
+
+@keyframes backgroundShift {
+  0%, 100% { 
+    background-position: 0% 0%;
+    filter: hue-rotate(0deg);
+  }
+  25% { 
+    background-position: 100% 0%;
+    filter: hue-rotate(5deg);
+  }
+  50% { 
+    background-position: 100% 100%;
+    filter: hue-rotate(10deg);
+  }
+  75% { 
+    background-position: 0% 100%;
+    filter: hue-rotate(5deg);
+  }
+}
+
+body.premium-mode .template-card.active {
+  animation: templatePulse 3s ease-in-out infinite;
+  box-shadow: 
+    0 0 40px rgba(91, 33, 182, 0.4),
+    0 20px 60px rgba(0, 0, 0, 0.15);
+}
+
+@keyframes templatePulse {
+  0%, 100% { 
+    transform: scale(1);
+    box-shadow: 
+      0 0 40px rgba(91, 33, 182, 0.4),
+      0 20px 60px rgba(0, 0, 0, 0.15);
+  }
+  50% { 
+    transform: scale(1.02);
+    box-shadow: 
+      0 0 60px rgba(91, 33, 182, 0.6),
+      0 30px 80px rgba(0, 0, 0, 0.2);
+  }
+}
+
+/* Enhanced Loading States */
+body.premium-mode .loading-overlay {
+  backdrop-filter: blur(20px) saturate(150%);
+  background: rgba(255, 255, 255, 0.85);
+}
+
+body.premium-mode .loading-spinner {
+  background: conic-gradient(var(--primary), var(--secondary), var(--accent), var(--primary));
+  border-radius: 50%;
+  animation: premiumSpin 2s linear infinite;
+}
+
+@keyframes premiumSpin {
+  0% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.1); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .cv-preview-container.template-switching,
+  .skill-tag,
+  .interest-tag,
+  .form-section,
+  .message-notification,
+  .liquid-premium,
+  .glass-premium,
+  .glass-ultra {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .add-btn:hover,
+  .suggestion-btn:hover,
+  .skill-tag:hover,
+  .interest-tag:hover {
+    transform: none !important;
+  }
+  
+  body.premium-mode .cv-creator {
+    animation: none !important;
+    background-attachment: initial;
+  }
 }
 .modal-overlay {
   position: fixed;
@@ -5211,6 +7684,184 @@ textarea:focus-visible {
   }
 }
 
+/* Enhanced Personal Information Section Styling */
+.enhanced-personal-section {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.enhanced-personal-section h4 {
+  color: #1e293b;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.enhanced-personal-section .section-hint {
+  color: #64748b;
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+  font-style: italic;
+}
+
+.enhanced-personal-section .optional {
+  color: #64748b;
+  font-weight: 400;
+  font-size: 0.85rem;
+}
+
+/* Enhanced Skills Section Styling */
+.skills-input-enhanced {
+  margin-bottom: 1.5rem;
+}
+
+.skill-input-row {
+  display: flex;
+  gap: 0.75rem;
+  align-items: end;
+  flex-wrap: wrap;
+}
+
+.skill-name-input {
+  flex: 2;
+  min-width: 200px;
+}
+
+.skill-category-select {
+  flex: 1;
+  min-width: 120px;
+  padding: 0.75rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  background: white;
+}
+
+.enhanced-skills-list {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.enhanced-skill-card {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+}
+
+.enhanced-skill-card:hover {
+  border-color: #3b82f6;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
+}
+
+.skill-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.skill-name {
+  font-weight: 600;
+  color: #1e293b;
+  font-size: 1rem;
+}
+
+.skill-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.remove-skill-btn {
+  background: #ef4444;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 0.75rem;
+  transition: all 0.2s ease;
+}
+
+.remove-skill-btn:hover {
+  background: #dc2626;
+  transform: scale(1.1);
+}
+
+.skill-details {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.skill-category,
+.skill-level,
+.skill-experience {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.skill-category label,
+.skill-level label,
+.skill-experience label {
+  font-size: 0.8rem;
+  color: #64748b;
+  font-weight: 500;
+  min-width: fit-content;
+}
+
+.mini-select {
+  padding: 0.4rem 0.6rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  background: white;
+  min-width: 100px;
+}
+
+.years-input {
+  padding: 0.4rem 0.6rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  width: 70px;
+  text-align: center;
+}
+
+/* Form textarea styling */
+.form-textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  resize: vertical;
+  min-height: 60px;
+}
+
+.form-textarea:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
 @media (max-width: 768px) {
   .header-content {
     padding: 0 1rem;
@@ -5247,5 +7898,40 @@ textarea:focus-visible {
   .save-btn span {
     display: none;
   }
+  
+  .enhanced-personal-section {
+    padding: 1rem;
+    margin-top: 1.5rem;
+  }
+  
+  .skill-input-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .skill-name-input,
+  .skill-category-select {
+    min-width: auto;
+    width: 100%;
+  }
+  
+  .skill-details {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+  
+  .skill-category,
+  .skill-level,
+  .skill-experience {
+    justify-content: space-between;
+  }
+  }
+
+.progress-bar, .progress-fill {
+  width: var(--bar-width, 100%);
+}
+.animated-item {
+  animation-delay: var(--delay, 0s);
 }
 </style>

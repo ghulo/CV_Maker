@@ -597,18 +597,18 @@ defineExpose({
 .field-label {
   font-weight: 600;
   font-size: 0.875rem;
-  color: #374151;
+  color: var(--text-secondary);
   display: flex;
   align-items: center;
   gap: 0.25rem;
 }
 
 .field-label.required {
-  color: #1f2937;
+  color: var(--text-primary);
 }
 
 .required-indicator {
-  color: #ef4444;
+  color: var(--danger);
   font-weight: 700;
 }
 
@@ -627,16 +627,16 @@ defineExpose({
 }
 
 .status-indicator.validating {
-  background: #f3f4f6;
+  background: var(--bg-secondary);
 }
 
 .status-indicator.valid {
-  background: #10b981;
+  background: var(--success);
   color: white;
 }
 
 .status-indicator.error {
-  background: #ef4444;
+  background: var(--danger);
   color: white;
 }
 
@@ -648,7 +648,7 @@ defineExpose({
 
 .field-description {
   font-size: 0.75rem;
-  color: #6b7280;
+  color: var(--text-muted);
   margin-bottom: 0.5rem;
   line-height: 1.4;
 }
@@ -660,46 +660,46 @@ defineExpose({
 .form-input {
   width: 100%;
   padding: 0.75rem 1rem;
-  border: 2px solid #e5e7eb;
+  border: 2px solid var(--border);
   border-radius: 8px;
   font-size: 0.875rem;
   transition: all 0.2s ease;
-  background: white;
-  color: #1f2937;
+  background: var(--bg-elevated);
+  color: var(--text-primary);
 }
 
 .form-input:focus {
   outline: none;
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.1);
 }
 
 .form-input:disabled {
-  background: #f9fafb;
-  color: #9ca3af;
+  background: var(--bg-disabled);
+  color: var(--text-muted);
   cursor: not-allowed;
 }
 
 .input-error {
-  border-color: #ef4444;
+  border-color: var(--danger);
 }
 
 .input-error:focus {
-  border-color: #ef4444;
-  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+  border-color: var(--danger);
+  box-shadow: 0 0 0 3px rgba(var(--danger-rgb), 0.1);
 }
 
 .input-warning {
-  border-color: #f59e0b;
+  border-color: var(--warning);
 }
 
 .input-warning:focus {
-  border-color: #f59e0b;
-  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+  border-color: var(--warning);
+  box-shadow: 0 0 0 3px rgba(var(--warning-rgb), 0.1);
 }
 
 .input-valid {
-  border-color: #10b981;
+  border-color: var(--success);
 }
 
 .input-enhanced {
@@ -711,7 +711,7 @@ defineExpose({
   bottom: -1.5rem;
   right: 0;
   font-size: 0.75rem;
-  color: #6b7280;
+  color: var(--text-muted);
 }
 
 .ai-enhance-btn {
@@ -722,7 +722,7 @@ defineExpose({
   width: 32px;
   height: 32px;
   border: none;
-  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
   color: white;
   border-radius: 6px;
   cursor: pointer;
@@ -734,7 +734,7 @@ defineExpose({
 
 .ai-enhance-btn:hover:not(:disabled) {
   transform: translateY(-50%) scale(1.1);
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+  box-shadow: 0 4px 12px rgba(var(--primary-rgb), 0.4);
 }
 
 .ai-enhance-btn:disabled {
@@ -750,9 +750,9 @@ defineExpose({
 
 .suggestions-panel {
   margin-top: 0.5rem;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--border);
   border-radius: 8px;
-  background: white;
+  background: var(--bg-elevated);
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   max-height: 200px;
   overflow-y: auto;
@@ -763,14 +763,14 @@ defineExpose({
   justify-content: space-between;
   align-items: center;
   padding: 0.75rem 1rem;
-  border-bottom: 1px solid #e5e7eb;
-  background: #f9fafb;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-secondary);
 }
 
 .suggestions-title {
   font-size: 0.75rem;
   font-weight: 600;
-  color: #374151;
+  color: var(--text-primary);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
@@ -778,7 +778,7 @@ defineExpose({
 .close-suggestions {
   background: none;
   border: none;
-  color: #6b7280;
+  color: var(--text-muted);
   cursor: pointer;
   padding: 0.25rem;
   border-radius: 4px;
@@ -786,7 +786,7 @@ defineExpose({
 }
 
 .close-suggestions:hover {
-  background: #e5e7eb;
+  background: var(--bg-secondary);
 }
 
 .close-suggestions svg {
@@ -807,18 +807,18 @@ defineExpose({
   justify-content: space-between;
   padding: 0.75rem 1rem;
   border: none;
-  background: white;
+  background: var(--bg-elevated);
   cursor: pointer;
   transition: background-color 0.2s ease;
   text-align: left;
 }
 
 .suggestion-item:hover {
-  background: #f3f4f6;
+  background: var(--bg-secondary);
 }
 
 .suggestion-item:not(:last-child) {
-  border-bottom: 1px solid #f3f4f6;
+  border-bottom: 1px solid var(--border);
 }
 
 .suggestion-content {
@@ -827,19 +827,19 @@ defineExpose({
 
 .suggestion-text {
   font-size: 0.875rem;
-  color: #1f2937;
+  color: var(--text-primary);
   margin-bottom: 0.25rem;
 }
 
 .suggestion-reason {
   font-size: 0.75rem;
-  color: #6b7280;
+  color: var(--text-muted);
 }
 
 .suggestion-apply {
   width: 16px;
   height: 16px;
-  fill: #10b981;
+  fill: var(--success);
   opacity: 0;
   transition: opacity 0.2s ease;
 }
@@ -870,28 +870,28 @@ defineExpose({
 }
 
 .message.error {
-  background: #fef2f2;
-  color: #dc2626;
-  border: 1px solid #fecaca;
+  background: var(--danger-bg);
+  color: var(--danger);
+  border: 1px solid var(--danger-border);
 }
 
 .message.warning {
-  background: #fffbeb;
-  color: #d97706;
-  border: 1px solid #fed7aa;
+  background: var(--warning-bg);
+  color: var(--warning);
+  border: 1px solid var(--warning-border);
 }
 
 .message.info {
-  background: #eff6ff;
-  color: #2563eb;
-  border: 1px solid #bfdbfe;
+  background: var(--info-bg);
+  color: var(--info);
+  border: 1px solid var(--info-border);
 }
 
 .smart-hints {
   margin-top: 0.75rem;
   padding: 0.75rem;
-  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
-  border: 1px solid #bae6fd;
+  background: linear-gradient(135deg, var(--primary-bg) 0%, var(--primary-bg-dark) 100%);
+  border: 1px solid var(--primary-border);
   border-radius: 8px;
 }
 
@@ -902,7 +902,7 @@ defineExpose({
   margin-bottom: 0.5rem;
   font-size: 0.75rem;
   font-weight: 600;
-  color: #0284c7;
+  color: var(--primary);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
@@ -921,7 +921,7 @@ defineExpose({
 
 .hints-list li {
   font-size: 0.75rem;
-  color: #0369a1;
+  color: var(--primary);
   margin-bottom: 0.25rem;
   padding-left: 1rem;
   position: relative;
@@ -989,46 +989,56 @@ defineExpose({
   }
 }
 
-/* Dark Mode Support */
-@media (prefers-color-scheme: dark) {
-  .field-label {
-    color: #f9fafb;
-  }
-  
-  .field-description {
-    color: #9ca3af;
-  }
-  
-  .form-input {
-    background: #1f2937;
-    border-color: #374151;
-    color: #f9fafb;
-  }
-  
-  .form-input:focus {
-    border-color: #3b82f6;
-  }
-  
-  .suggestions-panel {
-    background: #1f2937;
-    border-color: #374151;
-  }
-  
-  .suggestions-header {
-    background: #111827;
-    border-color: #374151;
-  }
-  
-  .suggestion-item {
-    background: #1f2937;
-  }
-  
-  .suggestion-item:hover {
-    background: #374151;
-  }
-  
-  .suggestion-text {
-    color: #f9fafb;
-  }
+/* Dark theme overrides */
+body.dark-theme .smart-field {
+  background: var(--bg-card);
+  border-color: var(--border);
+  color: var(--text-primary);
+}
+
+body.dark-theme .field-label {
+  color: var(--text-primary);
+}
+
+body.dark-theme .field-input,
+body.dark-theme .field-textarea,
+body.dark-theme .field-select {
+  background: var(--bg-elevated);
+  border-color: var(--border);
+  color: var(--text-primary);
+}
+
+body.dark-theme .field-input:focus,
+body.dark-theme .field-textarea:focus,
+body.dark-theme .field-select:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.1);
+}
+
+body.dark-theme .field-helper {
+  color: var(--text-muted);
+}
+
+body.dark-theme .field-error {
+  color: var(--danger);
+  background: rgba(var(--danger-rgb, 239, 68, 68), 0.1);
+  border-color: var(--danger);
+}
+
+body.dark-theme .field-success {
+  color: var(--success);
+  background: rgba(var(--success-rgb, 16, 185, 129), 0.1);
+  border-color: var(--success);
+}
+
+body.dark-theme .ai-suggestion-card {
+  background: var(--bg-card);
+  border-color: var(--border);
+  color: var(--text-primary);
+}
+
+body.dark-theme .ai-suggestion-card:hover {
+  border-color: var(--primary);
+  box-shadow: 0 4px 16px rgba(var(--primary-rgb), 0.18);
 }
 </style> 
