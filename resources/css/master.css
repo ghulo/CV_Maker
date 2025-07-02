@@ -308,7 +308,7 @@ body {
 
 .container {
     width: 100%;
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
     padding: 0 var(--space-md);
 }
@@ -1093,6 +1093,21 @@ body {
     .md\:grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
     .md\:grid-cols-4 { grid-template-columns: repeat(4, 1fr); }
     .md\:flex-row { flex-direction: row; }
+}
+
+/* Enhanced CV Editor Styles for Wide Screens */
+@media (min-width: 1200px) {
+    .form-grid {
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    }
+    
+    .form-content {
+        padding: var(--space-xl) var(--space-xxl);
+    }
+    
+    .step-content {
+        padding: 0 var(--space-lg);
+    }
 }
 
 @media (min-width: 640px) {
@@ -2196,7 +2211,7 @@ body.dark-theme .message.info {
 }
 
 .step-content {
-    max-width: 800px;
+    max-width: 1200px;
 }
 
 .form-section {
@@ -2244,7 +2259,7 @@ body.dark-theme .message.info {
 
 .form-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: var(--space-lg);
 }
 
@@ -2987,6 +3002,10 @@ body.dark-theme .message.info {
     
     .form-grid {
         grid-template-columns: 1fr;
+    }
+    
+    .step-content {
+        max-width: 100%;
     }
     
     .cv-summary {
