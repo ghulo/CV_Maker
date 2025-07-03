@@ -1,4 +1,5 @@
-# 🎯 CV_Maker - Prezantim Teknik në Shqip
+# 🎯 CV_Maker -
+
 
 ## 📋 Përmbajtja e Prezantimit
 
