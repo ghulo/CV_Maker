@@ -559,3 +559,4 @@ User Interface
 ---
 
 *Prezantimi i krijuar për të shpjeguar arkitekturën dhe funksionalitetin e aplikacionit CV_Maker në gjuhën shqipe.*
+
